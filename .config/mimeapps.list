@@ -1,0 +1,30 @@
+[Default Applications]
+text/html=google-chrome.desktop
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/about=google-chrome.desktop
+x-scheme-handler/unknown=google-chrome.desktop
+x-scheme-handler/tg=userapp-Telegram Desktop-T9CLW1.desktop
+x-scheme-handler/webcal=google-chrome.desktop
+x-scheme-handler/mailto=org.gnome.Evolution.desktop
+image/jpeg=org.xfce.ristretto.desktop
+image/png=org.xfce.ristretto.desktop
+image/gif=org.xfce.ristretto.desktop
+image/bmp=org.xfce.ristretto.desktop
+image/x-pixmap=org.xfce.ristretto.desktop
+image/tiff=org.xfce.ristretto.desktop
+image/svg+xml=org.xfce.ristretto.desktop
+image/x-xpixmap=org.xfce.ristretto.desktop
+application/pdf=org.pwmt.zathura.desktop
+
+[Added Associations]
+x-scheme-handler/tg=userapp-Telegram Desktop-3KBSI1.desktop;userapp-Telegram Desktop-T9CLW1.desktop;
+application/pdf=xreader.desktop;signal-desktop.desktop;org.gnome.Evince.desktop;
+x-scheme-handler/mailto=org.gnome.Evolution.desktop;
+image/png=gimp.desktop;org.xfce.ristretto.desktop;
+image/gif=org.xfce.ristretto.desktop;
+image/bmp=org.xfce.ristretto.desktop;
+image/x-pixmap=org.xfce.ristretto.desktop;
+image/tiff=org.xfce.ristretto.desktop;
+image/svg+xml=org.xfce.ristretto.desktop;
+image/x-xpixmap=org.xfce.ristretto.desktop;

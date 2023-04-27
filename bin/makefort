@@ -1,0 +1,16 @@
+#!/bin/bash
+## makefort: generate makefile for fortran source code.
+## moritz siegel
+
+echo ".PHONY: all clean
+
+all: $1
+
+clean: 
+	rm $1 $1.png
+
+$1: $1.f90 $1.gp
+	gfortran -Og -Wall -fimplicit-none -fcheck=all -fbacktrace -o $1 $1.f90
+	./$1
+	#./$1 > $1.dat
+	gnuplot $1.gp" > makefile
