@@ -41,7 +41,7 @@ end
 --   \_/ \__,_|_|  ____/ 
 
 -- themes define colours, icons, font and wallpapers:
-beautiful.init(awful.util.getdir("config") .. "/themes/canyon.lua")
+beautiful.init(awful.util.getdir("config") .. "/canyon.lua")
 beautiful.layout_machi = machi.get_icon()
 revelation.init() -- load after beautiful!
 
