@@ -545,7 +545,7 @@ awful.rules.rules = {
    -- floating clients:
    { rule_any = {
         class = {
-           "scrcpy",
+           "Scrcpy",
            "zoom",
         },
         name = {
@@ -560,8 +560,15 @@ awful.rules.rules = {
 
    -- maximized clients:
    { rule_any = {
+        class = {
+           "Slack",
+           "TelegramDesktop",
+           "Signal",
+           "Rocket.Chat",
+        },
         name = {
            "Zoom Meeting",
+           "Zoom - Licensed Account",
         },
    }, properties = { maximized = true }},
    
@@ -579,7 +586,7 @@ awful.rules.rules = {
    { rule_any = { -- internet
         class = {
            "Google-chrome",
-           "Chromium",
+           "chromium",
            "Firefox",
    }}, properties = { tag = "⚡", switchtotag = true }},
    
@@ -614,12 +621,10 @@ awful.rules.rules = {
    
    { rule_any = { -- music & video
         class = {
-           "spotify",
            "Spotify",
            "Vlc",
-           "vlc",
-           "MPlayer",
-           "mpv",
+           "Mplayer",
+           "Mpv",
         },
         name = {
            "ncmpcpp 0.8.2",
@@ -628,8 +633,7 @@ awful.rules.rules = {
    
    { rule_any = { -- calendar
         class = {
-           "gnome-calendar",
-           "Gnome-calendar",
+           "gnome-calendar"
    }}, properties = { tag = "♻", switchtotag = true }},
    
    { rule_any = { -- mail
@@ -639,20 +643,19 @@ awful.rules.rules = {
    
    { rule_any = { -- comms
         class = {
-           "psi",
+           "Psi",
            "Pidgin",
            "Skype",
            "Ts3client_linux_amd64",
            "TelegramDesktop",
            "Signal",
            "scrcpy",
-           "rocket.chat",
-           "Rocket.Chat"
+           "Rocket.Chat",
+           "Slack",
    }}, properties = { tag = "✆", switchtotag = true }},
    
    { rule_any = { -- games & conf
         class = {
-           "steam",
            "Steam",
            "zoom",
         },

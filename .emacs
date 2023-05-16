@@ -3,13 +3,12 @@
 ;; \__ \ |   |   | __| __| 
 ;; ____/\__|\__,_|_|  _|
 
-
-;; fun
+;; fun:
 ;;(Global-set-key (kbd "C-x C-s") 'spook)
 
-(require 'package)
-
 ;; Melpa
+(require 'package)
+(package-initialize)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
        (proto (if no-ssl "http" "https")))
@@ -27,45 +26,57 @@ There are two things you can do about this warning:
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(package-initialize)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#729fcf" "#eeeeec"])
+ '(custom-safe-themes
+   '("171d1ae90e46978eb9c342be6658d937a83aaa45997b1d7af7657546cae5985b" default))
+ '(package-selected-packages
+   '(csv-mode spinner string-inflection json-mode yaml-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode ess auto-correct))
+ '(warning-suppress-log-types '((auto-save))))
 
-;; no welcome message please
+;; highlighting lock:
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(hi-yellow ((t (:foreground "black" :background "goldenrod")))))
+
+;; no welcome message please:
 (setq inhibit-startup-message t)
 
-;; inital scratch text
+;; inital scratch text:
 (setq initial-scratch-message "")
 
-;; theme
-;(load-theme 'atom-one-dark t)
+;; theme:
+;;(load-theme 'atom-one-dark t)
 
-;; always show color as color:
-(define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
-  (lambda () (rainbow-mode 1)))
-(my-global-rainbow-mode 1)
-
-;; make it easy on eyes ...
+;; make it easy on eyes:
 (set-foreground-color "linen")
 (set-background-color "black")
 (set-face-foreground 'default "linen")
 (set-face-background 'default "black")
 (set-face-foreground 'font-lock-string-face "DarkMagenta")
-;(set-face-foreground 'font-lock-comment-face "SaddleBrown")
+;;(set-face-foreground 'font-lock-comment-face "SaddleBrown")
 (set-face-foreground 'font-lock-comment-face "Teal")
-;(set-face-foreground 'font-lock-comment-face "DarkSlateGray")
+;;(set-face-foreground 'font-lock-comment-face "DarkSlateGray")
 (set-face-attribute 'cursor nil :background "magenta")
 
-;; UI and base colors
-;(setq theme-color-accent  "#ff6000")
+;; UI and base colors:
+;;(setq theme-color-accent  "#ff6000")
 (setq theme-color-accent  "DarkCyan")
 (setq theme-color-level-1 "#1D1F21")
 (setq theme-color-level-2 "#373B41")
 (setq theme-color-level-3 "#C5C8C6")
 
-;; ;; common colors
+;; common colors:
 ;; (setq theme-color-red     "maroon")
 ;; (setq theme-color-green   "SeaGreen")
 ;; (setq theme-color-yellow  "goldenrod")
@@ -74,7 +85,7 @@ There are two things you can do about this warning:
 ;; (setq theme-color-cyan    "DarkCyan")
 ;; (setq theme-color-gray    "grey")
 
-;; syntax highlighting
+;; syntax highlighting:
 (global-color-identifiers-mode 't)
 (global-font-lock-mode 't)
 (setq font-lock-maximum-decoration 't)
@@ -83,38 +94,26 @@ There are two things you can do about this warning:
 (global-highlight-operators-mode 't)
 (global-highlight-parentheses-mode 't)
 (global-highlight-thing-mode 't)
-;; makes ugly glyphs from greek letters!
-;;(global-prettify-symbols-mode 't)
-;(global-hl-line-mode 't)
-;(setq hl-line-face 'hl-line)
-(setq highlight-current-line-globally t)
-(setq highlight-current-line-high-faces nil)
-(setq highlight-current-line-whole-line nil)
-(setq hl-line-face (quote highlight))
 
-;; highlighting lock
- (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(hi-black-b ((t (:inherit (bold) :foreground "black" :background "linen"))))
-;;  '(hi-black-hb ((t (:inherit (bold) :foreground "black" :background "linen"))))
-;;  '(hi-blue ((t (:foreground "linen" :background "SteelBlue"))))
-;;  '(hi-blue-b ((t (:inherit (hi-blue bold) :inverse-video t))))
-;;  '(hi-green ((t (:foreground "linen" :background "SeaGreen"))))
-;;  '(hi-green-b ((t (:inherit (hi-green bold) :inverse-video t))))
-;;  '(hi-pink ((t (:foreground "black" :background "violet"))))
-;;  '(hi-red-b ((t (:inherit (bold) :foreground "maroon"))))
-  '(hi-yellow ((t (:foreground "black" :background "goldenrod")))))
+;; make ugly glyphs from greek letters?
+;;global-prettify-symbols-mode 't)
 
- ;;(set-frame-parameter (selected-frame) 'alpha '(<active> . <inactive>))
- ;;(set-frame-parameter (selected-frame) 'alpha <both>)
- (set-frame-parameter (selected-frame) 'alpha '(80 . 80))
- (add-to-list 'default-frame-alist '(alpha . (80 . 80)))
+;; highlight line:
+;;(global-hl-line-mode 't)
+;;(setq hl-line-face 'hl-line)
+;;(setq highlight-current-line-globally t)
+;;(setq highlight-current-line-high-faces nil)
+;;(setq highlight-current-line-whole-line nil)
+;;(setq hl-line-face (quote highlight))
 
-;; You can use the following snippet after you’ve set the alpha as
-;; above to assign a toggle to “C-c t”:
+;; opacity:
+;;(set-frame-parameter (selected-frame) 'alpha '(<active> . <inactive>))
+;;(set-frame-parameter (selected-frame) 'alpha <both>)
+(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+
+;; you can use the following snippet after you’ve set the alpha as
+;; above to assign a toggle to “c-c t”:
 (defun toggle-transparency ()
   (interactive)
   (let ((alpha (frame-parameter nil 'alpha)))
@@ -134,30 +133,34 @@ There are two things you can do about this warning:
   (interactive "nTransparency Value 0 - 100 opaque:")
   (set-frame-parameter (selected-frame) 'alpha value))
 
-;; the fringe
-;; The fringe is like a vertical ruler that runs from the top to the
+;; the fringe:
+;; the fringe is like a vertical ruler that runs from the top to the
 ;; bottom of the buffer -- the left fringe is sandwiched between the
-;; line numbers and the text. It can be invisible if it is the same
+;; line numbers and the text. it can be invisible if it is the same
 ;; color as the default background of the user, or it can be a
 ;; different color.
 (setq-default left-fringe-width  10)
 (setq-default right-fringe-width  0)
 (set-face-attribute 'fringe nil :background "black")
 
-;; fullscreen: This is bound to f11 in Emacs 24.4::
+;; fullscreen: this is bound to f11 in Emacs 24.4::
 ;(toggle-frame-fullscreen) 
 
-;; show me line and column nos
+;; up/downcase region:
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+
+;; show me line and column nos:
 (line-number-mode 't)
 (column-number-mode 't)
 (global-linum-mode 't)
 
-;; none of these please
+;; none of these please:
 (scroll-bar-mode '0)
 (tool-bar-mode '0)
 (menu-bar-mode '0)
 
-;; hide modeline
+;; hide modeline:
 (defvar-local hidden-mode-line-mode nil)
 (define-minor-mode hidden-mode-line-mode
   "Minor mode to hide the mode-line in the current buffer."
@@ -181,18 +184,18 @@ There are two things you can do about this warning:
      (concat "Hidden Mode Line Mode enabled.  "
              "Use M-x hidden-mode-line-mode to make the mode-line appear."))))
 
-;; If you want to hide the mode-line in every buffer by default
+;; hide the mode-line in every buffer by default:
 (add-hook 'after-change-major-mode-hook 'hidden-mode-line-mode)
 
-;; save and restore my buffers every time
+;; save and restore my buffers every time:
 ;;(desktop-save-mode 1)
 
-;; Show Date And time in mode-line
+;; show date and time in mode-line:
 ;;(setq display-time-day-and-date t )
 ;;(setq display-time-24hr-format t)
 ;;(display-time)
 
-;; fonts
+;; fonts:
 ;;(set-frame-font "Bitstream Vera Sans Mono Roman" nil t)
 ;;(set-frame-font "Inconsolata 12" nil t)
 (set-face-attribute 'default nil :height 120)
@@ -227,59 +230,41 @@ There are two things you can do about this warning:
 
 (global-set-key (kbd "C-,") 'scroll-down-keep-cursor)
 (global-set-key (kbd "C-.") 'scroll-up-keep-cursor)
-                                        ;(global-set-key (kbd "C-c d") 'insert-current-date)
+;;(global-set-key (kbd "C-c d") 'insert-current-date)
 
-;; scrolling mouse
+;; scrolling mouse:
 (setq mouse-wheel-scroll-amount '(2 ((shift) . 1))) ;; two lines at a time
 (setq Mouse-Wheel-progressive-speed nil) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 
-;; Interactively Do Things mode
+;; Interactively Do Things mode:
 (require 'ido)
 (ido-mode t)
 
-;; fill column indicator
-;; (add-to-list 'load-path "~/.emacs.d/fill-column-indicator.el")
-;; (require 'fill-column-indicator)
-;; (define-globalized-minor-mode
-;;  global-fci-mode fci-mode (lambda() (fci-mode 0)))
-;; (setq fci-rule-width 1)
-;; (setq fci-rule-color "darkgrey")
-;; (setq-default fci-rule-column 80)
-
-;; fci-mode sux in the terminal, i want it just in graphical mode
-;; (if (display-graphic-p)
-;;    (progn
-;;      ;; if graphic
-;;      (global-fci-mode 1))
-;;      ;; else
-;;  (global-fci-mode 0)
-;; )
-
-;; custom keyboard shortcuts
+;; custom keyboard shortcuts:
 (global-set-key (kbd "C-c m") 'compile)
 
-;; current date
+;; current date:
 (defun insert-current-date() (interactive)
        (insert (shell-command-to-string "echo -n $(date '+%Y-%m-%d %k:%M')"))
        )
 (global-set-key (kbd "C-c d") 'insert-current-date)
 
-;; convenience
+;; convenience:
 (global-set-key (kbd "C-c r") (lambda() (interactive) (load-file "~/.emacs")))
 (defun em ()
   (interactive)
   (find-file "~/.emacs")
   )
 
-;; emacs paste on line curser (not mouse)
+;; emacs paste on line curser (not mouse):
 (setq mouse-yank-at-point t)
 
 ;; printer command
 (setq lpr-command "lp")
 (setq lpr-add-switches nil)
 
-;; switch window with tab
+;; switch window with tab:
 (global-set-key [C-tab] 'other-window)
 (global-set-key [C-C-tab]
                 (lambda ()
@@ -288,67 +273,35 @@ There are two things you can do about this warning:
                   )
                 )
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#729fcf" "#eeeeec"])
- '(custom-safe-themes
-   '("171d1ae90e46978eb9c342be6658d937a83aaa45997b1d7af7657546cae5985b" default))
- '(package-selected-packages
-   '(string-inflection json-mode yaml-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck arduino-cli-mode arduino-mode markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode ess auto-correct))
- '(warning-suppress-log-types '((auto-save))))
+;; always show color as color:
+(define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
+  (lambda () (rainbow-mode 1)))
+(my-global-rainbow-mode 1)
 
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-
-;; subword mode (camelcase mode)
+;; subword mode (camelcase mode):
 (global-subword-mode 1)
 
 ;; i hate tabs!
 (setq-default indent-tabs-mode nil)
 
-;; refresh buffers on change
+;; refresh buffers on change:
 (global-auto-revert-mode t)
 
-;; el-get
-;; (add-to-list 'load-path "~/.emacs.d/el-get/")
-;; (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-
-;; (unless (require 'el-get nil 'noerror)
-;;   (with-current-buffer
-;;       (url-retrieve-synchronously "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-;;     (goto-char (point-max))
-;;     (eval-print-last-sexp)
-;;     )
-;;   )
-
-;; (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-;; (el-get 'sync)
-
-;; auto break lines in paragraphs
+;; auto break lines in paragraphs:
 ;; add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-;; un/compact block
-(defun fill-or-unfill ()
-  
+;; un/compact block:
+(defun fill-or-unfill ()  
   "Reformat current paragraph or region to `fill-column', like
 `fill-paragraph' or “unfill”.  When there is a text selection, act on
 the selection, else, act on a text block separated by blank lines.
 URL `http://xahlee.info/emacs/emacs/modernization_fill-paragraph.html'
 Version 2017-01-08"
-  
   (interactive)
-  
   ;; This command symbol has a property “'compact-p”, the possible
   ;; values are t and nil. This property is used to easily determine
   ;; whether to compact or uncompact, when this command is called
-  ;; again
-  
+  ;; again.
   (let ( ($compact-p
           (if (eq last-command this-command)
               (get this-command 'compact-p)
@@ -384,37 +337,27 @@ Version 2017-01-08"
 ;; _|\__,_|_|  _|\__, | 
 ;;               |___/  
 
-;; start auto-complete-mode
+;; start auto-complete-mode:
 (dolist (hook '(text-mode-hook))
   (add-hook hook (lambda () (auto-complete-mode 1))))
 
 
-;; highlight parentheses when the cursor is next to them
+;; highlight parentheses when the cursor is next to them:
 (require 'paren)
 (show-paren-mode t)
 
 
-;; c mode customizations
+;; c mode customizations:
 (cwarn-mode t)
 (setq c-default-style "linux")
 (which-function-mode t)
 (setq c-basic-offset 2)
 (global-set-key (kbd "C-c p") 'compile)
 
-
-;; lua-mode
-;; This line is not necessary, if lua-mode.el is already on your load-path
-                                        ;(add-to-list 'load-path "~/.emacs.d/el-get/lua-mode")
-;(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
-;(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
-;(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
-
-
-;; octave mode
+;; octave mode:
 ;(global-set-key (kbd "C-c C-c") 'octave-send-region)
 
-
-;; Latex mode
+;; Latex mode:
 (with-eval-after-load "tex"
   (add-to-list 'TeX-command-list
                `("Arara" "arara --verbose %s" TeX-run-TeX nil t :help "Run Arara") t)
@@ -435,7 +378,7 @@ Version 2017-01-08"
 ;; ____/ .__/ \___|_|_|____/ 
 ;;      _|                   
 
-;; Flyspell mode
+;; flyspell mode:
 (dolist (hook '(text-mode-hook))
   (add-hook hook (lambda () (flyspell-mode 1))))
 
@@ -448,7 +391,7 @@ Version 2017-01-08"
 ;;      (define-key flyspell-mouse-map [mouse-3] #'flyspell-correct-word)))
 
 
-;; Ispell
+;; ispell:
 (with-eval-after-load "ispell"
   ;; Configure `LANG`, otherwise ispell.el cannot find a 'default
   ;; dictionary' even though multiple dictionaries will be configured
@@ -469,7 +412,6 @@ Version 2017-01-08"
 ;; silently not use it.
 ;;(unless (file-exists-p ispell-personal-dictionary)
 ;;(write-region "" nil ispell-personal-dictionary nil 0))
-
 
 ;; (global-set-key (kbd "<C>-<mouse-8>") (kbd "C-v"))
 ;; (global-set-key (kbd "<C>-<mouse-9>") (kbd "M-v"))

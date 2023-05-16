@@ -13,16 +13,14 @@ do
     esac
 done
 
-## shut up
-xset -b
-xset s off -dpms
-
 #        |_)            
 #   _` | | |  _` |  __| 
 #  (   | | | (   |\__ \ 
 # \__,_|_|_|\__,_|____/ 
 
-source ~/vscloud/bin/aliases
+if [[ $EUID != 0 ]] ; then
+    source /home/m/vscloud/bin/aliases
+fi
 
 ## colors
 red="\e[31m"
@@ -76,9 +74,6 @@ alias px='sudo pacman -R' # remove package.
 alias pc='sudo pacman -Scc && sudo pacman-optimize' # remove all cached pkg! and defragment.
 alias reflect='sudo reflector -p https -f 10 -l 10 --sort rate --save /etc/pacman.d/mirrorlist' # save 10 fastest of the 10 recent mirrors using https.
 
-## non root aliases
-alias s='sudo su -' #--> zum einfacher zu root zu kommen... siehe /etc/sudoers für details.
-
 ## file aliases
 alias duh='du -d 1 -h' # display the size of files at depth 1 in current location in human-readable form.
 alias df='df -h'
@@ -97,10 +92,12 @@ alias e="emacsclient -ca \'\'" # > service moved to systemd
 alias scan='scanimage --format=tiff --mode=Color' #>http://lists.alioth.debian.org/pipermail/sane-devel/2001-December/001177.html
 alias am='alsamixer'
 alias halt='systemctl poweroff'
-alias sus='umount /mnt/vsc3; umount /mnt/vsc4; sleep 10; systemctl suspend'
+alias sus='systemctl suspend'
+#alias sus='umount /mnt/vsc3; umount /mnt/vsc4; sleep 10; systemctl suspend'
 alias hib='systemctl hibernate'
 
 ## misc
+alias s='sudo su -'
 alias c='clear'
 alias u='urxvtc'
 alias rdark='razercfg -l all:off'
@@ -115,7 +112,8 @@ alias cp='rsync -aP' # show percentage.
 #alias ap='adb pull /sdcard/DCIM/Camera/ /mnt/troika/photos/2021/' more complicated: moved to bin.
 alias d0='xrandr --auto'
 alias d1='xrandr --output HDMI-A-0 --auto --output eDP --off'
-alias d2='xrandr --output DisplayPort-1 --scale 0.8 --output eDP --off'
+alias d2='xrandr --output HDMI-A-0 --auto --right-of eDP'
+alias d3='xrandr --output DisplayPort-1 --scale 0.8 --output eDP --off'
 alias pm='pulsemixer'
 alias wh='which '
 alias r='zranger'
@@ -476,8 +474,12 @@ white="%{"$'\033[00;37m'"%}"
 bwhite="%{"$'\033[01;37m'"%}"
 norm="%{"$'\033[00m'"%}"
 
-PROMPT="${bwhite}%~${bcyan} @${bwhite}"'$(prompt_char)'"${white}" # quote jungle;)
-RPROMPT='$(git_branch)%t'
+if [[ $EUID == 0 ]] ; then
+    PROMPT="${bred}%~"'$(prompt_char)'"${white}"
+else
+    PROMPT="${bwhite}%~"'$(prompt_char)'"${white}"
+fi
+RPROMPT='%D{%H%M}'
 
 
 #   _ \ __ \\ \   / 
@@ -485,8 +487,8 @@ RPROMPT='$(git_branch)%t'
 # \___|_|  _| \_/   
 
 export EDITOR='emacsclient -c -a ""'
-export PATH='/home/m/bin:/home/m/vscloud/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:/usr/games:/usr/local/games'
-#path+=/scripts # hängt zur $path eben was an...
+export PATH='/home/m/bin:/home/m/vscloud/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:/usr/games:/usr/local/games:/opt'
+#PATH+=/scripts # hängt zur $path eben was an...
 #export QT_QPA_PLATFORMTHEME='qt5ct' # qt5 gtk blending
 #export QT_STYLE_OVERRIDE='qt5ct'
 #export QT_QPA_PLATFORMTHEME='gtk2' # qt looks like current gtk theme 
@@ -506,7 +508,7 @@ export XDG_CURRENT_DESKTOP='GNOME'
 ## turn off XOFF/XON
 stty -ixon
 
-## turn off powersaver/screensaver/blanking/bell.
+## turn off powersaver/screensaver/blanking/bell. moved to xinitrc.
 #xset -dpms s off s noblank -b
 
 ## key setups

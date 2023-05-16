@@ -68,5 +68,8 @@ setxkbmap -layout "us(m),de" # enables multiple layouts, switch via awesome, us(
 ## composite manager to avoid screen tearing:
 picom -b
 
+## turn off powersaver/screensaver/blanking/bell.                                  
+xset -dpms s off s noblank -b                                                      
+
 ## start awesome:
 exec awesome

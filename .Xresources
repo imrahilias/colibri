@@ -83,7 +83,7 @@ URxvt*cursorBlink: false
 !URxvt*fading: 30
 URxvt*transparent: true
 ! 0 to 99 darkens, 101 to 200 lightens
-URxvt*shading: 30
+URxvt*shading: 10
 URxvt*buffered: true
 
 ! real transparency: much to annoying
