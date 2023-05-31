@@ -1,6 +1,8 @@
----------------------------
---    Canyon Theme    --
----------------------------
+--                                    
+--   __|  _` | __ \  |   |  _ \  __ \  
+--  (    (   | |   | |   | (   | |   | 
+-- \___|\__,_|_|  _|\__, |\___/ _|  _| 
+--                  ____/              
 
 theme = {}
 
@@ -20,14 +22,13 @@ theme.fg_focus      = "DeepSkyBlue" -- "SteelBlue"
 theme.fg_urgent     = "Magenta"
 theme.fg_minimize   = "LightGray"
 
--- cool: doesnt know names, gives transparent background!
+-- cool: border doesnt know names, gives transparent background!
 theme.border_width  = 1
 theme.border_normal = "#444444"
 theme.border_focus  = theme.border_normal
 theme.border_marked = theme.fg_focus
 
--- There are other variable sets
--- overriding the default one when
+-- there are other variable sets overriding the default one when
 -- defined, the sets are:
 -- taglist_[bg|fg]_[focus|urgent|occupied|empty]
 -- tasklist_[bg|fg]_[focus|urgent]
@@ -35,8 +36,8 @@ theme.border_marked = theme.fg_focus
 -- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
 -- mouse_finder_[color|timeout|animate_timeout|radius|factor]
 -- Example:
---theme.taglist_bg_focus = "#ff0000"
---theme.tasklist_bg_focus = "#ff0000"
+-- theme.taglist_bg_focus = "#ff0000"
+-- theme.tasklist_bg_focus = "#ff0000"
 
 theme.taglist_bg_empty    = theme.bg_normal
 theme.taglist_bg_occupied = theme.bg_normal
@@ -44,7 +45,7 @@ theme.taglist_bg_occupied = theme.bg_normal
 theme.taglist_fg_empty    = theme.fg_normal
 theme.taglist_fg_occupied = theme.fg_minimize
 
--- Display the taglist squares
+-- display the taglist squares:
 --theme.taglist_squares_sel   = "/usr/share/awesome/themes/default/taglist/squarefw.png"
 --theme.taglist_squares_unsel = "/usr/share/awesome/themes/default/taglist/squarew.png"
 
@@ -55,12 +56,11 @@ theme.menu_submenu_icon = "/usr/share/awesome/themes/default/submenu.png"
 theme.menu_height = 30
 theme.menu_width  = 300
 
--- You can add as many variables as
--- you wish and access them by using
--- beautiful.variable in your rc.lua
+-- You can add as many variables as you wish and access them by using
+-- beautiful.variable in your rc.lua:
 --theme.bg_widget = "#cc0000"
 
--- Define the image to load
+-- define the image to load:
 theme.titlebar_close_button_normal = "/usr/share/awesome/themes/default/titlebar/close_normal.png"
 theme.titlebar_close_button_focus  = "/usr/share/awesome/themes/default/titlebar/close_focus.png"
 
@@ -84,7 +84,7 @@ theme.titlebar_maximized_button_focus_inactive  = "/usr/share/awesome/themes/def
 theme.titlebar_maximized_button_normal_active = "/usr/share/awesome/themes/default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/default/titlebar/maximized_focus_active.png"
 
--- You can use your own layout icons like this:
+-- you can use your own layout icons like this:
 theme.layout_fairh = "/usr/share/awesome/themes/default/layouts/fairhw.png"
 theme.layout_fairv = "/usr/share/awesome/themes/default/layouts/fairvw.png"
 theme.layout_floating  = "/usr/share/awesome/themes/default/layouts/floatingw.png"
@@ -100,9 +100,10 @@ theme.layout_dwindle = "/usr/share/awesome/themes/default/layouts/dwindlew.png"
 
 theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
 
--- Define the icon theme for application icons. If not set then the icons 
--- from /usr/share/icons and /usr/share/icons/hicolor will be used.
+-- define the icon theme for application icons. If not set then the icons 
+-- from /usr/share/icons and /usr/share/icons/hicolor will be used:
 theme.icon_theme = nil
 
 return theme
+
 -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80

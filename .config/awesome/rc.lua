@@ -1,3 +1,9 @@
+--
+--   _` |\ \  \   / _ \  __|  _ \  __ `__ \   _ \
+--  (   | \ \  \ /  __/\__ \ (   | |   |   |  __/
+-- \__,_|  \_/\_/ \___|____/\___/ _|  _|  _|\___|
+--
+
 local gears = require("gears") -- standard awesome library.
 local awful = require("awful")
 require("awful.autofocus")
@@ -10,15 +16,17 @@ local ror = require("aweror") -- run or raise.
 local machi = require("layout-machi") -- git: weird fancy layout thing.
 local revelation=require("revelation") -- git: mac exposee mode.
 
---   _ \  __|  __| _ \   __| 
---   __/ |    |   (   | |    
--- \___|_|   _|  \___/ _|    
+--
+--   _ \  __|  __| _ \   __|
+--   __/ |    |   (   | |   
+-- \___|_|   _|  \___/ _|   
+--
 
 -- check if awesome encountered an error during startup and fall back to
 -- another config (this code will only ever execute for the fallback config):
 if awesome.startup_errors then
    naughty.notify({ preset = naughty.config.presets.critical,
-                    title = "Error 3.1415: Error Database not found!",
+                    title = "fallback mode",
                     text = awesome.startup_errors })
 end
 
@@ -30,19 +38,23 @@ do
                              if in_error then return end
                              in_error = true
                              naughty.notify({ preset = naughty.config.presets.critical,
-                                              title = "Oops, an error happened!",
+                                              title = "error:",
                                               text = tostring(err) })
                              in_error = false
    end)
 end
 
--- \ \   / _` |  __| __| 
---  \ \ / (   | |  \__ \ 
---   \_/ \__,_|_|  ____/ 
+--
+-- \ \   / _` |  __| __|
+--  \ \ / (   | |  \__ \
+--   \_/ \__,_|_|  ____/
+--
 
 -- themes define colours, icons, font and wallpapers:
 beautiful.init(awful.util.getdir("config") .. "/canyon.lua")
 beautiful.layout_machi = machi.get_icon()
+
+-- revelation:
 revelation.init() -- load after beautiful!
 
 -- config systray:
@@ -50,7 +62,7 @@ revelation.init() -- load after beautiful!
 
 -- this is used later as the default terminal and editor to run:
 terminal = "urxvtc"
-editor = os.getenv("EDITOR") or "vi"
+editor = os.getenv("EDITOR") or "neovim" or "vim" or "vi"
 editor_cmd = terminal .. " -e " .. editor
 
 -- default modkey:
@@ -81,10 +93,12 @@ awful.layout.layouts = {
    machi.default_layout,
 }
 
---   _|                  |  _)                  
---  |   |   | __ \   __| __| |  _ \  __ \   __| 
---  __| |   | |   | (    |   | (   | |   |\__ \ 
--- _|  \__,_|_|  _|\___|\__|_|\___/ _|  _|____/ 
+
+--   _|                  |  _)                 
+--  |   |   | __ \   __| __| |  _ \  __ \   __|
+--  __| |   | |   | (    |   | (   | |   |\__ \
+-- _|  \__,_|_|  _|\___|\__|_|\___/ _|  _|____/
+--
 
 -- Reminder function:
 local function remind_prompt()
@@ -121,10 +135,12 @@ menubar.utils.terminal = terminal -- set the terminal for applications that requ
 -- Keyboard map indicator and switcher:
 mykeyboardlayout = awful.widget.keyboardlayout()
 
---           _) |                
--- \ \  \   / | __ \   _` |  __| 
---  \ \  \ /  | |   | (   | |    
---   \_/\_/  _|_.__/ \__,_|_|    
+
+--           _) |               
+-- \ \  \   / | __ \   _` |  __|
+--  \ \  \ /  | |   | (   | |   
+--   \_/\_/  _|_.__/ \__,_|_|   
+--
 
 -- Create a textclock widget:
 mytextclock = wibox.widget.textclock('<span color="DeepSkyBlue">%_H%M </span>', 5)
@@ -142,10 +158,10 @@ local taglist_buttons = awful.util.table.join(
          if client.focus then
             client.focus:toggle_tag(t)
          end
-   end),
+   end)
    -- switch screens with mouse over tag list:
-   awful.button({ modkey }, 4, function(t) awful.tag.viewnext(t.screen) end),
-   awful.button({ modkey }, 5, function(t) awful.tag.viewprev(t.screen) end)
+   -- awful.button({ modkey }, 4, function(t) awful.tag.viewprev(t.screen) end)
+   -- awful.button({ modkey }, 5, function(t) awful.tag.viewnext(t.screen) end),
 )
 
 -- Clients wibox:
@@ -166,15 +182,18 @@ local tasklist_buttons = awful.util.table.join(
             c:raise()
          end
    end),
-    -- switch clients with mouse over client wibox:
    awful.button({ }, 2, client_menu_toggle_fn()),
+   -- switch clients with mouse over client wibox:
    awful.button({ }, 4, function () awful.client.focus.byidx(1) end),
    awful.button({ }, 5, function () awful.client.focus.byidx(-1) end)
 )
-                               
---   __|  __|  __| _ \  _ \ __ \  
--- \__ \ (    |    __/  __/ |   | 
--- ____/\___|_|  \___|\___|_|  _|
+
+
+--
+--   __|  __|  __| _ \  _ \ __ \ 
+-- \__ \ (    |    __/  __/ |   |
+-- ____/\___|_|  \___|\___|_|  _
+--
 
 -- wallpaper:
 local function set_wallpaper(s)
@@ -196,8 +215,8 @@ awful.screen.connect_for_each_screen(function(s)
       set_wallpaper(s)
       
       -- each screen has its own tag table:
-      -- working: ↯♫♞♟♤♡♢♧⚛
-      awful.tag({ "∅", "⚡", "$", "⛁", "≣", "♬", "⚛", "@", "✆","♞", "♠", "♥", "♦", "♣" }, s, awful.layout.layouts[1]) 
+      -- working: ↯🎵♫♞♟♤♡♢♧⚛✫♻✇🌒🌖🌑🌒🌓🌔🌕🌖🌗🌘
+      awful.tag({ "∅", "⚡", "$", "⛁", "≣", "♬", "⏾", "@", "✆","♞", "♠", "♥", "♦", "♣" }, s, awful.layout.layouts[1]) 
       
       -- create a promptbox for each screen:
       s.mypromptbox = awful.widget.prompt()
@@ -230,11 +249,12 @@ awful.screen.connect_for_each_screen(function(s)
       }
 end)
 
---  |                    
---  |  /  _ \ |   |  __| 
---    <   __/ |   |\__ \ 
--- _|\_\\___|\__, |____/ 
---           ____/       
+
+--  |                   
+--  |  /  _ \ |   |  __|
+--    <   __/ |   |\__ \
+-- _|\_\\___|\__, |____/
+--           ____/      
 
 -- key bindings:
 globalkeys = awful.util.table.join(
@@ -267,7 +287,7 @@ globalkeys = awful.util.table.join(
    --       })
    -- end),
 
-   -- show everything:
+   -- reset all clients on current screen:
    awful.key({ modkey }, "c",
       function ()
          --awful.layout.set(awful.layout.suit.corner.nw)
@@ -295,21 +315,15 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey }, "z", awful.client.urgent.jumpto),
    
    -- layout manipulation:
-   awful.key({ modkey }, "Tab",
-      function ()
-         awful.client.focus.history.previous()
-         if client.focus then
-            client.focus:raise()
-         end
-   end),
-   
+   awful.key({ modkey }, "Tab", function () awful.client.focus.byidx(1) end),
    awful.key({ modkey }, "l", function () awful.tag.incmwfact( 0.05) end),
    awful.key({ modkey }, "h", function () awful.tag.incmwfact(-0.05) end),
    awful.key({ modkey }, "space", function () awful.layout.inc( 1) end), -- "space" is lo-caps!
    awful.key({ modkey, "Shift" }, "space", function () awful.layout.inc(-1) end), -- "space" is lo-caps!
    --awful.key({ modkey }, "m", awful.layout.suit.max.fullscreen),
    --awful.key({ modkey }, "b", awful.layout.suit.floating),
-   
+
+   -- restore minimised client:
    awful.key({ modkey, "Shift" }, "n",
       function ()
          local c = awful.client.restore()
@@ -319,24 +333,25 @@ globalkeys = awful.util.table.join(
             c:raise()
          end
    end),
-   
+
+   -- toggle wibox (taskbar):
    awful.key({ modkey, "Shift" }, "f",
       function ()
          myscreen = awful.screen.focused()
          myscreen.mywibox.visible = not myscreen.mywibox.visible
    end),
 
-   -- prompt:
+   -- prompts:
    awful.key({ modkey }, "r", function () awful.screen.focused().mypromptbox:run() end),
    awful.key({ modkey }, "<", remind_prompt),
-  
+   
    -- launch:
    awful.key({ modkey }, "Return", function () awful.spawn(terminal) end),
    -- awful.key({ modkey, "Shift", "Control" }, "Return", function () awful.spawn("urxvtc -title admin2 -e 2") end),
    -- awful.key({ modkey, "Shift"}, "Return", function () awful.spawn("urxvtc -title master1 -e 1") end),
-   awful.key({ modkey }, "e", function () awful.spawn("emacsclient -ca ''", false) end),
    awful.key({ modkey, "Shift" }, "d", function () awful.spawn("urxvtc -title Waldläufer -e sudo ranger", false) end),
    awful.key({ modkey, "Shift", "Control" }, "d", function () awful.spawn("sudo thunar", false) end),
+   awful.key({ modkey }, "e", function () awful.spawn("emacsclient -ca ''", false) end),
    awful.key({ modkey, "Shift" }, "s", function () awful.spawn("open_primary_selection_in_cromium") end),
    awful.key({ modkey, "Control" }, "s", function () awful.spawn("open_primary_selection_in_google_translate") end),
    awful.key({ modkey, "Shift", "Control" }, "s", function () awful.spawn("open_primary_selection_in_thesaurus") end),
@@ -346,7 +361,7 @@ globalkeys = awful.util.table.join(
    --awful.key({ modkey }, "o", function () awful.spawn("octave --gui") end),
    -- awful.key({ modkey }, "x", function () awful.spawn("xterm -T 'VSConsole' -fa 'xft:DejaVuSansMono' -fs 24 -e 'bash'") end),
    -- awful.key({ modkey, "Shift" }, "x", function () awful.spawn("xterm -T 'VSConsole' -fa 'xft:DejaVuSansMono' -fs 24 -e 'trainee'") end),
-   
+
    -- audio:
    awful.key({ }, "XF86AudioRaiseVolume", function () awful.spawn("amixer set Master 1%+", false) end),
    awful.key({ }, "XF86AudioLowerVolume", function () awful.spawn("amixer set Master 1%-", false) end),
@@ -392,9 +407,9 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey }, "z", function () awful.spawn.with_shell('notify-send "$(cowsay $(fortune))"', false) end)
    --awful.key({ modkey }, "w", function () awful.spawn.with_shell("killall conky && feh --bg-fill ~/wind/canvas/wrld12.png & conky -c ~/wind/wind_blow.lua", false) end),
    --awful.key({ modkey , "Shift" }, "w", function () awful.spawn.with_shell("killall conky && feh --bg-fill ~/.config/awesome/themes/canyon.jpg && conky -c ~/.config/conky/left.lua && conky -c ~/.config/conky/middle.lua", false) end)
-
 )
 
+-- client keys:
 clientkeys = awful.util.table.join(
    awful.key({ modkey }, "q", function (c) c:kill() end),
    awful.key({ modkey, "Shift" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
@@ -432,58 +447,6 @@ clientkeys = awful.util.table.join(
    end)
 )
 
--- generate and add the 'run or raise' key bindings to the globalkeys table:
-globalkeys = awful.util.table.join(globalkeys, ror.genkeys(modkey))
-
--- set keys:
-root.keys(globalkeys)
-
-
---  __ `__ \   _ \  |   |  __|  _ \ 
---  |   |   | (   | |   |\__ \  __/ 
--- _|  _|  _|\___/ \__,_|____/\___| 
-
--- mouse bindings on root (empty desktop):
-root.buttons(awful.util.table.join(
-                awful.button({ modkey }, 2, revelation),
-                -- awful.button({ }, 3, function () mymainmenu:toggle() end),
-                awful.button({ modkey }, 4, awful.tag.viewprev),
-                awful.button({ modkey }, 5, awful.tag.viewnext)
-))
-
--- mouse bindings on client:
-clientbuttons = awful.util.table.join(
-   awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
-   awful.button({ modkey }, 1, awful.mouse.client.move),
-   awful.button({ modkey }, 3, awful.mouse.client.resize),
-   awful.button({ modkey }, 4, function(t) awful.tag.viewprev(t.screen) end),
-   awful.button({ modkey }, 5, function(t) awful.tag.viewnext(t.screen) end),
-   awful.button({ modkey }, 2, revelation),
-   -- drag tag left; move the current tag to the ledt in the taglist, and switch there:
-   awful.button({ modkey, "Shift" }, 4,
-      function (t)
-         if client.focus then
-            client.focus:move_to_tag(client.focus.screen.tags[awful.tag.getidx()-1])
-         end
-         awful.tag.viewprev(t.screen)
-   end),
-   -- drag tag right; move the current tag to the ledt in the taglist, and switch there:
-   awful.button({ modkey, "Shift" }, 5,
-      function (t)
-         if client.focus then
-            client.focus:move_to_tag(client.focus.screen.tags[awful.tag.getidx()+1])
-         end
-         awful.tag.viewnext(t.screen)
-   end)
-)
-
-
---  |
---  __|  _` |  _` |  __| 
---  |   (   | (   |\__ \ 
--- \__|\__,_|\__, |____/ 
---           |___/       
-
 -- bind all key numbers to tags:
 -- be careful: we use keycodes to make it works on any keyboard layout.
 -- this should map on the top row of your keyboard, usually 1 to 9.
@@ -508,13 +471,14 @@ for i = 1, 14 do
                                                awful.tag.viewtoggle(tag)
                                             end
                                       end),
-                                      -- move client to tag:
+                                      -- move client to tag, and follow:
                                       awful.key({ modkey, "Shift" }, keys[i],
                                          function ()
                                             if client.focus then
                                                local tag = client.focus.screen.tags[i]
                                                if tag then
                                                   client.focus:move_to_tag(tag)
+                                                  tag:view_only()
                                                end
                                             end
                                       end),
@@ -531,15 +495,64 @@ for i = 1, 14 do
    )
 end
 
+-- generate and add the 'run or raise' key bindings to the globalkeys table:
+globalkeys = awful.util.table.join(globalkeys, ror.genkeys(modkey))
 
---             |           
---   __| |   | |  _ \  __| 
---  |    |   | |  __/\__ \ 
--- _|   \__,_|_|\___|____/ 
+-- set root keys:
+root.keys(globalkeys)
+
+
+--
+--  __ `__ \   _ \  |   |  __|  _ \
+--  |   |   | (   | |   |\__ \  __/
+-- _|  _|  _|\___/ \__,_|____/\___|
+--
+
+-- mouse bindings on root (empty desktop):
+root.buttons(awful.util.table.join(
+                awful.button({ modkey }, 2, revelation),
+                -- awful.button({ }, 3, function () mymainmenu:toggle() end),
+                awful.button({ modkey }, 4, awful.tag.viewprev),
+                awful.button({ modkey }, 5, awful.tag.viewnext)
+))
+
+-- mouse bindings on client:
+clientbuttons = awful.util.table.join(
+   awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
+   awful.button({ modkey }, 1, awful.mouse.client.move),
+   awful.button({ modkey }, 3, awful.mouse.client.resize),
+   awful.button({ modkey }, 4, function(t) awful.tag.viewprev(t.screen) end),
+   awful.button({ modkey }, 5, function(t) awful.tag.viewnext(t.screen) end),
+   awful.button({ modkey }, 2, revelation),
+   -- Drag tag left; move the current tag to the left in the taglist, and switch there:
+   awful.button({ modkey, "Shift" }, 4,
+      function (t)
+         if client.focus then
+            client.focus:move_to_tag(client.focus.screen.tags[awful.tag.getidx()-1])
+         end
+         awful.tag.viewprev(t.screen)
+   end),
+   -- Drag tag right; move the current tag to the right in the taglist, and switch there:
+   awful.button({ modkey, "Shift" }, 5,
+      function (t)
+         if client.focus then
+            client.focus:move_to_tag(client.focus.screen.tags[awful.tag.getidx()+1])
+         end
+         awful.tag.viewnext(t.screen)
+   end)
+)
+
+
+--             |          
+--   __| |   | |  _ \  __|
+--  |    |   | |  __/\__ \
+-- _|   \__,_|_|\___|____/
+--
 
 -- rules to apply to new clients (through the "manage" signal):
 awful.rules.rules = {
-   -- all clients will match this rule.
+   
+   -- all clients will match this rule:
    { rule = { },
      properties = { border_width = beautiful.border_width,
                     border_color = beautiful.border_normal,
@@ -553,7 +566,7 @@ awful.rules.rules = {
      }
    },
 
-   -- non focus clients:
+   -- non-focus clients:
    { rule_any = {
         class = {
            "zoom",
@@ -590,30 +603,28 @@ awful.rules.rules = {
         },
    }, properties = { maximized = true }},
    
-   -- -- add titlebars to normal clients and dialogs SERIOUSELY?
-   -- { rule_any = {type = { "normal", "dialog" }
-   --              }, properties = { titlebars_enabled = true },
-   -- },
-
-   { rule_any = { -- vsc
+   -- vsc
+   { rule_any = {
         name = {
            "VSConsole",
    }}, properties = { tag = "∅", switchtotag = true }},
    
-   
-   { rule_any = { -- internet
+   -- internet
+   { rule_any = {
         class = {
            "Google-chrome",
            "chromium",
            "Firefox",
    }}, properties = { tag = "⚡", switchtotag = true }},
    
-   { rule_any = { -- code
+   -- code
+   { rule_any = {
         class = {
            "Emacs",
    }}, properties = { tag = "$", switchtotag = true }},
-   
-   { rule_any = { -- file
+
+    -- File
+   { rule_any = {
         class = {
            "Nemo",
            "Thunar",
@@ -622,8 +633,9 @@ awful.rules.rules = {
            "ranger:",
            "Waldläufer",
    }}, properties = { tag = "⛁", switchtotag = true }},
-   
-   { rule_any = { -- doc
+
+    -- doc
+   { rule_any = {
         class = {
            "Evince",
            "libreoffice",
@@ -636,8 +648,9 @@ awful.rules.rules = {
            "calibre-gui",
            "Zathura",
    }}, properties = { tag =  "≣", switchtotag = true }},
-   
-   { rule_any = { -- music & video
+
+   -- music & video
+   { rule_any = {
         class = {
            "Spotify",
            "Vlc",
@@ -648,18 +661,21 @@ awful.rules.rules = {
            "ncmpcpp 0.8.2",
            "ncmpcpp*",
    }}, properties = { tag = "♬", switchtotag = true }},
-   
-   { rule_any = { -- calendar
+
+    -- calendar
+   { rule_any = {
         class = {
            "gnome-calendar"
    }}, properties = { tag = "⚛", switchtotag = true }},
-   
-   { rule_any = { -- mail
+
+    -- mail
+   { rule_any = {
         class = {
            "Evolution",
    }}, properties = { tag = "@", switchtotag = true }},
-   
-   { rule_any = { -- comms
+
+    -- comms
+   { rule_any = {
         class = {
            "Psi",
            "Pidgin",
@@ -672,7 +688,8 @@ awful.rules.rules = {
            "Slack",
    }}, properties = { tag = "✆", switchtotag = true }},
    
-   { rule_any = { -- games & conf
+    -- games & conf:
+   { rule_any = {
         class = {
            "Steam",
            "zoom",
@@ -682,29 +699,34 @@ awful.rules.rules = {
            "Zoom Cloud Meetings",
            "Torronator",
    }}, properties = { tag = "♞", switchtotag = true }},
-   
-   { rule_any = { -- clubs
+
+    -- clubs:
+   { rule_any = {
         name = {
    }}, properties = { tag = "♠", switchtotag = true }},
-   
-   { rule_any = { -- hearts
+
+    -- hearts:
+   { rule_any = {
         class = {
    }}, properties = { tag = "♥", switchtotag = true }},
-   
-   { rule_any = { -- diamonds
+
+    -- diamonds:
+   { rule_any = {
         class = {
    }}, properties = { tag = "♦", switchtotag = true }},
-   
-   { rule_any = { -- spades
+
+    -- spades:
+   { rule_any = {
         class = {
    }}, properties = { tag = "♣", switchtotag = true }},
 }
 
---      _)                   | 
---   __| |  _` | __ \   _` | | 
--- \__ \ | (   | |   | (   | | 
--- ____/_|\__, |_|  _|\__,_|_| 
---        |___/                
+
+--      _)                   |
+--   __| |  _` | __ \   _` | |
+-- \__ \ | (   | |   | (   | |
+-- ____/_|\__, |_|  _|\__,_|_|
+--        |___/               
 
 -- signal function to execute when a new client appears:
 client.connect_signal("manage", function (c)
