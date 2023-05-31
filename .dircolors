@@ -1,49 +1,12 @@
-# Exact Solarized Dark color theme for the color GNU ls utility.
+# color theme for the color GNU ls utility.
 # Designed for dircolors (GNU coreutils) 5.97
-#
-# This simple theme was simultaneously designed for these terminal color schemes:
-# - Solarized dark  (best)
-# - Solarized light
-# - default dark
-# - default light
-# with a slight optimization for Solarized Dark.
-#
-# How the colors were selected:
-# - Terminal emulators often have an option typically enabled by default that makes
-#   bold a different color.  It is important to leave this option enabled so that
-#   you can access the entire 16-color Solarized palette, and not just 8 colors.
-# - We favor universality over a greater number of colors.  So we limit the number
-#   of colors so that this theme will work out of the box in all terminals,
-#   Solarized or not, dark or light.
-# - We choose to have the following category of files:
-#   NORMAL & FILE, DIR, LINK, EXEC and
-#   editable text including source, unimportant text, binary docs & multimedia source
-#   files, viewable multimedia, archived/compressed, and unimportant non-text
-# - For uniqueness, we stay away from the Solarized foreground colors are -- either
-#   base00 (brightyellow) or base0 (brightblue).  However, they can be used if
-#   you know what the bg/fg colors of your terminal are, in order to optimize the display.
-# - 3 different options are provided: universal, solarized dark, and solarized light.
-#   The only difference between the universal scheme and one that's optimized for
-#   dark/light is the color of "unimportant" files, which should blend more with the
-#   background
-# - We note that blue is the hardest color to see on dark bg and yellow is the hardest
-#   color to see on light bg (with blue being particularly bad).  So we choose yellow
-#   for multimedia files which are usually accessed in a GUI folder browser anyway.
-#   And blue is kept for custom use of this scheme's user.
-# - See table below to see the assignments.
-
-
-# Installation instructions:
-# This file goes in the /etc directory, and must be world readable.
-# You can copy this file to .dir_colors in your $HOME directory to override
-# the system defaults.
 
 # COLOR needs one of these arguments: 'tty' colorizes output to ttys, but not
 # pipes. 'all' adds color characters to all output. 'none' shuts colorization
 # off.
 COLOR tty
 
-# Below, there should be one TERM entry for each termtype that is colorizable
+# Below, there should be one TERM entry for each termtype that is colorizable:
 TERM Eterm
 TERM ansi
 TERM color-xterm
@@ -118,16 +81,14 @@ TERM xterm-debian
 TERM xterm-new
 TERM xterm-termite
 
-# EIGHTBIT, followed by '1' for on, '0' for off. (8-bit output)
+# EIGHTBIT, followed by '1' for on, '0' for off. (8-bit output):
 EIGHTBIT 1
 
-#        ___                                ___  ___   ___ 
-#   .'|=|_.'   .'|=|`.     .'|=|`.     .'|=|_.' |   |=|_.' 
-# .'  |      .'  | |  `. .'  | |  `. .'  |  ___ `.  |      
-# |   |      |   | |   | |   | |   | |   |=|_.'   `.|=|`.  
-# `.  |  ___ `.  | |  .' |   | |  .' |   |  ___  ___  |  `.
-#   `.|=|_.'   `.|=|.'   |___|=|.'   |___|=|_.'  `._|=|___|
-#                                                         
+#                 |           
+#   __|  _ \   _` |  _ \  __| 
+#  (    (   | (   |  __/\__ \ 
+# \___|\___/ \__,_|\___|____/ 
+#
 # Below are the color init strings for the basic file types. A color init
 # string consists of one or more of the following numeric codes:
 #
@@ -138,86 +99,77 @@ EIGHTBIT 1
 # Background color codes:
 #   40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
 #
-# NOTES:
-# - See http://www.oreilly.com/catalog/wdnut/excerpt/color_names.html
-# - Color combinations
-#   ANSI Color code       Solarized  Notes                Universal             SolDark              SolLight
-#   ~~~~~~~~~~~~~~~       ~~~~~~~~~  ~~~~~                ~~~~~~~~~             ~~~~~~~              ~~~~~~~~
-#   00    none                                            NORMAL, FILE          <SAME>               <SAME>
-#   30    black           base02
-#   01;30 bright black    base03     bg of SolDark
-#   31    red             red                             docs & mm src         <SAME>               <SAME>
-#   01;31 bright red      orange                          EXEC                  <SAME>               <SAME>
-#   32    green           green                           editable text         <SAME>               <SAME>
-#   01;32 bright green    base01                          unimportant text      <SAME>
-#   33    yellow          yellow     unclear in light bg  multimedia            <SAME>               <SAME>
-#   01;33 bright yellow   base00     fg of SolLight                             unimportant non-text
-#   34    blue            blue       unclear in dark bg   user customized       <SAME>               <SAME>
-#   01;34 bright blue     base0      fg in SolDark                                                   unimportant text
-#   35    magenta         magenta                         LINK                  <SAME>               <SAME>
-#   01;35 bright magenta  violet                          archive/compressed    <SAME>               <SAME>
-#   36    cyan            cyan                            DIR                   <SAME>               <SAME>
-#   01;36 bright cyan     base1                           unimportant non-text                       <SAME>
-#   37    white           base2
-#   01;37 bright white    base3      bg in SolLight
-#   05;37;41                         unclear in Putty dark
+# Example:
+# .out 01;31
+# .out 01;41
 
-#  ___  ___   ___  ___   ___         __          ___ 
-# `._|=|   |=|_.' |   | |   |   .'|=|  |    .'|=|_.' 
-#      |   |      `.  |_|  .' .'  | |  |  .'  |  ___ 
-#      |   |        `.   .'   |   |=|.'   |   |=|_.' 
-#      `.  |         |   |    |   |       |   |  ___ 
-#        `.|         |___|    |___|       |___|=|_.' 
-#                                                   
+# 8-bit / 256color:
+#
+# BREAKS RANGER, but works in urxvt!
+#
+# As 256-color lookup tables became common on graphic cards, escape
+# sequences were added to select from a pre-defined set of 256 colors:
+#
+# ESC[38;5;⟨n⟩m Select foreground color      where n is a number from the table below
+# ESC[48;5;⟨n⟩m Select background color
+#   0-  7:  standard colors (as in ESC [ 30–37 m)
+#   8- 15:  high intensity colors (as in ESC [ 90–97 m)
+#  16-231:  6 × 6 × 6 cube (216 colors): 16 + 36 × r + 6 × g + b (0 ≤ r, g, b ≤ 5)
+# 232-255:  grayscale from dark to light in 24 steps
+#
+# Example:
+# .out 38;5;161
+# .out 48;5;161
+
+#  |                    
+#  __| |   | __ \   _ \ 
+#  |   |   | |   |  __/ 
+# \__|\__, | .__/ \___| 
+#     ____/ _|          
 
 NORMAL 00 # no color code at all
 FILE 00 # regular file: use no color at all
 RESET 0 # reset to "normal" color
 DIR 01;34 # directory
-LINK 01;36 # symbolic link. (If you set this to 'target' instead of a
- # numerical value, the color is as for the file pointed to.)
+## Link 'target' breaks ranger!
+## If you set this to 'target' instead of a numerical value,
+## the color is as for the file pointed to.
+LINK 01;36 # symbolic link. 
 MULTIHARDLINK 00 # regular file with more than one link
-FIFO 33,47 # pipe
-SOCK 01;35;47 # socket
-DOOR 35;47 # door
-BLK 32;47 # block device driver      
-CHR 01;32;47 # character device driver
+FIFO 30;47 # pipe
+SOCK 01;45 # socket
+DOOR 45 # door
+BLK 42 # block device driver      
+CHR 01;42 # character device driver
 
-#              ___  ___   ___  ___  ___   ___        __  
-#   .'|=|`.   `._|=|   |=|_.' `._|=|   |=|_.'   .'|=|  | 
-# .'  | |  `.      |   |           |   |      .'  | |  | 
-# |   |=|   |      |   |           |   |      |   |=|.'  
-# |   | |   |      `.  |           `.  |      |   |  |`. 
-# |___| |___|        `.|             `.|      |___|  |_| 
-#                                                       
+#        |   |       _) |           |        
+#   _` | __| __|  __| | __ \  |   | __|  _ \ 
+#  (   | |   |   |    | |   | |   | |    __/ 
+# \__,_|\__|\__|_|   _|_.__/ \__,_|\__|\___| 
+#
+ORPHAN 01;36 # symlink to nonexistent file, or non-stat'able file ...
+MISSING 01;31 # ... and the files that orphaned symlinks point to (blinking white on red)
+SETUID 01;41 # file that is setuid (u+s)
+SETGID 41 # file that is setgid (g+s)
+CAPABILITY 01;44 # file with capability
+STICKY_OTHER_WRITABLE 01;30;43 # dir that is sticky and other-writable (+t,o+w)
+OTHER_WRITABLE 30;43 # dir that is other-writable (o+w) and not sticky
+STICKY 30;43 # dir with the sticky bit set (+t) and not other-writable
+EXEC 01 # This is for files with execute permission (+x)
 
-
-ORPHAN 01;30;41 # symlink to nonexistent file, or non-stat'able file ...
-MISSING 05;37;41 # ... and the files that orphaned symlinks point to (blinking white on red)
-SETUID 01;31;47 # file that is setuid (u+s)
-SETGID 31;47 # file that is setgid (g+s)
-CAPABILITY 34;47 # file with capability
-STICKY_OTHER_WRITABLE 01;30;104 # dir that is sticky and other-writable (+t,o+w)
-OTHER_WRITABLE 94 # dir that is other-writable (o+w) and not sticky
-STICKY 01;34 # dir with the sticky bit set (+t) and not other-writable
-EXEC 0 # This is for files with execute permission (+x)
-
-#        ___  ___   ___   ___  ___   ___ 
-#   .'|=|_.' |   | |   | `._|=|   |=|_.' 
-# .'  |  ___ `.  | |  .'      |   |      
-# |   |=|_.'  .` |=| `.       |   |      
-# |   |  ___ |   | |   |      `.  |      
-# |___|=|_.' |___| |___|        `.|      
-#                                       
-
+#             |   
+#   _ \\ \  / __| 
+#   __/ `  <  |   
+# \___| _/\_\\__| 
+#                
 # List any file extensions like '.gz' or '.tar' that you would like ls
 # to colorize below. Put the extension, a space, and the color init string.
 # (and any comments you want to add after a '#')
 
-## Text that we can edit with a regular editor
+## Text that we can edit with a regular editor:
 .txt 00
 
-## Source text
+## Source text:
 .0 33
 .1 33
 .2 33
@@ -251,6 +203,7 @@ EXEC 0 # This is for files with execute permission (+x)
 .hs 33
 .htm 33
 .html 33
+.ipynb 33
 .java 33
 .js 33
 .l 33
@@ -285,180 +238,157 @@ EXEC 0 # This is for files with execute permission (+x)
 .xml 33
 .zsh 33
 
-# Image
-.JPG 32
-.PNG 32
-.bmp 32
-.cgm 32
-.dl 32
-.dvi 32
-.emf 32
-.eps 32
-.gif 32
-.jpeg 32
-.jpg 32
-.mng 32
-.pbm 32
-.pcx 32
+# Image:
+.JPG 92
+.PNG 92
+.bmp 92
+.cgm 92
+.dl 92
+.dvi 92
+.emf 92
+.eps 92
+.gif 92
+.jpeg 92
+.jpg 92
+.mng 92
+.pbm 92
+.pcx 92
+.pgm 92
+.png 92
+.ppm 92
+.pps 92
+.ppsx 92
+.ps 92
+.svg 92
+.svgz 92
+.tga 92
+.tif 92
+.tiff 92
+.xbm 92
+.xcf 92
+.xpm 92
+.xwd 92
+.xwd 92
+.yuv 92
+
+## Audio:
+.aac 94
+.au  94
+.flac 94
+.m4a 94
+.mid 94
+.midi 94
+.mka 94
+.mp3 94
+.mpa 94
+.mpeg 94
+.mpg 94
+.ogg  94
+.opus 94
+.ra 94
+.wav 94
+
+## Video:
+.MOV 35
+.anx 35
+.asf 35
+.avi 35
+.axv 35
+.flc 35
+.fli 35
+.flv 35
+.gl 35
+.m2v 35
+.m4v 35
+.mkv 35
+.mov 35
+.mp4 35
+.mp4v 35
+.mpeg 35
+.mpg 35
+.nuv 35
+.ogm 35
+.ogv 35
+.ogx 35
+.qt 35
+.rm 35
+.rmvb 35
+.swf 35
+.vob 35
+.webm 35
+.wmv 35
+
+## Binary document formats and multimedia source:
+.doc 32
+.docx 32
+.dot 32
+.dotx 32
+.fla 32
+.odp 32
+.ods 32
+.odt 32
+.otp 32
+.ots 32
+.ott 32
 .pdf 32
-.pgm 32
-.png 32
-.ppm 32
-.pps 32
-.ppsx 32
-.ps 32
-.svg 32
-.svgz 32
-.tga 32
-.tif 32
-.tiff 32
-.xbm 32
-.xcf 32
-.xpm 32
-.xwd 32
-.xwd 32
-.yuv 32
-
-## Audio
-.aac 32
-.au  32
-.flac 32
-.m4a 32
-.mid 32
-.midi 32
-.mka 32
-.mp3 32
-.mpa 32
-.mpeg 32
-.mpg 32
-.ogg  32
-.opus 32
-.ra 32
-.wav 32
-
-## Video
-.MOV 32
-.anx 32
-.asf 32
-.avi 32
-.axv 32
-.flc 32
-.fli 32
-.flv 32
-.gl 32
-.m2v 32
-.m4v 32
-.mkv 32
-.mov 32
-.mp4 32
-.mp4v 32
-.mpeg 32
-.mpg 32
-.nuv 32
-.ogm 32
-.ogv 32
-.ogx 32
-.qt 32
-.rm 32
-.rmvb 32
-.swf 32
-.vob 32
-.webm 32
-.wmv 32
-
-## Binary document formats and multimedia source
-.doc 31
-.docx 31
-.dot 31
-.dotx 31
-.fla 31
-.odp 31
-.ods 31
-.odt 31
-.otp 31
-.ots 31
-.ott 31
-.ppt 31
-.pptx 31
-.psd 31
-.rtf 31
-.xls 31
-.xlsx 31
+.ppt 32
+.pptx 32
+.psd 32
+.rtf 32
+.xls 32
+.xlsx 32
 
 ## Archives, compressed
-.7z   1;35
-.Z    1;35
-.apk  1;35
-.arj  1;35
-.bin  1;35
-.bz   1;35
-.bz2  1;35
-.cab  1;35  # Win
-.deb  1;35
-.dmg  1;35  # OSX
-.gem  1;35
-.gz   1;35
-.iso  1;35
-.jar  1;35
-.msi  1;35  # Win
-.rar  1;35
-.rpm  1;35
-.tar  1;35
-.tbz  1;35
-.tbz2 1;35
-.tgz  1;35
-.tx   1;35
-.war  1;35
-.xpi  1;35
-.xz   1;35
-.z    1;35
-.zip  1;35
+.7z   01;35
+.Z    01;35
+.apk  01;35
+.arj  01;35
+.bin  01;35
+.bz   01;35
+.bz2  01;35
+.cab  01;35  # Win
+.deb  01;35
+.dmg  01;35  # OSX
+.gem  01;35
+.gz   01;35
+.iso  01;35
+.jar  01;35
+.msi  01;35  # Win
+.rar  01;35
+.rpm  01;35
+.tar  01;35
+.tbz  01;35
+.tbz2 01;35
+.tgz  01;35
+.tx   01;35
+.war  01;35
+.xpi  01;35
+.xz   01;35
+.z    01;35
+.zip  01;35
 
-## For testing
-.ANSI-30-black 30
-.ANSI-01;30-brblack 01;30
-.ANSI-31-red 31
-.ANSI-01;31-brred 01;31
-.ANSI-32-green 32
-.ANSI-01;32-brgreen 01;32
-.ANSI-33-yellow 33
-.ANSI-01;33-bryellow 01;33
-.ANSI-34-blue 34
-.ANSI-01;34-brblue 01;34
-.ANSI-35-magenta 35
-.ANSI-01;35-brmagenta 01;35
-.ANSI-36-cyan 36
-.ANSI-01;36-brcyan 01;36
-.ANSI-37-white 37
-.ANSI-01;37-brwhite 01;37
+## Unimportant text files:
+*# 90
+*~ 90
+.log 90
 
-## Unimportant text files
-## For universal scheme, use brightgreen 01;32
-## For optimal on light bg (but too prominent on dark bg), use white 01;34
-*# 01;30
-*~ 01;30
-.log 01;30
+## Unimportant non-text files:
+*,v 01;90
+.BAK 01;90
+.DIST 01;90
+.OFF 01;90
+.OLD 01;90
+.ORIG 01;90
+.bak 01;90
+.dist 01;90
+.off 01;90
+.old 01;90
+.org_archive 01;90
+.orig 01;90
+.swo 01;90
+.swp 01;90
 
-## Unimportant non-text files
-## For universal scheme, use brightcyan 01;36
-## For optimal on dark bg (but too prominent on light bg), change to 01;33
-*,v 01;33
-.BAK 01;33
-.DIST 01;33
-.OFF 01;33
-.OLD 01;33
-.ORIG 01;33
-.bak 01;33
-.dist 01;33
-.off 01;33
-.old 01;33
-.org_archive 01;33
-.orig 01;33
-.swo 01;33
-.swp 01;33
-
-## The brightmagenta (Solarized: purple) color is free for you to use for your
-## custom file type
+## Custom file type:
 .3des 34
 .aes 34
 .asc 34
@@ -468,15 +398,45 @@ EXEC 0 # This is for files with execute permission (+x)
 .pgp 34
 .sqlite 34
 
-## other files with execute permission
-# .app 01;31  # OSX
-# .bat 01;31  # Win
-# .cmd 01;31  # Win
-# .com 01;31  # Win
-# .exe 01;31  # Win
-# .reg 01;31  # Win
-.out 01;31
+## Other files with execute permission:
+.app 31  # OSX
+.bat 31  # Win
+.cmd 31  # Win
+.com 31  # Win
+.exe 31  # Win
+.reg 31  # Win
+.out 01
 
-## fun stuff
-#.todo 05;31
-.todo 34
+## Only enable for testing (zsh function /bin/colordemo):
+# .3000 30
+# .3001 01;30
+# .3100 31
+# .3101 01;31
+# .3200 32
+# .3201 01;32
+# .3300 33
+# .3301 01;33
+# .3400 34
+# .3401 01;34
+# .3500 35
+# .3501 01;35
+# .3600 36
+# .3601 01;36
+# .3700 37
+# .3701 01;37
+# .9000 90
+# .9001 01;90
+# .9100 91
+# .9101 01;91
+# .9200 92
+# .9201 01;92
+# .9300 93
+# .9301 01;93
+# .9400 94
+# .9401 01;94
+# .9500 95
+# .9501 01;95
+# .9600 96
+# .9601 01;96
+# .9700 97
+# .9701 01;97

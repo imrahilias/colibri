@@ -1,14 +1,21 @@
-!!~/.Xresources > imrahil@archaeoteryx
-!! no inline comments
+!!~/.Xresources
+!! no inline comments!
 
+!        | |
+!   _` | | |
+!  (   | | |
+! \__,_|_|_|
+!
 
-!! ALL
 !*.background: rgb:10/10/10
 
+!   _|             |       
+!  |    _ \  __ \  __|  __|
+!  __| (   | |   | |  \__ \
+! _|  \___/ _|  _|\__|____/
+!
 
-!! FONTS
-
-!! Applications without fontconfig support
+!! applications without fontconfig support:
 Xft.antialias: 1
 Xft.autohint: 0
 Xft.hinting: 1
@@ -16,23 +23,28 @@ Xft.hintstyle: hintfull
 Xft.lcdfilter: lcddefault
 Xft.rgba: rgb
 
+!                          |  
+!  |   |  __|\ \  /\ \   / __|
+!  |   | |    `  <  \ \ /  |  
+! \__,_|_|    _/\_\  \_/  \__|
+!
+
 !! URxvt (case sensitive?)
 !! ttps://wiki.archlinux.org/index.php/Rxvt-unicode
-!URxvt*termname: consolicus
-!URxvt*title: consolicus
+
 URxvt*loginshell: true 
 URxvt*saveLines: 10000
 URxvt*pointerblank: true
 URxvt*letterSpace: 0
-URxvt*font: xft:DejaVuSansMono Nerd Font:size=12:antialias=true
-URxvt*boldFont: xft:DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold
-!URxvt*font: xft: Bitstream Vera Sans Mono:size=12
-!URxvt*boldFont: xft: Bitstream Vera Sans Mono:size=12:style=Bold
-!Xterm escapes, word by word movement
+URxvt*font: xft:DejaVuSansMono Nerd Font:size=12:antialias=true,\
+            xft: Bitstream Vera Sans Mono:size=12
+URxvt*boldFont: xft:DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold,\
+                xft: Bitstream Vera Sans Mono:size=12:style=Bold
+URxvt.intensityStyles: false
 URxvt*secondaryScreen: true
 
 !! SCROLLING
-! do not scroll with output
+! do not scroll with output:
 URxvt*scrollTtyOutput: false
 !! scroll in relation to buffer (with mouse scroll or Shift+Page Up):
 URxvt*scrollWithBuffer: true
@@ -49,6 +61,7 @@ URxvt*scrollstyle: plain
 URxvt*scrollBar_align: centre
 URxvt*jumpScroll: true
 URxvt*mouseWheelScrollPage: true
+
 !! scroll up/down 10 lines
 URxvt*keysym.Shift-Up: command:\033]720;10\007
 URxvt*keysym.Shift-Down: command:\033]721;10\007
@@ -65,64 +78,53 @@ URxvt*keysym.Control-Shift-Down: command:\033]721;10000\007
 ! URxvt*keysym.Home: command:\033]720;10000\007
 ! URxvt*keysym.End: command:\033]721;10000\007
 
-!! if you do not use the perl extension features, you can improve the security and speed by disabling perl extensions completely.
+!! if you do not use the perl extension features, you can improve the
+!! security and speed by disabling perl extensions completely.
 !URxvt*perl-ext:
 URxvt*perl-ext-common:resize-font
 
-
-!! GRAPHICS
-
+!! GRAPHICS:
 URxvt*skipBuiltinGlyphs: true
 URxvt*iconFile: /usr/share/icons/Adwaita/scalable/apps/utilities-terminal-symbolic.svg
 ! borderless conflicts with something! awesome?
 !URxvt*borderLess: true
 URxvt*cursorBlink: false
 
-!! fake transparency
-! fade the text by the given percentage when focus is lost.
-!URxvt*fading: 30
+!!The 2023-01-02 update may require adding some lines into ~/.Xresources:
+URxvt*geometry: 400x400
+
+!! fake transparency:
+!! fade the text by the given percentage when focus is lost:
+! URxvt*fading: 30
 URxvt*transparent: true
-! 0 to 99 darkens, 101 to 200 lightens
+!! shading; 0 to 99 darkens, 101 to 200 lightens:
 URxvt*shading: 10
 URxvt*buffered: true
 
-! real transparency: much to annoying
-URxvt*depth: 32
-!URxvt*background: [80]#000000
-!or URxvt*background: rgba:0000/0000/0000/c900
+!! real transparency:
+! URxvt*depth: 32
+! URxvt*background: [80]#000000
+! URxvt*background: rgba:0000/0000/0000/c900
 
-
-!! COLORS
-
-!! $colortheme 4 demo
-URxvt*foreground: #A89C8C
-!URxvt*background: #241e1e
-URxvt*background: black
-!URxvt*underlineColor:
-!URxvt*scrollColor:
-!URxvt*troughColor:
-!URxvt*highlightColor:
-!URxvt*highlightTextColor:
+URxvt*foreground: Linen
+URxvt*background: Black
+! URxvt*underlineColor:
+! URxvt*scrollColor:
+! URxvt*troughColor:
+! URxvt*highlightColor:
+! URxvt*highlightTextColor:
 URxvt*cursorColor: magenta
-!URxvt*cursorColor2:
+URxvt*cursorColor2: magenta
 URxvt*pointerColor: magenta
 URxvt*pointerColor2: magenta
 ! URxvt*color0:  #282a2b
-! URxvt*color1:  #AD513E
-! URxvt*color2:  #4C7D58
-! URxvt*color3:  #FFB200
-! URxvt*color4:  #B8CBE6
-! URxvt*color5:  #666699
-! URxvt*color6:  #8caff0
-! URxvt*color7:  #a8a8a8
-! URxvt*color8:  #2c2f30
-! URxvt*color9:  #E0671B
-! URxvt*color10: #31DE96
-! URxvt*color11: #dadf45
-! URxvt*color12: #3955c4
-! URxvt*color13: #6698D9
-! URxvt*color14: #9bbaf1
-! URxvt*color15: #f0f0f0
+
+!             |               
+!   __|  _ \  |  _ \   __| __|
+!  (    (   | | (   | |  \__ \
+! \___|\___/ _|\___/ _|  ____/
+
+!! type 'rainbow' for quick demo
 
 ! # foreground: background
 ! 0: 30, black
@@ -133,9 +135,8 @@ URxvt*pointerColor2: magenta
 ! 5: 35, magenta
 ! 6: 36, cyan
 ! 7: 37, white
-! 
 ! # bold foreground: background
-!  8: 40, black
+! 8: 40, black
 ! 9: 41, red
 ! 10: 42, green
 ! 11: 43, yellow
@@ -145,34 +146,30 @@ URxvt*pointerColor2: magenta
 ! 15: 47, white
 ! 16: 48, default
 
-*color0:  #555a5c
-*color1:  #AD513E
-*color2:  #4C7D58
-*color3:  #FFB200
-*color4:  #B8CBE6
-*color5:  #666699
-*color6:  #8caff0
-*color7:  #a8a8a8
-*color8:  #6b7275
-*color9:  #E0671B
-*color10: #31DE96
-*color11: #dadf45
-*color12: #6f7bf7
-*color13: #6698D9
-*color14: #9be0f1
-*color15: #f0f0f0
-!*color16: #A89C8C
+*color0: Black
+*color1: DarkRed
+*color2: SeaGreen
+*color3: GoldenRod
+*color4: SteelBlue
+*color5: DarkMagenta
+*color6: LightSeaGreen
+*color7: BlanchedAlmond
+*color8: DimGrey
+*color9: Crimson
+*color10: DarkSeaGreen
+*color11: DarkOrange
+*color12: DeepSkyBlue
+*color13: Magenta
+*color14: DarkTurquoise
+*color15: Seashell
+*color16: BlanchedAlmond
 
-!! MISC
+!        |                    
+! \ \  / __|  _ \  __| __ `__ \
+!  `  <  |    __/ |    |   |   |
+!  _/\_\\__|\___|_|   _|  _|  _|
+!
 
-!!The 2023-01-02 update may require adding some lines into ~/.Xresources:
-URxvt*geometry: 400x400
-
-!! for otave via emacs 
-gnuplot*background: transparent truecolor
-
-
-!! XTERM
 !!*.termName: xterm-256color
 *.vt100.locale: false
 *.vt100.utf8: true
@@ -186,27 +183,22 @@ gnuplot*background: transparent truecolor
 *.vt100.faceName: DejaVuSansMono Nerd Font:size=12:antialias=true
 *.vt100.boldFont: DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold
 *.vt100.transparent: true
-!*.vt100.foreground: white
-*.vt100.foreground: rgb:A8/9C/8C
-*.vt100.background: black
-!*.vt100.background: rgb:24/1e/1e
-!*.vt100.background: rgb:10/10/10
-*.vt100.cursorColor: magenta
-*.vt100.cursorColor2: magenta
+*.vt100.foreground: Linen
+*.vt100.background: Black
+*.vt100.cursorColor: Magenta
+*.vt100.cursorColor2: Magenta
 ! *.vt100.color0:  rgb:28/2a/2b
-! *.vt100.color1:  rgb:AD/51/3E
-! *.vt100.color2:  rgb:4C/7D/58
-! *.vt100.color3:  rgb:FF/B2/00
-! *.vt100.color4:  rgb:B8/CB/E6
-! *.vt100.color5:  rgb:66/66/99
-! *.vt100.color6:  rgb:8c/af/f0
-! *.vt100.color7:  rgb:a8/a8/a8
-! *.vt100.color8:  rgb:2c/2f/30
-! *.vt100.color9:  rgb:E0/67/1B
-! *.vt100.color10: rgb:31/DE/96
-! *.vt100.color11: rgb:da/df/45
-! *.vt100.color12: rgb:39/55/c4
-! *.vt100.color13: rgb:66/98/D9
-! *.vt100.color14: rgb:9b/ba/f1
-! *.vt100.color15: rgb:f0/f0/f0
 *vt100.veryBoldColors: 6
+*VT100.colorBDMode: true
+*VT100.colorBD: Red
+*VT100.colorULMode: true
+*VT100.colorUL: Cyan
+
+!           _)          
+!  __ `__ \  |  __|  __|
+!  |   |   | |\__ \ (   
+! _|  _|  _|_|____/\___|
+!
+
+!! for otave via emacs 
+gnuplot*background: transparent truecolor

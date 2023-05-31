@@ -47,7 +47,7 @@ There are two things you can do about this warning:
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(hi-yellow ((t (:foreground "black" :background "goldenrod")))))
+ '(hi-yellow ((t (:foreground "black" :background "GoldenRod")))))
 
 ;; no welcome message please:
 (setq inhibit-startup-message t)
@@ -59,15 +59,15 @@ There are two things you can do about this warning:
 ;;(load-theme 'atom-one-dark t)
 
 ;; make it easy on eyes:
-(set-foreground-color "linen")
-(set-background-color "black")
-(set-face-foreground 'default "linen")
-(set-face-background 'default "black")
+(set-foreground-color "Linen")
+(set-background-color "Black")
+(set-face-foreground 'default "Linen")
+(set-face-background 'default "Black")
 (set-face-foreground 'font-lock-string-face "DarkMagenta")
 ;;(set-face-foreground 'font-lock-comment-face "SaddleBrown")
 (set-face-foreground 'font-lock-comment-face "Teal")
 ;;(set-face-foreground 'font-lock-comment-face "DarkSlateGray")
-(set-face-attribute 'cursor nil :background "magenta")
+(set-face-attribute 'cursor nil :background "Magenta")
 
 ;; UI and base colors:
 ;;(setq theme-color-accent  "#ff6000")
@@ -109,8 +109,8 @@ There are two things you can do about this warning:
 ;; opacity:
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> . <inactive>))
 ;;(set-frame-parameter (selected-frame) 'alpha <both>)
-(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+;(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+;(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 
 ;; you can use the following snippet after you’ve set the alpha as
 ;; above to assign a toggle to “c-c t”:
@@ -130,7 +130,7 @@ There are two things you can do about this warning:
 ;; A general transparency function:
 (defun transparency (value)
   "Sets the transparency of the frame window. 0=transparent/100=opaque"
-  (interactive "nTransparency Value 0 - 100 opaque:")
+  (interactive "Transparency Value 0 - 100 opaque:")
   (set-frame-parameter (selected-frame) 'alpha value))
 
 ;; the fringe:

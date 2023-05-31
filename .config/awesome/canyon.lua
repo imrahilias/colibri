@@ -11,21 +11,20 @@ theme.taglist_font  = "Bitstream Vera Sans 18"
 
 theme.bg_normal     = "Black"
 theme.bg_focus      = theme.bg_normal
---theme.bg_urgent     = "DeepSkyBlue"
-theme.bg_urgent     = "Black"
+theme.bg_urgent     = theme.bg_normal
 theme.bg_minimize   = theme.bg_normal
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = "DimGray"
-theme.fg_focus      = "DeepSkyBlue"
-theme.fg_urgent     = theme.fg_minimize
+theme.fg_focus      = "DeepSkyBlue" -- "SteelBlue"
+theme.fg_urgent     = "Magenta"
 theme.fg_minimize   = "LightGray"
 
+-- cool: doesnt know names, gives transparent background!
 theme.border_width  = 1
---theme.border_normal = "DimGray" -- cool: doesnt know names: transparent background!
 theme.border_normal = "#444444"
-theme.border_focus  = "LightGray"
-theme.border_marked = "DeepSkyBlue"
+theme.border_focus  = theme.border_normal
+theme.border_marked = theme.fg_focus
 
 -- There are other variable sets
 -- overriding the default one when
