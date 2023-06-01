@@ -148,8 +148,8 @@ globalkeys = gears.table.join(
    awful.key({ modkey }, "h", function () awful.tag.incmwfact(-0.05) end),
    awful.key({ modkey }, "space", function () awful.layout.inc( 1) end), -- "space" is lo-caps!
    awful.key({ modkey, "Shift" }, "space", function () awful.layout.inc(-1) end), -- "space" is lo-caps!
-   --awful.key({ modkey }, "m", awful.layout.suit.max.fullscreen),
-   --awful.key({ modkey }, "b", awful.layout.suit.floating),
+   awful.key({ modkey, "Shift"  }, "m", awful.layout.suit.max),
+   --awful.key({ modkey, "Shift"  }, "b", awful.layout.suit.floating),
 
    -- restore minimised client:
    awful.key({ modkey, "Shift" }, "n",
@@ -291,11 +291,11 @@ clientkeys = gears.table.join(
          c.maximized_vertical = not c.maximized_vertical
          c:raise()
    end),
-   awful.key({ modkey, "Shift" }, "m",
-      function (c)
-         c.maximized_horizontal = not c.maximized_horizontal
-         c:raise()
-   end),
+   -- awful.key({ modkey, "Shift" }, "m",
+   --    function (c)
+   --       c.maximized_horizontal = not c.maximized_horizontal
+   --       c:raise()
+   -- end),
    awful.key({ modkey }, "f",
       function (c)
          c.fullscreen = not c.fullscreen

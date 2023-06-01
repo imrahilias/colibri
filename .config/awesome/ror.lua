@@ -21,13 +21,13 @@
 
 table5={
   ["a"]={"spotify", "Spotify"},
+  ["s"]={"google-chrome-stable", "Google-chrome"},
   ["d"]={"urxvtc -title Waldläufer -e ranger", "Waldläufer", "name"},
   ["Control-d"]={"thunar", "thunar"},
+  ["t"]={"gnome-calendar", "gnome-calendar"},
+  ["y"]={"evolution", "Evolution"},
+  ["u"]={"telegram-desktop", "Telegram"},
   ["i"]={"signal-desktop", "Signal"},
   ["o"]={"rocketchat-desktop", "Rocket.Chat"},
   ["Shift-o"]={"libreoffice ", "libreoffice"},
-  ["s"]={"google-chrome-stable", "Google-chrome"},
-  ["u"]={"evolution", "Evolution"},
-  ["t"]={"telegram-desktop", "Telegram"},
-  ["y"]={"gnome-calendar", "Gnome-calendar"},
 }
