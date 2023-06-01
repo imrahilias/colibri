@@ -128,22 +128,22 @@ alias p='python3 '
 # \___/  .__/ \__|_|\___/ _|  _|____/ 
 #       _|                            
 
-setopt extendedglob             # inverted expansion like: ls *~*.txt.
-#setopt correct                  # correct mistakes.
-setopt auto_list                # list choice on ambiguous command.
-setopt listtypes                # %1 killed. will show up exactly when it is killed.
-setopt auto_cd                  # change dir by just typing its name wo cd.
-setopt auto_pushd               # automatically adds dirs to stack.
-setopt prompt_subst             # prompt more dynamic, allow function in prompt.
-setopt no_beep                  # never ever beep ever (alt: unsetopt beep).
-setopt rm_star_wait             # Wait, and ask if the user is serious when doing rm *.
-setopt completealiases          # is enabled elsewhere/ otherwise no effect.
-setopt append_history           # Don't overwrite history.
-setopt inc_append_history       # saves in chronological order, all sessions.
-setopt share_history            # even more, sessioins share the same file!
-setopt hist_ignore_all_dups     # when runing a command several times, only store one.
-setopt hist_reduce_blanks       # reduce whitespace in history.
-setopt hist_ignore_space        # do not remember commands starting with space.
+setopt extendedglob # inverted expansion like: ls *~*.txt.
+#setopt correct # correct mistakes.
+setopt auto_list # list choice on ambiguous command.
+setopt listtypes # %1 killed. will show up exactly when it is killed.
+setopt auto_cd # change dir by just typing its name wo cd.
+setopt auto_pushd # automatically adds dirs to stack.
+setopt prompt_subst # prompt more dynamic, allow function in prompt.
+setopt no_beep # never ever beep ever (alt: unsetopt beep).
+setopt rm_star_wait # Wait, and ask if the user is serious when doing rm *.
+#setopt complete_aliases # don't expand aliases _before_ completion has finished.
+setopt append_history # Don't overwrite history.
+setopt inc_append_history # saves in chronological order, all sessions.
+setopt share_history # even more, sessioins share the same file!
+setopt hist_ignore_all_dups # when runing a command several times, only store one.
+setopt hist_reduce_blanks # reduce whitespace in history.
+setopt hist_ignore_space # do not remember commands starting with space.
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
