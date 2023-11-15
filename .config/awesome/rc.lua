@@ -192,12 +192,14 @@ globalkeys = gears.table.join(
    awful.key({ modkey }, "Return", function () awful.spawn(terminal) end),
    -- awful.key({ modkey, "Shift", "Control" }, "Return", function () awful.spawn("urxvtc -title admin2 -e 2") end),
    -- awful.key({ modkey, "Shift"}, "Return", function () awful.spawn("urxvtc -title master1 -e 1") end),
-   awful.key({ modkey, "Shift" }, "d", function () awful.spawn("urxvtc -title Waldläufer -e sudo ranger", false) end),
+   awful.key({ modkey }, "d", function () awful.spawn.with_shell("urxvtc -title Waldläufer -e lf -config /home/m/.config/lf/lfrc", false) end),
+   awful.key({ modkey, "Shift" }, "d", function () awful.spawn.with_shell("urxvtc -title Waldläufer -e sudo lf -config /home/m/.config/lf/lfrc", false) end),
    awful.key({ modkey, "Shift", "Control" }, "d", function () awful.spawn("sudo thunar", false) end),
    awful.key({ modkey }, "e", function () awful.spawn("emacsclient -ca ''", false) end),
-   awful.key({ modkey, "Shift" }, "s", function () awful.spawn("open_primary_selection_in_cromium") end),
-   awful.key({ modkey, "Control" }, "s", function () awful.spawn("open_primary_selection_in_google_translate") end),
-   awful.key({ modkey, "Shift", "Control" }, "s", function () awful.spawn("open_primary_selection_in_thesaurus") end),
+   awful.key({ modkey, "Shift" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_cromium") end),
+   awful.key({ modkey, "Control" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_google_translate") end),
+   awful.key({ modkey, "Shift", "Control" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_thesaurus") end),
+   awful.key({ modkey, "Shift" }, "z", function () awful.spawn("/home/m/bin/open_primary_selection_as_qr_code") end),
    awful.key({ modkey, "Shift" }, "t", function () awful.spawn("urxvtc -e rtorrent") end),
    awful.key({ modkey }, "g", function () awful.spawn("urxvtc -e htop") end),
    awful.key({ modkey, "Shift" }, "g", function () awful.spawn("urxvtc -e top") end),
@@ -260,18 +262,24 @@ clientkeys = gears.table.join(
    awful.key({ modkey, "Shift" }, "Left",
       function (t)
          if client.focus then
-            client.focus:move_to_tag(client.focus.screen.tags[awful.tag.getidx()-1])
+            tag = client.focus.screen.tags[awful.tag.getidx()-1]
+            if tag then
+               client.focus:move_to_tag(tag)
+               awful.tag.viewprev(t.screen)
+            end
          end
-         awful.tag.viewprev(t.screen)
       end
    ),
    -- Drag tag right; move the current tag to the right in the taglist, and switch there:
    awful.key({ modkey, "Shift" }, "Right",
       function (t)
          if client.focus then
-            client.focus:move_to_tag(client.focus.screen.tags[awful.tag.getidx()+1])
+            tag = client.focus.screen.tags[awful.tag.getidx()+1]
+            if tag then
+               client.focus:move_to_tag(tag)
+               awful.tag.viewnext(t.screen)
+            end
          end
-         awful.tag.viewnext(t.screen)
       end
    ),
    awful.key({ modkey }, "b",  awful.client.floating.toggle),
@@ -335,7 +343,8 @@ for i = 1, 14 do
                                           local tag = client.focus.screen.tags[i]
                                           if tag then
                                              client.focus:move_to_tag(tag)
-                                             tag:view_only()
+                                             -- follow to tag:
+                                             --tag:view_only()
                                           end
                                        end
                                  end),
@@ -440,18 +449,24 @@ clientbuttons = gears.table.join(
    awful.button({ modkey, "Shift" }, 4,
       function (t)
          if client.focus then
-            client.focus:move_to_tag(client.focus.screen.tags[awful.tag.getidx()-1])
+            tag = client.focus.screen.tags[awful.tag.getidx()-1]
+            if tag then
+               client.focus:move_to_tag(tag)
+               awful.tag.viewprev(t.screen)
+            end
          end
-         awful.tag.viewprev(t.screen)
       end
    ),
    -- Drag tag right; move the current tag to the right in the taglist, and switch there:
    awful.button({ modkey, "Shift" }, 5,
       function (t)
          if client.focus then
-            client.focus:move_to_tag(client.focus.screen.tags[awful.tag.getidx()+1])
+            tag = client.focus.screen.tags[awful.tag.getidx()+1]
+            if tag then
+               client.focus:move_to_tag(tag)
+               awful.tag.viewnext(t.screen)
+            end
          end
-         awful.tag.viewnext(t.screen)
       end
    )
 )
@@ -770,18 +785,18 @@ client.connect_signal("focus", function (c) c.border_color = beautiful.border_fo
 client.connect_signal("unfocus", function (c) c.border_color = beautiful.border_normal end)
 
 -- use a fallback icon in the taskbar when none is found for a given application:
-client.connect_signal("manage", function(c)
-    local cairo = require("lgi").cairo
-    local default_icon = "/usr/share/icons/HighContrast/scalable/apps/help-browser.svg"
-    if c and c.valid and not c.icon then
-        local s = gears.surface(default_icon)
-        local img = cairo.ImageSurface.create(cairo.Format.ARGB32, s:get_width(), s:get_height())
-        local cr = cairo.Context(img)
-        cr:set_source_surface(s, 0, 0)
-        cr:paint()
-        c.icon = img._native
-    end
-end)
+-- client.connect_signal("manage", function(c)
+--     local cairo = require("lgi").cairo
+--     local default_icon = "/usr/share/icons/HighContrast/scalable/apps/help-browser.svg"
+--     if c and c.valid and not c.icon then
+--         local s = gears.surface(default_icon)
+--         local img = cairo.ImageSurface.create(cairo.Format.ARGB32, s:get_width(), s:get_height())
+--         local cr = cairo.Context(img)
+--         cr:set_source_surface(s, 0, 0)
+--         cr:paint()
+--         c.icon = img._native
+--     end
+-- end)
 
 --           _)          
 --  __ `__ \  |  __|  __|

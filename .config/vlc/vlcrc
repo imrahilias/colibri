@@ -1,5 +1,5 @@
 ﻿###
-###  vlc 3.0.16
+###  vlc 3.0.20
 ###
 
 ###
@@ -977,6 +977,47 @@
 # ? (string)
 #keystore-file=
 
+[ts] # MPEG Transport Stream demuxer
+
+# Digital TV Standard (string)
+#ts-standard=auto
+
+# Extra PMT (string)
+#ts-extra-pmt=
+
+# Trust in-stream PCR (boolean)
+#ts-trust-pcr=1
+
+# Set id of ES to PID (boolean)
+#ts-es-id-pid=1
+
+# CSA Key (string)
+#ts-csa-ck=
+
+# Second CSA Key (string)
+#ts-csa2-ck=
+
+# Packet size in bytes to decrypt (integer)
+#ts-csa-pkt=188
+
+# Separate sub-streams (boolean)
+#ts-split-es=1
+
+# Seek based on percent not time (boolean)
+#ts-seek-percent=0
+
+# Check packets continuity counter (boolean)
+#ts-cc-check=1
+
+# Only create ES on program sending data (boolean)
+#ts-pmtfix-waitdata=1
+
+# Try to generate PAT/PMT if missing (boolean)
+#ts-patfix=1
+
+# Try to fix too early PCR (or late DTS) (boolean)
+#ts-pcr-offsetfix=1
+
 [rawvid] # Raw video demuxer
 
 # Frames per Second (string)
@@ -1009,7 +1050,7 @@
 #sout-avformat-options=
 
 # Reset timestamps (boolean)
-#sout-avformat-reset-ts=0
+#sout-avformat-reset-ts=1
 
 [adaptive] # Unified adaptive streaming for DASH/HLS
 
@@ -1208,7 +1249,7 @@
 #avi-interleaved=0
 
 # Force index creation (integer)
-#avi-index=0
+avi-index=1
 
 [ncurses] # Ncurses interface
 
@@ -1322,20 +1363,26 @@ qt-privacy-ask=0
 
 [access_output_srt] # SRT stream output
 
-# SRT chunk size (bytes) (integer)
-#chunk-size=1316
-
 # Return poll wait after timeout milliseconds (-1 = infinite) (integer)
-#poll-timeout=100
+#poll-timeout=-1
 
 # SRT latency (ms) (integer)
-#latency=125
+#latency=120
 
 # Password for stream encryption (string)
 #passphrase=
 
+# SRT maximum payload size (bytes) (integer)
+#payload-size=1316
+
+# SRT maximum bandwidth ceiling (bytes) (integer)
+#bandwidth-overhead-limit=25
+
 # Crypto key length in bytes (integer)
 #key-length=16
+
+#  SRT Stream ID (string)
+#streamid=
 
 [http] # HTTP stream output
 
@@ -1601,28 +1648,25 @@ qt-privacy-ask=0
 # Audio CD device (string)
 #cd-audio=/dev/sr0
 
-# CDDB Server (string)
-#cddb-server=freedb.videolan.org
-
-# CDDB port (integer)
-#cddb-port=80
+# Musicbrainz Server (string)
+#musicbrainz-server=musicbrainz.org
 
 [access_srt] # SRT input
-
-# SRT chunk size (bytes) (integer)
-#chunk-size=1316
 
 # Return poll wait after timeout milliseconds (-1 = infinite) (integer)
 #poll-timeout=-1
 
 # SRT latency (ms) (integer)
-#latency=125
+#latency=120
 
 # Password for stream encryption (string)
 #passphrase=
 
 # Crypto key length in bytes (integer)
 #key-length=16
+
+#  SRT Stream ID (string)
+#streamid=
 
 [smb] # SMB input
 
@@ -1781,38 +1825,6 @@ qt-privacy-ask=0
 
 # Use NIT for scanning services (boolean)
 #dvb-scan-nit=1
-
-[live555] # RTP/RTSP/SDP demuxer (using Live555)
-
-# Use RTP over RTSP (TCP) (boolean)
-#rtsp-tcp=0
-
-# Client port (integer)
-#rtp-client-port=-1
-
-# Force multicast RTP via RTSP (boolean)
-#rtsp-mcast=0
-
-# Tunnel RTSP and RTP over HTTP (boolean)
-#rtsp-http=0
-
-# HTTP tunnel port (integer)
-#rtsp-http-port=80
-
-# Kasenna RTSP dialect (boolean)
-#rtsp-kasenna=0
-
-# WMServer RTSP dialect (boolean)
-#rtsp-wmserver=0
-
-# Username (string)
-#rtsp-user=
-
-# Password (string)
-#rtsp-pwd=
-
-# RTSP frame buffer size (integer)
-#rtsp-frame-buffer-size=250000
 
 [access_jack] # JACK audio input
 
@@ -2155,7 +2167,7 @@ qt-privacy-ask=0
 #sout-avi-subject=
 
 # Encoder (string)
-#sout-avi-encoder=VLC Media Player - 3.0.16 Vetinari
+#sout-avi-encoder=VLC Media Player - 3.0.20 Vetinari
 
 # Keywords (string)
 #sout-avi-keywords=
@@ -2273,13 +2285,13 @@ qt-privacy-ask=0
 #dither-depth=0
 
 # Desaturation strength (float)
-#desat-strength=0.750000
+#desat-strength=0.000000
 
 # Desaturation exponent (float)
-#desat-exponent=1.500000
+#desat-exponent=0.000000
 
 # Desaturation base (float)
-#desat-base=0.180000
+#desat-base=0.000000
 
 # Maximum brightness boost (float)
 #max-boost=0.000000
@@ -3288,9 +3300,6 @@ qt-privacy-ask=0
 # Frames Threads (integer)
 #dav1d-thread-frames=0
 
-# Tiles Threads (integer)
-#dav1d-thread-tiles=0
-
 [dca] # DTS Coherent Acoustics audio decoder
 
 # DTS dynamic range compression (boolean)
@@ -3665,10 +3674,10 @@ qt-privacy-ask=0
 #sout-x264-stats=x264_2pass.log
 
 # Default preset setting used (string)
-#sout-x264-preset=
+sout-x264-preset=ultrafast
 
 # Default tune setting used (string)
-#sout-x264-tune=
+sout-x264-tune=film
 
 # x264 advanced options (string)
 #sout-x264-options=
@@ -3743,6 +3752,14 @@ qt-privacy-ask=0
 
 # CBR encoding (boolean)
 #sout-vorbis-cbr=0
+
+[aribsub] # ARIB subtitles decoder
+
+# Ignore ruby (furigana) (boolean)
+#aribsub-ignore-ruby=0
+
+# Use Core Text renderer (boolean)
+#aribsub-use-coretext=0
 
 [core] # core program
 

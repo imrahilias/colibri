@@ -1,22 +1,50 @@
 #!/bin/bash
 
-## init
-adb devices -l &&
+## wait for phone:
+oldstate="nan"
+while [ "$found" != "true" ]
+do
+    ## find android phone connection state:
+    state=$(adb devices -l | awk 'NR==2{print $2}')
+    case $state in
+        $oldstate)
+        #its the same, so do nothing.
+        ;;
+        "device")
+            found="true"
+            ;;
+        "unauthorized")
+            echo "Need to enable debugging access on phone."
+            ;;
+        *)
+            echo "I dont see any phone. Connect with cable. Enable debugging access"
+    esac
+    oldstate=$state
+done
 
-echo -n "Please enable debugging access on android device, then proceed [Y/n] "
-read answer
+## whereami?
+host=$(hostname)
+case $host in
+    "arcaheopteryx")
+        archive="/mnt/troika/photos"
+        ;;
+    "colibri")
+        archive="/home/m/photos"
+        ;;
+esac
+echo "Running on $host"
+echo "Archive is at $archive"
 
-# everything except a string starting with "n" or "N" means "yes".
-if [ "$answer" != "${answer#[Nn]}" ] ;then
-    echo "stopping"
-    exit 1
-fi
+## copy new photos:
+adbsync --show-progress \
+        --exclude-from="$archive/exclude" \
+        pull \
+        "/sdcard/DCIM/Camera/" \
+        "$archive/camera/" \
+        
+## rebuild exclude list:
+ls "$archive/camera/" > "$archive/exclude2"
 
-## photos
-adbsync --show-progress --pull --exclude-from=/mnt/troika/photos/exclude /mnt/troika/photos/camera/ /sdcard/DCIM/Camera/.
-
-## signal
-adbsync --show-progress --pull --exclude-from=/mnt/troika/projects/tephelon/op5/signal/exclude /mnt/troika/projects/tephelon/op5/signal/ /sdcard/Signal/Backups/.
-
-## exclude
-ls /mnt/troika/photos/camera/ >> /mnt/troika/photos/exclude
+## need to sort and unique!
+cat "$archive/exclude" "$archive/exclude2" | sort -u > "$archive/exclude"
+rm "$archive/exclude2"

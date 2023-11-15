@@ -11,7 +11,7 @@ theme.wallpaper = "/home/m/.config/awesome/canyon.jpg"
 theme.font          = "Bitstream Vera Sans 12"
 theme.taglist_font  = "Bitstream Vera Sans 18"
 
-theme.bg_normal     = "Black"
+theme.bg_normal     = "black"
 theme.bg_focus      = theme.bg_normal
 theme.bg_urgent     = theme.bg_normal
 theme.bg_minimize   = theme.bg_normal

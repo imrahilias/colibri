@@ -50,6 +50,9 @@ alias dfa='df -ah'
 alias cp='rsync -aP' # show percentage
 alias e='emacs '
 alias c='clear'
+alias v='nvim '
+alias vi='nvim '
+alias vim='nvim '
 
 #              |  _)                  
 #   _ \  __ \  __| |  _ \  __ \   __| 

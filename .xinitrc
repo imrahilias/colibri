@@ -1,32 +1,11 @@
 #!/bin/sh
 ## ~/.xinitrc > m@colibri
 
-userresources=$HOME/.Xresources
-usermodmap=$HOME/.Xmodmap
-sysresources=/etc/X11/xinit/.Xresources
-sysmodmap=/etc/X11/xinit/.Xmodmap
-
 ## merge in defaults and keymaps
-if [ -f $sysresources ]; then
-    xrdb -merge $sysresources
-fi
-if [ -f $sysmodmap ]; then
-    xmodmap $sysmodmap
-fi
-if [ -f "$userresources" ]; then
-    xrdb -merge "$userresources"
-fi
-if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap"
-fi
-
-## start some nice programs:
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
- for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x "$f" ] && . "$f"
- done
- unset f
-fi
+xrdb -merge "/etc/X11/xinit/.Xresources"
+xmodmap "/etc/X11/xinit/.Xmodmap"
+xrdb -merge "$HOME/.Xresources"
+xmodmap "$HOME/.Xmodmap"
 
 ## start some deamons:
 urxvtd -q -f -o
@@ -40,19 +19,25 @@ blueman-applet & # bluetooth.
 cbatticon -r 10 -c 'notify-send Power on 10%' & ## power tray icon
 
 ## start keyring:
-eval $(gnome-keyring-daemon --start)
-export SSH_AUTH_SOCK
+#eval $(gnome-keyring-daemon --start)
+#export SSH_AUTH_SOCK
+## ssh managment is moving to grc:
+export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
+
+## has to be called before owncloud, via zshrc is not enough!?
+export XDG_CONFIG_HOME=/home/m/.config
+export QT_QPA_PLATFORMTHEME=Adwaita-Dark 
+export QT_STYLE_OVERRIDE=Adwaita-Dark
 
 ## start cloud clients:
-export QT_QPA_PLATFORMTHEME=Adwaita-Dark # has to be called before owncloud, via zshrc is not enough!?
-export QT_STYLE_OVERRIDE=Adwaita-Dark
-nextcloud &
-export QT_QPA_PLATFORMTHEME=Adwaita-Dark # has to be called before owncloud, via zshrc is not enough!?
-export QT_STYLE_OVERRIDE=Adwaita-Dark
-owncloud &
+#QT_QPA_PLATFORMTHEME=Adwaita-Dark QT_STYLE_OVERRIDE=Adwaita-Dark nextcloud &
+#QT_QPA_PLATFORMTHEME=Adwaita-Dark QT_STYLE_OVERRIDE=Adwaita-Dark owncloud &
+nextcloud --style=Adwaita-Dark &
+owncloud --style=Adwaita-Dark &
 
 ## disable use of header bars in evolution:
 gsettings set org.gnome.evolution.shell use-header-bar false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 ## fire up mouse button to key stroke binder for ranger:
 xbindkeys

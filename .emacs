@@ -38,7 +38,7 @@ There are two things you can do about this warning:
  '(custom-safe-themes
    '("171d1ae90e46978eb9c342be6658d937a83aaa45997b1d7af7657546cae5985b" default))
  '(package-selected-packages
-   '(csv-mode spinner string-inflection json-mode yaml-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode ess auto-correct))
+   '(cuda-mode csv-mode spinner string-inflection json-mode yaml-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode ess auto-correct))
  '(warning-suppress-log-types '((auto-save))))
 
 ;; highlighting lock:
@@ -109,8 +109,8 @@ There are two things you can do about this warning:
 ;; opacity:
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> . <inactive>))
 ;;(set-frame-parameter (selected-frame) 'alpha <both>)
-(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+(set-frame-parameter (selected-frame) 'alpha '(80 . 80))
+(add-to-list 'default-frame-alist '(alpha . (80 . 80)))
 
 ;; you can use the following snippet after you’ve set the alpha as
 ;; above to assign a toggle to “c-c t”:
@@ -149,11 +149,6 @@ There are two things you can do about this warning:
 ;; up/downcase region:
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
-
-;; show me line and column nos:
-(line-number-mode 't)
-(column-number-mode 't)
-(global-linum-mode 't)
 
 ;; none of these please:
 (scroll-bar-mode '0)
@@ -379,11 +374,11 @@ Version 2017-01-08"
 ;;      _|                   
 
 ;; flyspell mode:
-(dolist (hook '(text-mode-hook))
-  (add-hook hook (lambda () (flyspell-mode 1))))
+;; (dolist (hook '(text-mode-hook))
+;;   (add-hook hook (lambda () (flyspell-mode 1))))
 
-(dolist (hook '(change-log-mode-hook log-edit-mode-hook))
-  (add-hook hook (lambda () (flyspell-mode -1))))
+;; (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+;;   (add-hook hook (lambda () (flyspell-mode -1))))
 
 ;; If you’re using a Mac, you may need to add the following Elisp code to your config file as well in order for Flyspell to pick up the two-finger clicks (right-clicks):
 ;; (eval-after-load "flyspell"

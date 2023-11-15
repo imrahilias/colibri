@@ -38,32 +38,37 @@ RPROMPT='%F{magenta}%D{%H%M}%f'
 # \__,_|_|_|\__,_|____/ 
 
 if [[ $EUID != 0 ]] ; then
-    source /home/m/vscloud/bin/aliases
+    source /home/m/vsc/bin/aliases
 fi
 
 ## enable color support of ls and also add handy aliases.
 if [ -x /usr/bin/dircolors ]
 then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias -g ls='ls -q --color=always'
-    alias -g dir='dir --color=always'
-    alias -g vdir='vdir --color=always'
+    alias -g ls='ls --color=auto'
+    alias -g dir='dir --color=auto'
+    alias -g vdir='vdir --color=auto'
 
-    alias -g grep='grep --ignore-case --color=always'
-    alias -g fgrep='grep --ignore-case --color=always'
-    alias -g egrep='egrep --ignore-case --color=always'
+    alias -g grep='grep --ignore-case --color=auto'
+    alias -g fgrep='grep --ignore-case --color=auto'
+    alias -g egrep='egrep --ignore-case --color=auto'
 
-    alias -g diff='grc diff --color=always'
-    alias -g less='grc less -r'
-
-    export LESS='-R --use-color -Dd+r$Du+b$'
-    export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Solarized\ \(dark\)'"
+    alias -g diff='grc diff --color=auto'
+    
+    export LESS="-R"
+    export LESS_TERMCAP_md=$'\e[01;31m'
+    export LESS_TERMCAP_me=$'\e[0m'
+    export LESS_TERMCAP_us=$'\e[01;32m'
+    export LESS_TERMCAP_ue=$'\e[0m'
+    export LESS_TERMCAP_so=$'\e[45;93m'
+    export LESS_TERMCAP_se=$'\e[0m'
 fi
 
+
 ## list aliasas
-alias l='grc ls -1Bhl --group-directories-first' # '1' 4 one entry/line, 'B' ignores backups (~), 'h' 4 human readable (kiB, MiB, ...).
-alias ll='grc ls -1ABhl --group-directories-first' # 'A' 4 almost all.
-alias d='grc dirs -v' # lists zsh directory stack (enter <cd +- tab>, plus & minus (reverse) literally, with completion!.
+alias l='grc ls -1Bhl --color=always --group-directories-first' # '1' 4 one entry/line, 'B' ignores backups (~), 'h' 4 human readable (kiB, MiB, ...).
+alias ll='grc ls -1ABhl --color=always --group-directories-first' # 'A' 4 almost all.
+alias d='dirs -v' # lists zsh directory stack (enter <cd +- tab>, plus & minus (reverse) literally, with completion!.
 alias blk='sudo blkid -o list'
 alias hist='fc -El 0 | grep'
 alias lsa='lsarchives '
@@ -87,7 +92,6 @@ alias pc='sudo pacman -Scc && sudo pacman-optimize' # remove all cached pkg! and
 alias reflect='sudo reflector -p https -f 10 -l 10 --sort rate --save /etc/pacman.d/mirrorlist' # save 10 fastest of the 10 recent mirrors using https.
 
 ## file aliases
-alias duh='du -d 1 -h' # display the size of files at depth 1 in current location in human-readable form.
 alias df='df -h'
 alias countf='find . -type f | wc -l' # number of all files in dir.
 alias countd='find . -type d | wc -l' # number of all subdirs in dir.
@@ -97,10 +101,10 @@ alias x='startx'
 #alias evince='dbus-launch evince'
 alias e="emacsclient -ca \'\'" # > service moved to systemd
 alias scan='scanimage --format=tiff --mode=Color' #>http://lists.alioth.debian.org/pipermail/sane-devel/2001-December/001177.html
-alias halt='systemctl poweroff'
-alias sus='systemctl suspend'
+alias halt='sudo systemctl poweroff'
+alias sus='sudo systemctl suspend'
 #alias sus='umount /mnt/vsc3; umount /mnt/vsc4; sleep 10; systemctl suspend'
-alias hib='systemctl hibernate'
+alias hib='sudo systemctl hibernate'
 
 ## misc
 alias s='sudo su -'
@@ -115,12 +119,16 @@ alias cp='rsync -aP' # show percentage.
 alias d0='xrandr --auto'
 alias d1='xrandr --output HDMI-A-0 --auto --output eDP --off'
 alias d2='xrandr --output HDMI-A-0 --auto --right-of eDP'
-alias d3='xrandr --output DisplayPort-1 --scale 0.8 --output eDP --off'
+alias d3='xrandr --output DisplayPort-0 --scale 0.8 --output eDP --off'
+alias d4='xrandr --output DisplayPort-1 --scale 0.8 --output eDP --off'
 alias pm='pulsemixer'
 alias wh='which '
 alias r='zranger'
 alias scrot='scrot ~/.screens/%H%M%S.png'
 alias p='python3 '
+alias v='nvim '
+alias vi='nvim '
+alias vim='nvim '
 
 #              |  _)                  
 #   _ \  __ \  __| |  _ \  __ \   __| 
@@ -144,6 +152,7 @@ setopt share_history # even more, sessioins share the same file!
 setopt hist_ignore_all_dups # when runing a command several times, only store one.
 setopt hist_reduce_blanks # reduce whitespace in history.
 setopt hist_ignore_space # do not remember commands starting with space.
+#setopt SH_WORD_SPLIT # word-splitting on unquoted parameter expansions by default.
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
@@ -153,6 +162,26 @@ SAVEHIST=10000
 #  __| |   | |   | (    |   | (   | |   |\__ \ 
 # _|  \__,_|_|  _|\___|\__|_|\___/ _|  _|____/ 
 
+## sort filesize by size & in color:      
+dus() {
+    paste <(du --exclude "./.*" --all --apparent-size --human-readable --max-depth=1 2>/dev/null | sed 's/\s.*//') <(ls --color=always -1 -U) | sort --human-numeric-sort
+}
+
+## sort all filesize by size & in color:      
+dusd() {
+    paste <(du --apparent-size --all --human-readable --max-depth=1 2>/dev/null | sed 's/\s.*//') <(ls --color=always -1 --almost-all -U) | sort --human-numeric-sort
+}
+
+## sort size by filename (no color cause escape sequences mess that up):
+duh() {
+    du --apparent-size --exclude "./.*" --all --human-readable --max-depth=1 2>/dev/null | sort -t$'\t' -k2 --dictionary-order
+}
+
+## sort all size by filename (no color cause escape sequences mess that up):
+duhd() {
+    du --apparent-size --all --human-readable --max-depth=1 2>/dev/null | sort -t$'\t' -k2 --dictionary-order
+}
+
 rainbow() {
     for code in {0..255}
     do echo -e "\e[38;5;${code}m"'\\e[38;5;'"$code"m"\e[0m"
@@ -160,18 +189,16 @@ rainbow() {
 }
 
 ## highlight help messages:
-help() {
-    "$@" --help 2>&1 | bathelp
-}
+# help() {
+#     "$@" --help 2>&1 | bathelp
+# }
 
 ## Pressing enter in a git directory runs `git status`,
 ## in other directories `ls`.
-magic-enter () {
-
+magic-enter() {
     ## If commands are not already set, use the defaults.
     [ -z "$MAGIC_ENTER_GIT_COMMAND" ] && MAGIC_ENTER_GIT_COMMAND="git status ."
-    [ -z "$MAGIC_ENTER_OTHER_COMMAND" ] && MAGIC_ENTER_OTHER_COMMAND="grc ls -1Bhl --group-directories-first ."
-
+    [ -z "$MAGIC_ENTER_OTHER_COMMAND" ] && MAGIC_ENTER_OTHER_COMMAND="grc ls -1Bhl --color=always --group-directories-first ."
     if [[ -z $BUFFER ]]
     then
         echo ""
@@ -193,7 +220,7 @@ bindkey "^M" magic-enter
 # run ls after typing cd:
 function chpwd() {
     emulate -L zsh
-    ls -1Bhl --group-directories-first --color=auto . # runs ls (...) after typing cd!
+    grc ls -1Bhl --color=always --group-directories-first . # runs ls (...) after typing cd!
 }
 
 
@@ -253,6 +280,7 @@ bindkey . rationalize-dot
 ## https://wiki.archlinux.org/index.php/Ranger
 #$RANGERCD && unset RANGERCD && ranger-cd
 
+
 # _  /  __| _` | __ \   _` |  _ \  __| 
 #   /  |   (   | |   | (   |  __/ |    
 # ___|_|  \__,_|_|  _|\__, |\___|_|    
@@ -264,17 +292,20 @@ bindkey . rationalize-dot
 # in a ranger shell and start ranger again you end up with ranger
 # running a shell running ranger.
 
-zranger() {
-    if [ -z "$RANGER_LEVEL" ]
-    then
-        . ranger # start in current dir
-    else
-        exit
-    fi
-}
+# zranger() {
+#     if [ -z "$RANGER_LEVEL" ]
+#     then
+#         . ranger # start in current dir
+#     else
+#         exit
+#     fi
+# }
 
-## ranger-cd will fire for Ctrl+D :
-bindkey -s '^D' 'zranger\n'
+# ## ranger-cd will fire for Ctrl+D :
+# bindkey -s '^D' 'zranger\n'
+
+# ## only read my config, do not add the defaults:
+# export RANGER_LOAD_DEFAULT_RC=false
 
 ### based on https://github.com/Vifon/zranger
 ## switching retains tabs!
@@ -306,6 +337,33 @@ bindkey -s '^D' 'zranger\n'
 # ## ranger-cd will fire for 'Ctrl+D':
 # #autoload -U zranger # embedded in zshrc
 # bindkey -s '^D' "\eq zranger\n"
+
+
+# |  _| 
+# | |   
+# | __| 
+#_|_|   
+#
+# wrapper function to call "lf", a terminal filebrowser written in go.
+# lf, which changes working dir in shell to last dir:
+lf () {
+    : Wrapper function to call "lf", a terminal filebrowser written in go.
+    : Keep current working directory on exit.
+    tmp="$(mktemp)"
+    # pre-built binary, make sure to use absolute path:
+    #/opt/sw/lf/bin/lf -config /opt/sw/lf/bin/lfrc -last-dir-path="$tmp" "$@"
+    command lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        if [ -d "$dir" ]; then
+            if [ "$dir" != "$(pwd)" ]; then
+                cd "$dir"
+            fi
+        fi
+    fi
+}
+
 
 #   _ \ __ \\ \   / 
 #   __/ |   |\ \ /  
@@ -387,6 +445,9 @@ source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
+## autocompletion for lf:
+fpath=(/home/m/.config/lf $fpath)
+
 #                             
 #   __|  _ \  __ `__ \  __ \  
 #  (    (   | |   |   | |   | 
@@ -419,4 +480,3 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' force-list always
 zstyle ':completion:*:processes' command "ps -au${USER}"
 zstyle ':completion:*:sudo:*' command-path /bin /usr/bin /usr/local/bin /home/m/bin /sbin /usr/sbin /usr/local/sbin /usr/games /usr/local/games
-

@@ -53,7 +53,7 @@ URxvt*scrollTtyKeypress: true
 URxvt*secondaryScroll: false
 URxvt*secondaryWheel: true
 !URxvt*scrollStyle:rxvt
-URxvt*scrollBar: false
+URxvt*scrollBar: true
 URxvt*scrollBar_right: true
 URxvt*scrollBar_floating: true
 URxvt*scrollColor: darkgrey
@@ -98,7 +98,7 @@ URxvt*geometry: 400x400
 ! URxvt*fading: 30
 URxvt*transparent: true
 !! shading; 0 to 99 darkens, 101 to 200 lightens:
-URxvt*shading: 10
+URxvt*shading: 20
 URxvt*buffered: true
 
 !! real transparency:
@@ -171,28 +171,50 @@ URxvt*pointerColor2: magenta
 !
 
 !!*.termName: xterm-256color
-*.vt100.locale: false
-*.vt100.utf8: true
-*.vt100.metaSendsEscape: true
-*.vt100.backarrowKey: false
-*.ttyModes: erase ^?
-*.vt100.saveLines: 4096
-*.vt100.scrollBar: false
-*.vt100.scrollbar.width: 8
-*.vt100.geometry: 80x32
-*.vt100.faceName: DejaVuSansMono Nerd Font:size=12:antialias=true
-*.vt100.boldFont: DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold
-*.vt100.transparent: true
-*.vt100.foreground: Linen
-*.vt100.background: Black
-*.vt100.cursorColor: Magenta
-*.vt100.cursorColor2: Magenta
-! *.vt100.color0:  rgb:28/2a/2b
-*vt100.veryBoldColors: 6
-*VT100.colorBDMode: true
-*VT100.colorBD: Red
-*VT100.colorULMode: true
-*VT100.colorUL: Cyan
+xterm*locale: false
+xterm*utf8: true
+xterm*metaSendsEscape: true
+xterm*backarrowKey: false
+xterm*ttyModes: erase ^?
+xterm*saveLines: 4096
+xterm*scrollBar: false
+xterm*scrollbar.width: 8
+xterm*geometry: 80x32
+xterm*faceName: xft:DejaVuSansMono Nerd Font:size=12:antialias=true,\
+            xft: Bitstream Vera Sans Mono:size=12
+xterm*boldFont: xft:DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold,\
+                xft: Bitstream Vera Sans Mono:size=12:style=Bold
+!xterm*faceName: xft:DejaVuSansMono Nerd Font:size=12:antialias=true
+!xterm*boldFont: xft:DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold
+xterm*transparent: true
+xterm*foreground: Linen
+xterm*background: Black
+xterm*cursorColor: Magenta
+xterm*cursorColor2: Magenta
+! xterm*color0:  rgb:28/2a/2b
+xterm*veryBoldColors: 6
+! xterm*colorBDMode: true
+! xterm*colorBD: Red
+! xterm*colorULMode: true
+! xterm*colorUL: Cyan
+
+xterm*color0: Black
+xterm*color1: DarkRed
+xterm*color2: SeaGreen
+xterm*color3: GoldenRod
+xterm*color4: SteelBlue
+xterm*color5: DarkMagenta
+xterm*color6: LightSeaGreen
+xterm*color7: BlanchedAlmond
+xterm*color8: DimGrey
+xterm*color9: Crimson
+xterm*color10: DarkSeaGreen
+xterm*color11: DarkOrange
+xterm*color12: DeepSkyBlue
+xterm*color13: Magenta
+xterm*color14: DarkTurquoise
+xterm*color15: Seashell
+xterm*color16: BlanchedAlmond
 
 !           _)          
 !  __ `__ \  |  __|  __|
