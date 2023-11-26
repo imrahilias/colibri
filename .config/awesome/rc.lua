@@ -94,8 +94,8 @@ globalkeys = gears.table.join(
    
    -- awesome:
    awful.key({ modkey, "Shift" }, "q", awesome.restart),
-   awful.key({ modkey, "Shift", "Control" }, "q", awesome.quit),
-
+   awful.key({ modkey, "Control" }, "q", awesome.quit),
+     
    -- machi:
    awful.key({ modkey }, ".", function () machi.default_editor.start_interactive() end),
    awful.key({ modkey }, "/", function () machi.switcher.start(client.focus) end),
@@ -189,17 +189,20 @@ globalkeys = gears.table.join(
    end),
    
    -- launch:
+   awful.key({ modkey, "Shift", "Control"}, "q", function () awful.spawn("sudo systemctl suspend") end),
    awful.key({ modkey }, "Return", function () awful.spawn(terminal) end),
    -- awful.key({ modkey, "Shift", "Control" }, "Return", function () awful.spawn("urxvtc -title admin2 -e 2") end),
    -- awful.key({ modkey, "Shift"}, "Return", function () awful.spawn("urxvtc -title master1 -e 1") end),
-   awful.key({ modkey }, "d", function () awful.spawn.with_shell("urxvtc -title Waldläufer -e lf -config /home/m/.config/lf/lfrc", false) end),
-   awful.key({ modkey, "Shift" }, "d", function () awful.spawn.with_shell("urxvtc -title Waldläufer -e sudo lf -config /home/m/.config/lf/lfrc", false) end),
-   awful.key({ modkey, "Shift", "Control" }, "d", function () awful.spawn("sudo thunar", false) end),
+   awful.key({ modkey }, "d", function () awful.spawn.with_shell("urxvtc -title Waldläufer -e /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc", false) end),
+   awful.key({ modkey, "Shift", "Control" }, "d", function () awful.spawn.with_shell("urxvtc -title Waldläufer -e sudo /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc", false) end),
+   --awful.key({ modkey, "Shift", "Control" }, "d", function () awful.spawn("sudo thunar", false) end),
    awful.key({ modkey }, "e", function () awful.spawn("emacsclient -ca ''", false) end),
    awful.key({ modkey, "Shift" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_cromium") end),
    awful.key({ modkey, "Control" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_google_translate") end),
    awful.key({ modkey, "Shift", "Control" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_thesaurus") end),
    awful.key({ modkey, "Shift" }, "z", function () awful.spawn("/home/m/bin/open_primary_selection_as_qr_code") end),
+   awful.key({ modkey, "Shift" }, "e", function () awful.spawn("/home/m/bin/open_primary_selection_in_emacs") end),
+   awful.key({ modkey, "Shift" }, "d", function () awful.spawn("/home/m/bin/open_primary_selection_in_lf") end),
    awful.key({ modkey, "Shift" }, "t", function () awful.spawn("urxvtc -e rtorrent") end),
    awful.key({ modkey }, "g", function () awful.spawn("urxvtc -e htop") end),
    awful.key({ modkey, "Shift" }, "g", function () awful.spawn("urxvtc -e top") end),

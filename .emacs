@@ -106,6 +106,9 @@ There are two things you can do about this warning:
 ;;(setq highlight-current-line-whole-line nil)
 ;;(setq hl-line-face (quote highlight))
 
+
+
+
 ;; opacity:
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> . <inactive>))
 ;;(set-frame-parameter (selected-frame) 'alpha <both>)
@@ -191,9 +194,11 @@ There are two things you can do about this warning:
 ;;(display-time)
 
 ;; fonts:
-;;(set-frame-font "Bitstream Vera Sans Mono Roman" nil t)
-;;(set-frame-font "Inconsolata 12" nil t)
-(set-face-attribute 'default nil :height 120)
+;;(set-face-attribute 'default nil :family "DejaVu Nerd Font Mono")
+;;(set-face-attribute 'default nil :height (* 12 10))
+(set-face-attribute 'default nil :family "BitstromWera Nerd Font")
+(set-face-attribute 'default nil :height (* 12 10))
+
 
 ;; window modifications
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)

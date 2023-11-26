@@ -1,0 +1,393 @@
+#!/bin/false
+# lf config
+
+#              |  _)                  
+#   _ \  __ \  __| |  _ \  __ \   __| 
+#  (   | |   | |   | (   | |   |\__ \ 
+# \___/  .__/ \__|_|\___/ _|  _|____/ 
+#       _|                            
+
+# Interpreter for shell commands
+set shell sh
+
+# Set '-eu' options for shell commands
+# These options are used to have safer shell commands. Option '-e' is used to
+# exit on error and option '-u' is used to give error for unset variables.
+# Option '-f' disables pathname expansion which can be useful when $f, $fs, and
+# $fx variables contain names with '*' or '?' characters. However, this option
+# is used selectively within individual commands as it can be limiting at
+# times.
+set shellopts '-eu'
+
+# Set internal field separator (IFS) to "\n" for shell commands
+# This is useful to automatically split file names in $fs and $fx properly
+# since default file separator used in these variables (i.e. 'filesep' option)
+# is newline. You need to consider the values of these options and create your
+# commands accordingly.
+set ifs "\n"
+
+# leave some space at the top and the bottom of the screen
+set scrolloff 10
+
+# Use the `dim` attribute instead of underline for the cursor in the preview pane
+set cursorpreviewfmt "\033[7;2m"
+
+# When this option is enabled, search command patterns are considered as globs,
+# otherwise they are literals. With globbing, '*' matches any sequence, '?'
+# matches any character, and '[...]' or '[^...]' matches character sets or
+# ranges. Otherwise, these characters are interpreted as they are.
+# Collides with 'incfilter'/'incsearch'.
+#set globsearch true
+
+# List of hidden file glob patterns. Patterns can be given as relative or
+# absolute paths. To add multiple patterns, use ':' as a separator.
+set hiddenfiles ".*:*~:*#:*.bak"
+
+# Jump to the first match after each keystroke during searching.
+set incsearch true
+
+# Apply filter pattern after each keystroke during filtering.
+set incfilter true
+
+# Previewer script: Either a very simple shell script covering some
+# archives, and highlighting text files "preview.sh", or the very
+# extensive "scope.sh" from ranger, covering many extensions but
+# depending on many programs.
+# simple:
+# set previewer "~/.config/lf/preview.sh"
+# ranger:
+#set previewer "~/.config/lf/scope.sh"
+# wrapper:
+#set previewer "~/.config/lf/scope-lf-wrapper.sh"
+
+## images
+set cleaner "~/.config/lf/cleaner.sh"
+set previewer "~/.config/lf/scope_ub.sh"
+
+# icons:
+#curl https://raw.githubusercontent.com/gokcehan/lf/master/etc/icons.example -o ~/.config/lf/icons
+set icons true
+
+set ratios "1:2:3"
+
+
+#                                                 |      
+#   __|  _ \  __ `__ \  __ `__ \   _` | __ \   _` |  __| 
+#  (    (   | |   |   | |   |   | (   | |   | (   |\__ \ 
+# \___|\___/ _|  _|  _|_|  _|  _|\__,_|_|  _|\__,_|____/ 
+#                                                        
+
+# Custom 'open' command
+# This command is called when current file is not a directory. You may want to
+# use either file extensions and/or mime types here. Below uses an editor for
+# text files and a file opener for the rest.
+
+# # Custom 'open' command, in background to prevent flicker.
+# cmd open &{{
+#     test -L $fx && f=$(readlink -f $fx)
+#     case $(file --mime-type -Lb $f) in
+#         text/*|inode/x-empty) $lf -remote "send $id \$nvim -O \$fx";;
+#         *) $lf -remote "send $id openwith \$fx";;
+#     esac
+# }}
+
+cmd open &{{
+     test -L $fx && f=$(readlink -f $fx)
+     $lf -remote "send $id \$rifle -p 0 \$fx"
+}}
+
+cmd openwith ${{
+    clear
+    set -f
+    rifle -l $fx | sed -e "s/:[a-Z]*:[a-Z]*:/ \| /"
+    read -p "open with: " method
+    rifle -p $method $fx
+}}
+
+# Custom 'chmod' command:
+# Prompt in lf '%' but oen in shell '$' via remote.
+cmd chmod %{{
+    test -L $fx && f=$(readlink -f $fx)
+    read -p "chmod " ans
+    $lf -remote "send $id \$chmod $ans \$fx"
+    $lf -remote "send reload"
+}}
+
+# Custom 'chown' command:
+# Prompt in lf dd'%' but oen in shell '$' via remote.
+cmd chown %{{
+    test -L $fx && f=$(readlink -f $fx)
+    read -p "chown " ans
+    $lf -remote "send $id \$chown $ans \$fx"
+    $lf -remote "send reload"
+}}
+
+# define a custom 'rename' command without prompt for overwrite
+# cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
+# map r push :rename<space>
+
+# extract the current file with the right command
+# (xkcd link: https://xkcd.com/1168/)
+cmd extract ${{
+    set -f
+    case $f in
+        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
+        *.tar.gz|*.tgz) tar xzvf $f;;
+        *.tar.xz|*.txz) tar xJvf $f;;
+        *.zip) unzip $f;;
+        *.rar) unrar x $f;;
+        *.7z) 7z x $f;;
+    esac
+}}
+
+# compress current file or selected files with tar and gunzip
+cmd tar ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    tar czf $1.tar.gz $1
+    rm -rf $1
+}}
+
+# compress current file or selected files with zip
+cmd zip ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    zip -r $1.zip $1
+    rm -rf $1
+}}
+
+cmd moveto ${{
+	clear; tput cup $(($(tput lines)/3)); tput bold
+	set -f
+	clear; echo "Move to where?"
+	dest="$(fzf)" &&
+	for x in $fx; do
+		eval mv -iv \"$x\" \"$dest\"
+	done
+}}
+
+cmd copyto ${{
+	clear; tput cup $(($(tput lines)/3)); tput bold
+	set -f
+	clear; echo "Copy to where?"
+	dest="$(fzf)" &&
+	for x in $fx; do
+		eval cp -ivr \"$x\" \"$dest\"
+	done
+}}
+
+cmd bulkrename ${{
+    tmpfile_old="$(mktemp)"
+    tmpfile_new="$(mktemp)"
+
+    [ -n "$fs" ] && fs=$(basename -a $fs) || fs=$(ls)
+
+    echo "$fs" > "$tmpfile_old"
+    echo "$fs" > "$tmpfile_new"
+    $EDITOR "$tmpfile_new"
+
+    [ "$(wc -l < "$tmpfile_old")" -eq "$(wc -l < "$tmpfile_new")" ] || { rm -f "$tmpfile_old" "$tmpfile_new"; exit 1; }
+
+    paste "$tmpfile_old" "$tmpfile_new" | while IFS="$(printf '\t')" read -r src dst
+    do
+        [ "$src" = "$dst" ] || [ -e "$dst" ] || mv -- "$src" "$dst"
+    done
+
+    rm -f "$tmpfile_old" "$tmpfile_new"
+    lf -remote "send $id unselect"
+}}
+
+
+# git info:
+cmd on-cd &{{
+    bash -c '
+    # display git repository status in your prompt
+    source /usr/share/git/completion/git-prompt.sh
+    GIT_PS1_SHOWDIRTYSTATE=auto
+    GIT_PS1_SHOWSTASHSTATE=auto
+    GIT_PS1_SHOWUNTRACKEDFILES=auto
+    GIT_PS1_SHOWUPSTREAM=auto
+    git=$(__git_ps1 " (%s)")
+    #fmt="\033[32;1m%u@%h\033[0m:\033[34;1m%d\033[0m\033[1m%f$git\033[0m"
+    fmt="\033[0m\033[1m%d%f$git\033[0m"
+    lf -remote "send $id set promptfmt \"$fmt\""
+    '
+}}
+
+# show config:
+cmd key ${{
+    $PAGER ~/.config/lf/lfrc
+}}
+
+# doc
+cmd doc $$lf -doc | $PAGER
+
+#                                  
+#  __ `__ \   _ \  |   |  __|  _ \ 
+#  |   |   | (   | |   |\__ \  __/ 
+# _|  _|  _|\___/ \__,_|____/\___| 
+#                                  
+
+# If the 'mouse' option is enabled, mouse buttons have the following default effects:
+# Left mouse button
+#    Click on a file or directory to select it.
+# Right mouse button
+#    Enter a directory or open a file. Also works on the preview window.
+# Scroll wheel
+#    Move up or down. If Ctrl is pressed, scroll up or down.
+set mouse true
+
+## enter on middle click: good at vsc, bad at home...
+map <m-3> :push <right>
+#map <m-3> :toggle; down
+map <b-8> :push <left>
+map <b-9> :push <right>
+
+#  |                    
+#  |  /  _ \ |   |  __| 
+#    <   __/ |   |\__ \ 
+# _|\_\\___|\__, |____/ 
+#            ____/       
+
+# the following additional keybindings are provided by default,
+# unset predefined map by leaving it empty:
+
+map <space> :toggle; down
+
+map <a-right> :push <right>
+map <a-left> :push <left>
+
+map <backspace2>
+
+#map <enter> shell
+map <enter> :cmd-enter; open
+
+map <f-1> doc
+
+## show the result of execution of previous commands:
+map ` !true
+
+map , push :glob-select<space>
+
+map . set hidden!
+
+map a rename
+map A push %mkdir<space>
+
+map b
+map ba $git add $fx
+map bA $git add -f $fx
+map bc push !git<space>commit<space>-m<space>'
+map bd !git diff --color=always $fx
+map bD !git diff --color=always
+map be $git restore $fx
+map bE $git restore --cached $fx
+map bl !git pull
+map bo push $git<space>checkout<space>
+map bp !git push
+map br $git reset $fx
+map bR $git reset
+map bs !git -c color.status=always status
+map bt $tig
+map bu $git add -u
+map bx $git rm $fx
+map bX $git rm --cached $fx
+
+map B
+map Ba $git --git-dir=$HOME/.dotfiles --work-tree=$HOME add $fx
+map BA $git --git-dir=$HOME/.dotfiles --work-tree=$HOME add -f $fx
+map Bc push !git<space>--git-dir=$HOME/.dotfiles<space>--work-tree=$HOME<space>commit<space>-m<space>'
+map Bd !git --git-dir=$HOME/.dotfiles --work-tree=$HOME diff --color=always $fx
+map BD !git --git-dir=$HOME/.dotfiles --work-tree=$HOME diff --color=always
+map Be $git --git-dir=$HOME/.dotfiles --work-tree=$HOME restore $fx
+map BE $git --git-dir=$HOME/.dotfiles --work-tree=$HOME restore --cached $fx
+map Bl !git --git-dir=$HOME/.dotfiles --work-tree=$HOME pull
+map Bo push $git<space>--git-dir=$HOME/.dotfiles<space>--work-tree=$HOME<space>checkout<space>
+map Bp !git --git-dir=$HOME/.dotfiles --work-tree=$HOME push
+map Br $git --git-dir=$HOME/.dotfiles --work-tree=$HOME reset $fx
+map BR $git --git-dir=$HOME/.dotfiles --work-tree=$HOME reset
+map Bs !git --git-dir=$HOME/.dotfiles --work-tree=$HOME -c color.status=always status
+map Bu $git --git-dir=$HOME/.dotfiles --work-tree=$HOME add -u
+map Bx $git --git-dir=$HOME/.dotfiles --work-tree=$HOME rm $fx
+map BX $git --git-dir=$HOME/.dotfiles --work-tree=$HOME rm --cached $fx
+
+map D delete
+
+map e
+map ea !beautify_all
+map eb %beautify $fx
+#map ed $diff --color=always -u $fx | less -R
+map ed $diff -u $fx | diff-so-fancy | less -R
+#map ee $emacsclient -ca ''
+#map ee $emacs $fx
+#map ee push $emacs<space>
+map ee push $emacsclient<space>-ca<space>''<space>
+map ef !time gfortran -Og -Wall -fimplicit-none -fcheck=all -fbacktrace $fx
+map eg !gnuplot $fx
+map ep !adb push $fx storage/self/primary/
+map er !rmtmp
+#map eu !du -h --apparent-size | sort -rh
+map ew !dwdiff --less-mode --color $fx
+map ex !time ./$fs
+
+map f filter
+map F setfilter # empty filter
+
+map g/ cd /
+map gc cd ~/.config
+map gd cd /dev
+map ge cd /etc
+map gg cd ~
+map gl cd ~/.config/lf
+map gm cd /mnt
+map go cd /opt
+#map gs cd /opt/sw
+map gt cd /tmp
+map gu cd /usr
+map gv cd /mnt/vsc
+
+#map i $LESSOPEN='| ~/.config/lf/preview.sh %s' less -R $fx
+map i $LESSOPEN='| ~/.config/lf/scope-lf-wrapper.sh %s' less -R $fx
+
+map m chmod
+map M chown
+
+map o push $<space><space>$fx<left><left><left><left>
+
+map q ${{ $SHELL }}
+map Q quit
+
+map r openwith
+
+map sa :set sortby atime; set info atime; set reverse true
+map sc :set sortby ctime; set info ctime; set reverse true
+map se :set sortby ext; set info; set reverse true
+map sn :set sortby natural; set info; set reverse true
+map ss :set sortby size; set info size; set reverse true
+map st :set sortby time; set info time; set reverse true
+
+map T $top
+
+map u :unselect; glob-unselect; setfilter; clear
+
+map w $htop
+
+## execute current file (must be executable),
+## w/o show output in pager and wait:
+map x $$f
+map X !$f
+
+## copy selected file names, because no clipboard in terminal:
+map Yn $printf "%s" "$fx" | xclip -selection clipboard
+
+map za set info size:time
+map zc set info
+map zh set hidden!
+map zl :set number false; set relativenumber!
+map zi set icons!
+map zn :set relativenumber false; set number!
+map zr set reverse!
+map zs set info size
+map zt set info time

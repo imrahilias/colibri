@@ -23,6 +23,7 @@ Xft.hintstyle: hintfull
 Xft.lcdfilter: lcddefault
 Xft.rgba: rgb
 
+
 !                          |  
 !  |   |  __|\ \  /\ \   / __|
 !  |   | |    `  <  \ \ /  |  
@@ -36,10 +37,12 @@ URxvt*loginshell: true
 URxvt*saveLines: 10000
 URxvt*pointerblank: true
 URxvt*letterSpace: 0
-URxvt*font: xft:DejaVuSansMono Nerd Font:size=12:antialias=true,\
-            xft: Bitstream Vera Sans Mono:size=12
-URxvt*boldFont: xft:DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold,\
-                xft: Bitstream Vera Sans Mono:size=12:style=Bold
+URxvt*font: xft: BitstromWera Nerd Font:style=Regular:size=12
+URxvt*boldFont: xft: BitstromWera Nerd Font:style=Bold:size=12
+!URxvt*font: xft:DejaVuSansMono Nerd Font:size=12:antialias=true,\
+!            xft: Bitstream Vera Sans Mono:size=12
+!URxvt*boldFont: xft:DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold,\
+!                xft: Bitstream Vera Sans Mono:size=12:style=Bold
 URxvt.intensityStyles: false
 URxvt*secondaryScreen: true
 

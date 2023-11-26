@@ -1,0 +1,317 @@
+#!/bin/false
+# lf config
+
+#              |  _)                  
+#   _ \  __ \  __| |  _ \  __ \   __| 
+#  (   | |   | |   | (   | |   |\__ \ 
+# \___/  .__/ \__|_|\___/ _|  _|____/ 
+#       _|                            
+
+# Interpreter for shell commands
+set shell sh
+
+# Set '-eu' options for shell commands
+# These options are used to have safer shell commands. Option '-e' is used to
+# exit on error and option '-u' is used to give error for unset variables.
+# Option '-f' disables pathname expansion which can be useful when $f, $fs, and
+# $fx variables contain names with '*' or '?' characters. However, this option
+# is used selectively within individual commands as it can be limiting at
+# times.
+set shellopts '-eu'
+
+# Set internal field separator (IFS) to "\n" for shell commands
+# This is useful to automatically split file names in $fs and $fx properly
+# since default file separator used in these variables (i.e. 'filesep' option)
+# is newline. You need to consider the values of these options and create your
+# commands accordingly.
+set ifs "\n"
+
+# leave some space at the top and the bottom of the screen
+set scrolloff 10
+
+# Use the `dim` attribute instead of underline for the cursor in the preview pane
+set cursorpreviewfmt "\033[7;2m"
+
+# When this option is enabled, search command patterns are considered as globs,
+# otherwise they are literals. With globbing, '*' matches any sequence, '?'
+# matches any character, and '[...]' or '[^...]' matches character sets or
+# ranges. Otherwise, these characters are interpreted as they are.
+# Collides with 'incfilter'/'incsearch'.
+#set globsearch true
+
+# List of hidden file glob patterns. Patterns can be given as relative or
+# absolute paths. To add multiple patterns, use ':' as a separator.
+set hiddenfiles '.*:*~:*#'
+
+# Jump to the first match after each keystroke during searching.
+set incsearch true
+
+# Apply filter pattern after each keystroke during filtering.
+set incfilter true
+
+# Previewer script: Either a very simple shell script covering some
+# archives, and highlighting text files (preview.sh) or the very
+# extensive "scope.sh" from ranger, covering many extensions but
+# depending on many programs.
+set previewer "/opt/sw/vsc4/VSC/x86_64/generic/lf/preview.sh"
+#set previewer "/opt/sw/vsc4/VSC/x86_64/generic/lf/scope.sh"
+
+#                                                 |      
+#   __|  _ \  __ `__ \  __ `__ \   _` | __ \   _` |  __| 
+#  (    (   | |   |   | |   |   | (   | |   | (   |\__ \ 
+# \___|\___/ _|  _|  _|_|  _|  _|\__,_|_|  _|\__,_|____/ 
+#                                                        
+
+# Custom 'open' command
+# This command is called when current file is not a directory. You may want to
+# use either file extensions and/or mime types here. Below uses an editor for
+# text files and a file opener for the rest.
+
+# Custom 'open' command, in background to prevent flicker.
+cmd open &{{
+    test -L $fx && f=$(readlink -f $fx)
+    case $(file --mime-type -Lb $f) in
+        text/*|inode/x-empty) $lf -remote "send $id \$vim -O \$fx";;
+        *) $lf -remote "send $id openwith \$fx";;
+    esac
+}}
+
+# Custom 'chmod' command:
+# Prompt in lf '%' but oen in shell '$' via remote.
+cmd chmod %{{
+    test -L $fx && f=$(readlink -f $fx)
+    read -p "chmod " ans
+    $lf -remote "send $id \$chmod $ans \$fx"
+    $lf -remote "send reload"
+}}
+
+# Custom 'chown' command:
+# Prompt in lf dd'%' but oen in shell '$' via remote.
+cmd chown %{{
+    test -L $fx && f=$(readlink -f $fx)
+    read -p "chown " ans
+    $lf -remote "send $id \$chown $ans \$fx"
+    $lf -remote "send reload"
+}}
+
+# define a custom 'rename' command without prompt for overwrite
+# cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
+# map r push :rename<space>
+
+# extract the current file with the right command
+# (xkcd link: https://xkcd.com/1168/)
+cmd extract ${{
+    set -f
+    case $f in
+        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
+        *.tar.gz|*.tgz) tar xzvf $f;;
+        *.tar.xz|*.txz) tar xJvf $f;;
+        *.zip) unzip $f;;
+        *.rar) unrar x $f;;
+        *.7z) 7z x $f;;
+    esac
+}}
+
+# compress current file or selected files with tar and gunzip
+cmd tar ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    tar czf $1.tar.gz $1
+    rm -rf $1
+}}
+
+# compress current file or selected files with zip
+cmd zip ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    zip -r $1.zip $1
+    rm -rf $1
+}}
+
+# # git info:
+# cmd on-cd &{{
+#     # display git repository status in your prompt
+#     source /usr/share/git-core/contrib/completion/git-prompt.sh
+# GIT_PS1_SHOWDIRTYSTATE=auto
+#     GIT_PS1_SHOWSTASHSTATE=auto
+#     GIT_PS1_SHOWUNTRACKEDFILES=auto
+#     GIT_PS1_SHOWUPSTREAM=auto
+#     git=$(__git_ps1 " (%s)") || true
+#     fmt="\033[32;1m%u@%h\033[0m:\033[34;1m%d\033[0m\033[1m%f$git\033[0m"
+#     $lf -remote "send $id set promptfmt \"$fmt\""
+# }}
+
+# git info:
+cmd on-cd &{{
+    bash -c '
+    # display git repository status in your prompt
+    source /usr/share/git/completion/git-prompt.sh
+    GIT_PS1_SHOWDIRTYSTATE=auto
+    GIT_PS1_SHOWSTASHSTATE=auto
+    GIT_PS1_SHOWUNTRACKEDFILES=auto
+    GIT_PS1_SHOWUPSTREAM=auto
+    git=$(__git_ps1 " (%s)")
+    #fmt="\033[32;1m%u@%h\033[0m:\033[34;1m%d\033[0m\033[1m%f$git\033[0m"
+    fmt="\033[0m\033[1m%d%f$git\033[0m"
+    lf -remote "send $id set promptfmt \"$fmt\""
+    '
+}}
+
+# show config:
+cmd key ${{
+    $PAGER /opt/sw/vsc4/VSC/x86_64/generic/lf/lfrc
+}}
+
+# doc:
+cmd doc $$lf -doc | $PAGER
+
+#                                  
+#  __ `__ \   _ \  |   |  __|  _ \ 
+#  |   |   | (   | |   |\__ \  __/ 
+# _|  _|  _|\___/ \__,_|____/\___| 
+#                                  
+
+# If the 'mouse' option is enabled, mouse buttons have the following default effects:
+# Left mouse button
+#    Click on a file or directory to select it.
+# Right mouse button
+#    Enter a directory or open a file. Also works on the preview window.
+# Scroll wheel
+#    Move up or down. If Ctrl is pressed, scroll up or down.
+set mouse true
+
+## enter on middle click: good at vsc, bad at home...
+map <m-3> :cmd-enter; open
+#map <m-3> :toggle; down
+
+
+#  |                    
+#  |  /  _ \ |   |  __| 
+#    <   __/ |   |\__ \ 
+# _|\_\\___|\__, |____/ 
+#            ____/       
+
+# the following additional keybindings are provided by default,
+# unset predefined map by leaving it empty:
+
+map <space> :toggle; down
+
+#map <a-right> :push <right>
+#map <a-left> :push <left>
+
+map <backspace2>
+
+#map <enter> shell
+map <enter> :cmd-enter; open
+
+map <f-1> doc
+
+## show the result of execution of previous commands:
+map ` !true
+
+map , push :glob-select<space>
+
+map . set hidden!
+
+map a rename
+map A push %mkdir<space>
+
+map b
+map ba $git add $fx
+map bA $git add -f $fx
+map bc push !git<space>commit<space>-m<space>'
+map bd !git diff --color=always $fx
+map bD !git diff --color=always
+map be $git restore $fx
+map bE $git restore --cached $fx
+map bl !git pull
+map bo push $git<space>checkout<space>
+map bp !git push
+map br $git reset $fx
+map bR $git reset
+map bs !git -c color.status=always status
+map bt $tig
+map bu $git add -u
+map bx $git rm $fx
+map bX $git rm --cached $fx
+
+map B
+
+map D delete
+
+map e
+#map ea !beautify_all
+#map eb %beautify $fx
+map ed $diff --color=always -u $fx | less -R
+#map ed $diff -u $fx | diff-so-fancy | less -R
+#map ee $emacsclient -ca ''
+#map ee $emacs $fx
+map ee push $emacs<space>
+map ef !time gfortran -Og -Wall -fimplicit-none -fcheck=all -fbacktrace $fx
+map eg !gnuplot $fx
+map ep !adb push $fx storage/self/primary/
+map er !rmtmp
+#map eu !du -h --apparent-size | sort -rh
+#map ew !dwdiff --less-mode --color $fx
+map ex !time ./$fs
+
+map f filter
+map F setfilter # empty filter
+
+map g/ cd /
+map ga cd /opt/adm
+map gb cd /bin
+map ge cd /etc
+map gg cd ~
+map gh cd /home
+map gm cd /home/fs60000/msiegel
+map go cd /opt
+map gs cd /opt/sw
+map gt cd /tmp
+map gu cd /usr
+
+#map i $LESSOPEN='| ~/opt/sw/vsc4/VSC/x86_64/generic/lf/preview.sh %s' less -R $fx
+#map i $LESSOPEN='| ~/opt/sw/vsc4/VSC/x86_64/generic/lf/scopew.sh %s' less -R $fx
+map i $LESSOPEN='| ~/opt/sw/vsc4/VSC/x86_64/generic/lf/scope-lf-wrapper.sh %s' less -R $fx
+#map i $$PAGER $fx
+
+map m chmod
+map M chown
+
+map o push $<space><space>$fx<left><left><left><left>
+
+map r
+
+map sa : set sortby atime; set info atime; set reverse true
+map sc : set sortby ctime; set info ctime; set reverse true
+map se : set sortby ext; set info; set reverse true
+map sn : set sortby natural; set info; set reverse true
+map ss : set sortby size; set info size; set reverse true
+map st : set sortby time; set info time; set reverse true
+
+map T $htop
+
+map u :unselect; glob-unselect; setfilter; clear
+
+## unset predefined map by leaving it empty:
+map w
+
+## execute current file (must be executable),
+## w/o show output in pager and wait:
+map x $$f
+map X !$f
+
+## copy selected file names, because no clipboard in terminal:
+map Yn !echo $fx
+
+map za set info size:time
+map zc set info
+map zh set hidden!
+map zl :set number false; set relativenumber!
+map zi set icons!
+map zn :set relativenumber false; set number!
+map zr set reverse!
+map zs set info size
+map zt set info time

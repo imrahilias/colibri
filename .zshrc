@@ -13,6 +13,11 @@ do
     esac
 done
 
+## sourcing "/home/m/.config/lf" stuff appearently raises "insecure
+## directories" for compinit otherwise:
+ZSH_DISABLE_COMPFIX="true"
+
+
 #                                  |   
 #  __ \   __| _ \  __ `__ \  __ \  __| 
 #  |   | |   (   | |   |   | |   | |   
@@ -27,8 +32,8 @@ zstyle ':vcs_info:git:*' check-for-staged-changes true
 zstyle ':vcs_info:*' unstagedstr '%B%F{red}*%f%b '
 zstyle ':vcs_info:*' stagedstr '%B%F{blue}+%f%b '
 zstyle ':vcs_info:*' formats "%F{magenta}%b%f %u%c"
-zstyle ':vcs_info:git:*' actionformats '(%b|%a%u%c)'s
-PROMPT='%B%(#.%F{red}%~%f%b.%F{white})%40<.../<%~%f%b ${vcs_info_msg_0_}'
+zstyle ':vcs_info:git:*' actionformats '(%b|%a%u%c)'
+PROMPT='%B%(#.%F{red}%~%f%b.%F{white}%40<.../<%~%f%b) ${vcs_info_msg_0_}'
 RPROMPT='%F{magenta}%D{%H%M}%f'
 
 
@@ -352,7 +357,8 @@ lf () {
     tmp="$(mktemp)"
     # pre-built binary, make sure to use absolute path:
     #/opt/sw/lf/bin/lf -config /opt/sw/lf/bin/lfrc -last-dir-path="$tmp" "$@"
-    command lf -last-dir-path="$tmp" "$@"
+    #command lf -last-dir-path="$tmp" "$@"
+    
     if [ -f "$tmp" ]; then
         dir="$(cat "$tmp")"
         rm -f "$tmp"
@@ -364,12 +370,19 @@ lf () {
     fi
 }
 
+## ueberzug:
+alias lf="~/.config/lf/lfub"
+
+# ## lf() will fire for 'Ctrl+D':
+autoload -U lf # embedded in zshrc
+bindkey -s '^D' "\eq lf\n"
+
 
 #   _ \ __ \\ \   / 
 #   __/ |   |\ \ /  
 # \___|_|  _| \_/   
 
-export EDITOR='emacsclient -c -a ""'
+export EDITOR='emacs'
 export PATH='/home/m/bin:/home/m/vscloud/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:/usr/games:/usr/local/games:/opt'
 #PATH+=/scripts # hängt zur $path eben was an...
 #export QT_QPA_PLATFORMTHEME='qt5ct' # qt5 gtk blending
