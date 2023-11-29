@@ -544,9 +544,11 @@ awful.rules.rules = {
    -- internet
    { rule_any = {
         class = {
-           "Google-chrome",
            "chromium",
-           "Firefox",
+           "firefox",
+           "Navigator",
+           "google-chrome",
+           "Google-chrome",
    }}, properties = { tag = "⚡", switchtotag = true }},
    
    -- code
@@ -588,6 +590,8 @@ awful.rules.rules = {
            "Vlc",
            "Mplayer",
            "Mpv",
+           "mpv",
+           "gl",
         },
         name = {
            "ncmpcpp 0.8.2",
@@ -690,7 +694,7 @@ awful.screen.connect_for_each_screen(
       set_wallpaper(s)
       
       -- each screen has its own tag table:
-      -- working: ↯🎵♫♞♟♤♡♢♧⚛✫♻✇🌒🌖🌑🌒🌓🌔🌕🌖🌗🌘
+      -- working: ↯🎵♫♞♟♤♡♢♧⚛✫♻✇🌒🌖🌑🌒🌓🌔🌕🌖🌗🌘⚡
       awful.tag({ "∅", "⚡", "$", "⛁", "≣", "♬", "⏾", "@", "✆","♞", "♠", "♥", "♦", "♣" }, s, awful.layout.layouts[1])
       
       -- create a promptbox for each screen:

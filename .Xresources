@@ -37,13 +37,13 @@ URxvt*loginshell: true
 URxvt*saveLines: 10000
 URxvt*pointerblank: true
 URxvt*letterSpace: 0
-URxvt*font: xft: BitstromWera Nerd Font:style=Regular:size=12
-URxvt*boldFont: xft: BitstromWera Nerd Font:style=Bold:size=12
+URxvt*font: xft:BitstromWera Nerd Font Mono:size=12:antialias=true
+URxvt*boldFont: xft:BitstromWera Nerd Font Mono:style=Bold:size=12:antialias=true
 !URxvt*font: xft:DejaVuSansMono Nerd Font:size=12:antialias=true,\
 !            xft: Bitstream Vera Sans Mono:size=12
 !URxvt*boldFont: xft:DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold,\
 !                xft: Bitstream Vera Sans Mono:size=12:style=Bold
-URxvt.intensityStyles: false
+URxvt*intensityStyles: false
 URxvt*secondaryScreen: true
 
 !! SCROLLING
@@ -183,10 +183,12 @@ xterm*saveLines: 4096
 xterm*scrollBar: false
 xterm*scrollbar.width: 8
 xterm*geometry: 80x32
-xterm*faceName: xft:DejaVuSansMono Nerd Font:size=12:antialias=true,\
-            xft: Bitstream Vera Sans Mono:size=12
-xterm*boldFont: xft:DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold,\
-                xft: Bitstream Vera Sans Mono:size=12:style=Bold
+xterm*faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true
+xterm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true:style=Bold
+! xterm*faceName: xft:DejaVuSansMono Nerd Font:size=12:antialias=true,\
+!             xft: Bitstream Vera Sans Mono:size=12
+! xterm*boldFont: xft:DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold,\
+!                 xft: Bitstream Vera Sans Mono:size=12:style=Bold
 !xterm*faceName: xft:DejaVuSansMono Nerd Font:size=12:antialias=true
 !xterm*boldFont: xft:DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold
 xterm*transparent: true

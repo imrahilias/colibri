@@ -56,13 +56,19 @@ set incfilter true
 # simple:
 # set previewer "~/.config/lf/preview.sh"
 # ranger:
-#set previewer "~/.config/lf/scope.sh"
-# wrapper:
+# set previewer "~/.config/lf/scope.sh"
+# ranger with wrapper:
 #set previewer "~/.config/lf/scope-lf-wrapper.sh"
 
-## images
-set cleaner "~/.config/lf/cleaner.sh"
-set previewer "~/.config/lf/scope_ub.sh"
+# ## preview + images via shell scripts:
+#set cleaner "~/.config/lf/cleaner.sh"
+#set previewer "~/.config/lf/scope_ub.sh"
+
+## preview + images via ctpv (might be faster):
+set previewer ctpv
+set cleaner ctpvclear
+&ctpv -s $id
+&ctpvquit $id
 
 # icons:
 #curl https://raw.githubusercontent.com/gokcehan/lf/master/etc/icons.example -o ~/.config/lf/icons

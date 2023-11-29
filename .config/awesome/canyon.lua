@@ -8,6 +8,8 @@ theme = {}
 
 theme.wallpaper = "/home/m/.config/awesome/canyon.jpg"
 
+--theme.font          = "BitstromWera Nerd Font 12"
+--theme.taglist_font  = "BitstromWera Nerd Font 18"
 theme.font          = "Bitstream Vera Sans 12"
 theme.taglist_font  = "Bitstream Vera Sans 18"
 
