@@ -47,7 +47,7 @@ There are two things you can do about this warning:
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(hi-yellow ((t (:foreground "black" :background "GoldenRod")))))
+ '(hi-yellow ((t (:foreground "black" :background "#DAA520")))))
 
 ;; no welcome message please:
 (setq inhibit-startup-message t)
@@ -59,19 +59,23 @@ There are two things you can do about this warning:
 ;;(load-theme 'atom-one-dark t)
 
 ;; make it easy on eyes:
-(set-foreground-color "Linen")
-(set-background-color "Black")
-(set-face-foreground 'default "Linen")
-(set-face-background 'default "Black")
-(set-face-foreground 'font-lock-string-face "DarkMagenta")
+(set-foreground-color "#FAF0E6")
+(set-background-color "#000000")
+(set-face-foreground 'default "#FAF0E6")
+(set-face-background 'default "#000000")
+;(set-face-foreground 'font-lock-string-face "#8B008B")
+(set-face-foreground 'font-lock-string-face "#008080")
 ;;(set-face-foreground 'font-lock-comment-face "SaddleBrown")
-(set-face-foreground 'font-lock-comment-face "Teal")
+;(set-face-foreground 'font-lock-comment-face "#008080")
+(set-face-foreground 'font-lock-comment-face "#666699")
+(set-face-foreground 'font-lock-variable-name-face "#8B008B")
 ;;(set-face-foreground 'font-lock-comment-face "DarkSlateGray")
-(set-face-attribute 'cursor nil :background "Magenta")
+(set-face-attribute 'cursor nil :background "#FF00FF")
+(set-face-attribute 'region nil :background "#191970")
 
 ;; UI and base colors:
 ;;(setq theme-color-accent  "#ff6000")
-(setq theme-color-accent  "DarkCyan")
+(setq theme-color-accent  "#4682B4")
 (setq theme-color-level-1 "#1D1F21")
 (setq theme-color-level-2 "#373B41")
 (setq theme-color-level-3 "#C5C8C6")

@@ -591,11 +591,10 @@ awful.rules.rules = {
            "Mplayer",
            "Mpv",
            "mpv",
-           "gl",
         },
         name = {
            "ncmpcpp 0.8.2",
-           "ncmpcpp*",
+           "ncmpcpp",
    }}, properties = { tag = "♬", switchtotag = true }},
 
    -- calendar
@@ -686,7 +685,7 @@ menubar.utils.terminal = terminal -- set the terminal for applications that requ
 mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- create a textclock widget:
-mytextclock = wibox.widget.textclock('<span color="DeepSkyBlue">%_H%M </span>', 5)
+mytextclock = wibox.widget.textclock('<span color="DeepSkyBlue">%_H:%M </span>', 5)
 
 awful.screen.connect_for_each_screen(
    function (s)

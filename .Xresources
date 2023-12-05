@@ -59,7 +59,7 @@ URxvt*secondaryWheel: true
 URxvt*scrollBar: true
 URxvt*scrollBar_right: true
 URxvt*scrollBar_floating: true
-URxvt*scrollColor: darkgrey
+URxvt*scrollColor: #A9A9A9
 URxvt*scrollstyle: plain
 URxvt*scrollBar_align: centre
 URxvt*jumpScroll: true
@@ -109,18 +109,17 @@ URxvt*buffered: true
 ! URxvt*background: [80]#000000
 ! URxvt*background: rgba:0000/0000/0000/c900
 
-URxvt*foreground: Linen
-URxvt*background: Black
+URxvt*foreground: #FAF0E6
+URxvt*background: #000000
 ! URxvt*underlineColor:
 ! URxvt*scrollColor:
 ! URxvt*troughColor:
 ! URxvt*highlightColor:
 ! URxvt*highlightTextColor:
-URxvt*cursorColor: magenta
-URxvt*cursorColor2: magenta
-URxvt*pointerColor: magenta
-URxvt*pointerColor2: magenta
-! URxvt*color0:  #282a2b
+URxvt*cursorColor: #FF00FF
+URxvt*cursorColor2: #FF00FF
+URxvt*pointerColor: #FF00FF
+URxvt*pointerColor2: #FF00FF
 
 !             |               
 !   __|  _ \  |  _ \   __| __|
@@ -149,23 +148,41 @@ URxvt*pointerColor2: magenta
 ! 15: 47, white
 ! 16: 48, default
 
-*color0: Black
-*color1: DarkRed
-*color2: SeaGreen
-*color3: GoldenRod
-*color4: SteelBlue
-*color5: DarkMagenta
-*color6: LightSeaGreen
-*color7: BlanchedAlmond
-*color8: DimGrey
-*color9: Crimson
-*color10: DarkSeaGreen
-*color11: DarkOrange
-*color12: DeepSkyBlue
-*color13: Magenta
-*color14: DarkTurquoise
-*color15: Seashell
-*color16: BlanchedAlmond
+! *color0: Black
+! *color1: DarkRed
+! *color2: SeaGreen
+! *color3: GoldenRod
+! *color4: SteelBlue
+! *color5: DarkMagenta
+! *color6: LightSeaGreen
+! *color7: BlanchedAlmond
+! *color8: DimGrey
+! *color9: IndianRed	
+! *color10: SeaGreen
+! *color11: DarkOrange
+! *color12: DeepSkyBlue
+! *color13: Magenta
+! *color14: DarkTurquoise
+! *color15: Seashell
+! *color16: BlanchedAlmond
+
+*color0: #000000
+*color1: #8B0000	
+*color2: #2E8B57
+*color3: #DAA520
+*color4: #4682B4
+*color5: #8B008B
+*color6: #20B2AA
+*color7: #FFEBCD
+*color8: #696969
+*color9: #CD5C5C
+*color10: #8FBC8B
+*color11: #8B4000
+*color12: #00BFFF
+*color13: #FF00FF
+*color14: #00CED1
+*color15: #FFF5EE
+*color16: #FFEBCD
 
 !        |                    
 ! \ \  / __|  _ \  __| __ `__ \
@@ -192,10 +209,10 @@ xterm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=
 !xterm*faceName: xft:DejaVuSansMono Nerd Font:size=12:antialias=true
 !xterm*boldFont: xft:DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold
 xterm*transparent: true
-xterm*foreground: Linen
-xterm*background: Black
-xterm*cursorColor: Magenta
-xterm*cursorColor2: Magenta
+xterm*foreground: #FAF0E6
+xterm*background: #000000
+xterm*cursorColor: #FF00FF
+xterm*cursorColor2: #FF00FF
 ! xterm*color0:  rgb:28/2a/2b
 xterm*veryBoldColors: 6
 ! xterm*colorBDMode: true
@@ -203,23 +220,23 @@ xterm*veryBoldColors: 6
 ! xterm*colorULMode: true
 ! xterm*colorUL: Cyan
 
-xterm*color0: Black
-xterm*color1: DarkRed
-xterm*color2: SeaGreen
-xterm*color3: GoldenRod
-xterm*color4: SteelBlue
-xterm*color5: DarkMagenta
-xterm*color6: LightSeaGreen
-xterm*color7: BlanchedAlmond
-xterm*color8: DimGrey
-xterm*color9: Crimson
-xterm*color10: DarkSeaGreen
-xterm*color11: DarkOrange
-xterm*color12: DeepSkyBlue
-xterm*color13: Magenta
-xterm*color14: DarkTurquoise
-xterm*color15: Seashell
-xterm*color16: BlanchedAlmond
+xterm*color0: #000000
+xterm*color1: #8B0000	
+xterm*color2: #2E8B57
+xterm*color3: #DAA520
+xterm*color4: #4682B4
+xterm*color5: #8B008B
+xterm*color6: #20B2AA
+xterm*color7: #FFEBCD
+xterm*color8: #696969
+xterm*color9: #CD5C5C
+xterm*color10: #8FBC8B
+xterm*color11: #8B4000
+xterm*color12: #00BFFF
+xterm*color13: #FF00FF
+xterm*color14: #00CED1
+xterm*color15: #FFF5EE
+xterm*color16: #FFEBCD
 
 !           _)          
 !  __ `__ \  |  __|  __|
