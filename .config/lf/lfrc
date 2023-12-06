@@ -1,11 +1,11 @@
 #!/bin/false
 # lf config
 
-#              |  _)                  
-#   _ \  __ \  __| |  _ \  __ \   __| 
-#  (   | |   | |   | (   | |   |\__ \ 
-# \___/  .__/ \__|_|\___/ _|  _|____/ 
-#       _|                            
+#              |  _)
+#   _ \  __ \  __| |  _ \  __ \   __|
+#  (   | |   | |   | (   | |   |\__ \
+# \___/  .__/ \__|_|\___/ _|  _|____/
+#       _|
 
 ## Interpreter for shell commands
 set shell sh
@@ -77,11 +77,11 @@ set icons true
 set ratios "1:2:3"
 
 
-#                                                 |      
-#   __|  _ \  __ `__ \  __ `__ \   _` | __ \   _` |  __| 
-#  (    (   | |   |   | |   |   | (   | |   | (   |\__ \ 
-# \___|\___/ _|  _|  _|_|  _|  _|\__,_|_|  _|\__,_|____/ 
-#                                                        
+#                                                 |
+#   __|  _ \  __ `__ \  __ `__ \   _` | __ \   _` |  __|
+#  (    (   | |   |   | |   |   | (   | |   | (   |\__ \
+# \___|\___/ _|  _|  _|_|  _|  _|\__,_|_|  _|\__,_|____/
+#
 
 ## Custom 'open' command
 ## This command is called when current file is not a directory. You may want to
@@ -230,11 +230,11 @@ cmd key ${{
 ## doc
 cmd doc $$lf -doc | $PAGER
 
-#                                  
-#  __ `__ \   _ \  |   |  __|  _ \ 
-#  |   |   | (   | |   |\__ \  __/ 
-# _|  _|  _|\___/ \__,_|____/\___| 
-#                                  
+#
+#  __ `__ \   _ \  |   |  __|  _ \
+#  |   |   | (   | |   |\__ \  __/
+# _|  _|  _|\___/ \__,_|____/\___|
+#
 
 ## If the 'mouse' option is enabled, mouse buttons have the following default effects:
 ## Left mouse button:
@@ -249,14 +249,16 @@ set mouse true
 ## enter on middle click: good at vsc, bad at home...
 map <m-3> :push <right>
 #map <m-3> :toggle; down
-map <b-8> :push <left>
-map <b-9> :push <right>
 
-#  |                    
-#  |  /  _ \ |   |  __| 
-#    <   __/ |   |\__ \ 
-# _|\_\\___|\__, |____/ 
-#            ____/       
+## does not work, collides with builtin scroll, so use xbindkeys:
+#map <b-8> :push <left>
+#map <b-9> :push <right>
+
+#  |
+#  |  /  _ \ |   |  __|
+#    <   __/ |   |\__ \
+# _|\_\\___|\__, |____/
+#            ____/
 
 ## the following additional keybindings are provided by default,
 ## unset predefined map by leaving it empty:

@@ -8,24 +8,25 @@ theme = {}
 
 theme.wallpaper = "/home/m/.config/awesome/canyon.jpg"
 
---theme.font          = "BitstromWera Nerd Font 12"
---theme.taglist_font  = "BitstromWera Nerd Font 18"
-theme.font          = "Bitstream Vera Sans 12"
-theme.taglist_font  = "Bitstream Vera Sans 18"
+theme.font          = "BitstromWera Nerd Font 12"
+theme.taglist_font  = "BitstromWera Nerd Font 16"
+--theme.font          = "Bitstream Vera Sans 12"
+--theme.taglist_font  = "Bitstream Vera Sans 18"
 
-theme.bg_normal     = "black"
+theme.bg_normal     = "#000000"
 theme.bg_focus      = theme.bg_normal
 theme.bg_urgent     = theme.bg_normal
 theme.bg_minimize   = theme.bg_normal
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "DimGray"
-theme.fg_focus      = "DeepSkyBlue" -- "SteelBlue"
-theme.fg_urgent     = "Magenta"
-theme.fg_minimize   = "LightGray"
+theme.fg_normal     = "#D3D3D3"
+theme.fg_focus      = "#00BFFF" -- "#4682B4"
+theme.fg_urgent     = "#FF00FF"
+theme.fg_minimize   = "#696969"
 
--- cool: border doesnt know names, gives transparent background!
+-- cool: border doesnt know names, this gives transparent background!
 theme.border_width  = 1
+--theme.border_normal = "LightGray"
 theme.border_normal = "#444444"
 theme.border_focus  = theme.border_normal
 theme.border_marked = theme.fg_focus
@@ -44,8 +45,8 @@ theme.border_marked = theme.fg_focus
 theme.taglist_bg_empty    = theme.bg_normal
 theme.taglist_bg_occupied = theme.bg_normal
 
-theme.taglist_fg_empty    = theme.fg_normal
-theme.taglist_fg_occupied = theme.fg_minimize
+theme.taglist_fg_empty    = theme.fg_minimize
+theme.taglist_fg_occupied = theme.fg_normal
 
 -- display the taglist squares:
 --theme.taglist_squares_sel   = "/usr/share/awesome/themes/default/taglist/squarefw.png"
@@ -108,5 +109,3 @@ theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
 theme.icon_theme = "/usr/share/icons/HighContrast"
 
 return theme
-
--- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80

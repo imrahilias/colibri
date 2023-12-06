@@ -33,7 +33,7 @@ zstyle ':vcs_info:*' unstagedstr '%B%F{red}*%f%b '
 zstyle ':vcs_info:*' stagedstr '%B%F{blue}+%f%b '
 zstyle ':vcs_info:*' formats "%F{magenta}%b%f %u%c"
 zstyle ':vcs_info:git:*' actionformats '(%b|%a%u%c)'
-PROMPT='%B%(#.%F{red}%~%f%b.%F{white}%40<.../<%~%f%b) ${vcs_info_msg_0_}'
+PROMPT='%B%(#.%F{red}%40<.../<%~%f%b.%F{blue}%40<.../<%~%f%b) ${vcs_info_msg_0_}'
 RPROMPT='%F{magenta}%D{%H%M}%f'
 
 

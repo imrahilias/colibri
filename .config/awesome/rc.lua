@@ -18,8 +18,8 @@ local revelation=require("revelation") -- git: mac exposee mode.
 
 --
 --   _ \  __|  __| _ \   __|
---   __/ |    |   (   | |   
--- \___|_|   _|  \___/ _|   
+--   __/ |    |   (   | |
+-- \___|_|   _|  \___/ _|
 --
 
 -- check if awesome encountered an error during startup and fall back to
@@ -47,10 +47,10 @@ do
 end
 
 
--- _)      _) |   
---  | __ \  | __| 
---  | |   | | |   
--- _|_|  _|_|\__| 
+-- _)      _) |
+--  | __ \  | __|
+--  | |   | | |
+-- _|_|  _|_|\__|
 --
 
 -- themes define colours, icons, font and wallpapers:
@@ -83,19 +83,19 @@ awful.layout.layouts = {
 }
 
 
---  |                   
+--  |
 --  |  /  _ \ |   |  __|
 --    <   __/ |   |\__ \
 -- _|\_\\___|\__, |____/
---           ____/      
+--           ____/
 
 -- key bindings:
 globalkeys = gears.table.join(
-   
+
    -- awesome:
    awful.key({ modkey, "Shift" }, "q", awesome.restart),
    awful.key({ modkey, "Control" }, "q", awesome.quit),
-     
+
    -- machi:
    awful.key({ modkey }, ".", function () machi.default_editor.start_interactive() end),
    awful.key({ modkey }, "/", function () machi.switcher.start(client.focus) end),
@@ -108,12 +108,12 @@ globalkeys = gears.table.join(
 
    -- current tag only:
    -- awful.key({ modkey, "Shift", "Control" }, "w", function ()
-   --       revelation({rule={class="conky"}, is_excluded=true, 
+   --       revelation({rule={class="conky"}, is_excluded=true,
    --                   curr_tag_only=true})
    -- end),
-   
+
    -- not working only terminals:
-   -- awful.key({ modkey, "Shift", "Control" }, "w", function () 
+   -- awful.key({ modkey, "Shift", "Control" }, "w", function ()
    --       revelation({
    --             rule{class={"URxvt", "Xterm"},
    --                   any=true}
@@ -130,10 +130,10 @@ globalkeys = gears.table.join(
             c:raise()
          end
    end),
-   
+
    -- menubar:
    awful.key({ modkey }, "p", function () menubar.show() end),
-   
+
    -- navigation:
    awful.key({ modkey }, "Left",  awful.tag.viewprev),
    awful.key({ modkey }, "j",  awful.tag.viewprev),
@@ -141,7 +141,7 @@ globalkeys = gears.table.join(
    awful.key({ modkey }, "k",  awful.tag.viewnext),
    awful.key({ modkey }, "Escape", awful.tag.history.restore),
    awful.key({ modkey }, "z", awful.client.urgent.jumpto),
-   
+
    -- layout manipulation:
    awful.key({ modkey }, "Tab", function () awful.client.focus.byidx(1) end),
    awful.key({ modkey }, "l", function () awful.tag.incmwfact( 0.05) end),
@@ -175,27 +175,28 @@ globalkeys = gears.table.join(
    awful.key({ modkey }, "<",
       function ()
          awful.prompt.run {
-            prompt       = '<span color="orange">Remind: </span>',
-            bg_cursor    = 'orange',
+            --prompt       = '<span color="orange">Remind: </span>',
+            --bg_cursor    = 'orange',
+            prompt       = 'Remind: ',
             textbox      = mouse.screen.mypromptbox.widget,
             exe_callback = function (input)
                if not input or #input == 0 then
                   naughty.notify{ text = 'usage: set reminder with "remind $time $name" eg "remind 10s asdf"'..input }
                   return
                end
-               awful.spawn( 'remind '..input ) 
+               awful.spawn( 'remind '..input )
             end
          }
    end),
-   
+
    -- launch:
+   -- icons:   
    awful.key({ modkey, "Shift", "Control"}, "q", function () awful.spawn("sudo systemctl suspend") end),
    awful.key({ modkey }, "Return", function () awful.spawn(terminal) end),
-   -- awful.key({ modkey, "Shift", "Control" }, "Return", function () awful.spawn("urxvtc -title admin2 -e 2") end),
-   -- awful.key({ modkey, "Shift"}, "Return", function () awful.spawn("urxvtc -title master1 -e 1") end),
-   awful.key({ modkey }, "d", function () awful.spawn.with_shell("urxvtc -title Waldläufer -e /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc", false) end),
-   awful.key({ modkey, "Shift", "Control" }, "d", function () awful.spawn.with_shell("urxvtc -title Waldläufer -e sudo /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc", false) end),
-   --awful.key({ modkey, "Shift", "Control" }, "d", function () awful.spawn("sudo thunar", false) end),
+   awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('urxvtc -e ssh admin') end),
+   awful.key({ modkey, "Control" }, "Return", function () awful.spawn("urxvtc -e ssh 5") end),
+   awful.key({ modkey }, "d", function () awful.spawn.with_shell('urxvtc -title " lf" -e /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc', false) end),
+   awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell('urxvtc -title " sudo lf"" -e sudo /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc', false) end),
    awful.key({ modkey }, "e", function () awful.spawn("emacsclient -ca ''", false) end),
    awful.key({ modkey, "Shift" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_cromium") end),
    awful.key({ modkey, "Control" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_google_translate") end),
@@ -223,16 +224,16 @@ globalkeys = gears.table.join(
    --awful.key({ }, "XF86AudioNext", function () awful.spawn("playerctl next", false) end),
 
    -- lights:
-   awful.key({ }, "XF86MonBrightnessDown", function () awful.spawn("sudo light -U 30", false) end),    
-   awful.key({ }, "XF86MonBrightnessUp", function () awful.spawn("sudo light -A 30", false) end),    
-   awful.key({ }, "XF86Display", function () awful.spawn("xset dpms force off", false) end),    
+   awful.key({ }, "XF86MonBrightnessDown", function () awful.spawn("sudo light -U 30", false) end),
+   awful.key({ }, "XF86MonBrightnessUp", function () awful.spawn("sudo light -A 30", false) end),
+   awful.key({ }, "XF86Display", function () awful.spawn("xset dpms force off", false) end),
 
    -- screenshot:
    awful.key({ }, "Print", function () awful.spawn("scrot -e 'mv $f ~/.screens/ 2>/dev/null'") end),
-   
+
    -- killer:
    awful.key({ modkey, "Shift" }, "k", function () awful.spawn("sudo xkill", false) end),
-   
+
    -- razer:
    awful.key({ modkey }, "#86", function () awful.spawn("razercfg -l glowinglogo:off -l scrollwheel:on", false) end),
    awful.key({ modkey }, "#82", function () awful.spawn("razercfg -l all:off", false) end),
@@ -250,7 +251,7 @@ globalkeys = gears.table.join(
    -- rotate:
    awful.key({ modkey, "Shift" }, "r", function () awful.spawn("xrandr -o 1", false) end),
    awful.key({ modkey, "Control", "Shift" }, "r", function () awful.spawn("xrandr -o 0", false) end),
-   
+
    -- fun:
    awful.key({ modkey }, "z", function () awful.spawn.with_shell('notify-send "$(cowsay $(fortune))"', false) end)
    --awful.key({ modkey }, "w", function () awful.spawn.with_shell("killall conky && feh --bg-fill ~/wind/canvas/wrld12.png & conky -c ~/wind/wind_blow.lua", false) end),
@@ -475,7 +476,7 @@ clientbuttons = gears.table.join(
 )
 
 
---             |          
+--             |
 --   __| |   | |  _ \  __|
 --  |    |   | |  __/\__ \
 -- _|   \__,_|_|\___|____/
@@ -483,7 +484,7 @@ clientbuttons = gears.table.join(
 
 -- rules to apply to new clients (through the "manage" signal):
 awful.rules.rules = {
-   
+
    -- all clients will match this rule:
    { rule = { },
      properties = { border_width = beautiful.border_width,
@@ -504,7 +505,7 @@ awful.rules.rules = {
            "zoom",
         },
    }, properties = { raise = false }},
-   
+
    -- floating clients:
    { rule_any = {
         class = {
@@ -534,13 +535,13 @@ awful.rules.rules = {
            "Zoom - Licensed Account",
         },
    }, properties = { maximized = true }},
-   
+
    -- vsc
    { rule_any = {
         name = {
            "VSConsole",
-   }}, properties = { tag = "∅", switchtotag = true }},
-   
+   }}, properties = { tag = " ", switchtotag = true }},
+
    -- internet
    { rule_any = {
         class = {
@@ -549,13 +550,13 @@ awful.rules.rules = {
            "Navigator",
            "google-chrome",
            "Google-chrome",
-   }}, properties = { tag = "⚡", switchtotag = true }},
-   
+   }}, properties = { tag = " ", switchtotag = true }},
+
    -- code
    { rule_any = {
         class = {
            "Emacs",
-   }}, properties = { tag = "$", switchtotag = true }},
+   }}, properties = { tag = "󰛓 ", switchtotag = true }},
 
    -- File
    { rule_any = {
@@ -564,9 +565,8 @@ awful.rules.rules = {
            "Thunar",
         },
         name = {
-           "ranger:",
-           "Waldläufer",
-   }}, properties = { tag = "⛁", switchtotag = true }},
+           " ",
+   }}, properties = { tag = " ", switchtotag = true }},
 
    -- doc
    { rule_any = {
@@ -581,7 +581,7 @@ awful.rules.rules = {
            "calibre",
            "calibre-gui",
            "Zathura",
-   }}, properties = { tag =  "≣", switchtotag = true }},
+   }}, properties = { tag =  " ", switchtotag = true }},
 
    -- music & video
    { rule_any = {
@@ -595,7 +595,7 @@ awful.rules.rules = {
         name = {
            "ncmpcpp 0.8.2",
            "ncmpcpp",
-   }}, properties = { tag = "♬", switchtotag = true }},
+   }}, properties = { tag = " ", switchtotag = true }},
 
    -- calendar
    { rule_any = {
@@ -607,7 +607,7 @@ awful.rules.rules = {
    { rule_any = {
         class = {
            "Evolution",
-   }}, properties = { tag = "@", switchtotag = true }},
+   }}, properties = { tag = " ", switchtotag = true }},
 
    -- comms
    { rule_any = {
@@ -621,8 +621,8 @@ awful.rules.rules = {
            "scrcpy",
            "Rocket.Chat",
            "Slack",
-   }}, properties = { tag = "✆", switchtotag = true }},
-   
+   }}, properties = { tag = " ", switchtotag = true }},
+
    -- games & conf:
    { rule_any = {
         class = {
@@ -633,34 +633,34 @@ awful.rules.rules = {
            "Zoom Meeting",
            "Zoom Cloud Meetings",
            "Torronator",
-   }}, properties = { tag = "♞", switchtotag = true }},
+   }}, properties = { tag = "󰼁 ", switchtotag = true }},
 
-   -- clubs:
+   -- melon:
    { rule_any = {
         name = {
-   }}, properties = { tag = "♠", switchtotag = true }},
+   }}, properties = { tag = "󱁇 ", switchtotag = true }},
 
-   -- hearts:
+   -- grapes:
    { rule_any = {
         class = {
-   }}, properties = { tag = "♥", switchtotag = true }},
+   }}, properties = { tag = "󱁄 ", switchtotag = true }},
 
-   -- diamonds:
+   -- cherry:
    { rule_any = {
         class = {
-   }}, properties = { tag = "♦", switchtotag = true }},
+   }}, properties = { tag = "󱁂 ", switchtotag = true }},
 
-   -- spades:
+   -- ananas:
    { rule_any = {
         class = {
-   }}, properties = { tag = "♣", switchtotag = true }},
+   }}, properties = { tag = "󱁆 ", switchtotag = true }},
 }
 
 
---           _) |               
+--           _) |
 -- \ \  \   / | __ \   _` |  __|
---  \ \  \ /  | |   | (   | |   
---   \_/\_/  _|_.__/ \__,_|_|   
+--  \ \  \ /  | |   | (   | |
+--   \_/\_/  _|_.__/ \__,_|_|
 --
 
 -- wallpaper:
@@ -691,16 +691,17 @@ awful.screen.connect_for_each_screen(
    function (s)
       -- wallpaper:
       set_wallpaper(s)
-      
+
       -- each screen has its own tag table:
-      -- working: ↯🎵♫♞♟♤♡♢♧⚛✫♻✇🌒🌖🌑🌒🌓🌔🌕🌖🌗🌘⚡
-      awful.tag({ "∅", "⚡", "$", "⛁", "≣", "♬", "⏾", "@", "✆","♞", "♠", "♥", "♦", "♣" }, s, awful.layout.layouts[1])
-      
+      awful.tag({ " ", " ", "󰛓 ", " ", " ", " ", "⏾", " ", " ","󰼁 ", "󱁇 ", "󱁄 ", "󱁂 ", "󱁆"  }, s, awful.layout.layouts[1])
+      -- unicode with bitstream vera: ↯ ♫ ♞ ♟ ♤ ♡ ♢ ♧ ⚛  ✫ ♻ ✇ ∅ ⚡ $ ⛁ ≣ ♬ ⏾ @ ✆♞ ♠ ♥ ♦ ♣
+      -- nerd fonts:   󰟢  ⚡    󰇧 󰛍         󰭹  󰛓 󰇂 󰽚 󱥐 󰜁 󱥔 󰖟   󰇈 󰛍 󱁇 󱁆 󱁄 󱨎 󱁂 󱁃 󰼂 󰼁  󰦪  󰦨   ♬ 󰝚 󰎌 󰎈 󰽰 󱑽  󰒊  󱅥   
+
       -- create a promptbox for each screen:
       s.mypromptbox = awful.widget.prompt()
-      
+
       -- create a tasklist widget:
-      --s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
+      --s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.fiter.currenttags, tasklist_buttons)
 
       -- create a tasklist widget with margins and spacers:
       s.mytasklist = awful.widget.tasklist {
@@ -730,13 +731,13 @@ awful.screen.connect_for_each_screen(
             widget = wibox.container.margin
          },
       }
-      
+
       -- create a taglist widget:
       s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
-      
+
       -- create the wibox:
       s.mywibox = awful.wibar({ position = "top", screen = s, height = 30, opacity = 0.8 })
-      
+
       -- add widgets to the wibox:
       s.mywibox:setup {
          layout = wibox.layout.align.horizontal,
@@ -750,7 +751,7 @@ awful.screen.connect_for_each_screen(
          { -- right widgets:
             layout = wibox.layout.fixed.horizontal,
             -- systray with margin around (left, right, top, bottom):
-            wibox.layout.margin(wibox.widget.systray(), 4, 4, 4, 4), 
+            wibox.layout.margin(wibox.widget.systray(), 4, 4, 4, 4),
             mytextclock,
          },
       }
@@ -762,14 +763,14 @@ awful.screen.connect_for_each_screen(
 --   __| |  _` | __ \   _` | |
 -- \__ \ | (   | |   | (   | |
 -- ____/_|\__, |_|  _|\__,_|_|
---        |___/               
+--        |___/
 
 -- signal function to execute when a new client appears:
 client.connect_signal("manage", function (c)
                          -- set the windows at the slave,
                          -- i.e. put it at the end of others instead of setting it master.
                          -- if not awesome.startup then awful.client.setslave(c) end
-                         
+
                          if awesome.startup and
                             not c.size_hints.user_position
                             and not c.size_hints.program_position then
@@ -804,9 +805,9 @@ client.connect_signal("unfocus", function (c) c.border_color = beautiful.border_
 --     end
 -- end)
 
---           _)          
+--           _)
 --  __ `__ \  |  __|  __|
---  |   |   | |\__ \ (   
+--  |   |   | |\__ \ (
 -- _|  _|  _|_|____/\___|
 --
 

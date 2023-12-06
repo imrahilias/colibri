@@ -1,12 +1,12 @@
-;;       |          _|  _| 
-;;   __| __| |   | |   |   
-;; \__ \ |   |   | __| __| 
+;;       |          _|  _|
+;;   __| __| |   | |   |
+;; \__ \ |   |   | __| __|
 ;; ____/\__|\__,_|_|  _|
 
 ;; fun:
 ;;(Global-set-key (kbd "C-x C-s") 'spook)
 
-;; Melpa
+;; melpa
 (require 'package)
 (package-initialize)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
@@ -41,6 +41,35 @@ There are two things you can do about this warning:
    '(cuda-mode csv-mode spinner string-inflection json-mode yaml-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode ess auto-correct))
  '(warning-suppress-log-types '((auto-save))))
 
+;;  |   |
+;;  __| __ \   _ \ __ `__ \   _ \
+;;  |   | | |  __/ |   |   |  __/
+;; \__|_| |_|\___|_|  _|  _|\___|
+;;
+
+;; theme:
+;;(load-theme 'atom-one-dark t)
+
+;; fonts:
+;;(set-face-attribute 'default nil :family "DejaVu Nerd Font Mono")
+;;(set-face-attribute 'default nil :height (* 12 10))
+(set-face-attribute 'default nil :family "BitstromWera Nerd Font")
+(set-face-attribute 'default nil :height (* 12 10))
+
+;; make it easy on the eyes:
+(set-foreground-color "#FAF0E6")
+(set-background-color "#000000")
+(set-face-foreground 'default "#FAF0E6")
+(set-face-background 'default "#000000")
+(set-face-foreground 'font-lock-string-face "#008080")
+(set-face-foreground 'font-lock-comment-face "#666699")
+(set-face-foreground 'font-lock-variable-name-face "#8B008B")
+(set-face-attribute 'cursor nil :background "#FF00FF")
+(set-face-attribute 'region nil :background "#191970")
+(set-face-attribute 'secondary-selection nil :background "#330099")
+(set-face-foreground 'window-divider "#444444")
+(set-face-attribute 'trailing-whitespace nil :background "#330099")
+
 ;; highlighting lock:
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -49,31 +78,7 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(hi-yellow ((t (:foreground "black" :background "#DAA520")))))
 
-;; no welcome message please:
-(setq inhibit-startup-message t)
-
-;; inital scratch text:
-(setq initial-scratch-message "")
-
-;; theme:
-;;(load-theme 'atom-one-dark t)
-
-;; make it easy on eyes:
-(set-foreground-color "#FAF0E6")
-(set-background-color "#000000")
-(set-face-foreground 'default "#FAF0E6")
-(set-face-background 'default "#000000")
-;(set-face-foreground 'font-lock-string-face "#8B008B")
-(set-face-foreground 'font-lock-string-face "#008080")
-;;(set-face-foreground 'font-lock-comment-face "SaddleBrown")
-;(set-face-foreground 'font-lock-comment-face "#008080")
-(set-face-foreground 'font-lock-comment-face "#666699")
-(set-face-foreground 'font-lock-variable-name-face "#8B008B")
-;;(set-face-foreground 'font-lock-comment-face "DarkSlateGray")
-(set-face-attribute 'cursor nil :background "#FF00FF")
-(set-face-attribute 'region nil :background "#191970")
-
-;; UI and base colors:
+;; ui and base colors:
 ;;(setq theme-color-accent  "#ff6000")
 (setq theme-color-accent  "#4682B4")
 (setq theme-color-level-1 "#1D1F21")
@@ -110,9 +115,6 @@ There are two things you can do about this warning:
 ;;(setq highlight-current-line-whole-line nil)
 ;;(setq hl-line-face (quote highlight))
 
-
-
-
 ;; opacity:
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> . <inactive>))
 ;;(set-frame-parameter (selected-frame) 'alpha <both>)
@@ -134,7 +136,7 @@ There are two things you can do about this warning:
          '(85 . 50) '(100 . 100)))))
 (global-set-key (kbd "C-c t") 'toggle-transparency)
 
-;; A general transparency function:
+;; a general transparency function:
 (defun transparency (value)
   "Sets the transparency of the frame window. 0=transparent/100=opaque"
   (interactive "Transparency Value 0 - 100 opaque:")
@@ -148,14 +150,24 @@ There are two things you can do about this warning:
 ;; different color.
 (setq-default left-fringe-width  10)
 (setq-default right-fringe-width  0)
-(set-face-attribute 'fringe nil :background "black")
+(set-face-attribute 'fringe nil :background "#000000")
 
 ;; fullscreen: this is bound to f11 in Emacs 24.4::
-;(toggle-frame-fullscreen) 
+;(toggle-frame-fullscreen)
 
 ;; up/downcase region:
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+
+;; `window-divider-mode' gives us finer control over the border
+;; between windows. The native border "consumes" a pixel of the left
+;; fringe on righter-most splits (in Yamamoto's emacs-mac at least),
+;; window-divider does not. NOTE Only available on Emacs 25.1+:
+(when (boundp 'window-divider-mode)
+  (setq window-divider-default-places t
+        window-divider-default-bottom-width 1
+        window-divider-default-right-width 1)
+  (window-divider-mode +1))
 
 ;; none of these please:
 (scroll-bar-mode '0)
@@ -165,7 +177,7 @@ There are two things you can do about this warning:
 ;; hide modeline:
 (defvar-local hidden-mode-line-mode nil)
 (define-minor-mode hidden-mode-line-mode
-  "Minor mode to hide the mode-line in the current buffer."
+  "minor mode to hide the mode-line in the current buffer."
   :init-value nil
   :global t
   :variable hidden-mode-line-mode
@@ -183,99 +195,47 @@ There are two things you can do about this warning:
              hidden-mode-line-mode)
     (run-with-idle-timer
      0 nil 'message
-     (concat "Hidden Mode Line Mode enabled.  "
+     (concat "hidden mode line mode enabled.  "
              "Use M-x hidden-mode-line-mode to make the mode-line appear."))))
 
 ;; hide the mode-line in every buffer by default:
 (add-hook 'after-change-major-mode-hook 'hidden-mode-line-mode)
-
-;; save and restore my buffers every time:
-;;(desktop-save-mode 1)
 
 ;; show date and time in mode-line:
 ;;(setq display-time-day-and-date t )
 ;;(setq display-time-24hr-format t)
 ;;(display-time)
 
-;; fonts:
-;;(set-face-attribute 'default nil :family "DejaVu Nerd Font Mono")
-;;(set-face-attribute 'default nil :height (* 12 10))
-(set-face-attribute 'default nil :family "BitstromWera Nerd Font")
-(set-face-attribute 'default nil :height (* 12 10))
+;;            |   |  _)
+;;   __|  _ \ __| __| | __ \   _` |  __|
+;; \__ \  __/ |   |   | |   | (   |\__ \
+;; ____/\___|\__|\__|_|_|  _|\__, |____/
+;;                           |___/
 
+;; no welcome message please:
+(setq inhibit-startup-message t)
 
-;; window modifications
-(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-<down>") 'shrink-window)
-(global-set-key (kbd "S-C-<up>") 'enlarge-window)
+;; inital scratch text:
+(setq initial-scratch-message "")
+
+;; save and restore my buffers every time:
+;;(desktop-save-mode 1)
 
 ;; scrolling
-(setq
- scroll-margin 5 ;; when to start scrolling
- scroll-conservatively 0
- )
-(setq-default
- scroll-up-aggressively 0.01
- scroll-down-aggressively 0.01
- )
-
-(defun scroll-down-keep-cursor ()
-  ;; Scroll the text one line down while keeping the cursor
-  (interactive)
-  (scroll-down 1)
-  )
-
-(defun scroll-up-keep-cursor ()
-  ;; Scroll the text one line up while keeping the cursor
-  (interactive)
-  (scroll-up 1)
-  )
-
-(global-set-key (kbd "C-,") 'scroll-down-keep-cursor)
-(global-set-key (kbd "C-.") 'scroll-up-keep-cursor)
-;;(global-set-key (kbd "C-c d") 'insert-current-date)
+(setq scroll-margin 5 scroll-conservatively 0 )
+(setq-default scroll-up-aggressively 0.01 scroll-down-aggressively 0.01 )
 
 ;; scrolling mouse:
 (setq mouse-wheel-scroll-amount '(2 ((shift) . 1))) ;; two lines at a time
 (setq Mouse-Wheel-progressive-speed nil) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 
-;; Interactively Do Things mode:
+;; interactively do things mode:
 (require 'ido)
 (ido-mode t)
 
-;; custom keyboard shortcuts:
-(global-set-key (kbd "C-c m") 'compile)
-
-;; current date:
-(defun insert-current-date() (interactive)
-       (insert (shell-command-to-string "echo -n $(date '+%Y-%m-%d %k:%M')"))
-       )
-(global-set-key (kbd "C-c d") 'insert-current-date)
-
-;; convenience:
-(global-set-key (kbd "C-c r") (lambda() (interactive) (load-file "~/.emacs")))
-(defun em ()
-  (interactive)
-  (find-file "~/.emacs")
-  )
-
 ;; emacs paste on line curser (not mouse):
 (setq mouse-yank-at-point t)
-
-;; printer command
-(setq lpr-command "lp")
-(setq lpr-add-switches nil)
-
-;; switch window with tab:
-(global-set-key [C-tab] 'other-window)
-(global-set-key [C-C-tab]
-                (lambda ()
-                  (interactive)
-                  (other-window -1)
-                  )
-                )
 
 ;; always show color as color:
 (define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
@@ -294,8 +254,88 @@ There are two things you can do about this warning:
 ;; auto break lines in paragraphs:
 ;; add-hook 'text-mode-hook 'turn-on-auto-fill)
 
+(setq-default show-trailing-whitespace t)
+
+;;  |
+;;  |  /  _ \ |   |  __|
+;;    <   __/ |   |\__ \
+;; _|\_\\___|\__, |____/
+;;           ____/
+
+;; window modifications
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
+
+;; custom keyboard shortcuts:
+(global-set-key (kbd "C-c m") 'compile)
+
+;; eval .emacs:
+(global-set-key (kbd "C-c r") (lambda() (interactive) (load-file "~/.emacs")))
+
+;; open various configs:
+(global-set-key (kbd "C-c a") (lambda() (interactive) (find-file "~/.config/awesome/rc.lua")))
+(global-set-key (kbd "C-c e") (lambda() (interactive) (find-file "~/.emacs")))
+(global-set-key (kbd "C-c l") (lambda() (interactive) (find-file "~/.config/lf/lfrc")))
+(global-set-key (kbd "C-c x") (lambda() (interactive) (find-file "~/.xinitrc")))
+(global-set-key (kbd "C-c X") (lambda() (interactive) (find-file "~/.Xressources")))
+(global-set-key (kbd "C-c z") (lambda() (interactive) (find-file "~/.zshrc")))
+
+;; printer command:
+(setq lpr-command "lp")
+(setq lpr-add-switches nil)
+
+;; switch window:
+;;(global-set-key [C-tab] 'other-window)
+;;(global-set-key [C-C-tab] (lambda () (interactive) (other-window -1)))
+
+(global-set-key (kbd "M-<mouse-8>") 'next-buffer)
+(global-set-key (kbd "M-<mouse-9>") 'previous-buffer)
+
+;; page down/up:
+(global-set-key (kbd "M-<wheel-down>") (kbd "C-v"))
+(global-set-key (kbd "M-<wheel-up>") (kbd "M-v"))
+
+;; ?
+;; (define-key (current-local-map) (kbd "mouse-8")
+;;   (lookup-key (current-local-map) (kbd "C-v")))
+
+;;   _|                  |  _)
+;;  |   |   | __ \   __| __| |  _ \  __ \   __|
+;;  __| |   | |   | (    |   | (   | |   |\__ \
+;; _|  \__,_|_|  _|\___|\__|_|\___/ _|  _|____/
+;;
+
+;; (defun scroll-down-keep-cursor ()
+;;   ;; Scroll the text one line down while keeping the cursor
+;;   (interactive)
+;;   (scroll-down 1)
+;;   )
+;; (global-set-key (kbd "C-,") 'scroll-down-keep-cursor)
+
+
+;; (defun scroll-up-keep-cursor ()
+;;   ;; Scroll the text one line up while keeping the cursor
+;;   (interactive)
+;;   (scroll-up 1)
+;;   )
+;; (global-set-key (kbd "C-.") 'scroll-up-keep-cursor)
+
+;; current date:
+(defun insert-current-date() (interactive)
+       (insert (shell-command-to-string "echo -n $(date '+%Y-%m-%d %k:%M')") )
+       )
+(global-set-key (kbd "C-c d") 'insert-current-date)
+
+;; open .emacs:
+(defun em ()
+  (interactive)
+  (find-file "~/.emacs")
+  )
+
 ;; un/compact block:
-(defun fill-or-unfill ()  
+(defun fill-or-unfill ()
   "Reformat current paragraph or region to `fill-column', like
 `fill-paragraph' or “unfill”.  When there is a text selection, act on
 the selection, else, act on a text block separated by blank lines.
@@ -331,25 +371,21 @@ Version 2017-01-08"
       (let ((fill-column most-positive-fixnum ))
         (fill-region $p1 $p2)))
     (put this-command 'compact-p (not $compact-p))))
-
-;; now set it as default un/compact block function:
 (global-set-key (kbd "M-q") 'fill-or-unfill)
 
-;;  |                   
-;;  |  _` | __ \   _` | 
-;;  | (   | |   | (   | 
-;; _|\__,_|_|  _|\__, | 
-;;               |___/  
+;;  |
+;;  |  _` | __ \   _` |
+;;  | (   | |   | (   |
+;; _|\__,_|_|  _|\__, |
+;;               |___/
 
 ;; start auto-complete-mode:
 (dolist (hook '(text-mode-hook))
   (add-hook hook (lambda () (auto-complete-mode 1))))
 
-
 ;; highlight parentheses when the cursor is next to them:
 (require 'paren)
 (show-paren-mode t)
-
 
 ;; c mode customizations:
 (cwarn-mode t)
@@ -361,14 +397,14 @@ Version 2017-01-08"
 ;; octave mode:
 ;(global-set-key (kbd "C-c C-c") 'octave-send-region)
 
-;; Latex mode:
+;; latex mode:
 (with-eval-after-load "tex"
   (add-to-list 'TeX-command-list
                `("Arara" "arara --verbose %s" TeX-run-TeX nil t :help "Run Arara") t)
   (add-to-list 'TeX-command-list
                `("Extex" "lualatex -synctex=1 -interaction=nonstopmode --shell-escape %s" TeX-run-TeX nil t :help "LuaLatex + SyncTex + ShellEscape + NonstopMode (no halt-on-error)") t)
   (tex-source-correlate-mode t) )
-  
+
 (with-eval-after-load "latex"
   (define-key LaTeX-mode-map (kbd "C-c C-a")
     (lambda ()
@@ -376,11 +412,11 @@ Version 2017-01-08"
       (TeX-command-sequence '("Arara" "Extex") t))))
 ;        (TeX-command-sequence '("Arara" "View") t))))
 
-;;                  | |      
-;;   __| __ \   _ \ | |  __| 
-;; \__ \ |   |  __/ | |\__ \ 
-;; ____/ .__/ \___|_|_|____/ 
-;;      _|                   
+;;                  | |
+;;   __| __ \   _ \ | |  __|
+;; \__ \ |   |  __/ | |\__ \
+;; ____/ .__/ \___|_|_|____/
+;;      _|
 
 ;; flyspell mode:
 ;; (dolist (hook '(text-mode-hook))
@@ -412,18 +448,9 @@ Version 2017-01-08"
   ;; the locale, otherwise it would save to ~/.hunspell_de_DE.
   (setq ispell-personal-dictionary "~/.hunspell_personal"))
 
-;; The personal dictionary file has to exist, otherwise hunspell will
-;; silently not use it.
+;; the personal dictionary file has to exist, otherwise hunspell will
+;; silently not use it:
 ;;(unless (file-exists-p ispell-personal-dictionary)
 ;;(write-region "" nil ispell-personal-dictionary nil 0))
-
-;; (global-set-key (kbd "<C>-<mouse-8>") (kbd "C-v"))
-;; (global-set-key (kbd "<C>-<mouse-9>") (kbd "M-v"))
-
-;; (global-set-key (kbd "<M>-<left>") (kbd "C-v"))
-;; (global-set-key (kbd "<M>-<right>") (kbd "M-v"))
-
-;; (define-key (current-local-map) (kbd "mouse-8")
-;;   (lookup-key (current-local-map) (kbd "C-v")))
 
 (setenv "LANG" "en_US.UTF-8")

@@ -1,11 +1,9 @@
 #!/bin/sh
 ## ~/.xinitrc > m@colibri
 
-## merge in defaults and keymaps
+## merge in defaults and keymaps:
 xrdb -merge "/etc/X11/xinit/.Xresources"
-xmodmap "/etc/X11/xinit/.Xmodmap"
 xrdb -merge "$HOME/.Xresources"
-xmodmap "$HOME/.Xmodmap"
 
 ## start some deamons:
 urxvtd -q -f -o
@@ -26,7 +24,7 @@ export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
 
 ## has to be called before owncloud, via zshrc is not enough!?
 export XDG_CONFIG_HOME=/home/m/.config
-export QT_QPA_PLATFORMTHEME=Adwaita-Dark 
+export QT_QPA_PLATFORMTHEME=Adwaita-Dark
 export QT_STYLE_OVERRIDE=Adwaita-Dark
 
 ## start cloud clients:
@@ -39,7 +37,7 @@ owncloud --style=Adwaita-Dark &
 gsettings set org.gnome.evolution.shell use-header-bar false
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
-## fire up mouse button to key stroke binder for ranger:
+## fire up mouse button to key stroke binder for lf/ranger:
 xbindkeys
 
 ## fire up conky:
@@ -48,13 +46,15 @@ xbindkeys
 #conky -c ~/.config/conky/right.lua
 
 ## switch to custom keyboard layout:
-setxkbmap -layout "us(m),de" # enables multiple layouts, switch via awesome, us(m) is custom (see notes)
+# enables multiple layouts, switch via awesome, us(m) is custom (see notes).
+# also just drop the caps lock key, it is a second ctrl now.
+setxkbmap -layout "us(m),de" -option ctrl:nocaps 
 
 ## composite manager to avoid screen tearing:
 picom -b
 
-## turn off powersaver/screensaver/blanking/bell.                                  
-xset -dpms s off s noblank -b                                                      
+## turn off powersaver/screensaver/blanking/bell:
+xset -dpms s off s noblank -b
 
 ## start awesome:
 exec awesome

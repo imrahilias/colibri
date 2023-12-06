@@ -22,8 +22,6 @@
 table5={
   ["a"]={"spotify", "Spotify"},
   ["s"]={"google-chrome-stable", "Google-chrome"},
---  ["d"]={"urxvtc -title Waldläufer -e ranger", "Waldläufer", "name"},
-  ["Control-d"]={"thunar", "thunar"},
   ["t"]={"gnome-calendar", "gnome-calendar"},
   ["y"]={"evolution", "Evolution"},
   ["u"]={"telegram-desktop", "Telegram"},
