@@ -1,17 +1,17 @@
---                                    
---   __|  _` | __ \  |   |  _ \  __ \  
---  (    (   | |   | |   | (   | |   | 
--- \___|\__,_|_|  _|\__, |\___/ _|  _| 
---                  ____/              
+--
+--   __|  _` | __ \  |   |  _ \  __ \
+--  (    (   | |   | |   | (   | |   |
+-- \___|\__,_|_|  _|\__, |\___/ _|  _|
+--                  ____/
 
 theme = {}
 
 theme.wallpaper = "/home/m/.config/awesome/canyon.jpg"
 
-theme.font          = "BitstromWera Nerd Font 12"
-theme.taglist_font  = "BitstromWera Nerd Font 16"
 --theme.font          = "Bitstream Vera Sans 12"
 --theme.taglist_font  = "Bitstream Vera Sans 18"
+theme.font          = "BitstromWera Nerd Font:style=Regular 12"
+theme.taglist_font  = "BitstromWera Nerd Font 16"
 
 theme.bg_normal     = "#000000"
 theme.bg_focus      = theme.bg_normal
@@ -103,7 +103,7 @@ theme.layout_dwindle = "/usr/share/awesome/themes/default/layouts/dwindlew.png"
 
 theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
 
--- define the icon theme for application icons. If not set then the icons 
+-- define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used:
 --theme.icon_theme = nil
 theme.icon_theme = "/usr/share/icons/HighContrast"

@@ -46,9 +46,10 @@ xbindkeys
 #conky -c ~/.config/conky/right.lua
 
 ## switch to custom keyboard layout:
-# enables multiple layouts, switch via awesome, us(m) is custom (see notes).
-# also just drop the caps lock key, it is a second ctrl now.
-setxkbmap -layout "us(m),de" -option ctrl:nocaps 
+## moved to .zshrc otherwise might not be loaded due to latency!
+## enables multiple layouts, switch via awesome, us(m) is custom (see notes).
+## also just drop the caps lock key, it is a second ctrl now.
+#setxkbmap -layout "us(m),de" -option ctrl:nocaps
 
 ## composite manager to avoid screen tearing:
 picom -b

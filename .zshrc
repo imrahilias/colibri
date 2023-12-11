@@ -17,11 +17,17 @@ done
 ## directories" for compinit otherwise:
 ZSH_DISABLE_COMPFIX="true"
 
+## switch to custom keyboard layout:
+## this could be set in .xinitrc but might not be loaded due to latency!
+## enables multiple layouts, switch via awesome, us(m) is custom (see notes).
+## also just drop the caps lock key, it is a second ctrl now.
+setxkbmap -layout "us(m),de" -option ctrl:nocaps
 
-#                                  |   
-#  __ \   __| _ \  __ `__ \  __ \  __| 
-#  |   | |   (   | |   |   | |   | |   
-#  .__/ _|  \___/ _|  _|  _| .__/ \__| 
+
+#                                  |
+#  __ \   __| _ \  __ `__ \  __ \  __|
+#  |   | |   (   | |   |   | |   | |
+#  .__/ _|  \___/ _|  _|  _| .__/ \__|
 # _|                        _|
 
 autoload -Uz add-zsh-hook vcs_info
@@ -37,10 +43,10 @@ PROMPT='%B%(#.%F{red}%40<.../<%~%f%b.%F{blue}%40<.../<%~%f%b) ${vcs_info_msg_0_}
 RPROMPT='%F{magenta}%D{%H%M}%f'
 
 
-#        |_)            
-#   _` | | |  _` |  __| 
-#  (   | | | (   |\__ \ 
-# \__,_|_|_|\__,_|____/ 
+#        |_)
+#   _` | | |  _` |  __|
+#  (   | | | (   |\__ \
+# \__,_|_|_|\__,_|____/
 
 if [[ $EUID != 0 ]] ; then
     source /home/m/vsc/bin/aliases
@@ -59,7 +65,7 @@ then
     alias -g egrep='egrep --ignore-case --color=auto'
 
     alias -g diff='grc diff --color=auto'
-    
+
     export LESS="-R"
     export LESS_TERMCAP_md=$'\e[01;31m'
     export LESS_TERMCAP_me=$'\e[0m'
@@ -135,11 +141,11 @@ alias v='nvim '
 alias vi='nvim '
 alias vim='nvim '
 
-#              |  _)                  
-#   _ \  __ \  __| |  _ \  __ \   __| 
-#  (   | |   | |   | (   | |   |\__ \ 
-# \___/  .__/ \__|_|\___/ _|  _|____/ 
-#       _|                            
+#              |  _)
+#   _ \  __ \  __| |  _ \  __ \   __|
+#  (   | |   | |   | (   | |   |\__ \
+# \___/  .__/ \__|_|\___/ _|  _|____/
+#       _|
 
 setopt extendedglob # inverted expansion like: ls *~*.txt.
 #setopt correct # correct mistakes.
@@ -162,17 +168,17 @@ HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
 
-#   _|                  |  _)                  
-#  |   |   | __ \   __| __| |  _ \  __ \   __| 
-#  __| |   | |   | (    |   | (   | |   |\__ \ 
-# _|  \__,_|_|  _|\___|\__|_|\___/ _|  _|____/ 
+#   _|                  |  _)
+#  |   |   | __ \   __| __| |  _ \  __ \   __|
+#  __| |   | |   | (    |   | (   | |   |\__ \
+# _|  \__,_|_|  _|\___|\__|_|\___/ _|  _|____/
 
-## sort filesize by size & in color:      
+## sort filesize by size & in color:
 dus() {
     paste <(du --exclude "./.*" --all --apparent-size --human-readable --max-depth=1 2>/dev/null | sed 's/\s.*//') <(ls --color=always -1 -U) | sort --human-numeric-sort
 }
 
-## sort all filesize by size & in color:      
+## sort all filesize by size & in color:
 dusd() {
     paste <(du --apparent-size --all --human-readable --max-depth=1 2>/dev/null | sed 's/\s.*//') <(ls --color=always -1 --almost-all -U) | sort --human-numeric-sort
 }
@@ -264,10 +270,10 @@ bindkey . rationalize-dot
 # #bindkey -M viins '\e\e' sudo-command-line
 
 
-#   __| _` | __ \   _` |  _ \  __| 
-#  |   (   | |   | (   |  __/ |    
-# _|  \__,_|_|  _|\__, |\___|_|    
-#                 |___/            
+#   __| _` | __ \   _` |  _ \  __|
+#  |   (   | |   | (   |  __/ |
+# _|  \__,_|_|  _|\__, |\___|_|
+#                 |___/
 
 ## This is based on: https://github.com/ranger/ranger/blob/master/examples/bash_automatic_cd.sh
 ## Paste this into your .zshrc:
@@ -278,7 +284,7 @@ bindkey . rationalize-dot
 #     test -f "$tempfile" &&
 #     if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
 #         cd -- "$(cat "$tempfile")"
-#     fi  
+#     fi
 #     rm -f -- "$tempfile"
 # }
 
@@ -286,10 +292,10 @@ bindkey . rationalize-dot
 #$RANGERCD && unset RANGERCD && ranger-cd
 
 
-# _  /  __| _` | __ \   _` |  _ \  __| 
-#   /  |   (   | |   | (   |  __/ |    
-# ___|_|  \__,_|_|  _|\__, |\___|_|    
-#                     |___/            
+# _  /  __| _` | __ \   _` |  _ \  __|
+#   /  |   (   | |   | (   |  __/ |
+# ___|_|  \__,_|_|  _|\__, |\___|_|
+#                     |___/
 
 # Preventing nested ranger instances You can start a shell in the
 # current directory with S, when you exit the shell you get back to
@@ -344,10 +350,10 @@ bindkey . rationalize-dot
 # bindkey -s '^D' "\eq zranger\n"
 
 
-# |  _| 
-# | |   
-# | __| 
-#_|_|   
+# |  _|
+# | |
+# | __|
+#_|_|
 #
 # wrapper function to call "lf", a terminal filebrowser written in go.
 # lf, which changes working dir in shell to last dir:
@@ -358,7 +364,7 @@ lf () {
     # pre-built binary, make sure to use absolute path:
     #/opt/sw/lf/bin/lf -config /opt/sw/lf/bin/lfrc -last-dir-path="$tmp" "$@"
     #command lf -last-dir-path="$tmp" "$@"
-    
+
     if [ -f "$tmp" ]; then
         dir="$(cat "$tmp")"
         rm -f "$tmp"
@@ -378,16 +384,16 @@ autoload -U lf # embedded in zshrc
 bindkey -s '^D' "\eq lf\n"
 
 
-#   _ \ __ \\ \   / 
-#   __/ |   |\ \ /  
-# \___|_|  _| \_/   
+#   _ \ __ \\ \   /
+#   __/ |   |\ \ /
+# \___|_|  _| \_/
 
 export EDITOR='emacs'
 export PATH='/home/m/bin:/home/m/vscloud/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:/usr/games:/usr/local/games:/opt'
 #PATH+=/scripts # hängt zur $path eben was an...
 #export QT_QPA_PLATFORMTHEME='qt5ct' # qt5 gtk blending
 #export QT_STYLE_OVERRIDE='qt5ct'
-#export QT_QPA_PLATFORMTHEME='gtk2' # qt looks like current gtk theme 
+#export QT_QPA_PLATFORMTHEME='gtk2' # qt looks like current gtk theme
 #export QT_STYLE_OVERRIDE='gtk2'
 QT_QPA_PLATFORMTHEME='Adwaita-Dark'
 QT_STYLE_OVERRIDE='Adwaita-Dark'
@@ -397,9 +403,9 @@ export CALIBRE_USE_DARK_PALETTE=1
 export XDG_CURRENT_DESKTOP='GNOME'
 
 
-#       |          _|  _| 
-#   __| __| |   | |   |   
-# \__ \ |   |   | __| __| 
+#       |          _|  _|
+#   __| __| |   | |   |
+# \__ \ |   |   | __| __|
 # ____/\__|\__,_|_|  _|
 
 ## turn off XOFF/XON:
@@ -413,7 +419,7 @@ bindkey -e # emacs key bindings
 bindkey ' ' magic-space # also do history expansion on space, type '!!', then hit enter, watch.
 
 ## word jumping:
-zle -A delete-char delete-char-num 
+zle -A delete-char delete-char-num
 zle -A overwrite-mode overwrite-mode-num
 bindkey ";5C" forward-word
 bindkey ";5D" backward-word
@@ -432,11 +438,11 @@ bindkey "${terminfo[kend]}" end-of-line
 bindkey "^[[3~" delete-char
 bindkey "^[On"  delete-char-num
 
-#        |            _)            
-#  __ \  | |   |  _` | | __ \   __| 
-#  |   | | |   | (   | | |   |\__ \ 
-#  .__/ _|\__,_|\__, |_|_|  _|____/ 
-# _|            |___/               
+#        |            _)
+#  __ \  | |   |  _` | | __ \   __|
+#  |   | | |   | (   | | |   |\__ \
+#  .__/ _|\__,_|\__, |_|_|  _|____/
+# _|            |___/
 
 ## auto suggestion:
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -461,11 +467,11 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 ## autocompletion for lf:
 fpath=(/home/m/.config/lf $fpath)
 
-#                             
-#   __|  _ \  __ `__ \  __ \  
-#  (    (   | |   |   | |   | 
-# \___|\___/ _|  _|  _| .__/  
-#                      _|     
+#
+#   __|  _ \  __ `__ \  __ \
+#  (    (   | |   |   | |   |
+# \___|\___/ _|  _|  _| .__/
+#                      _|
 
 autoload -Uz compinit; compinit
 autoload -U colors && colors

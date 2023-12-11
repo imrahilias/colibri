@@ -9,7 +9,7 @@
 
 !*.background: rgb:10/10/10
 
-!   _|             |       
+!   _|             |
 !  |    _ \  __ \  __|  __|
 !  __| (   | |   | |  \__ \
 ! _|  \___/ _|  _|\__|____/
@@ -24,25 +24,23 @@ Xft.lcdfilter: lcddefault
 Xft.rgba: rgb
 
 
-!                          |  
+!                          |
 !  |   |  __|\ \  /\ \   / __|
-!  |   | |    `  <  \ \ /  |  
+!  |   | |    `  <  \ \ /  |
 ! \__,_|_|    _/\_\  \_/  \__|
 !
 
 !! URxvt (case sensitive?)
 !! ttps://wiki.archlinux.org/index.php/Rxvt-unicode
 
-URxvt*loginshell: true 
+URxvt*loginshell: true
 URxvt*saveLines: 10000
 URxvt*pointerblank: true
 URxvt*letterSpace: 0
-URxvt*font: xft:BitstromWera Nerd Font Mono:size=12:antialias=true
-URxvt*boldFont: xft:BitstromWera Nerd Font Mono:style=Bold:size=12:antialias=true
-!URxvt*font: xft:DejaVuSansMono Nerd Font:size=12:antialias=true,\
-!            xft: Bitstream Vera Sans Mono:size=12
-!URxvt*boldFont: xft:DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold,\
-!                xft: Bitstream Vera Sans Mono:size=12:style=Bold
+URxvt*font: xft:BitstromWera Nerd Font Mono:size=12:antialias=true,\
+            xft: Bitstream Vera Sans Mono:size=12
+URxvt*boldFont: xft:BitstromWera Nerd Font Mono:size=12:antialias=true:style=Bold,\
+                xft: Bitstream Vera Sans Mono:size=12:antialias=true:style=Bold
 URxvt*intensityStyles: false
 URxvt*secondaryScreen: true
 
@@ -121,7 +119,7 @@ URxvt*cursorColor2: #FF00FF
 URxvt*pointerColor: #FF00FF
 URxvt*pointerColor2: #FF00FF
 
-!             |               
+!             |
 !   __|  _ \  |  _ \   __| __|
 !  (    (   | | (   | |  \__ \
 ! \___|\___/ _|\___/ _|  ____/
@@ -157,7 +155,7 @@ URxvt*pointerColor2: #FF00FF
 ! *color6: LightSeaGreen
 ! *color7: BlanchedAlmond
 ! *color8: DimGrey
-! *color9: IndianRed	
+! *color9: IndianRed
 ! *color10: SeaGreen
 ! *color11: DarkOrange
 ! *color12: DeepSkyBlue
@@ -167,7 +165,7 @@ URxvt*pointerColor2: #FF00FF
 ! *color16: BlanchedAlmond
 
 *color0: #000000
-*color1: #8B0000	
+*color1: #8B0000
 *color2: #2E8B57
 *color3: #DAA520
 *color4: #4682B4
@@ -184,7 +182,7 @@ URxvt*pointerColor2: #FF00FF
 *color15: #FFF5EE
 *color16: #FFEBCD
 
-!        |                    
+!        |
 ! \ \  / __|  _ \  __| __ `__ \
 !  `  <  |    __/ |    |   |   |
 !  _/\_\\__|\___|_|   _|  _|  _|
@@ -221,7 +219,7 @@ xterm*veryBoldColors: 6
 ! xterm*colorUL: Cyan
 
 xterm*color0: #000000
-xterm*color1: #8B0000	
+xterm*color1: #8B0000
 xterm*color2: #2E8B57
 xterm*color3: #DAA520
 xterm*color4: #4682B4
@@ -238,11 +236,11 @@ xterm*color14: #00CED1
 xterm*color15: #FFF5EE
 xterm*color16: #FFEBCD
 
-!           _)          
+!           _)
 !  __ `__ \  |  __|  __|
-!  |   |   | |\__ \ (   
+!  |   |   | |\__ \ (
 ! _|  _|  _|_|____/\___|
 !
 
-!! for otave via emacs 
+!! for otave via emacs
 gnuplot*background: transparent truecolor

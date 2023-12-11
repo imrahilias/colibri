@@ -23,7 +23,7 @@ esac
 ## all
 sudo cp /etc/mkinitcpio.conf $mydir/
 sudo cp /etc/pacman.conf $mydir/
-sudo cp /etc/powerpill/powerpill.json $mydir/
 sudo cp /etc/fstab $mydir/
 sudo cp /etc/profile $mydir/
 sudo cp /etc/X11/xorg.conf.d/70-synaptics.conf $mydir/
+sudo cp /etc/pacman.d/hooks/xkeyboard-config.hook $mydir/

@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = xkeyboard-config
+
+[Action]
+Description = Add some umlauts to us layout: variant us(m)
+Exec = /home/m/bin/mykeys
+When = PostTransaction
