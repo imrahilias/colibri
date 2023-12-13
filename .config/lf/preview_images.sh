@@ -30,7 +30,7 @@ case $mime in
     # *)
     #   echo $mime
     #   ;;
-    
+
     ## very fast but jpeg only via libjpg:
     image/jpeg)
         [ ! -f "$cache" ] && epeg --width=1024 --preserve "$1" "$cache"
@@ -50,7 +50,7 @@ case $mime in
         [ ! -f "$cache" ] && convert -thumbnail 1024 "$1" "$cache"
         image "$cache" "$2" "$3" "$4" "$5" "$1"
         ;;
-           
+
     ## xls | xlsx | ods ... whatever libreoffice can open!
     application/vnd*)
         [ ! -f "$cache" ] && libreoffice --headless \
@@ -61,14 +61,14 @@ case $mime in
             mv "/tmp/$name.jpg" "$cache"
         image "$cache" "$2" "$3" "$4" "$5" "$1"
         ;;
-    
+
     ## epub, mobi, fb2 (using calibre)
     application/epub+zip|application/x-mobipocket-ebook|\
         application/x-fictionbook+xml)
         [ ! -f "$cache" ] && ebook-meta --get-cover="$cache" -- "$1"
 	image "$cache" "$2" "$3" "$4" "$5" "$1"
 	;;
-    
+
     video/* )
         [ ! -f "$cache" ] && ffmpegthumbnailer -i "$1" -o "$cache" -s 0
         image "$cache" "$2" "$3" "$4" "$5" "$1"
@@ -83,11 +83,11 @@ case $mime in
                                           -- "$1" "$cache"
 	image "$cache.jpg" "$2" "$3" "$4" "$5" "$1"
 	;;
-    
+
     application/*zip)
         atool --list -- "$1"
         ;;
-    
+
     application/pgp-encrypted)
         gpg -d -- "$1"
         ;;
@@ -96,7 +96,7 @@ case $mime in
     application/x-executable | application/x-pie-executable | application/x-sharedlib)
         readelf -WCa -- "$1"
         ;;
-    
+
     ## jupyter notebooks
     application/json)
         if [ $ext == ipynb ]
@@ -116,9 +116,9 @@ case $mime in
     text/html)
         #lynx -width="$4" -display_charset=utf-8 -dump "$1"
         elinks -dump -dump-color-mode 2 "$1"
-        
+
         ;;
-    
+
     # ## text | markdown
     # text/* | */xml | application/x-ndjson)
     #     if [ $ext == md ]
@@ -134,17 +134,17 @@ case $mime in
         ## Syntax highlight below 256KiB
         # if [[ "$( stat --printf='%s' -- "${path}" )" -gt "262143" ]]; then
         #     exit 1
-        # fi       
+        # fi
         ##themes: use highlight-gui
         ##nice themes: "base16/google-dark", "base16/materia", "navy", "$HOME/.config/highlight/rebecca_m.theme"
         highlight --out-format="xterm256" --replace-tabs="4" --style="$HOME/.config/highlight/rebecca_m.theme" --force -- "$1"
         ;;
-    
+
     *)
         mediainfo "$1"
         echo "mime: $mime"
         ;;
-    
+
 esac
 
 exit 1

@@ -140,6 +140,8 @@ alias p='python3 '
 alias v='nvim '
 alias vi='nvim '
 alias vim='nvim '
+alias gnome-session='echo "haha nice try:D" '
+
 
 #              |  _)
 #   _ \  __ \  __| |  _ \  __ \   __|

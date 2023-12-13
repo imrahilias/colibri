@@ -21,16 +21,16 @@ case $mime in
     # *)
     #   echo $mime
     #   ;;
-    
+
     image/*)
         exiv2 "$1"
         ;;
-   
+
     pdf)
         ## preview as text conversion
         pdftotext -l 10 -nopgbrk -q -- "$1" - | fmt -w "$(($4-2))"
         ;;
-    
+
     *opendocument*)
         odt2txt "$1"
         ;;
@@ -42,7 +42,7 @@ case $mime in
         ## catdoc: http://www.wagner.pp.ru/~vitus/software/catdoc/
         catdoc -- "$1"
         ;;
-    
+
     ## docx, epub, fb2 (using markdown)
     ## you might want to remove "|epub" and/or "|fb2" below if you have
     ## uncommented other methods to preview those formats
@@ -51,7 +51,7 @@ case $mime in
         ## preview as markdown conversion
         pandoc -s -t markdown -- "$1"
         ;;
-    
+
     ## xls
     *ms-excel)
         ## preview as csv conversion
@@ -59,11 +59,11 @@ case $mime in
         ##   http://www.wagner.pp.ru/~vitus/software/catdoc/
         xls2csv -- "$1"
         ;;
-    
+
     application/*zip)
         atool --list -- "$1"
         ;;
-    
+
     application/pgp-encrypted)
         gpg -d -- "$1"
         ;;
@@ -93,7 +93,7 @@ case $mime in
         #lynx -width="$4" -display_charset=utf-8 -dump "$1"
         elinks -dump -dump-color-mode 2 "$1"
         ;;
-    
+
     ## text | markdown
     # text/* | */xml | application/x-ndjson)
     #     if [ $ext == md ]
@@ -109,17 +109,17 @@ case $mime in
         ## Syntax highlight below 256KiB
         # if [[ "$( stat --printf='%s' -- "${path}" )" -gt "262143" ]]; then
         #     exit 1
-        # fi       
+        # fi
         ##themes: use highlight-gui
         ##nice themes: "base16/google-dark", "base16/materia", "navy", "$HOME/.config/highlight/rebecca_m.theme"
         highlight --out-format="xterm256" --replace-tabs="4" --style="$HOME/.config/highlight/rebecca_m.theme" --force -- "$1"
         ;;
-    
+
     *)
         mediainfo "$1"
         echo "mime: $mime"
         ;;
-    
+
 esac
 
 exit 1

@@ -38,7 +38,7 @@ There are two things you can do about this warning:
  '(custom-safe-themes
    '("171d1ae90e46978eb9c342be6658d937a83aaa45997b1d7af7657546cae5985b" default))
  '(package-selected-packages
-   '(cuda-mode csv-mode spinner string-inflection json-mode yaml-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode ess auto-correct))
+   '(poly-ansible poly-markdown polymode mmm-mode cuda-mode csv-mode spinner string-inflection json-mode yaml-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode ess auto-correct))
  '(warning-suppress-log-types '((auto-save))))
 
 ;;  |   |
@@ -211,6 +211,9 @@ There are two things you can do about this warning:
 ;; \__ \  __/ |   |   | |   | (   |\__ \
 ;; ____/\___|\__|\__|_|_|  _|\__, |____/
 ;;                           |___/
+
+;; code block sytax highlighting in org mode:
+(setq org-src-fontify-natively t)
 
 ;; no welcome message please:
 (setq inhibit-startup-message t)

@@ -278,7 +278,11 @@ map <f-1> doc
 ## show the result of execution of previous commands:
 map ` !true
 
+#map , :set globsearch true; push :glob-select<space>
 map , push :glob-select<space>
+
+## does not make sense with my find function:
+map \;
 
 map . set hidden!
 

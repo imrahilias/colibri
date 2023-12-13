@@ -195,8 +195,8 @@ globalkeys = gears.table.join(
    awful.key({ modkey }, "Return", function () awful.spawn(terminal) end),
    awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('urxvtc -e ssh admin') end),
    awful.key({ modkey, "Control" }, "Return", function () awful.spawn("urxvtc -e ssh 5") end),
-   awful.key({ modkey }, "d", function () awful.spawn.with_shell('urxvtc -title " lf" -e /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc', false) end),
-   awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell('urxvtc -title " sudo lf"" -e sudo /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc', false) end),
+   awful.key({ modkey }, "d", function () awful.spawn.with_shell('urxvtc -title "  lf" -e /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc', false) end),
+   awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell('urxvtc -title "  sudo lf"" -e sudo /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc', false) end),
    awful.key({ modkey }, "e", function () awful.spawn("emacsclient -ca ''", false) end),
    awful.key({ modkey, "Shift" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_cromium") end),
    awful.key({ modkey, "Control" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_google_translate") end),
@@ -626,7 +626,7 @@ awful.rules.rules = {
    -- games & conf:
    { rule_any = {
         class = {
-           "Steam",
+           "steam",
            "zoom",
         },
         name = {
