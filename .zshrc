@@ -128,10 +128,9 @@ alias fifi='figlet -w 200 -f "shadow" '
 alias cp='rsync -aP' # show percentage.
 #alias ap='adb pull /sdcard/DCIM/Camera/ /mnt/troika/photos/2021/' more complicated: moved to bin.
 alias d0='xrandr --auto'
-alias d1='xrandr --output HDMI-A-0 --auto --output eDP --off'
-alias d2='xrandr --output HDMI-A-0 --auto --right-of eDP'
-alias d3='xrandr --output DisplayPort-0 --scale 0.8 --output eDP --off'
-alias d4='xrandr --output DisplayPort-1 --scale 0.8 --output eDP --off'
+alias d1='xrandr --output eDP --off --output HDMI-A-0 --auto'
+alias d2='xrandr --output eDP --auto --output HDMI-A-0 --auto --right-of eDP'
+alias d3='xrandr --output eDP --off --output DisplayPort-0 --scale 0.7 --output DisplayPort-1 --scale 0.7 --output HDMI-A-0 --scale 0.7'
 alias pm='pulsemixer'
 alias wh='which '
 alias r='zranger'
@@ -393,17 +392,7 @@ bindkey -s '^D' "\eq lf\n"
 export EDITOR='emacs'
 export PATH='/home/m/bin:/home/m/vscloud/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:/usr/games:/usr/local/games:/opt'
 #PATH+=/scripts # hängt zur $path eben was an...
-#export QT_QPA_PLATFORMTHEME='qt5ct' # qt5 gtk blending
-#export QT_STYLE_OVERRIDE='qt5ct'
-#export QT_QPA_PLATFORMTHEME='gtk2' # qt looks like current gtk theme
-#export QT_STYLE_OVERRIDE='gtk2'
-QT_QPA_PLATFORMTHEME='Adwaita-Dark'
-QT_STYLE_OVERRIDE='Adwaita-Dark'
-export ALSA_CARD='PCH'
-export ALSA_CTL='PCH'
-export CALIBRE_USE_DARK_PALETTE=1
-export XDG_CURRENT_DESKTOP='GNOME'
-
+export GOPATH="$HOME/.go"
 
 #       |          _|  _|
 #   __| __| |   | |   |
@@ -439,6 +428,7 @@ bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
 bindkey "^[[3~" delete-char
 bindkey "^[On"  delete-char-num
+
 
 #        |            _)
 #  __ \  | |   |  _` | | __ \   __|

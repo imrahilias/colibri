@@ -26,6 +26,6 @@ table5={
   ["y"]={"evolution", "Evolution"},
   ["u"]={"telegram-desktop", "Telegram"},
   ["i"]={"signal-desktop", "Signal"},
-  ["o"]={"rocketchat-desktop", "Rocket.Chat"},
+  --["o"]={"rocketchat-desktop", "Rocket.Chat"},
   ["Shift-o"]={"libreoffice ", "libreoffice"},
 }

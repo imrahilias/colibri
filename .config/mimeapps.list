@@ -19,7 +19,7 @@ application/pdf=org.pwmt.zathura.desktop
 
 [Added Associations]
 x-scheme-handler/tg=userapp-Telegram Desktop-3KBSI1.desktop;userapp-Telegram Desktop-T9CLW1.desktop;org.telegram.desktop.desktop;
-application/pdf=xreader.desktop;signal-desktop.desktop;org.gnome.Evince.desktop;
+application/pdf=org.gnome.Evince.desktop;xreader.desktop;signal-desktop.desktop;
 x-scheme-handler/mailto=org.gnome.Evolution.desktop;
 image/png=gimp.desktop;org.xfce.ristretto.desktop;
 image/gif=org.xfce.ristretto.desktop;

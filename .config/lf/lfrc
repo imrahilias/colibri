@@ -4,7 +4,7 @@
 #              |  _)
 #   _ \  __ \  __| |  _ \  __ \   __|
 #  (   | |   | |   | (   | |   |\__ \
-# \___/  .__/ \__|_|\___/ _|  _|____/
+    # \___/  .__/ \__|_|\___/ _|  _|____/
 #       _|
 
 ## Interpreter for shell commands
@@ -41,7 +41,7 @@ set cursorpreviewfmt "\033[7;2m"
 
 ## List of hidden file glob patterns. Patterns can be given as relative or
 # absolute paths. To add multiple patterns, use ':' as a separator.
-set hiddenfiles ".*:*~:*#:*.bak"
+set hiddenfiles ".*:*~:*#:*.bak:/home/m/Downloads:/home/m/license:/home/m/readme.md"
 
 ## Jump to the first match after each keystroke during searching.
 set incsearch true
@@ -80,7 +80,7 @@ set ratios "1:2:3"
 #                                                 |
 #   __|  _ \  __ `__ \  __ `__ \   _` | __ \   _` |  __|
 #  (    (   | |   |   | |   |   | (   | |   | (   |\__ \
-# \___|\___/ _|  _|  _|_|  _|  _|\__,_|_|  _|\__,_|____/
+    # \___|\___/ _|  _|  _|_|  _|  _|\__,_|_|  _|\__,_|____/
 #
 
 ## Custom 'open' command
@@ -90,7 +90,7 @@ set ratios "1:2:3"
 
 # # Custom 'open' command, in background to prevent flicker.
 # cmd open &{{
-#     test -L $fx && f=$(readlink -f $fx)
+#     test -L $fx && fx=$(readlink -f $fx)
 #     case $(file --mime-type -Lb $f) in
 #         text/*|inode/x-empty) $lf -remote "send $id \$nvim -O \$fx";;
 #         *) $lf -remote "send $id openwith \$fx";;
@@ -98,35 +98,41 @@ set ratios "1:2:3"
 # }}
 
 cmd open &{{
-     test -L $fx && f=$(readlink -f $fx)
-     $lf -remote "send $id \$rifle -p 0 \$fx"
-}}
+              test -L $fx && fx=$(readlink -f $fx)
+              $lf -remote "send $id \$rifle -p 0 \$fx"
+          }}
 
 cmd openwith ${{
-    clear
-    set -f
-    rifle -l $fx | sed -e "s/:[a-Z]*:[a-Z]*:/ \| /"
-    read -p "open with: " method
-    rifle -p $method $fx
-}}
+                  clear
+                  set -f
+                  rifle -l $fx | sed -e "s/:[a-Z]*:[a-Z]*:/ \| /"
+                  num=$(rifle -l $fx | wc -l)
+                  if [[ $num -lt 10 ]]
+                  then
+                      read -n1 method
+                  else
+                      read -n2 method
+                  fi
+                  rifle -p $method $fx
+              }}
 
 # Custom 'chmod' command:
 # Prompt in lf '%' but oen in shell '$' via remote.
 cmd chmod %{{
-    test -L $fx && f=$(readlink -f $fx)
-    read -p "chmod " ans
-    $lf -remote "send $id \$chmod $ans \$fx"
-    $lf -remote "send reload"
-}}
+               test -L $fx && fx=$(readlink -f $fx)
+               read -p "chmod " ans
+               $lf -remote "send $id \$chmod $ans \$fx"
+               $lf -remote "send reload"
+           }}
 
 # Custom 'chown' command:
 # Prompt in lf dd'%' but oen in shell '$' via remote.
 cmd chown %{{
-    test -L $fx && f=$(readlink -f $fx)
-    read -p "chown " ans
-    $lf -remote "send $id \$chown $ans \$fx"
-    $lf -remote "send reload"
-}}
+               test -L $fx && fx=$(readlink -f $fx)
+               read -p "chown " ans
+               $lf -remote "send $id \$chown $ans \$fx"
+               $lf -remote "send reload"
+           }}
 
 ## define a custom 'rename' command without prompt for overwrite
 ## cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
@@ -135,80 +141,80 @@ cmd chown %{{
 ## extract the current file with the right command
 ## (xkcd link: https://xkcd.com/1168/)
 cmd extract ${{
-    set -f
-    case $f in
-        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
-        *.tar.gz|*.tgz) tar xzvf $f;;
-        *.tar.xz|*.txz) tar xJvf $f;;
-        *.zip) unzip $f;;
-        *.rar) unrar x $f;;
-        *.7z) 7z x $f;;
-    esac
-}}
+                 set -f
+                 case $f in
+                     *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
+                     *.tar.gz|*.tgz) tar xzvf $f;;
+                     *.tar.xz|*.txz) tar xJvf $f;;
+                     *.zip) unzip $f;;
+                     *.rar) unrar x $f;;
+                     *.7z) 7z x $f;;
+                 esac
+             }}
 
 ## compress current file or selected files with tar and gunzip
 cmd tar ${{
-    set -f
-    mkdir $1
-    cp -r $fx $1
-    tar czf $1.tar.gz $1
-    rm -rf $1
-}}
+             set -f
+             mkdir $1
+             cp -r $fx $1
+             tar czf $1.tar.gz $1
+             rm -rf $1
+         }}
 
 ## compress current file or selected files with zip
 cmd zip ${{
-    set -f
-    mkdir $1
-    cp -r $fx $1
-    zip -r $1.zip $1
-    rm -rf $1
-}}
+             set -f
+             mkdir $1
+             cp -r $fx $1
+             zip -r $1.zip $1
+             rm -rf $1
+         }}
 
 cmd moveto ${{
-	clear; tput cup $(($(tput lines)/3)); tput bold
-	set -f
-	clear; echo "Move to where?"
-	dest="$(fzf)" &&
-	for x in $fx; do
-		eval mv -iv \"$x\" \"$dest\"
-	done
-}}
+	        clear; tput cup $(($(tput lines)/3)); tput bold
+	        set -f
+	        clear; echo "Move to where?"
+	        dest="$(fzf)" &&
+	            for x in $fx; do
+		        eval mv -iv \"$x\" \"$dest\"
+	            done
+            }}
 
 cmd copyto ${{
-	clear; tput cup $(($(tput lines)/3)); tput bold
-	set -f
-	clear; echo "Copy to where?"
-	dest="$(fzf)" &&
-	for x in $fx; do
-		eval cp -ivr \"$x\" \"$dest\"
-	done
-}}
+	        clear; tput cup $(($(tput lines)/3)); tput bold
+	        set -f
+	        clear; echo "Copy to where?"
+	        dest="$(fzf)" &&
+	            for x in $fx; do
+		        eval cp -ivr \"$x\" \"$dest\"
+	            done
+            }}
 
 cmd bulkrename ${{
-    tmpfile_old="$(mktemp)"
-    tmpfile_new="$(mktemp)"
+                    tmpfile_old="$(mktemp)"
+                    tmpfile_new="$(mktemp)"
 
-    [ -n "$fs" ] && fs=$(basename -a $fs) || fs=$(ls)
+                    [ -n "$fs" ] && fs=$(basename -a $fs) || fs=$(ls)
 
-    echo "$fs" > "$tmpfile_old"
-    echo "$fs" > "$tmpfile_new"
-    $EDITOR "$tmpfile_new"
+                    echo "$fs" > "$tmpfile_old"
+                    echo "$fs" > "$tmpfile_new"
+                    $EDITOR "$tmpfile_new"
 
-    [ "$(wc -l < "$tmpfile_old")" -eq "$(wc -l < "$tmpfile_new")" ] || { rm -f "$tmpfile_old" "$tmpfile_new"; exit 1; }
+                    [ "$(wc -l < "$tmpfile_old")" -eq "$(wc -l < "$tmpfile_new")" ] || { rm -f "$tmpfile_old" "$tmpfile_new"; exit 1; }
 
-    paste "$tmpfile_old" "$tmpfile_new" | while IFS="$(printf '\t')" read -r src dst
-    do
-        [ "$src" = "$dst" ] || [ -e "$dst" ] || mv -- "$src" "$dst"
-    done
+                    paste "$tmpfile_old" "$tmpfile_new" | while IFS="$(printf '\t')" read -r src dst
+                    do
+                        [ "$src" = "$dst" ] || [ -e "$dst" ] || mv -- "$src" "$dst"
+                    done
 
-    rm -f "$tmpfile_old" "$tmpfile_new"
-    lf -remote "send $id unselect"
-}}
+                    rm -f "$tmpfile_old" "$tmpfile_new"
+                    lf -remote "send $id unselect"
+                }}
 
 
 ## git info:
 cmd on-cd &{{
-    bash -c '
+               bash -c '
     # display git repository status in your prompt
     source /usr/share/git/completion/git-prompt.sh
     GIT_PS1_SHOWDIRTYSTATE=auto
@@ -220,19 +226,19 @@ cmd on-cd &{{
     fmt="\033[0m\033[1m%d%f$git\033[0m"
     lf -remote "send $id set promptfmt \"$fmt\""
     '
-}}
+           }}
 
 ## show config:
 cmd key ${{
-    $PAGER ~/.config/lf/lfrc
-}}
+             $PAGER ~/.config/lf/lfrc
+         }}
 
 ## doc
 cmd doc $$lf -doc | $PAGER
 
 #
 #  __ `__ \   _ \  |   |  __|  _ \
-#  |   |   | (   | |   |\__ \  __/
+    #  |   |   | (   | |   |\__ \  __/
 # _|  _|  _|\___/ \__,_|____/\___|
 #
 
@@ -257,7 +263,7 @@ map <m-3> :push <right>
 #  |
 #  |  /  _ \ |   |  __|
 #    <   __/ |   |\__ \
-# _|\_\\___|\__, |____/
+    # _|\_\\___|\__, |____/
 #            ____/
 
 ## the following additional keybindings are provided by default,
@@ -397,9 +403,10 @@ map Yn $printf "%s" "$fx" | xclip -selection clipboard
 map za set info size:time
 map zc set info
 map zh set hidden!
-map zl :set number false; set relativenumber!
 map zi set icons!
+map zl :set number false; set relativenumber!
 map zn :set relativenumber false; set number!
+map zp set preview!
 map zr set reverse!
 map zs set info size
 map zt set info time
