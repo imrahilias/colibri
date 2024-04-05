@@ -127,10 +127,10 @@ alias rename='perl-rename '
 alias fifi='figlet -w 200 -f "shadow" '
 alias cp='rsync -aP' # show percentage.
 #alias ap='adb pull /sdcard/DCIM/Camera/ /mnt/troika/photos/2021/' more complicated: moved to bin.
-alias d0='xrandr --auto'
+alias d0='xrandr --auto --output DisplayPort-0 --scale 1 --output DisplayPort-1 --scale 1 --output HDMI-A-0 --scale 1'
 alias d1='xrandr --output eDP --off --output HDMI-A-0 --auto'
 alias d2='xrandr --output eDP --auto --output HDMI-A-0 --auto --right-of eDP'
-alias d3='xrandr --output eDP --off --output DisplayPort-0 --scale 0.7 --output DisplayPort-1 --scale 0.7 --output HDMI-A-0 --scale 0.7'
+alias d3='xrandr --output eDP --off --output DisplayPort-0 --auto --scale 0.7 --output DisplayPort-1 --auto --scale 0.7 --output HDMI-A-0 --auto --scale 0.7'
 alias pm='pulsemixer'
 alias wh='which '
 alias r='zranger'
@@ -139,7 +139,10 @@ alias p='python3 '
 alias v='nvim '
 alias vi='nvim '
 alias vim='nvim '
-alias gnome-session='echo "haha nice try:D" '
+
+## some gnome stuff: 
+alias gnome-session='echo "haha nice try:D"'
+alias gnome-settings='LD_PRELOAD="" gnome-control-center' # gtk3-nocsd breaks gnome-control-center and possibly more...
 
 
 #              |  _)

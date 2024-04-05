@@ -106,7 +106,6 @@ URxvt*buffered: true
 ! URxvt*depth: 32
 ! URxvt*background: [80]#000000
 ! URxvt*background: rgba:0000/0000/0000/c900
-
 URxvt*foreground: #FAF0E6
 URxvt*background: #000000
 ! URxvt*underlineColor:
@@ -188,7 +187,7 @@ URxvt*pointerColor2: #FF00FF
 !  _/\_\\__|\___|_|   _|  _|  _|
 !
 
-!!*.termName: xterm-256color
+xterm*.termName: xterm-256color
 xterm*locale: false
 xterm*utf8: true
 xterm*metaSendsEscape: true
@@ -198,19 +197,32 @@ xterm*saveLines: 4096
 xterm*scrollBar: false
 xterm*scrollbar.width: 8
 xterm*geometry: 80x32
-xterm*faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true
-xterm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true:style=Bold
 ! xterm*faceName: xft:DejaVuSansMono Nerd Font:size=12:antialias=true,\
 !             xft: Bitstream Vera Sans Mono:size=12
 ! xterm*boldFont: xft:DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold,\
 !                 xft: Bitstream Vera Sans Mono:size=12:style=Bold
 !xterm*faceName: xft:DejaVuSansMono Nerd Font:size=12:antialias=true
 !xterm*boldFont: xft:DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold
-xterm*transparent: true
-xterm*foreground: #FAF0E6
-xterm*background: #000000
-xterm*cursorColor: #FF00FF
-xterm*cursorColor2: #FF00FF
+
+!! light setting for vsc:
+xterm*foreground: #000000
+!xterm*background: #FAF0E6
+xterm*background: #ffffff
+xterm*transparent: false
+xterm*cursorColor: #8B008B
+xterm*cursorColor2: #8B008B
+xterm*faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=16:antialias=true
+xterm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=16:antialias=true:style=Bold
+
+!! dark setting:
+! xterm*foreground: #FAF0E6
+! xterm*background: #000000
+! xterm*transparent: true
+! xterm*cursorColor: #FF00FF
+! xterm*cursorColor2: #FF00FF
+! xterm*faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true
+! xterm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true:style=Bold
+
 ! xterm*color0:  rgb:28/2a/2b
 xterm*veryBoldColors: 6
 ! xterm*colorBDMode: true
@@ -218,23 +230,43 @@ xterm*veryBoldColors: 6
 ! xterm*colorULMode: true
 ! xterm*colorUL: Cyan
 
+!! standard:
+! xterm*color0: #000000
+! xterm*color1: #800000
+! xterm*color2: #008000
+! xterm*color3: #808000
+! xterm*color4: #000080
+! xterm*color5: #800080
+! xterm*color6: #008080
+! xterm*color7: #c0c0c0
+! xterm*color8: #808080
+! xterm*color9: #ff0000
+! xterm*color10:#00ff00
+! xterm*color11:#ffff00
+! xterm*color12:#0000ff
+! xterm*color13:#ff00ff
+! xterm*color14:#00ffff
+! xterm*color15:#ffffff
+! xterm*color16:#ffffff
+
+!! reverse::
 xterm*color0: #000000
-xterm*color1: #8B0000
-xterm*color2: #2E8B57
-xterm*color3: #DAA520
-xterm*color4: #4682B4
-xterm*color5: #8B008B
-xterm*color6: #20B2AA
-xterm*color7: #FFEBCD
-xterm*color8: #696969
-xterm*color9: #CD5C5C
-xterm*color10: #8FBC8B
-xterm*color11: #8B4000
-xterm*color12: #00BFFF
-xterm*color13: #FF00FF
-xterm*color14: #00CED1
-xterm*color15: #FFF5EE
-xterm*color16: #FFEBCD
+xterm*color1: #ff0000
+xterm*color2: #00ff00
+xterm*color3: #ffff00
+xterm*color4: #0000ff
+xterm*color5: #ff00ff
+xterm*color6: #00ffff
+xterm*color7: #ffffff
+xterm*color8: #808080
+xterm*color9: #800000
+xterm*color10:#008000
+xterm*color11:#808000
+xterm*color12:#000080
+xterm*color13:#800080
+xterm*color14:#008080
+xterm*color15:#c0c0c0
+xterm*color16:#808080
 
 !           _)
 !  __ `__ \  |  __|  __|

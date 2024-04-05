@@ -80,15 +80,27 @@ set ratios "1:2:3"
 #                                                 |
 #   __|  _ \  __ `__ \  __ `__ \   _` | __ \   _` |  __|
 #  (    (   | |   |   | |   |   | (   | |   | (   |\__ \
-    # \___|\___/ _|  _|  _|_|  _|  _|\__,_|_|  _|\__,_|____/
+# \___|\___/ _|  _|  _|_|  _|  _|\__,_|_|  _|\__,_|____/
 #
+
+## $f ... focussed file.
+## $fs ... selected files, empty if none.
+## $fx ... selected files, focussed file if none selected.
+
+
+## use this to dereference links of many files:
+# for file in $fs
+# do
+#     test -L $file && fm+=$(readlink -file $f)
+# done
+# echo $fm
 
 ## Custom 'open' command
 ## This command is called when current file is not a directory. You may want to
 ## use either file extensions and/or mime types here. Below uses an editor for
 ## text files and a file opener for the rest.
 
-# # Custom 'open' command, in background to prevent flicker.
+# # Custom 'open' command, in background to prevent flicker:
 # cmd open &{{
 #     test -L $fx && fx=$(readlink -f $fx)
 #     case $(file --mime-type -Lb $f) in
@@ -97,11 +109,13 @@ set ratios "1:2:3"
 #     esac
 # }}
 
-cmd open &{{
-              test -L $fx && fx=$(readlink -f $fx)
-              $lf -remote "send $id \$rifle -p 0 \$fx"
-          }}
+## fire up rangers rifle:
+#cmd open $rifle -p 0 $fx
 
+## fire up rangers rifle, in background to prevent flicker:
+cmd open &{{ $lf -remote "send $id \$rifle -p 0 \$fx" }}
+
+## ranger like rifle preview:
 cmd openwith ${{
                   clear
                   set -f
@@ -119,20 +133,66 @@ cmd openwith ${{
 # Custom 'chmod' command:
 # Prompt in lf '%' but oen in shell '$' via remote.
 cmd chmod %{{
-               test -L $fx && fx=$(readlink -f $fx)
-               read -p "chmod " ans
+               read ans
                $lf -remote "send $id \$chmod $ans \$fx"
                $lf -remote "send reload"
            }}
 
 # Custom 'chown' command:
-# Prompt in lf dd'%' but oen in shell '$' via remote.
+# Prompt in lf '%' but oen in shell '$' via remote.
 cmd chown %{{
-               test -L $fx && fx=$(readlink -f $fx)
-               read -p "chown " ans
+               read ans
                $lf -remote "send $id \$chown $ans \$fx"
                $lf -remote "send reload"
            }}
+
+
+
+
+## grep glob in selected files or pwd, nonrecursive, only visible files:
+cmd grepit %{{
+                read ans
+                ## breaks on many selected files?!
+                $lf -remote "send $id \$grep -Hirn --color=always --exclude-dir='.*' --exclude='*~' --exclude='#*#' -- $ans * | moar"
+            }}
+
+## grep glob in selected files or pwd, recursive, all files:
+cmd grepitall %{{
+                   read ans
+                   ## cwd or are files selected to search in?
+                   if [ -z "$fs" ]; then # use cwd:
+                       loc="*"
+                   else # use files
+                       loc=$fs
+                   fi
+                   $lf -remote "send $id \$grep -Hirn --color=always -- $ans * | moar"
+               }}
+
+## breaks on many selected files?!
+# cmd grepit %{{
+#                 read ans
+#                 ## cwd or are files selected to search in?
+#                 if [ -z "$fs" ]; then # use cwd:
+#                     loc="*"
+#                 else # use files
+#                     loc="$fs"
+#                 fi
+#                 ## breaks on many selected files?!
+#                 $lf -remote "send $id \$grep -Hirn --color=always --exclude-dir='.*' --exclude='*~' --exclude='#*#' -- $ans $loc | moar"
+#             }}
+
+# ## breaks on many selected files?!
+# cmd grepitall %{{
+#                    read ans
+#                    ## cwd or are files selected to search in?
+#                    if [ -z "$fs" ]; then # use cwd:
+#                        loc="*"
+#                    else # use files
+#                        loc=$fs
+#                    fi
+#                    $lf -remote "send $id \$grep -Hirn --color=always -- $ans $loc | moar"
+#                }}
+
 
 ## define a custom 'rename' command without prompt for overwrite
 ## cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
@@ -236,6 +296,7 @@ cmd key ${{
 ## doc
 cmd doc $$lf -doc | $PAGER
 
+
 #
 #  __ `__ \   _ \  |   |  __|  _ \
     #  |   |   | (   | |   |\__ \  __/
@@ -277,7 +338,10 @@ map <a-left> :push <left>
 map <backspace2>
 
 #map <enter> shell
-map <enter> :cmd-enter; open
+map <enter> :push <right>
+
+## this wants to open dirs in emacs, i dont:
+#map <enter> :cmd-enter; $lf -remote "send $id \$rifle -p 0 \$fx"
 
 map <f-1> doc
 
@@ -337,18 +401,20 @@ map D delete
 map e
 map ea !beautify_all
 map eb %beautify $fx
-#map ed $diff --color=always -u $fx | less -R
-map ed $diff -u $fx | diff-so-fancy | less -R
+#map ed $diff --color=always -u $fx | moar
+#map ed !dwdiff --color $fx | moar
+map ed $diff -u $fx | diff-so-fancy | moar
 #map ee $emacsclient -ca ''
 #map ee $emacs $fx
 #map ee push $emacs<space>
 map ee push $emacsclient<space>-ca<space>''<space>
 map ef !time gfortran -Og -Wall -fimplicit-none -fcheck=all -fbacktrace $fx
-map eg !gnuplot $fx
+map eg grepit
+map eG grepitall
 map ep !adb push $fx storage/self/primary/
+map eP !gnuplot $fx
 map er !rmtmp
 #map eu !du -h --apparent-size | sort -rh
-map ew !dwdiff --less-mode --color $fx
 map ex !time ./$fs
 
 map f filter
@@ -367,7 +433,7 @@ map gt cd /tmp
 map gu cd /usr
 map gv cd ~/vsc
 
-map i $LESSOPEN='| ~/.config/lf/preview.sh %s' less -R $fx
+map i $LESSOPEN='| ~/.config/lf/preview.sh %s' less $fx
 
 map m chmod
 map M chown

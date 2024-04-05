@@ -7,23 +7,25 @@ echo "running on $mydir"
 case $(hostname) in
     archaeopteryx)
         ## rsnapshot timers
-        sudo cp /etc/systemd/system/rsnapshot-weekly.timer $mydir/rsnapshot
-        sudo cp /etc/systemd/system/rsnapshot-daily.timer $mydir/rsnapshot
-        sudo cp /etc/systemd/system/rsnapshot-hourly.timer $mydir/rsnapshot
-        sudo cp /etc/systemd/system/rsnapshot-monthly.timer $mydir/rsnapshot
-        sudo cp /etc/systemd/system/rsnapshot@.service $mydir/rsnapshot
-        sudo cp /etc/rsnapshot.conf $mydir/
-        sudo cp /etc/X11/xorg.conf $mydir/
-        sudo cp /etc/pacman.d/hooks/nvidia.hook $mydir/
+        sudo cp --parents /etc/systemd/system/rsnapshot-weekly.timer $mydir/
+        sudo cp --parents /etc/systemd/system/rsnapshot-daily.timer $mydir/
+        sudo cp --parents /etc/systemd/system/rsnapshot-hourly.timer $mydir/
+        sudo cp --parents /etc/systemd/system/rsnapshot-monthly.timer $mydir/
+        sudo cp --parents /etc/systemd/system/rsnapshot@.service $mydir/
+        sudo cp --parents /etc/rsnapshot.conf $mydir/
+        ## xorg
+        sudo cp --parents /etc/pacman.d/hooks/nvidia.hook $mydir/
         ;;
     colibri)
         ;;
 esac
 
 ## all
-sudo cp /etc/mkinitcpio.conf $mydir/
-sudo cp /etc/pacman.conf $mydir/
-sudo cp /etc/fstab $mydir/
-sudo cp /etc/profile $mydir/
-sudo cp /etc/X11/xorg.conf.d/70-synaptics.conf $mydir/
-sudo cp /etc/pacman.d/hooks/xkeyboard-config.hook $mydir/
+sudo cp --parents /boot $mydir/
+sudo cp --parents /etc/mkinitcpio.conf $mydir/
+sudo cp --parents /etc/pacman.conf $mydir/
+sudo cp --parents /etc/fstab $mydir/
+sudo cp --parents /etc/profile $mydir/
+sudo cp --parents /etc/X11/xorg.conf $mydir/
+sudo cp --parents /etc/X11/xorg.conf.d/70-synaptics.conf $mydir/
+sudo cp --parents /etc/pacman.d/hooks/xkeyboard-config.hook $mydir/

@@ -109,7 +109,11 @@ case $mime in
                             --force
             #    | env COLORTERM=8bit bat --color=always --style=plain --language=markdown
         else
-            highlight --out-format="xterm256" --replace-tabs="4" --style="$HOME/.config/highlight/rebecca_m.theme" --force -- "$1"
+            highlight --out-format="xterm256" \
+                      --replace-tabs="4" \
+                      --style="$HOME/.config/highlight/rebecca_m.theme" \
+                      --force \
+                      -- "$1"
         fi
         ;;
 
@@ -135,9 +139,18 @@ case $mime in
         # if [[ "$( stat --printf='%s' -- "${path}" )" -gt "262143" ]]; then
         #     exit 1
         # fi
-        ##themes: use highlight-gui
-        ##nice themes: "base16/google-dark", "base16/materia", "navy", "$HOME/.config/highlight/rebecca_m.theme"
-        highlight --out-format="xterm256" --replace-tabs="4" --style="$HOME/.config/highlight/rebecca_m.theme" --force -- "$1"
+        #
+        # themes: type highlight-gui
+        # nice themes: "base16/google-dark",
+        # "base16/materia",
+        # "navy",
+        # "$HOME/.config/highlight/rebecca_m.theme"
+        #
+        highlight --out-format="xterm256" \
+                  --replace-tabs="4" \
+                  --style="$HOME/.config/highlight/rebecca_m.theme" \
+                  --force \
+                  -- "$1"
         ;;
 
     *)

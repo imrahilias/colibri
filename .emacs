@@ -56,7 +56,7 @@ There are two things you can do about this warning:
      (sql . t)
      (sqlite . t)))
  '(package-selected-packages
-   '(org-auto-tangle gnuplot blacken poly-ansible poly-markdown polymode mmm-mode cuda-mode csv-mode spinner string-inflection json-mode yaml-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode ess auto-correct))
+   '(php-mode org-auto-tangle gnuplot blacken poly-ansible poly-markdown polymode mmm-mode cuda-mode csv-mode spinner string-inflection json-mode yaml-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode ess auto-correct))
  '(warning-suppress-log-types '((auto-save))))
 
 ;;  |   |
@@ -173,7 +173,7 @@ There are two things you can do about this warning:
 ;; fullscreen: this is bound to f11 in Emacs 24.4::
 ;(toggle-frame-fullscreen)
 
-;; up/downcase region:
+;; disable up/downcase region warning message:
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
@@ -248,7 +248,7 @@ There are two things you can do about this warning:
 
 ;; scrolling mouse:
 (setq mouse-wheel-scroll-amount '(2 ((shift) . 1))) ;; two lines at a time
-(setq Mouse-Wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 
 ;; interactively do things mode:
@@ -291,6 +291,7 @@ There are two things you can do about this warning:
 
 ;; custom keyboard shortcuts:
 (global-set-key (kbd "C-c m") 'compile)
+(global-set-key (kbd "C-C w") 'delete-trailing-whitespace)
 
 ;; eval .emacs:
 (global-set-key (kbd "C-c r") (lambda() (interactive) (load-file "~/.emacs")))
@@ -299,6 +300,7 @@ There are two things you can do about this warning:
 (global-set-key (kbd "C-c a") (lambda() (interactive) (find-file "~/.config/awesome/rc.lua")))
 (global-set-key (kbd "C-c e") (lambda() (interactive) (find-file "~/.emacs")))
 (global-set-key (kbd "C-c l") (lambda() (interactive) (find-file "~/.config/lf/lfrc")))
+(global-set-key (kbd "C-c R") (lambda() (interactive) (find-file "~/.config/ranger/rifle.conf")))
 (global-set-key (kbd "C-c x") (lambda() (interactive) (find-file "~/.xinitrc")))
 (global-set-key (kbd "C-c X") (lambda() (interactive) (find-file "~/.Xressources")))
 (global-set-key (kbd "C-c z") (lambda() (interactive) (find-file "~/.zshrc")))

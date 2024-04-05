@@ -75,10 +75,22 @@ modkey = "Mod4"
 -- table of layouts to cover with awful.layout.inc, order matters:
 awful.layout.layouts = {
    awful.layout.suit.tile,
+   -- awful.layout.suit.tile.left,
+   -- awful.layout.suit.tile.bottom,
+   -- awful.layout.suit.tile.top,
    awful.layout.suit.max,
+   -- awful.layout.suit.max.fullscreen,
    awful.layout.suit.tile.bottom,
    awful.layout.suit.fair,
+   -- awful.layout.suit.fair.horizontal,
+   awful.layout.suit.spiral,
+   awful.layout.suit.spiral.dwindle,
    awful.layout.suit.floating,
+   -- awful.layout.suit.magnifier,
+   -- awful.layout.suit.corner.nw,
+   -- awful.layout.suit.corner.ne,
+   -- awful.layout.suit.corner.sw,
+   -- awful.layout.suit.corner.se,
    machi.default_layout,
 }
 
@@ -510,7 +522,7 @@ awful.rules.rules = {
    { rule_any = {
         class = {
            "Scrcpy",
-           "zoom",
+           -- "zoom",
         },
         name = {
            "Event Tester",  -- xev.
@@ -531,8 +543,8 @@ awful.rules.rules = {
            "Rocket.Chat",
         },
         name = {
-           "Zoom Meeting",
-           "Zoom - Licensed Account",
+           --"Zoom Meeting",
+           --"Zoom - Licensed Account",
         },
    }, properties = { maximized = true }},
 
