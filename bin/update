@@ -1,31 +1,35 @@
 #!/bin/bash
 ## backup stray config files
 
-mydir="/home/m/.$(hostname)"
-echo "running on $mydir"
+loc=/home/m/.$(hostname)
+echo "running on $loc"
 
 case $(hostname) in
     archaeopteryx)
         ## rsnapshot timers
-        sudo cp --parents /etc/systemd/system/rsnapshot-weekly.timer $mydir/
-        sudo cp --parents /etc/systemd/system/rsnapshot-daily.timer $mydir/
-        sudo cp --parents /etc/systemd/system/rsnapshot-hourly.timer $mydir/
-        sudo cp --parents /etc/systemd/system/rsnapshot-monthly.timer $mydir/
-        sudo cp --parents /etc/systemd/system/rsnapshot@.service $mydir/
-        sudo cp --parents /etc/rsnapshot.conf $mydir/
+        sudo cp --parents /etc/systemd/system/rsnapshot-weekly.timer $loc/
+        sudo cp --parents /etc/systemd/system/rsnapshot-daily.timer $loc/
+        sudo cp --parents /etc/systemd/system/rsnapshot-hourly.timer $loc/
+        sudo cp --parents /etc/systemd/system/rsnapshot-monthly.timer $loc/
+        sudo cp --parents /etc/systemd/system/rsnapshot@.service $loc/
+        sudo cp --parents /etc/rsnapshot.conf $loc/
         ## xorg
-        sudo cp --parents /etc/pacman.d/hooks/nvidia.hook $mydir/
+        sudo cp --parents /etc/pacman.d/hooks/nvidia.hook $loc/
         ;;
     colibri)
         ;;
 esac
 
-## all
-sudo cp --parents /boot $mydir/
-sudo cp --parents /etc/mkinitcpio.conf $mydir/
-sudo cp --parents /etc/pacman.conf $mydir/
-sudo cp --parents /etc/fstab $mydir/
-sudo cp --parents /etc/profile $mydir/
-sudo cp --parents /etc/X11/xorg.conf $mydir/
-sudo cp --parents /etc/X11/xorg.conf.d/70-synaptics.conf $mydir/
-sudo cp --parents /etc/pacman.d/hooks/xkeyboard-config.hook $mydir/
+## boot
+sudo cp --parents /boot/loader/loader.conf $loc/
+sudo cp --parents /boot/loader/entries/*.conf $loc/
+
+## etc
+sudo cp --parents /etc/mkinitcpio.conf $loc/
+sudo cp --parents /etc/pacman.conf $loc/
+sudo cp --parents /etc/fstab $loc/
+sudo cp --parents /etc/profile $loc/
+sudo cp --parents /etc/X11/xorg.conf.d/70-synaptics.conf $loc/
+sudo cp --parents /etc/pacman.d/hooks/xkeyboard-config.hook $loc/
+
+exit 0

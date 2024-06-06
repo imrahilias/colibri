@@ -13,6 +13,30 @@ image() {
     fi
 }
 
+highlightz() {
+    ## Syntax highlight with bat:
+    #bat --style plain --theme ansi --terminal-width "$(($4-2))" -f "$1"
+
+    ## Syntax highlight with highlight below 256KiB:
+    # if [[ "$( stat --printf='%s' -- "${path}" )" -gt "262143" ]]; then
+    #     exit 1
+    # fi
+    #
+    # themes: type highlight-gui
+    # nice themes: "base16/google-dark",
+    # "base16/materia",
+    # "navy",
+    # "$HOME/.config/highlight/rebecca_m.theme"
+    #
+    ## Syntax highlight with highlight:
+    highlight --out-format="xterm256" \
+              --replace-tabs="4" \
+              --style="$HOME/.config/highlight/rebecca_m.theme" \
+              --force \
+              -- "$1"
+}
+
+
 # note that the cache file name is a function of file information, meaning if
 # an image appears in multiple places across the machine, it will not have to
 # be regenerated once seen.
@@ -28,8 +52,8 @@ case $mime in
 
     ## debug
     # *)
-    #   echo $mime
-    #   ;;
+    #     echo $mime
+    #     ;;
 
     ## very fast but jpeg only via libjpg:
     image/jpeg)
@@ -99,22 +123,22 @@ case $mime in
 
     ## jupyter notebooks
     application/json)
-        if [ $ext == ipynb ]
-        then
-            jupyter nbconvert --to markdown "$1" --stdout \
-                | highlight --syntax=markdown \
-                            --out-format="xterm256" \
-                            --replace-tabs="4" \
-                            --style="$HOME/.config/highlight/rebecca_m.theme" \
-                            --force
-            #    | env COLORTERM=8bit bat --color=always --style=plain --language=markdown
-        else
-            highlight --out-format="xterm256" \
-                      --replace-tabs="4" \
-                      --style="$HOME/.config/highlight/rebecca_m.theme" \
-                      --force \
-                      -- "$1"
-        fi
+
+        case $ext in
+
+            ipynb) jupyter nbconvert --to markdown "$1" --stdout \
+                         | highlight --syntax=markdown \
+                                     --out-format="xterm256" \
+                                     --replace-tabs="4" \
+                                     --style="$HOME/.config/highlight/rebecca_m.theme" \
+                                     --force
+                   #    | env COLORTERM=8bit bat --color=always --style=plain --language=markdown
+                   ;;
+
+            *) highlightz "$1"
+
+               ;;
+        esac
         ;;
 
     text/html)
@@ -123,34 +147,31 @@ case $mime in
 
         ;;
 
-    # ## text | markdown
-    # text/* | */xml | application/x-ndjson)
-    #     if [ $ext == md ]
-    #     then
-    #         glow -s dark -w 1000 "$1"
-    #     else
-    #         bat --style plain --theme ansi --terminal-width "$(($4-2))" -f "$1"
-    #     fi
-    #     ;;
-
-    ## syntax highlight
+    ## text syntax highlight:
     text/* | */xml | application/x-ndjson)
-        ## Syntax highlight below 256KiB
-        # if [[ "$( stat --printf='%s' -- "${path}" )" -gt "262143" ]]; then
-        #     exit 1
-        # fi
-        #
-        # themes: type highlight-gui
-        # nice themes: "base16/google-dark",
-        # "base16/materia",
-        # "navy",
-        # "$HOME/.config/highlight/rebecca_m.theme"
-        #
-        highlight --out-format="xterm256" \
-                  --replace-tabs="4" \
-                  --style="$HOME/.config/highlight/rebecca_m.theme" \
-                  --force \
-                  -- "$1"
+
+        # ## text syntax highlight:
+        # highlightz "$1"
+        # ;;
+
+        ## text syntax highlight and md rendering:
+        case $ext in
+
+            # md) ## glow is super nice but slow on huge md files.
+            #     glow -s dark -w 1000 "$1"
+            #     ;;
+
+            # md) # markdown > html > elinks. fast but boring:
+            #     pandoc -f markdown -t html --standalone -- "$1"| elinks -dump -dump-color-mode 2
+            #     ;;
+
+            # md) # markdown > html > elinks. super fast but boring:
+            #     cmark --to html "$1"| elinks -dump -dump-color-mode 2
+            #     ;;
+
+            *)  highlightz "$1"
+                ;;
+        esac
         ;;
 
     *)

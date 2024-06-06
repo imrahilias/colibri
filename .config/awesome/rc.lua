@@ -522,11 +522,11 @@ awful.rules.rules = {
    { rule_any = {
         class = {
            "Scrcpy",
-           -- "zoom",
+           "zoom",
         },
         name = {
            "Event Tester",  -- xev.
-           --           "Zoom - Licensed Account", -- zoom main window
+           "Zoom - Licensed Account", -- zoom main window
         },
         role = {
            "AlarmWindow",
@@ -550,8 +550,8 @@ awful.rules.rules = {
 
    -- vsc
    { rule_any = {
-        name = {
-           "VSConsole",
+        class = {
+           "XTerm",
    }}, properties = { tag = " ", switchtotag = true }},
 
    -- internet
@@ -562,7 +562,7 @@ awful.rules.rules = {
            "Navigator",
            "google-chrome",
            "Google-chrome",
-   }}, properties = { tag = " ", switchtotag = true }},
+   }}, properties = { tag = "󰇧 ", switchtotag = true }},
 
    -- code
    { rule_any = {
@@ -577,7 +577,7 @@ awful.rules.rules = {
            "Thunar",
         },
         name = {
-           " ",
+           " ", -- customised lf
    }}, properties = { tag = " ", switchtotag = true }},
 
    -- doc
@@ -633,6 +633,7 @@ awful.rules.rules = {
            "scrcpy",
            "Rocket.Chat",
            "Slack",
+           "Element",
    }}, properties = { tag = " ", switchtotag = true }},
 
    -- games & conf:
@@ -705,9 +706,9 @@ awful.screen.connect_for_each_screen(
       set_wallpaper(s)
 
       -- each screen has its own tag table:
-      awful.tag({ " ", " ", "󰛓 ", " ", " ", " ", "⏾", " ", " ","󰼁 ", "󱁇 ", "󱁄 ", "󱁂 ", "󱁆"  }, s, awful.layout.layouts[1])
+      awful.tag({ " ", "󰇧 ", "󰛓 ", " ", " ", " ", "⏾", " ", " ","󰼁 ", "󱁇 ", "󱁄 ", "󱁂 ", "󱁆"  }, s, awful.layout.layouts[1])
       -- unicode with bitstream vera: ↯ ♫ ♞ ♟ ♤ ♡ ♢ ♧ ⚛  ✫ ♻ ✇ ∅ ⚡ $ ⛁ ≣ ♬ ⏾ @ ✆♞ ♠ ♥ ♦ ♣
-      -- unicode with bitstrom wera nerd fonts:   󰟢  ⚡    󰇧 󰛍         󰭹  󰛓 󰇂 󰽚 󱥐 󰜁 󱥔 󰖟   󰇈 󰛍 󱁇 󱁆 󱁄 󱨎 󱁂 󱁃 󰼂 󰼁  󰦪  󰦨   ♬ 󰝚 󰎌 󰎈 󰽰 󱑽  󰒊  󱅥   
+      -- unicode with bitstrom wera nerd fonts:   󰟢  ⚡   󰇧 󰛍         󰭹  󰛓 󰇂 󰽚 󱥐 󰜁 󱥔 󰖟   󰇈 󰛍 󱁇 󱁆 󱁄 󱨎 󱁂 󱁃 󰼂 󰼁  󰦪  󰦨   ♬ 󰝚 󰎌 󰎈 󰽰 󱑽  󰒊  󱅥   
 
       -- create a promptbox for each screen:
       s.mypromptbox = awful.widget.prompt()

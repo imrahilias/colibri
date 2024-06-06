@@ -26,6 +26,10 @@ There are two things you can do about this warning:
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 
+;; custom-set-variables was added by Custom.
+;; If you edit it by hand, you could mess it up, so be careful.
+;; Your init file should contain only one such instance.
+;; If there is more than one, they won't work right.
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -56,8 +60,14 @@ There are two things you can do about this warning:
      (sql . t)
      (sqlite . t)))
  '(package-selected-packages
-   '(php-mode org-auto-tangle gnuplot blacken poly-ansible poly-markdown polymode mmm-mode cuda-mode csv-mode spinner string-inflection json-mode yaml-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode ess auto-correct))
+   '(org-view-mode org-modern hl-block-mode atom-one-dark-theme timu-caribbean-theme php-mode org-auto-tangle gnuplot blacken poly-ansible poly-markdown polymode mmm-mode cuda-mode csv-mode spinner string-inflection json-mode yaml-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode ess auto-correct))
  '(warning-suppress-log-types '((auto-save))))
+
+;; markdown/org translator:
+(add-to-list 'load-path "~/.emacs.d/others/org-pandoc-import")
+(require 'org-pandoc-import)
+(require 'org-pandoc-import-transient)
+
 
 ;;  |   |
 ;;  __| __ \   _ \ __ `__ \   _ \
@@ -65,7 +75,9 @@ There are two things you can do about this warning:
 ;; \__|_| |_|\___|_|  _|  _|\___|
 ;;
 
-;; theme:
+;; readymade themes:
+;;(load-theme 'timu-caribbean t)
+;;(customize-set-variable 'timu-caribbean-org-intense-colors t)
 ;;(load-theme 'atom-one-dark t)
 
 ;; fonts:
@@ -74,7 +86,8 @@ There are two things you can do about this warning:
 (set-face-attribute 'default nil :family "BitstromWera Nerd Font")
 (set-face-attribute 'default nil :height (* 12 10))
 
-;; make it easy on the eyes:
+;; darkest night mode:
+(set-cursor-color "#FF00FF")
 (set-foreground-color "#FAF0E6")
 (set-background-color "#000000")
 (set-face-foreground 'default "#FAF0E6")
@@ -82,19 +95,15 @@ There are two things you can do about this warning:
 (set-face-foreground 'font-lock-string-face "#008080")
 (set-face-foreground 'font-lock-comment-face "#666699")
 (set-face-foreground 'font-lock-variable-name-face "#8B008B")
-(set-face-attribute 'cursor nil :background "#FF00FF")
-(set-face-attribute 'region nil :background "#191970")
-(set-face-attribute 'secondary-selection nil :background "#330099")
+(set-face-background 'region "#191970")
+(set-face-background 'secondary-selection "#330099")
 (set-face-foreground 'window-divider "#444444")
-(set-face-attribute 'trailing-whitespace nil :background "#330099")
-
-;; highlighting lock:
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(hi-yellow ((t (:foreground "black" :background "#DAA520")))))
+(set-face-background 'trailing-whitespace "#330099")
+(set-face-background 'lazy-highlight "#003641"); #004B5A
+(set-face-foreground 'isearch "#000000")
+(set-face-background 'isearch "#FF00FF")
+(set-face-foreground 'isearch-fail "#000000")
+(set-face-background 'isearch-fail "yellow")
 
 ;; ui and base colors:
 ;;(setq theme-color-accent  "#ff6000")
@@ -121,17 +130,14 @@ There are two things you can do about this warning:
 (global-highlight-operators-mode 't)
 (global-highlight-parentheses-mode 't)
 (global-highlight-thing-mode 't)
+(set-face-attribute 'hi-yellow nil :foreground "#FAF0E6" :background "#1A004E")
 
 ;; make ugly glyphs from greek letters?
 ;;global-prettify-symbols-mode 't)
 
 ;; highlight line:
-;;(global-hl-line-mode 't)
-;;(setq hl-line-face 'hl-line)
-;;(setq highlight-current-line-globally t)
-;;(setq highlight-current-line-high-faces nil)
-;;(setq highlight-current-line-whole-line nil)
-;;(setq hl-line-face (quote highlight))
+;(global-hl-line-mode 't)
+(set-face-background 'highlight "#0D0D0D")
 
 ;; opacity:
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> . <inactive>))
@@ -171,7 +177,7 @@ There are two things you can do about this warning:
 (set-face-attribute 'fringe nil :background "#000000")
 
 ;; fullscreen: this is bound to f11 in Emacs 24.4::
-;(toggle-frame-fullscreen)
+;;(toggle-frame-fullscreen)
 
 ;; disable up/downcase region warning message:
 (put 'downcase-region 'disabled nil)
@@ -191,6 +197,7 @@ There are two things you can do about this warning:
 (scroll-bar-mode '0)
 (tool-bar-mode '0)
 (menu-bar-mode '0)
+(blink-cursor-mode '0)
 
 ;; hide modeline:
 (defvar-local hidden-mode-line-mode nil)
@@ -224,14 +231,86 @@ There are two things you can do about this warning:
 ;;(setq display-time-24hr-format t)
 ;;(display-time)
 
+;; org headers become bold:
+(set-face-attribute 'org-level-1 nil :bold t)
+(set-face-attribute 'org-level-2 nil :bold t)
+(set-face-attribute 'org-level-3 nil :bold t)
+(set-face-attribute 'org-level-4 nil :bold t)
+(set-face-attribute 'org-level-5 nil :bold t)
+(set-face-attribute 'org-level-6 nil :bold t)
+(set-face-attribute 'org-level-7 nil :bold t)
+(set-face-attribute 'org-level-8 nil :bold t)
+;; (set-face-attribute 'org-level-1 nil :foreground "#FAF0E6" :background "#4682B4")
+;; (set-face-attribute 'org-level-1 nil :background "#4682B4")
+
+;; org mode colours:
+(setq org-fontify-quote-and-verse-blocks t)
+(set-face-attribute 'org-quote nil :italic t)
+(set-face-attribute 'org-verbatim nil :foreground "#000000" :background "#787787")
+(set-face-attribute 'org-code nil :background "#0b0d0f")
+(set-face-attribute 'org-block nil :background "#0b0d0f")
+(set-face-attribute 'org-block-begin-line nil :background "#161a1f" :bold t)
+
+;; table (header) is same as block (begin line):
+(set-face-attribute 'org-table nil :background "#0b0d0f")
+(set-face-attribute 'org-table-header nil
+:foreground "#787787"
+:background "#161a1f"
+:bold t
+)
+
+;; magic comments face:
+(set-face-attribute 'org-meta-line nil :bold t)
+
+;; org mode emphasis styles:
+(setq org-emphasis-alist
+      (quote (
+              ("*" bold)
+              ("/" italic)
+              ("_" underline)
+              ("-" overline)
+              ("=" org-verbatim org-verbatim)
+              ("~" org-code org-code)
+              ("+" (:strike-through t))
+              )))
+
+
 ;;            |   |  _)
 ;;   __|  _ \ __| __| | __ \   _` |  __|
 ;; \__ \  __/ |   |   | |   | (   |\__ \
 ;; ____/\___|\__|\__|_|_|  _|\__, |____/
 ;;                           |___/
 
+;; org mode header styles:
+(setq  org-startup-indented t)
+
+;; code block execution (ask always=t, ask never=nil):
+(setq org-confirm-babel-evaluate nil)
+
 ;; code block sytax highlighting in org mode:
 (setq org-src-fontify-natively t)
+
+;; Turn on the display of the first data row of the table at point in
+;; the window header line when this first row is not visible anymore
+;; in the buffer:
+(setq org-table-header-line-p t)
+
+;; org tempo expands snippets to structures defined in
+;; org-structure-template-alist and org-tempo-keywords-alist. for
+;; example, < s tab creates a code block:
+(require 'org-tempo)
+
+;; collapse clutter in org-view-mode (not working):
+;; (add-hook 'org-mode-hook
+;;           (lambda ()
+;;             (if org-mode
+;;                 (org-view-mode +1)
+;;               (org-view-mode -1))) nil t)
+
+;; collapse clutter in org-view-mode (not working):
+;; (add-hook 'org-mode-hook (lambda ()
+;;                            ('org-view-mode 1)
+;;                            (org-view-edit-on 1)))
 
 ;; no welcome message please:
 (setq inhibit-startup-message t)
@@ -247,7 +326,7 @@ There are two things you can do about this warning:
 (setq-default scroll-up-aggressively 0.01 scroll-down-aggressively 0.01 )
 
 ;; scrolling mouse:
-(setq mouse-wheel-scroll-amount '(2 ((shift) . 1))) ;; two lines at a time
+(setq mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; scroll three lines at a time per default
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 
@@ -275,7 +354,9 @@ There are two things you can do about this warning:
 ;; auto break lines in paragraphs:
 ;; add-hook 'text-mode-hook 'turn-on-auto-fill)
 
+;; get rid of whitespaces:
 (setq-default show-trailing-whitespace t)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;;  |
 ;;  |  /  _ \ |   |  __|
@@ -396,6 +477,18 @@ Version 2017-01-08"
     (put this-command 'compact-p (not $compact-p))))
 (global-set-key (kbd "M-q") 'fill-or-unfill)
 
+;; electric-pair mode (mark region, then press "*":
+(electric-pair-mode t)
+(defvar org-electric-pairs '((?\* . ?\*) (?/ . ?/) (?= . ?=)
+                             (?\_ . ?\_) (?~ . ?~) (?+ . ?+)) "Electric pairs for org-mode.")
+(defun org-add-electric-pairs ()
+  (setq-local electric-pair-pairs (append electric-pair-pairs org-electric-pairs))
+  (setq-local electric-pair-text-pairs electric-pair-pairs))
+(add-hook 'org-mode-hook 'org-add-electric-pairs)
+
+;; org-view-mode gets rid of the markup, but is read only:
+(global-set-key (kbd "C-c v") 'org-view-mode)
+
 ;;  |
 ;;  |  _` | __ \   _` |
 ;;  | (   | |   | (   |
@@ -418,7 +511,7 @@ Version 2017-01-08"
 (global-set-key (kbd "C-c p") 'compile)
 
 ;; octave mode:
-;(global-set-key (kbd "C-c C-c") 'octave-send-region)
+;;(global-set-key (kbd "C-c C-c") 'octave-send-region)
 
 ;; latex mode:
 (with-eval-after-load "tex"
@@ -430,10 +523,10 @@ Version 2017-01-08"
 
 (with-eval-after-load "latex"
   (define-key LaTeX-mode-map (kbd "C-c C-a")
-    (lambda ()
-      (interactive)
-      (TeX-command-sequence '("Arara" "Extex") t))))
-;        (TeX-command-sequence '("Arara" "View") t))))
+              (lambda ()
+                (interactive)
+                (TeX-command-sequence '("Arara" "Extex") t))))
+;;              (TeX-command-sequence '("Arara" "View") t))))
 
 ;;                  | |
 ;;   __| __ \   _ \ | |  __|
@@ -442,11 +535,11 @@ Version 2017-01-08"
 ;;      _|
 
 ;; flyspell mode:
-;; (dolist (hook '(text-mode-hook))
-;;   (add-hook hook (lambda () (flyspell-mode 1))))
+(dolist (hook '(text-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
 
-;; (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
-;;   (add-hook hook (lambda () (flyspell-mode -1))))
+(dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode -1))))
 
 ;; If you’re using a Mac, you may need to add the following Elisp code to your config file as well in order for Flyspell to pick up the two-finger clicks (right-clicks):
 ;; (eval-after-load "flyspell"
@@ -477,3 +570,9 @@ Version 2017-01-08"
 ;;(write-region "" nil ispell-personal-dictionary nil 0))
 
 (setenv "LANG" "en_US.UTF-8")
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

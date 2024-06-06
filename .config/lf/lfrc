@@ -130,6 +130,25 @@ cmd openwith ${{
                   rifle -p $method $fx
               }}
 
+## convert markdown files to emacs org mode format:
+cmd mdorg &{{
+               for f in $fx
+               do
+                   path="$f"
+                   file="${path##*/}"
+                   mime="$(file --dereference --brief --mime-type -- "$f")"
+                   name="${file%%.*}" # shell escape
+                   ext="${file#*.}" # shell escape; "example.tar.gz" gives "tar.gz"
+                   echo $path $file $name $ext $mime
+                   if [[ $ext == "md" && $mime == "text/plain" ]]
+                   then ## convert to org file and make the original hidden:
+                       #pandoc -f markdown -t org -o ${name}.org ${f} && mv ${name}.${ext} .${name}.${ext}
+                       pandoc -f markdown -t org ${f} | sed '/^:/ d' > ${name}.org && mv ${name}.${ext} .${name}.${ext}
+                   fi
+               done
+           }}
+
+
 # Custom 'chmod' command:
 # Prompt in lf '%' but oen in shell '$' via remote.
 cmd chmod %{{
@@ -146,9 +165,6 @@ cmd chown %{{
                $lf -remote "send reload"
            }}
 
-
-
-
 ## grep glob in selected files or pwd, nonrecursive, only visible files:
 cmd grepit %{{
                 read ans
@@ -160,7 +176,8 @@ cmd grepit %{{
 cmd grepitall %{{
                    read ans
                    ## cwd or are files selected to search in?
-                   if [ -z "$fs" ]; then # use cwd:
+                   if [ -z "$fs" ]
+                   then # use cwd:
                        loc="*"
                    else # use files
                        loc=$fs
@@ -235,7 +252,8 @@ cmd moveto ${{
 	        set -f
 	        clear; echo "Move to where?"
 	        dest="$(fzf)" &&
-	            for x in $fx; do
+	            for x in $fx
+                    do
 		        eval mv -iv \"$x\" \"$dest\"
 	            done
             }}
@@ -245,7 +263,8 @@ cmd copyto ${{
 	        set -f
 	        clear; echo "Copy to where?"
 	        dest="$(fzf)" &&
-	            for x in $fx; do
+	            for x in $fx
+                    do
 		        eval cp -ivr \"$x\" \"$dest\"
 	            done
             }}
@@ -411,6 +430,7 @@ map ee push $emacsclient<space>-ca<space>''<space>
 map ef !time gfortran -Og -Wall -fimplicit-none -fcheck=all -fbacktrace $fx
 map eg grepit
 map eG grepitall
+map em :mdorg
 map ep !adb push $fx storage/self/primary/
 map eP !gnuplot $fx
 map er !rmtmp

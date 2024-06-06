@@ -64,7 +64,7 @@ handle_extension() {
             mutool draw -F txt -i -- "${FILE_PATH}" 1-10 | fmt -w ${PV_WIDTH} && exit 5
             exiftool "${FILE_PATH}" && exit 5
             exit 1;;
-        
+
         # BitTorrent
         torrent)
             transmission-show -- "${FILE_PATH}" && exit 5
@@ -77,21 +77,21 @@ handle_extension() {
             ## Preview as markdown conversion
             pandoc -s -t markdown -- "${FILE_PATH}" && exit 5
             exit 1;;
-        
+
         ## XLSX
         xlsx)
             ## Preview as csv conversion
             ## Uses: https://github.com/dilshod/xlsx2csv
             xlsx2csv -- "${FILE_PATH}" && exit 5
             exit 1;;
-        
+
         # Markdown
         md)
             highlight --syntax=markdown --out-format=ansi "${FILE_PATH}" && exit 5
             # glow -s dark "${FILE_PATH}" && exit 5
             # bat "${FILE_PATH}" && exit 5
             exit 1;;
-        
+
         # HTML
         htm|html|xhtml)
             # Preview as text conversion
@@ -189,7 +189,7 @@ handle_image() {
 handle_mime() {
     local mimetype="${1}"
     case "${mimetype}" in
-        
+
         ## RTF and DOC
         text/rtf|*msword)
             ## Preview as text conversion
@@ -205,7 +205,7 @@ handle_mime() {
             ## Preview as markdown conversion
             pandoc -s -t markdown -- "${FILE_PATH}" && exit 5
             exit 1;;
-        
+
         ## XLS
         *ms-excel)
             ## Preview as csv conversion
@@ -213,7 +213,7 @@ handle_mime() {
             ##   http://www.wagner.pp.ru/~vitus/software/catdoc/
             xls2csv -- "${FILE_PATH}" && exit 5
             exit 1;;
-        
+
         ## Text
         text/* | */xml)
             ## Syntax highlight
@@ -232,7 +232,7 @@ handle_mime() {
                       --style="${HIGHLIGHT_STYLE}" --force -- "${FILE_PATH}" && exit 5
             pygmentize -f "${pygmentize_format}" -O "style=${PYGMENTIZE_STYLE}" -- "${FILE_PATH}" && exit 5
             exit 2;;
-        
+
         # ## DjVu
         # image/vnd.djvu)
         #     ## Preview as text conversion (requires djvulibre)
@@ -248,7 +248,7 @@ handle_mime() {
             img2txt --width="${PV_WIDTH}" -- "${FILE_PATH}" && exit 4
             #exiftool "${FILE_PATH}" && exit 5
             exit 1;;
-        
+
         ## Video and audio
         video/* | audio/*)
             mediainfo "${FILE_PATH}" && exit 5

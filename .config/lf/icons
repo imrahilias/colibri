@@ -32,10 +32,10 @@ bd      b       # BLK
 cd      c       # CHR
 su      u       # SETUID
 sg      g       # SETGID
-ex      󰐊       # EXEC ▸ 󰐊   
+ex      󰐊       # EXEC ▸ 󰐊  
 fi      ≣       # FILE 
 
-# file extensions (vim-devicons)     
+# file extensions (vim-devicons)    
 '*.f#'          
 *.C             
 *.ai            
@@ -66,7 +66,7 @@ fi      ≣       # FILE 
 *.edn           
 *.eex           
 *.ejs           
-*.el            e
+*.el            
 *.elm           
 *.erl           
 *.ex            
@@ -122,6 +122,7 @@ fi      ≣       # FILE 
 *.mustache      
 *.nix           
 *.objc          
+*.org           
 *.pem           
 *.php           
 *.pl            
