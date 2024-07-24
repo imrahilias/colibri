@@ -486,6 +486,14 @@ Version 2017-01-08"
   (setq-local electric-pair-text-pairs electric-pair-pairs))
 (add-hook 'org-mode-hook 'org-add-electric-pairs)
 
+;; only insert electric pairs when selecting something, not on single
+;; key press:
+(electric-pair-mode)
+(defun only-if-use-region (func &rest args)
+  (if (use-region-p)
+      (apply func args)))
+(advice-add 'electric-pair-post-self-insert-function :around 'only-if-use-region)
+
 ;; org-view-mode gets rid of the markup, but is read only:
 (global-set-key (kbd "C-c v") 'org-view-mode)
 

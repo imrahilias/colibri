@@ -415,7 +415,10 @@ map Bu $git --git-dir=$HOME/.dotfiles --work-tree=$HOME add -u
 map Bx $git --git-dir=$HOME/.dotfiles --work-tree=$HOME rm $fx
 map BX $git --git-dir=$HOME/.dotfiles --work-tree=$HOME rm --cached $fx
 
-map D delete
+# do not have delete key! make sure this `e` comes before the `D`, or
+# getting out of !whatever (eg. !git) with left arrow press tries to
+# delete everything!
+map D
 
 map e
 map ea !beautify_all

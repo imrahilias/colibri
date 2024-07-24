@@ -26,6 +26,9 @@ map l toggle_index
 
 unmap q
 
+## makes problems with one/two column switching in v0.5.6:
+unmap a
+
 
 ## colors
 

@@ -28,3 +28,4 @@ image/x-pixmap=org.xfce.ristretto.desktop;
 image/tiff=org.xfce.ristretto.desktop;
 image/svg+xml=org.xfce.ristretto.desktop;
 image/x-xpixmap=org.xfce.ristretto.desktop;
+text/x-matlab=emacs.desktop;

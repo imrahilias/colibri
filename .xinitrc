@@ -40,6 +40,7 @@ pasystray & # volume tray.
 nm-applet & # network-manager applet.
 blueman-applet & # bluetooth.
 cbatticon -r 10 -c 'notify-send Power on 10%' & ## power tray icon
+1password &
 
 ## start cloud clients:
 #QT_QPA_PLATFORMTHEME=Adwaita-Dark QT_STYLE_OVERRIDE=Adwaita-Dark nextcloud &
