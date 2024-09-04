@@ -4,73 +4,73 @@
 #              |  _)
 #   _ \  __ \  __| |  _ \  __ \   __|
 #  (   | |   | |   | (   | |   |\__ \
-    # \___/  .__/ \__|_|\___/ _|  _|____/
+# \___/  .__/ \__|_|\___/ _|  _|____/
 #       _|
 
-## Interpreter for shell commands
+# Interpreter for shell commands
 set shell sh
 
-## Set '-eu' options for shell commands
-## These options are used to have safer shell commands. Option '-e' is used to
-## exit on error and option '-u' is used to give error for unset variables.
-## Option '-f' disables pathname expansion which can be useful when $f, $fs, and
-## $fx variables contain names with '*' or '?' characters. However, this option
-## is used selectively within individual commands as it can be limiting at
-## times.
+# Set '-eu' options for shell commands
+# These options are used to have safer shell commands. Option '-e' is used to
+# exit on error and option '-u' is used to give error for unset variables.
+# Option '-f' disables pathname expansion which can be useful when $f, $fs, and
+# $fx variables contain names with '*' or '?' characters. However, this option
+# is used selectively within individual commands as it can be limiting at
+# times.
 set shellopts '-eu'
 
-## Set internal field separator (IFS) to "\n" for shell commands
-## This is useful to automatically split file names in $fs and $fx properly
-## since default file separator used in these variables (i.e. 'filesep' option)
-## is newline. You need to consider the values of these options and create your
-## commands accordingly.
+# Set internal field separator (IFS) to "\n" for shell commands
+# This is useful to automatically split file names in $fs and $fx properly
+# since default file separator used in these variables (i.e. 'filesep' option)
+# is newline. You need to consider the values of these options and create your
+# commands accordingly.
 set ifs "\n"
 
-## leave some space at the top and the bottom of the screen
+# leave some space at the top and the bottom of the screen
 set scrolloff 10
 
-## Use the `dim` attribute instead of underline for the cursor in the preview pane
+# Use the `dim` attribute instead of underline for the cursor in the preview pane
 set cursorpreviewfmt "\033[7;2m"
 
-## When this option is enabled, search command patterns are considered as globs,
-## otherwise they are literals. With globbing, '*' matches any sequence, '?'
-## matches any character, and '[...]' or '[^...]' matches character sets or
-## ranges. Otherwise, these characters are interpreted as they are.
-## Collides with 'incfilter'/'incsearch'.
+# When this option is enabled, search command patterns are considered as globs,
+# otherwise they are literals. With globbing, '*' matches any sequence, '?'
+# matches any character, and '[...]' or '[^...]' matches character sets or
+# ranges. Otherwise, these characters are interpreted as they are.
+# Collides with 'incfilter'/'incsearch'.
 #set globsearch true
 
-## List of hidden file glob patterns. Patterns can be given as relative or
+# List of hidden file glob patterns. Patterns can be given as relative or
 # absolute paths. To add multiple patterns, use ':' as a separator.
 set hiddenfiles ".*:*~:*#:*.bak:/home/m/Downloads:/home/m/license:/home/m/readme.md"
 
-## Jump to the first match after each keystroke during searching.
+# Jump to the first match after each keystroke during searching.
 set incsearch true
 
-## Apply filter pattern after each keystroke during filtering.
+# Apply filter pattern after each keystroke during filtering.
 set incfilter true
 
-## Previewer script: Either a very simple shell script covering some
-## archives, and highlighting text files "preview.sh", or the very
-## extensive "scope.sh" from ranger, covering many extensions but
-## depending on many programs.
-## simple:
+# Previewer script: Either a very simple shell script covering some
+# archives, and highlighting text files "preview.sh", or the very
+# extensive "scope.sh" from ranger, covering many extensions but
+# depending on many programs.
+# simple:
 # set previewer "~/.config/lf/preview.sh"
-## rangers scope.sh directly:
+# rangers scope.sh directly:
 # set previewer "~/.config/lf/scope.sh"
-## rangers scope.sh with wrapper:
+# rangers scope.sh with wrapper:
 # set previewer "~/.config/lf/scope-lf-wrapper.sh"
 
-## preview + images via ueberzug with a ranger inspired new shell script:
+# preview + images via ueberzug with a ranger inspired new shell script:
 set previewer "~/.config/lf/preview_images.sh"
 set cleaner "~/.config/lf/cleaner.sh"
 
-## preview + images via ctpv; might be faster but not as configurable:
+# preview + images via ctpv; might be faster but not as configurable:
 # set previewer ctpv
 # set cleaner ctpvclear
 # &ctpv -s $id
 # &ctpvquit $id
 
-## icons:
+# icons:
 #curl https://raw.githubusercontent.com/gokcehan/lf/master/etc/icons.example -o ~/.config/lf/icons
 set icons true
 
@@ -83,22 +83,22 @@ set ratios "1:2:3"
 # \___|\___/ _|  _|  _|_|  _|  _|\__,_|_|  _|\__,_|____/
 #
 
-## $f ... focussed file.
-## $fs ... selected files, empty if none.
-## $fx ... selected files, focussed file if none selected.
+# $f ... focussed file.
+# $fs ... selected files, empty if none.
+# $fx ... selected files, focussed file if none selected.
 
 
-## use this to dereference links of many files:
+# use this to dereference links of many files:
 # for file in $fs
 # do
 #     test -L $file && fm+=$(readlink -file $f)
 # done
 # echo $fm
 
-## Custom 'open' command
-## This command is called when current file is not a directory. You may want to
-## use either file extensions and/or mime types here. Below uses an editor for
-## text files and a file opener for the rest.
+# Custom 'open' command
+# This command is called when current file is not a directory. You may want to
+# use either file extensions and/or mime types here. Below uses an editor for
+# text files and a file opener for the rest.
 
 # # Custom 'open' command, in background to prevent flicker:
 # cmd open &{{
@@ -109,13 +109,13 @@ set ratios "1:2:3"
 #     esac
 # }}
 
-## fire up rangers rifle:
+# fire up rangers rifle:
 #cmd open $rifle -p 0 $fx
 
-## fire up rangers rifle, in background to prevent flicker:
+# fire up rangers rifle, in background to prevent flicker:
 cmd open &{{ $lf -remote "send $id \$rifle -p 0 \$fx" }}
 
-## ranger like rifle preview:
+# ranger like rifle preview:
 cmd openwith ${{
                   clear
                   set -f
@@ -130,7 +130,7 @@ cmd openwith ${{
                   rifle -p $method $fx
               }}
 
-## convert markdown files to emacs org mode format:
+# convert markdown files to emacs org mode format:
 cmd mdorg &{{
                for f in $fx
                do
@@ -141,7 +141,7 @@ cmd mdorg &{{
                    ext="${file#*.}" # shell escape; "example.tar.gz" gives "tar.gz"
                    echo $path $file $name $ext $mime
                    if [[ $ext == "md" && $mime == "text/plain" ]]
-                   then ## convert to org file and make the original hidden:
+                   then # convert to org file and make the original hidden:
                        #pandoc -f markdown -t org -o ${name}.org ${f} && mv ${name}.${ext} .${name}.${ext}
                        pandoc -f markdown -t org ${f} | sed '/^:/ d' > ${name}.org && mv ${name}.${ext} .${name}.${ext}
                    fi
@@ -165,58 +165,72 @@ cmd chown %{{
                $lf -remote "send reload"
            }}
 
-## grep glob in selected files or pwd, nonrecursive, only visible files:
+# grep glob in selected files or pwd, nonrecursive, only visible files:
 cmd grepit %{{
                 read ans
-                ## breaks on many selected files?!
-                $lf -remote "send $id \$grep -Hirn --color=always --exclude-dir='.*' --exclude='*~' --exclude='#*#' -- $ans * | moar"
+                $lf -remote "send $id \$grep -Hirn --color=always --exclude-dir='.*' --exclude='*~' --exclude='#*#' -- $ans * | less"
             }}
 
-## grep glob in selected files or pwd, recursive, all files:
+# grep glob in selected files or pwd, recursive, all files:
 cmd grepitall %{{
                    read ans
-                   ## cwd or are files selected to search in?
-                   if [ -z "$fs" ]
-                   then # use cwd:
-                       loc="*"
-                   else # use files
-                       loc=$fs
-                   fi
-                   $lf -remote "send $id \$grep -Hirn --color=always -- $ans * | moar"
+                   $lf -remote "send $id \$grep -Hirn --color=always -- $ans * | less"
                }}
 
-## breaks on many selected files?!
+# breaks on many selected files?!
 # cmd grepit %{{
 #                 read ans
-#                 ## cwd or are files selected to search in?
+#                 # cwd or are files selected to search in?
 #                 if [ -z "$fs" ]; then # use cwd:
 #                     loc="*"
 #                 else # use files
 #                     loc="$fs"
 #                 fi
-#                 ## breaks on many selected files?!
-#                 $lf -remote "send $id \$grep -Hirn --color=always --exclude-dir='.*' --exclude='*~' --exclude='#*#' -- $ans $loc | moar"
+#                 # breaks on many selected files?!
+#                 $lf -remote "send $id \$grep -Hirn --color=always --exclude-dir='.*' --exclude='*~' --exclude='#*#' -- $ans $loc | less"
 #             }}
 
-# ## breaks on many selected files?!
+# # breaks on many selected files?!
 # cmd grepitall %{{
 #                    read ans
-#                    ## cwd or are files selected to search in?
+#                    # cwd or are files selected to search in?
 #                    if [ -z "$fs" ]; then # use cwd:
 #                        loc="*"
 #                    else # use files
 #                        loc=$fs
 #                    fi
-#                    $lf -remote "send $id \$grep -Hirn --color=always -- $ans $loc | moar"
+#                    $lf -remote "send $id \$grep -Hirn --color=always -- $ans $loc | less"
 #                }}
 
+# find specific filename in cwd recursively:
+cmd findall %{{
+                   read ans
+                   $lf -remote "send $id \$find . -iname "*$ans*"  | less -r"
+               }}
 
-## define a custom 'rename' command without prompt for overwrite
-## cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
-## map r push :rename<space>
+# if you want to jump to a file or directory in lf using fuzzy
+# matching, you can utilize fzf for this purpose:
+cmd fzfjump ${{
+    #res="$(find . -maxdepth 10 | fzf --reverse --header="Jump to location")"
+    res="$(find . | fzf --reverse --header="Jump to location")"
+    if [ -n "$res" ]; then
+        if [ -d "$res" ]; then
+            cmd="cd"
+        else
+            cmd="select"
+        fi
+        res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+        lf -remote "send $id $cmd \"$res\""
+    fi
+}}
 
-## extract the current file with the right command
-## (xkcd link: https://xkcd.com/1168/)
+
+# define a custom 'rename' command without prompt for overwrite
+# cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
+# map r push :rename<space>
+
+# extract the current file with the right command
+# (xkcd link: https://xkcd.com/1168/)
 cmd extract ${{
                  set -f
                  case $f in
@@ -229,7 +243,7 @@ cmd extract ${{
                  esac
              }}
 
-## compress current file or selected files with tar and gunzip
+# compress current file or selected files with tar and gunzip
 cmd tar ${{
              set -f
              mkdir $1
@@ -238,7 +252,7 @@ cmd tar ${{
              rm -rf $1
          }}
 
-## compress current file or selected files with zip
+# compress current file or selected files with zip
 cmd zip ${{
              set -f
              mkdir $1
@@ -291,7 +305,7 @@ cmd bulkrename ${{
                 }}
 
 
-## git info:
+# git info:
 cmd on-cd &{{
                bash -c '
     # display git repository status in your prompt
@@ -307,14 +321,30 @@ cmd on-cd &{{
     '
            }}
 
-## show config:
+# show config:
 cmd key ${{
              $PAGER ~/.config/lf/lfrc
          }}
 
-## doc
+# doc
 cmd doc $$lf -doc | $PAGER
 
+# THIS IS NOT A TYPO, THE BRACKETS ARE TOO MUCH FOR EMACS!
+# Combining fzf with ripgrep, you can interactively search in the
+# contents of files under the current directory and select a file from
+# the results:
+cmd fzfsearch ${{
+    cmd="rg --column --line-number --no-heading --color=always --smart-case"
+    fzf --ansi --disabled --layout=reverse --header="Search in files" --delimiter=: \
+        --bind="start:reload([ -n {q} ] && $cmd -- {q} || true)" \
+        --bind="change:reload([ -n {q} ] && $cmd -- {q} || true)" \
+        --bind='enter:become(lf -remote "send $id select \"$(printf "%s" {1} | sed '\''s/\\/\\\\/g;s/"/\\"/g'\'')\"")' \
+        --preview='cat -- {1}' # Use your favorite previewer here (bat, source-highlight, etc.), for example:
+        #--preview-window='+{2}-/2' \
+        #--preview='bat --color=always --highlight-line={2} -- {1}'
+        # Alternatively you can even use the same previewer you've configured for lf
+        #--preview='~/.config/lf/cleaner; ~/.config/lf/previewer {1} "$FZF_PREVIEW_COLUMNS" "$FZF_PREVIEW_LINES" "$FZF_PREVIEW_LEFT" "$FZF_PREVIEW_TOP"')"
+}}
 
 #
 #  __ `__ \   _ \  |   |  __|  _ \
@@ -322,21 +352,21 @@ cmd doc $$lf -doc | $PAGER
 # _|  _|  _|\___/ \__,_|____/\___|
 #
 
-## If the 'mouse' option is enabled, mouse buttons have the following default effects:
-## Left mouse button:
-##    Click on a file or directory to select it.
-## Right mouse button:
-##    Enter a directory or open a file. Also works on the preview window.
-## Scroll wheel:
-##    Move up or down. If Ctrl is pressed, scroll up or down.
+# If the 'mouse' option is enabled, mouse buttons have the following default effects:
+# Left mouse button:
+#    Click on a file or directory to select it.
+# Right mouse button:
+#    Enter a directory or open a file. Also works on the preview window.
+# Scroll wheel:
+#    Move up or down. If Ctrl is pressed, scroll up or down.
 
 set mouse true
 
-## enter on middle click: good at vsc, bad at home...
+# enter on middle click: good at vsc, bad at home...
 map <m-3> :push <right>
 #map <m-3> :toggle; down
 
-## does not work, collides with builtin scroll, so use xbindkeys:
+# does not work, collides with builtin scroll, so use xbindkeys:
 #map <b-8> :push <left>
 #map <b-9> :push <right>
 
@@ -346,8 +376,8 @@ map <m-3> :push <right>
     # _|\_\\___|\__, |____/
 #            ____/
 
-## the following additional keybindings are provided by default,
-## unset predefined map by leaving it empty:
+# the following additional keybindings are provided by default,
+# unset predefined map by leaving it empty:
 
 map <space> :toggle; down
 
@@ -359,19 +389,26 @@ map <backspace2>
 #map <enter> shell
 map <enter> :push <right>
 
-## this wants to open dirs in emacs, i dont:
+# this wants to open dirs in emacs, i dont:
 #map <enter> :cmd-enter; $lf -remote "send $id \$rifle -p 0 \$fx"
 
 map <f-1> doc
 
-## show the result of execution of previous commands:
+# show the result of execution of previous commands:
 map ` !true
 
 #map , :set globsearch true; push :glob-select<space>
 map , push :glob-select<space>
 
-## does not make sense with my find function:
-map \;
+# recursive powerfull find written in go:
+#map \\ push !fd<space>
+
+#cmd fzf $(find . -name "$1" | fzf)
+#map \\ push !fzf<space>
+
+map \\ :fzfjump
+
+map | :fzfsearch
 
 map . set hidden!
 
@@ -423,16 +460,16 @@ map D
 map e
 map ea !beautify_all
 map eb %beautify $fx
-#map ed $diff --color=always -u $fx | moar
-#map ed !dwdiff --color $fx | moar
-map ed $diff -u $fx | diff-so-fancy | moar
+#map ed $diff --color=always -u $fx | less
+#map ed !dwdiff --color $fx | less
+map ed $diff -u $fx | diff-so-fancy | less
 #map ee $emacsclient -ca ''
 #map ee $emacs $fx
 #map ee push $emacs<space>
 map ee push $emacsclient<space>-ca<space>''<space>
 map ef !time gfortran -Og -Wall -fimplicit-none -fcheck=all -fbacktrace $fx
-map eg grepit
-map eG grepitall
+#map eg grepit # :fzfsearch does better!
+#map eG grepitall # :fzfsearch does better!
 map em :mdorg
 map ep !adb push $fx storage/self/primary/
 map eP !gnuplot $fx
@@ -481,12 +518,12 @@ map u :unselect; glob-unselect; setfilter; clear
 
 map w $htop
 
-## execute current file (must be executable),
-## w/o show output in pager and wait:
+# execute current file (must be executable),
+# w/o show output in pager and wait:
 map x $$f
 map X !$f
 
-## copy selected file names, because no clipboard in terminal:
+# copy selected file names, because no clipboard in terminal:
 map Yn $printf "%s" "$fx" | xclip -selection clipboard
 
 map za set info size:time

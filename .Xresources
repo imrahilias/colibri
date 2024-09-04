@@ -79,10 +79,25 @@ URxvt*keysym.Control-Shift-Down: command:\033]721;10000\007
 ! URxvt*keysym.Home: command:\033]720;10000\007
 ! URxvt*keysym.End: command:\033]721;10000\007
 
+!! PERL EXT
 !! if you do not use the perl extension features, you can improve the
 !! security and speed by disabling perl extensions completely.
 !URxvt*perl-ext:
-URxvt*perl-ext-common:resize-font
+URxvt*perl-ext-common:      default,clipboard,url-select,keyboard-select,resize-font
+URxvt*url-select.launcher:  chromium
+URxvt*url-select.underline: true
+URxvt*underlineURLs:        true
+URxvt*urlButton:            1
+URxvt*keysym.M-u:           perl:url-select:select_next
+URxvt*keysym.M-Escape:      perl:keyboard-select:activate
+URxvt*keysym.M-s:           perl:keyboard-select:search
+!URxvt*copyCommand: xclip -i -selection clipboard
+!URxvt*pasteCommand: xclip -o -selection clipboard
+!URxvt*keysym.M-w: perl:clipboard:copy
+!URxvt*keysym.C-y: perl:clipboard:paste
+!URxvt*keysym.M-C-v: perl:clipboard:paste_escaped
+!URxvt*keysym.M-Escape: perl:keyboard-select:activate
+
 
 !! GRAPHICS:
 URxvt*skipBuiltinGlyphs: true

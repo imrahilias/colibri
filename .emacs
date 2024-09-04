@@ -60,7 +60,7 @@ There are two things you can do about this warning:
      (sql . t)
      (sqlite . t)))
  '(package-selected-packages
-   '(org-view-mode org-modern hl-block-mode atom-one-dark-theme timu-caribbean-theme php-mode org-auto-tangle gnuplot blacken poly-ansible poly-markdown polymode mmm-mode cuda-mode csv-mode spinner string-inflection json-mode yaml-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode ess auto-correct))
+   '(yaml-pro org-view-mode org-modern hl-block-mode atom-one-dark-theme timu-caribbean-theme php-mode org-auto-tangle gnuplot blacken poly-ansible poly-markdown polymode mmm-mode cuda-mode csv-mode spinner string-inflection json-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode ess auto-correct))
  '(warning-suppress-log-types '((auto-save))))
 
 ;; markdown/org translator:
@@ -122,21 +122,21 @@ There are two things you can do about this warning:
 ;; (setq theme-color-gray    "grey")
 
 ;; syntax highlighting:
-(global-color-identifiers-mode 't)
-(global-font-lock-mode 't)
-(setq font-lock-maximum-decoration 't)
+(global-color-identifiers-mode t)
+(global-font-lock-mode t)
+(setq font-lock-maximum-decoration t)
 (setq font-lock-maximum-size '262144)
-(global-hi-lock-mode 't)
-(global-highlight-operators-mode 't)
-(global-highlight-parentheses-mode 't)
-(global-highlight-thing-mode 't)
+(global-hi-lock-mode t)
+(global-highlight-operators-mode t)
+(global-highlight-parentheses-mode t)
+(global-highlight-thing-mode t)
 (set-face-attribute 'hi-yellow nil :foreground "#FAF0E6" :background "#1A004E")
 
 ;; make ugly glyphs from greek letters?
-;;global-prettify-symbols-mode 't)
+;;global-prettify-symbols-mode t)
 
 ;; highlight line:
-;(global-hl-line-mode 't)
+;(global-hl-line-mode t)
 (set-face-background 'highlight "#0D0D0D")
 
 ;; opacity:
@@ -194,10 +194,10 @@ There are two things you can do about this warning:
   (window-divider-mode +1))
 
 ;; none of these please:
-(scroll-bar-mode '0)
-(tool-bar-mode '0)
-(menu-bar-mode '0)
-(blink-cursor-mode '0)
+(scroll-bar-mode 0)
+(tool-bar-mode 0)
+(menu-bar-mode 0)
+(blink-cursor-mode 0)
 
 ;; hide modeline:
 (defvar-local hidden-mode-line-mode nil)
@@ -281,8 +281,11 @@ There are two things you can do about this warning:
 ;; ____/\___|\__|\__|_|_|  _|\__, |____/
 ;;                           |___/
 
+;; revert buffers when the underlying file has changed
+(global-auto-revert-mode 1)
+
 ;; org mode header styles:
-(setq  org-startup-indented t)
+(setq org-startup-indented t)
 
 ;; code block execution (ask always=t, ask never=nil):
 (setq org-confirm-babel-evaluate nil)
@@ -328,7 +331,7 @@ There are two things you can do about this warning:
 ;; scrolling mouse:
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; scroll three lines at a time per default
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq mouse-wheel-follow-mouse nil) ;; scroll window under mouse
 
 ;; interactively do things mode:
 (require 'ido)
@@ -339,11 +342,11 @@ There are two things you can do about this warning:
 
 ;; always show color as color:
 (define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
-  (lambda () (rainbow-mode 1)))
-(my-global-rainbow-mode 1)
+  (lambda () (rainbow-mode t)))
+(my-global-rainbow-mode t)
 
 ;; subword mode (camelcase mode):
-(global-subword-mode 1)
+(global-subword-mode t)
 
 ;; i hate tabs!
 (setq-default indent-tabs-mode nil)
@@ -383,7 +386,7 @@ There are two things you can do about this warning:
 (global-set-key (kbd "C-c l") (lambda() (interactive) (find-file "~/.config/lf/lfrc")))
 (global-set-key (kbd "C-c R") (lambda() (interactive) (find-file "~/.config/ranger/rifle.conf")))
 (global-set-key (kbd "C-c x") (lambda() (interactive) (find-file "~/.xinitrc")))
-(global-set-key (kbd "C-c X") (lambda() (interactive) (find-file "~/.Xressources")))
+(global-set-key (kbd "C-c X") (lambda() (interactive) (find-file "~/.Xresources")))
 (global-set-key (kbd "C-c z") (lambda() (interactive) (find-file "~/.zshrc")))
 
 ;; printer command:
@@ -401,9 +404,16 @@ There are two things you can do about this warning:
 (global-set-key (kbd "M-<wheel-down>") (kbd "C-v"))
 (global-set-key (kbd "M-<wheel-up>") (kbd "M-v"))
 
+;; this does not work, since <mouse-8> and <mouse-9> are intercepted
+;; by xbindkeys and mapped to "alt-left" / "alt-right" to work with
+;; lf!
+;;(global-set-key (kbd "<mouse-8>") (kbd "C-v"))
+;;(global-set-key (kbd "<mouse-9>") (kbd "M-v"))
+
 ;; ?
-;; (define-key (current-local-map) (kbd "mouse-8")
-;;   (lookup-key (current-local-map) (kbd "C-v")))
+;; (define-key (current-local-map) (kbd "<mouse-8>")
+;;             (lookup-key (current-local-map) (kbd "C-v")))
+
 
 ;;   _|                  |  _)
 ;;  |   |   | __ \   __| __| |  _ \  __ \   __|
@@ -431,12 +441,6 @@ There are two things you can do about this warning:
        (insert (shell-command-to-string "echo -n $(date '+%Y-%m-%d %k:%M')") )
        )
 (global-set-key (kbd "C-c d") 'insert-current-date)
-
-;; open .emacs:
-(defun em ()
-  (interactive)
-  (find-file "~/.emacs")
-  )
 
 ;; un/compact block:
 (defun fill-or-unfill ()
@@ -549,7 +553,9 @@ Version 2017-01-08"
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
   (add-hook hook (lambda () (flyspell-mode -1))))
 
-;; If you’re using a Mac, you may need to add the following Elisp code to your config file as well in order for Flyspell to pick up the two-finger clicks (right-clicks):
+;; If you’re using a Mac, you may need to add the following Elisp code
+;; to your config file as well in order for Flyspell to pick up the
+;; two-finger clicks (right-clicks):
 ;; (eval-after-load "flyspell"
 ;;   '(progn
 ;;      (define-key flyspell-mouse-map [mouse-3] #'flyspell-correct-word)))

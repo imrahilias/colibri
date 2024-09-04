@@ -241,7 +241,7 @@ globalkeys = gears.table.join(
    awful.key({ }, "XF86Display", function () awful.spawn("xset dpms force off", false) end),
 
    -- screenshot:
-   awful.key({ }, "Print", function () awful.spawn("scrot -e 'mv $f ~/.screens/ 2>/dev/null'") end),
+   awful.key({ }, "Print", function () awful.spawn("scrot -s -e 'mv $f ~/.screens/ 2>/dev/null'") end),
 
    -- killer:
    awful.key({ modkey, "Shift" }, "k", function () awful.spawn("sudo xkill", false) end),

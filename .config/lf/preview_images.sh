@@ -13,27 +13,25 @@ image() {
     fi
 }
 
+highlighter="bat"
 highlightz() {
-    ## Syntax highlight with bat:
-    #bat --style plain --theme ansi --terminal-width "$(($4-2))" -f "$1"
+    if [[ $highlighter == "bat" ]]; then
+         ## Syntax highlight with bat (see `bat --list-themes`):
+        bat --style plain --theme "OneHalf" --terminal-width "$(($4-2))" -f "$1"
 
-    ## Syntax highlight with highlight below 256KiB:
-    # if [[ "$( stat --printf='%s' -- "${path}" )" -gt "262143" ]]; then
-    #     exit 1
-    # fi
-    #
-    # themes: type highlight-gui
-    # nice themes: "base16/google-dark",
-    # "base16/materia",
-    # "navy",
-    # "$HOME/.config/highlight/rebecca_m.theme"
-    #
-    ## Syntax highlight with highlight:
-    highlight --out-format="xterm256" \
-              --replace-tabs="4" \
-              --style="$HOME/.config/highlight/rebecca_m.theme" \
-              --force \
-              -- "$1"
+        ## Syntax highlight with highlight below 256KiB:
+        if [[ "$( stat --printf='%s' -- "${path}" )" -gt "262143" ]]; then
+            exit 1
+        fi
+
+    else
+        ## Syntax highlight with highlight (see `highlight-gui`):
+        highlight --out-format="xterm256" \
+                  --replace-tabs="4" \
+                  --style="$HOME/.config/highlight/rebecca_m.theme" \
+                  --max-size 256K \
+                  --force "$1"
+    fi
 }
 
 
@@ -126,17 +124,16 @@ case $mime in
 
         case $ext in
 
-            ipynb) jupyter nbconvert --to markdown "$1" --stdout \
-                         | highlight --syntax=markdown \
-                                     --out-format="xterm256" \
-                                     --replace-tabs="4" \
-                                     --style="$HOME/.config/highlight/rebecca_m.theme" \
-                                     --force
-                   #    | env COLORTERM=8bit bat --color=always --style=plain --language=markdown
-                   ;;
+            ipynb)
+
+                if [[ $highlighter == "bat" ]]; then
+                    jupyter nbconvert --to markdown "$1" --stdout | highlightz --language=markdown
+                else
+                    jupyter nbconvert --to markdown "$1" --stdout | highlightz --syntax=markdown
+                fi
+                ;;
 
             *) highlightz "$1"
-
                ;;
         esac
         ;;
@@ -144,35 +141,34 @@ case $mime in
     text/html)
         #lynx -width="$4" -display_charset=utf-8 -dump "$1"
         elinks -dump -dump-color-mode 2 "$1"
-
         ;;
 
     ## text syntax highlight:
     text/* | */xml | application/x-ndjson)
 
-        # ## text syntax highlight:
-        # highlightz "$1"
-        # ;;
-
-        ## text syntax highlight and md rendering:
-        case $ext in
-
-            # md) ## glow is super nice but slow on huge md files.
-            #     glow -s dark -w 1000 "$1"
-            #     ;;
-
-            # md) # markdown > html > elinks. fast but boring:
-            #     pandoc -f markdown -t html --standalone -- "$1"| elinks -dump -dump-color-mode 2
-            #     ;;
-
-            # md) # markdown > html > elinks. super fast but boring:
-            #     cmark --to html "$1"| elinks -dump -dump-color-mode 2
-            #     ;;
-
-            *)  highlightz "$1"
-                ;;
-        esac
+        ## almighty highlight:
+        highlightz "$1"
         ;;
+
+        # ## text syntax highlight and md rendering:
+        # case $ext in
+
+        #     # md) ## glow is super nice but slow on huge md files.
+        #     #     glow -s dark -w 1000 "$1"
+        #     #     ;;
+
+        #     # md) # markdown > html > elinks. fast but boring:
+        #     #     pandoc -f markdown -t html --standalone -- "$1"| elinks -dump -dump-color-mode 2
+        #     #     ;;
+
+        #     # md) # markdown > html > elinks. super fast but boring:
+        #     #     cmark --to html "$1"| elinks -dump -dump-color-mode 2
+        #     #     ;;
+
+        #     *)  highlightz "$1"
+        #         ;;
+        # esac
+        # ;;
 
     *)
         mediainfo "$1"
