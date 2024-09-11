@@ -1,3 +1,5 @@
+1password
+1password-cli
 acpi
 acpid
 alsa-firmware
@@ -25,6 +27,8 @@ bison
 blueman
 breeze-gtk
 breeze5
+byobu
+cage
 calibre
 catdoc
 cbatticon
@@ -45,7 +49,6 @@ dconf-editor
 dhcpcd
 diff-so-fancy
 docker
-dwdiff
 easyeffects
 edk2-shell
 efibootmgr
@@ -108,7 +111,7 @@ inkscape
 iwd
 jdk11-openjdk
 jupyterlab
-keepassxc
+keepass
 lf
 lib32-amdvlk
 lib32-libva-mesa-driver
@@ -123,6 +126,7 @@ libva-mesa-driver
 light
 linux
 linux-firmware
+linux-hardened
 linux-headers
 linux-zen
 lolcat
@@ -137,7 +141,6 @@ mdcat
 mediainfo
 mesa-vdpau
 meson
-moar
 modemmanager
 most
 mpv
@@ -188,6 +191,7 @@ python
 python-black
 python-chardet
 python-geopandas
+python-lsp-server
 python-matplotlib
 python-pip
 python-rtree
@@ -245,6 +249,7 @@ rxvt-unicode
 samsung-unified-driver
 samsung_magician-consumer-ssd
 sassc
+sbctl
 scrot
 seahorse
 seahorse-nautilus
@@ -259,6 +264,7 @@ sshpass
 stalonetray
 steam
 steam-native-runtime
+stress
 sudo
 syncthing
 telegram-desktop
@@ -282,6 +288,7 @@ texlive-music
 texlive-pictures
 texlive-pstricks
 texlive-publishers
+texlive-xetex
 thunar
 tig
 tmux
@@ -298,6 +305,7 @@ ueberzug
 unarchiver
 unoconv
 unrar
+urxvt-perls
 usbutils
 v4l2loopback-dkms
 v4l2loopback-utils
@@ -363,6 +371,7 @@ xorg-xwayland
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
+xsel
 xsettingsd
 xterm
 yay
