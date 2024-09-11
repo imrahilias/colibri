@@ -1,0 +1,7 @@
+#!/bin/bash
+
+sel=`xclip -out -selection primary`
+tmp=$(mktemp)
+qrencode -o $tmp "$sel"
+feh -Z $tmp
+rm "${temp_file}"

@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+# clip:
+dir=`xclip -out -selection primary`
+
+# if not exist; unset:
+[ ! -d "$dir" ] && dir=""
+
+# run lf:
+urxvtc -title " " -e /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc "$dir"

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+start=`date +%s.%N`
+
+find . -type f -print0 | while IFS= read -r -d $'\0' file;
+do
+    mime="$(file --dereference --brief --mime-type -- "$file")";
+done
+
+end=`date +%s.%N`
+
+echo "$end - $start" | bc -l
+
+
+
+start=`date +%s.%N`
+
+find . -type f -print0 | while IFS= read -r -d $'\0' file;
+do
+    ext="${file#*.}"; # shell escape; "example.tar.gz" gives "tar.gz"
+done
+
+end=`date +%s.%N`
+
+echo "$end - $start" | bc -l

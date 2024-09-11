@@ -140,6 +140,7 @@ alias p='python3 '
 alias v='nvim '
 alias vi='nvim '
 alias vim='nvim '
+alias mnt=' mount | column -t'
 
 ## some gnome stuff:
 alias gnome-session='echo "haha nice try:D"'

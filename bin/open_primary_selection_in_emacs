@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# clip:
+file=`xclip -out -selection primary`
+
+# if not exist; unset:
+#[ ! -f $file ] && file=""
+
+# run emacs
+emacsclient "/home/$file"

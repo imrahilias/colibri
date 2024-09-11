@@ -144,7 +144,7 @@ case $mime in
         ;;
 
     ## text syntax highlight:
-    text/* | */xml | application/x-ndjson)
+    text/* | */xml | application/x-ndjson | application/javascript )
 
         ## almighty highlight:
         highlightz "$1"
