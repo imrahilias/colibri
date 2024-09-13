@@ -126,7 +126,6 @@ libva-mesa-driver
 light
 linux
 linux-firmware
-linux-hardened
 linux-headers
 linux-zen
 lolcat
@@ -244,12 +243,13 @@ razercfg
 reveal-md
 ripgrep
 rsync
-rtorrent-ps-ch
+rtorrent-vi-color
 rxvt-unicode
 samsung-unified-driver
 samsung_magician-consumer-ssd
 sassc
 sbctl
+sbsigntools
 scrot
 seahorse
 seahorse-nautilus
@@ -267,6 +267,7 @@ steam-native-runtime
 stress
 sudo
 syncthing
+systemd-ukify
 telegram-desktop
 texinfo
 texlive-basic

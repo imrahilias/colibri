@@ -4,12 +4,11 @@ better-adb-sync-git r76.2d19f23-1
 ccze 0.2.1-13
 ctpv-git r262.bfed248-1
 epeg-git 0.9.3.r0.g17bbae0-1
-google-chrome 128.0.6613.119-1
+google-chrome 128.0.6613.137-1
 gtk3-nocsd-git 3.0.8+2.r84.20221015.a356bf7-2
 libgbinder 1.1.40-1
 libglibutil 1.0.79-1
 libinput-gestures 2.77-1
-libtorrent-ps-ch 1.8.3-3
 light 1.2.2-5
 networkmanager-fortisslvpn 1.4.0-4
 openssh-askpass 2.1.0-4
@@ -20,7 +19,8 @@ qt6gtk2 0.2-3
 qtforkawesome-qt6 0.2.1-1
 razercfg 0.43-10
 reveal-md 5.3.4-1
-rtorrent-ps-ch 1.8.3-4
+rtorrent-vi-color 0.9.8-1
+rtorrent-vi-color-debug 0.9.8-1
 samsung-unified-driver 1.00.39-7
 samsung-unified-driver-common 1.00.39-7
 samsung-unified-driver-printer 1.00.39-7
