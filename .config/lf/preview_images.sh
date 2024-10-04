@@ -17,7 +17,7 @@ highlighter="bat"
 highlightz() {
     if [[ $highlighter == "bat" ]]; then
          ## Syntax highlight with bat (see `bat --list-themes`):
-        bat --style plain --theme "OneHalf" --terminal-width "$(($4-2))" -f "$1"
+        bat --style plain --theme "OneHalfDark" --terminal-width "$(($4-2))" -f "$1"
 
         ## Syntax highlight with highlight below 256KiB:
         if [[ "$( stat --printf='%s' -- "${path}" )" -gt "262143" ]]; then

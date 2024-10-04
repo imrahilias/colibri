@@ -87,7 +87,7 @@ URxvt*perl-ext-common:      default,clipboard,url-select,keyboard-select,resize-
 URxvt*url-select.launcher:  chromium
 URxvt*url-select.underline: true
 URxvt*underlineURLs:        true
-URxvt*urlButton:            1
+URxvt*urlButton:            M-1
 URxvt*keysym.M-u:           perl:url-select:select_next
 URxvt*keysym.M-Escape:      perl:keyboard-select:activate
 URxvt*keysym.M-s:           perl:keyboard-select:search

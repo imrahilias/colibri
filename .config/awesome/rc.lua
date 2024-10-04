@@ -203,7 +203,7 @@ globalkeys = gears.table.join(
 
    -- launch:
    -- icons:   
-   awful.key({ modkey, "Shift", "Control"}, "q", function () awful.spawn("sudo systemctl suspend") end),
+   awful.key({ modkey, "Shift", "Control"}, "q", function () awful.spawn("xset s activate") end),
    awful.key({ modkey }, "Return", function () awful.spawn(terminal) end),
    awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('urxvtc -e ssh admin') end),
    awful.key({ modkey, "Control" }, "Return", function () awful.spawn("urxvtc -e ssh 5") end),

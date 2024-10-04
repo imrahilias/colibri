@@ -6,4 +6,4 @@ url=`xclip -out -selection primary`
 echo $url
 
 # start in browser
-google-chrome-stable "https://www.google.com/search?q=$url"
+firefox "https://www.google.com/search?q=$url"

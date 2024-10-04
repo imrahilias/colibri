@@ -1,7 +1,7 @@
 [Default Applications]
-text/html=google-chrome.desktop
-x-scheme-handler/http=google-chrome.desktop
-x-scheme-handler/https=google-chrome.desktop
+text/html=firefox.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
 x-scheme-handler/about=google-chrome.desktop
 x-scheme-handler/unknown=google-chrome.desktop
 x-scheme-handler/tg=org.telegram.desktop.desktop
@@ -17,6 +17,14 @@ image/svg+xml=org.xfce.ristretto.desktop
 image/x-xpixmap=org.xfce.ristretto.desktop
 application/pdf=org.pwmt.zathura.desktop
 x-scheme-handler/tonsite=org.telegram.desktop.desktop
+application/x-web-browser=firefox.desktop
+x-scheme-handler/chrome=firefox.desktop
+application/x-extension-htm=firefox.desktop
+application/x-extension-html=firefox.desktop
+application/x-extension-shtml=firefox.desktop
+application/xhtml+xml=firefox.desktop
+application/x-extension-xhtml=firefox.desktop
+application/x-extension-xht=firefox.desktop
 
 [Added Associations]
 x-scheme-handler/tg=userapp-Telegram Desktop-3KBSI1.desktop;userapp-Telegram Desktop-T9CLW1.desktop;org.telegram.desktop.desktop;
@@ -31,3 +39,13 @@ image/svg+xml=org.xfce.ristretto.desktop;
 image/x-xpixmap=org.xfce.ristretto.desktop;
 text/x-matlab=emacs.desktop;
 x-scheme-handler/tonsite=org.telegram.desktop.desktop;
+x-scheme-handler/http=firefox.desktop;
+x-scheme-handler/https=firefox.desktop;
+x-scheme-handler/chrome=firefox.desktop;
+text/html=firefox.desktop;
+application/x-extension-htm=firefox.desktop;
+application/x-extension-html=firefox.desktop;
+application/x-extension-shtml=firefox.desktop;
+application/xhtml+xml=firefox.desktop;
+application/x-extension-xhtml=firefox.desktop;
+application/x-extension-xht=firefox.desktop;

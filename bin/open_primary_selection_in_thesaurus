@@ -6,4 +6,4 @@ url=`xclip -out -selection primary`
 echo $url
 
 # start in browser
-google-chrome-stable "https://www.thesaurus.com/browse/$url"
+firefox "https://www.thesaurus.com/browse/$url"

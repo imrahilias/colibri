@@ -41,7 +41,7 @@ set cursorpreviewfmt "\033[7;2m"
 
 # List of hidden file glob patterns. Patterns can be given as relative or
 # absolute paths. To add multiple patterns, use ':' as a separator.
-set hiddenfiles ".*:*~:*#:*.bak:/home/m/Downloads:/home/m/license:/home/m/readme.md"
+set hiddenfiles ".*:*~:*#:*.bak:/home/m/Downloads:/home/m/license:/home/m/readme.md:/home/m/explicit_filter.restore"
 
 # Jump to the first match after each keystroke during searching.
 set incsearch true
@@ -283,6 +283,25 @@ cmd copyto ${{
 	            done
             }}
 
+cmd paste &{{
+    set -- $(cat ~/.local/share/lf/files)
+    mode="$1"
+    shift
+    case "$mode" in
+        copy)
+            rsync -av --ignore-existing --progress -- "$@" . |
+            stdbuf -i0 -o0 -e0 tr '\r' '\n' |
+            while IFS= read -r line; do
+                line="$(printf '%s' "$line" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+                lf -remote "send $id echo \"$line\""
+            done
+            ;;
+        move) mv -n -- "$@" .;;
+    esac
+    rm ~/.local/share/lf/files
+    lf -remote "send clear"
+}}
+
 cmd bulkrename ${{
                     tmpfile_old="$(mktemp)"
                     tmpfile_new="$(mktemp)"
@@ -329,26 +348,40 @@ cmd key ${{
 # doc
 cmd doc $$lf -doc | $PAGER
 
-# THIS IS NOT A TYPO, THE BRACKETS ARE TOO MUCH FOR EMACS!
+
 # Combining fzf with ripgrep, you can interactively search in the
 # contents of files under the current directory and select a file from
 # the results:
 cmd fzfsearch ${{
     cmd="rg --column --line-number --no-heading --color=always --smart-case"
-    fzf --ansi --disabled --layout=reverse --header="Search in files" --delimiter=: \
+    fzf --ansi --disabled --layout=reverse  --delimiter=: \
+        --border=none --color=dark --no-info --no-separator \
+        --color='prompt:magenta' \
         --bind="start:reload([ -n {q} ] && $cmd -- {q} || true)" \
         --bind="change:reload([ -n {q} ] && $cmd -- {q} || true)" \
         --bind='enter:become(lf -remote "send $id select \"$(printf "%s" {1} | sed '\''s/\\/\\\\/g;s/"/\\"/g'\'')\"")' \
-        --preview='cat -- {1}' # Use your favorite previewer here (bat, source-highlight, etc.), for example:
-        #--preview-window='+{2}-/2' \
-        #--preview='bat --color=always --highlight-line={2} -- {1}'
-        # Alternatively you can even use the same previewer you've configured for lf
-        #--preview='~/.config/lf/cleaner; ~/.config/lf/previewer {1} "$FZF_PREVIEW_COLUMNS" "$FZF_PREVIEW_LINES" "$FZF_PREVIEW_LEFT" "$FZF_PREVIEW_TOP"')"
+        --preview-window=border-none \
+        --preview='~/.config/lf/preview_images.sh {1}'
 }}
+
+# Use your favorite previewer here (bat, source-highlight, etc.), for example:
+#--preview='cat -- {1}'
+
+# not sure what that does:
+##--preview-window='+{2}-/2' \
+
+# nice syntax highligh:
+#--preview='bat --style plain --theme "OneHalf" --color=always --highlight-line={2} -- {1}'
+
+## Alternatively you can even use the same previewer you've configured for lf:
+#--preview='~/.config/lf/preview.sh {1}'
+
+# other stuff
+#--header="Search everywhere"
 
 #
 #  __ `__ \   _ \  |   |  __|  _ \
-    #  |   |   | (   | |   |\__ \  __/
+#  |   |   | (   | |   |\__ \  __/
 # _|  _|  _|\___/ \__,_|____/\___|
 #
 
@@ -367,13 +400,13 @@ map <m-3> :push <right>
 #map <m-3> :toggle; down
 
 # does not work, collides with builtin scroll, so use xbindkeys:
-#map <b-8> :push <left>
-#map <b-9> :push <right>
+# map <m-8> :push <left>
+# map <m-9> :push <right>
 
 #  |
 #  |  /  _ \ |   |  __|
 #    <   __/ |   |\__ \
-    # _|\_\\___|\__, |____/
+# _|\_\\___|\__, |____/
 #            ____/
 
 # the following additional keybindings are provided by default,

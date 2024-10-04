@@ -1,7 +1,7 @@
--- 
+--
 --  __| _ \   __|
---  |   (   | |   
--- _|  \___/ _|   
+--  |   (   | |
+-- _|  \___/ _|
 --
 -- ror.lua This is the file goes in your ~/.config/awesome/ directory.
 -- It contains your table of 'run or raise' key bindings for
@@ -21,7 +21,8 @@
 
 table5={
   ["a"]={"spotify", "Spotify"},
-  ["s"]={"google-chrome-stable", "Google-chrome"},
+  --["s"]={"google-chrome-stable", "Google-chrome"},
+  ["s"]={"firefox", "firefox"},
   ["t"]={"gnome-calendar", "gnome-calendar"},
   ["y"]={"evolution", "Evolution"},
   ["u"]={"telegram-desktop", "Telegram"},
