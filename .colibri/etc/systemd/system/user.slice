@@ -1,0 +1,14 @@
+## this unit file allows systemd to limit all non-root users,
+## which is 15 out of 16 cores, only one user is active anyway.
+
+[Unit]
+Description=User and Session Slice
+Documentation=man:systemd.special(7)
+Before=slices.target
+
+[Slice]
+TasksMax=90%
+CPUQuota=1500%
+MemoryHigh=80%
+MemoryMax=90%
+MemorySwapMax=90%
