@@ -282,25 +282,25 @@ cmd copyto ${{
 		        eval cp -ivr \"$x\" \"$dest\"
 	            done
             }}
-
-cmd paste &{{
-    set -- $(cat ~/.local/share/lf/files)
-    mode="$1"
-    shift
-    case "$mode" in
-        copy)
-            rsync -av --ignore-existing --progress -- "$@" . |
-            stdbuf -i0 -o0 -e0 tr '\r' '\n' |
-            while IFS= read -r line; do
-                line="$(printf '%s' "$line" | sed 's/\\/\\\\/g;s/"/\\"/g')"
-                lf -remote "send $id echo \"$line\""
-            done
-            ;;
-        move) mv -n -- "$@" .;;
-    esac
-    rm ~/.local/share/lf/files
-    lf -remote "send clear"
-}}
+# this messes up the copy-paste cuplicate file function!
+# cmd paste &{{
+#     set -- $(cat ~/.local/share/lf/files)
+#     mode="$1"
+#     shift
+#     case "$mode" in
+#         copy)
+#             rsync -av --ignore-existing --progress -- "$@" . |
+#             stdbuf -i0 -o0 -e0 tr '\r' '\n' |
+#             while IFS= read -r line; do
+#                 line="$(printf '%s' "$line" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+#                 lf -remote "send $id echo \"$line\""
+#             done
+#             ;;
+#         move) mv -n -- "$@" .;;
+#     esac
+#     rm ~/.local/share/lf/files
+#     lf -remote "send clear"
+# }}
 
 cmd bulkrename ${{
                     tmpfile_old="$(mktemp)"
@@ -485,13 +485,14 @@ map Bu $git --git-dir=$HOME/.dotfiles --work-tree=$HOME add -u
 map Bx $git --git-dir=$HOME/.dotfiles --work-tree=$HOME rm $fx
 map BX $git --git-dir=$HOME/.dotfiles --work-tree=$HOME rm --cached $fx
 
-# do not have delete key! make sure this `e` comes before the `D`, or
+# do not have delete key! make sure this `Bz`, and `ea` fence the `D`, or
 # getting out of !whatever (eg. !git) with left arrow press tries to
 # delete everything!
-map D
+map Bz clear
+map D delete
+map ea clear
 
 map e
-map ea !beautify_all
 map eb %beautify $fx
 #map ed $diff --color=always -u $fx | less
 #map ed !dwdiff --color $fx | less

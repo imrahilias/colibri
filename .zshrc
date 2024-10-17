@@ -75,7 +75,6 @@ then
     export LESS_TERMCAP_se=$'\e[0m'
 fi
 
-
 # list aliasas
 alias l='grc ls -1Bhl --color=always --group-directories-first' # '1' 4 one entry/line, 'B' ignores backups (~), 'h' 4 human readable (kiB, MiB, ...).
 alias ll='grc ls -1ABhl --color=always --group-directories-first' # 'A' 4 almost all.
@@ -83,13 +82,6 @@ alias d='dirs -v' # lists zsh directory stack (enter <cd +- tab>, plus & minus (
 alias blk='sudo blkid -o list'
 alias hist='fc -El 0 | grep'
 alias lsa='lsarchives '
-
-# edit aliases
-alias ef='sudo cp /etc/fstab /etc/fstab.$(date +%y%m%d%H%S) && sudo emacs /etc/fstab'
-alias eb='emacsclient -c $HOME/.bashrc'
-alias ez='emacsclient -c $HOME/.zshrc'
-alias ex='emacsclient -c $HOME/.xinitrc'
-alias ea='emacsclient -c $HOME/.config/awesome/rc.lua'
 
 # mount aliases
 alias mnta='sudo mount -a; mount' # echo 4 color, semicolon 4 1. command, if ok, than 2. com.

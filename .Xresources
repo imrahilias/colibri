@@ -114,7 +114,7 @@ URxvt*geometry: 400x400
 ! URxvt*fading: 30
 URxvt*transparent: true
 !! shading; 0 to 99 darkens, 101 to 200 lightens:
-URxvt*shading: 20
+URxvt*shading: 10
 URxvt*buffered: true
 
 !! real transparency:
@@ -268,7 +268,7 @@ xterm*veryBoldColors: 6
 xterm*color0: #000000
 xterm*color1: #ff0000
 xterm*color2: #00ff00
-xterm*color3: #ffff00
+xterm*color3: #ff8800
 xterm*color4: #0000ff
 xterm*color5: #ff00ff
 xterm*color6: #00ffff

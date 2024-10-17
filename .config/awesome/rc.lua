@@ -54,7 +54,7 @@ end
 --
 
 -- themes define colours, icons, font and wallpapers:
-beautiful.init(awful.util.getdir("config") .. "/canyon.lua")
+beautiful.init(awful.util.getdir("config") .. "/theme.lua")
 beautiful.layout_machi = machi.get_icon()
 
 -- revelation, load after beautiful:
@@ -210,7 +210,7 @@ globalkeys = gears.table.join(
    awful.key({ modkey }, "d", function () awful.spawn.with_shell('urxvtc -title "  lf" -e /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc', false) end),
    awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell('urxvtc -title "  sudo lf"" -e sudo /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc', false) end),
    awful.key({ modkey }, "e", function () awful.spawn("emacsclient -ca ''", false) end),
-   awful.key({ modkey, "Shift" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_cromium") end),
+   awful.key({ modkey, "Shift" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_browser") end),
    awful.key({ modkey, "Control" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_google_translate") end),
    awful.key({ modkey, "Shift", "Control" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_thesaurus") end),
    awful.key({ modkey, "Shift" }, "z", function () awful.spawn("/home/m/bin/open_primary_selection_as_qr_code") end),

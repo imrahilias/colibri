@@ -142,8 +142,8 @@ There are two things you can do about this warning:
 ;; opacity:
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> . <inactive>))
 ;;(set-frame-parameter (selected-frame) 'alpha <both>)
-(set-frame-parameter (selected-frame) 'alpha '(80 . 80))
-(add-to-list 'default-frame-alist '(alpha . (80 . 80)))
+(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 
 ;; you can use the following snippet after you’ve set the alpha as
 ;; above to assign a toggle to “c-c t”:
