@@ -109,6 +109,7 @@ alias sus='sudo systemctl suspend'
 alias hib='sudo systemctl hibernate'
 
 # misc
+alias jour='journalctl -b | ccze'
 alias s='sudo su -'
 alias x='exit'
 alias c='clear'

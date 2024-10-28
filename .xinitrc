@@ -36,10 +36,8 @@ export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
 
 # has to be called before owncloud, via zshrc is not enough!?
 export XDG_CONFIG_HOME="/home/m/.config"
-#export QT_QPA_PLATFORMTHEME="Adwaita-Dark"
-#export QT_STYLE_OVERRIDE="Adwaita-Dark"
-#export QT_QPA_PLATFORMTHEME="qt5ct" # qt5 gtk blending
-#export QT_STYLE_OVERRIDE="qt5ct"
+
+# qt themes use the gtk2/3 theme arc-blackest converted via qt6gtk2:
 export QT_QPA_PLATFORMTHEME="gtk2" # qt looks like current gtk theme
 export QT_STYLE_OVERRIDE="gtk2"
 export ALSA_CARD="PCH"
@@ -64,12 +62,11 @@ blueman-applet & # bluetooth.
 cbatticon -r 10 -c 'notify-send Power on 10%' & # volume tray.
 1password &
 
-# start cloud clients:
-#QT_QPA_PLATFORMTHEME=Adwaita-Dark QT_STYLE_OVERRIDE=Adwaita-Dark nextcloud &
-#QT_QPA_PLATFORMTHEME=Adwaita-Dark QT_STYLE_OVERRIDE=Adwaita-Dark owncloud &
-#nextcloud --style="Adwaita-Dark" &
-#owncloud --style="Adwaita-Dark" &
-nextcloud &
+# both *cloud runs on qt, which runs qt6gtk2. so whenever qt or gtk
+# change, this qt6gtk2 aur pkg needs to be rebuilt (install, no clean
+# build). Also nextcloud might not like the gtk2 theme, so needs to
+# run default:
+QT_QPA_PLATFORMTHEME='' QT_STYLE_OVERRIDE='' nextcloud &
 owncloud &
 #syncthingtray &
 

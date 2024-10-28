@@ -76,6 +76,12 @@ set icons true
 
 set ratios "1:2:3"
 
+# this patch uses the fsnotify library for watching filesystem updates
+# so that the ui can be updated accordingly. this offers an
+# alternative to polling for updates by using the configuration set
+# period 1, and should address many of the issues associated with it.
+set watch true
+
 
 #                                                 |
 #   __|  _ \  __ `__ \  __ `__ \   _` | __ \   _` |  __|

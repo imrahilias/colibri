@@ -84,10 +84,10 @@ TERM xterm-termite
 # EIGHTBIT, followed by '1' for on, '0' for off. (8-bit output):
 EIGHTBIT 1
 
-#                 |           
-#   __|  _ \   _` |  _ \  __| 
-#  (    (   | (   |  __/\__ \ 
-# \___|\___/ \__,_|\___|____/ 
+#                 |
+#   __|  _ \   _` |  _ \  __|
+#  (    (   | (   |  __/\__ \
+# \___|\___/ \__,_|\___|____/
 #
 # Below are the color init strings for the basic file types. A color init
 # string consists of one or more of the following numeric codes:
@@ -121,11 +121,11 @@ EIGHTBIT 1
 # .out 38;5;161
 # .out 48;5;161
 
-#  |                    
-#  __| |   | __ \   _ \ 
-#  |   |   | |   |  __/ 
-# \__|\__, | .__/ \___| 
-#     ____/ _|          
+#  |
+#  __| |   | __ \   _ \
+#  |   |   | |   |  __/
+# \__|\__, | .__/ \___|
+#     ____/ _|
 
 NORMAL 0 # no color code at all
 FILE 0 # regular file: use no color at all
@@ -139,13 +139,13 @@ MULTIHARDLINK 01;93 # regular file with more than one link
 FIFO 30;47 # pipe
 SOCK 01;45 # socket
 DOOR 45 # door
-BLK 42 # block device driver      
+BLK 42 # block device driver
 CHR 01;42 # character device driver
 
-#        |   |       _) |           |        
-#   _` | __| __|  __| | __ \  |   | __|  _ \ 
-#  (   | |   |   |    | |   | |   | |    __/ 
-# \__,_|\__|\__|_|   _|_.__/ \__,_|\__|\___| 
+#        |   |       _) |           |
+#   _` | __| __|  __| | __ \  |   | __|  _ \
+#  (   | |   |   |    | |   | |   | |    __/
+# \__,_|\__|\__|_|   _|_.__/ \__,_|\__|\___|
 #
 ORPHAN 01;36 # symlink to nonexistent file, or non-stat'able file ...
 MISSING 01;31 # ... and the files that orphaned symlinks point to
@@ -157,11 +157,11 @@ OTHER_WRITABLE 01;34;93 # dir that is other-writable (o+w) and not sticky
 STICKY 01;30;43 # dir with the sticky bit set (+t) and not other-writable
 EXEC 01 # This is for files with execute permission (+x)
 
-#             |   
-#   _ \\ \  / __| 
-#   __/ `  <  |   
-# \___| _/\_\\__| 
-#                
+#             |
+#   _ \\ \  / __|
+#   __/ `  <  |
+# \___| _/\_\\__|
+#
 # List any file extensions like '.gz' or '.tar' that you would like ls
 # to colorize below. Put the extension, a space, and the color init string.
 # (and any comments you want to add after a '#')
