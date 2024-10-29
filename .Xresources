@@ -1,5 +1,5 @@
-!!~/.Xresources
-!! no inline comments!
+!~/.Xresources
+! no inline comments!
 
 !        | |
 !   _` | | |
@@ -15,7 +15,7 @@
 ! _|  \___/ _|  _|\__|____/
 !
 
-!! applications without fontconfig support:
+! applications without fontconfig support:
 Xft.antialias: 1
 Xft.autohint: 0
 Xft.hinting: 1
@@ -30,9 +30,10 @@ Xft.rgba: rgb
 ! \__,_|_|    _/\_\  \_/  \__|
 !
 
-!! URxvt (case sensitive?)
-!! ttps://wiki.archlinux.org/index.php/Rxvt-unicode
+! URxvt (case sensitive?)
+! ttps://wiki.archlinux.org/index.php/Rxvt-unicode
 
+URxvt*termName: rxvt-unicode
 URxvt*loginshell: true
 URxvt*saveLines: 10000
 URxvt*pointerblank: true
@@ -44,12 +45,12 @@ URxvt*boldFont: xft:BitstromWera Nerd Font Mono:size=12:antialias=true:style=Bol
 URxvt*intensityStyles: false
 URxvt*secondaryScreen: true
 
-!! SCROLLING
+! SCROLLING
 ! do not scroll with output:
 URxvt*scrollTtyOutput: false
-!! scroll in relation to buffer (with mouse scroll or Shift+Page Up):
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up):
 URxvt*scrollWithBuffer: true
-!! scroll back to the bottom on keypress:
+! scroll back to the bottom on keypress:
 URxvt*scrollTtyKeypress: true
 URxvt*secondaryScroll: false
 URxvt*secondaryWheel: true
@@ -63,25 +64,25 @@ URxvt*scrollBar_align: centre
 URxvt*jumpScroll: true
 URxvt*mouseWheelScrollPage: true
 
-!! scroll up/down 10 lines
+! scroll up/down 10 lines
 URxvt*keysym.Shift-Up: command:\033]720;10\007
 URxvt*keysym.Shift-Down: command:\033]721;10\007
-!! scroll up/down 100 lines
+! scroll up/down 100 lines
 URxvt*keysym.Control-Up: command:\033]720;100\007
 URxvt*keysym.Control-Down: command:\033]721;100\007
-!! scroll up/down all the way (10000 lines)
+! scroll up/down all the way (10000 lines)
 URxvt*keysym.Control-Shift-Up: command:\033]720;10000\007
 URxvt*keysym.Control-Shift-Down: command:\033]721;10000\007
 
-!! page up/page down/home/end conflicts with pager (less)!
+! page up/page down/home/end conflicts with pager (less)!
 ! URxvt*keysym.Prior: command:\033]720;100\007
 ! URxvt*keysym.Next: command:\033]721;100\007
 ! URxvt*keysym.Home: command:\033]720;10000\007
 ! URxvt*keysym.End: command:\033]721;10000\007
 
-!! PERL EXT
-!! if you do not use the perl extension features, you can improve the
-!! security and speed by disabling perl extensions completely.
+! PERL EXT
+! if you do not use the perl extension features, you can improve the
+! security and speed by disabling perl extensions completely.
 !URxvt*perl-ext:
 URxvt*perl-ext-common:      default,clipboard,url-select,keyboard-select,resize-font
 URxvt*url-select.launcher:  chromium
@@ -99,48 +100,48 @@ URxvt*keysym.M-s:           perl:keyboard-select:search
 !URxvt*keysym.M-Escape: perl:keyboard-select:activate
 
 
-!! GRAPHICS:
+! GRAPHICS:
 URxvt*skipBuiltinGlyphs: true
 URxvt*iconFile: /usr/share/icons/Adwaita/scalable/apps/utilities-terminal-symbolic.svg
 ! borderless conflicts with something! awesome?
 !URxvt*borderLess: true
 URxvt*cursorBlink: false
 
-!!The 2023-01-02 update may require adding some lines into ~/.Xresources:
+!The 2023-01-02 update may require adding some lines into ~/.Xresources:
 URxvt*geometry: 400x400
 
-!! fake transparency:
-!! fade the text by the given percentage when focus is lost:
+! fake transparency:
+! fade the text by the given percentage when focus is lost:
 ! URxvt*fading: 30
 URxvt*transparent: true
-!! shading; 0 to 99 darkens, 101 to 200 lightens:
+! shading; 0 to 99 darkens, 101 to 200 lightens:
 URxvt*shading: 10
 URxvt*buffered: true
 
-!! real transparency:
+! real transparency:
 ! URxvt*depth: 32
 ! URxvt*background: [80]#000000
 ! URxvt*background: rgba:0000/0000/0000/c900
 URxvt*foreground: #FAF0E6
 URxvt*background: #000000
+URxvt*cursorColor: #FF00FF
+URxvt*cursorColor2: #FF00FF
+URxvt*pointerColor: #FF00FF
+URxvt*pointerColor2: #FF00FF
 ! URxvt*underlineColor:
 ! URxvt*scrollColor:
 ! URxvt*troughColor:
 ! URxvt*highlightColor:
 ! URxvt*highlightTextColor:
-URxvt*cursorColor: #FF00FF
-URxvt*cursorColor2: #FF00FF
-URxvt*pointerColor: #FF00FF
-URxvt*pointerColor2: #FF00FF
 
 !             |
 !   __|  _ \  |  _ \   __| __|
 !  (    (   | | (   | |  \__ \
 ! \___|\___/ _|\___/ _|  ____/
 
-!! type 'rainbow' for quick demo
+! type 'rainbow' for quick demo
 
-! # foreground: background
+! foreground: background
 ! 0: 30, black
 ! 1: 31, red
 ! 2: 32, green
@@ -149,7 +150,7 @@ URxvt*pointerColor2: #FF00FF
 ! 5: 35, magenta
 ! 6: 36, cyan
 ! 7: 37, white
-! # bold foreground: background
+! bold foreground: background
 ! 8: 40, black
 ! 9: 41, red
 ! 10: 42, green
@@ -160,6 +161,7 @@ URxvt*pointerColor2: #FF00FF
 ! 15: 47, white
 ! 16: 48, default
 
+! bright:
 ! *color0: Black
 ! *color1: DarkRed
 ! *color2: SeaGreen
@@ -178,6 +180,7 @@ URxvt*pointerColor2: #FF00FF
 ! *color15: Seashell
 ! *color16: BlanchedAlmond
 
+! the same bright:
 *color0: #000000
 *color1: #8B0000
 *color2: #2E8B57
@@ -212,59 +215,15 @@ xterm*saveLines: 4096
 xterm*scrollBar: false
 xterm*scrollbar.width: 8
 xterm*geometry: 80x32
-! xterm*faceName: xft:DejaVuSansMono Nerd Font:size=12:antialias=true,\
-!             xft: Bitstream Vera Sans Mono:size=12
-! xterm*boldFont: xft:DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold,\
-!                 xft: Bitstream Vera Sans Mono:size=12:style=Bold
-!xterm*faceName: xft:DejaVuSansMono Nerd Font:size=12:antialias=true
-!xterm*boldFont: xft:DejaVuSansMono Nerd Font:size=12:antialias=true:style=Bold
 
-!! light setting for vsc:
+! bright mode for vsc:
 xterm*foreground: #000000
-!xterm*background: #FAF0E6
 xterm*background: #ffffff
 xterm*transparent: false
 xterm*cursorColor: #8B008B
 xterm*cursorColor2: #8B008B
 xterm*faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=16:antialias=true
 xterm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=16:antialias=true:style=Bold
-
-!! dark setting:
-! xterm*foreground: #FAF0E6
-! xterm*background: #000000
-! xterm*transparent: true
-! xterm*cursorColor: #FF00FF
-! xterm*cursorColor2: #FF00FF
-! xterm*faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true
-! xterm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true:style=Bold
-
-! xterm*color0:  rgb:28/2a/2b
-xterm*veryBoldColors: 6
-! xterm*colorBDMode: true
-! xterm*colorBD: Red
-! xterm*colorULMode: true
-! xterm*colorUL: Cyan
-
-!! standard:
-! xterm*color0: #000000
-! xterm*color1: #800000
-! xterm*color2: #008000
-! xterm*color3: #808000
-! xterm*color4: #000080
-! xterm*color5: #800080
-! xterm*color6: #008080
-! xterm*color7: #c0c0c0
-! xterm*color8: #808080
-! xterm*color9: #ff0000
-! xterm*color10:#00ff00
-! xterm*color11:#ffff00
-! xterm*color12:#0000ff
-! xterm*color13:#ff00ff
-! xterm*color14:#00ffff
-! xterm*color15:#ffffff
-! xterm*color16:#ffffff
-
-!! reverse::
 xterm*color0: #000000
 xterm*color1: #ff0000
 xterm*color2: #00ff00
@@ -283,11 +242,64 @@ xterm*color14:#008080
 xterm*color15:#c0c0c0
 xterm*color16:#808080
 
+! standard:
+! xterm*color0: #000000
+! xterm*color1: #800000
+! xterm*color2: #008000
+! xterm*color3: #808000
+! xterm*color4: #000080
+! xterm*color5: #800080
+! xterm*color6: #008080
+! xterm*color7: #c0c0c0
+! xterm*color8: #808080
+! xterm*color9: #ff0000
+! xterm*color10:#00ff00
+! xterm*color11:#ffff00
+! xterm*color12:#0000ff
+! xterm*color13:#ff00ff
+! xterm*color14:#00ffff
+! xterm*color15:#ffffff
+! xterm*color16:#ffffff
+
+! dark mode at home:
+! xterm*foreground: #FAF0E6
+! xterm*background: #000000
+! xterm*transparent: true
+! xterm*cursorColor: #FF00FF
+! xterm*cursorColor2: #FF00FF
+! xterm*faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true
+! xterm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true:style=Bold
+! xterm*color0: #000000
+! xterm*color1: #8B0000
+! xterm*color2: #2E8B57
+! xterm*color3: #DAA520
+! xterm*color4: #4682B4
+! xterm*color5: #8B008B
+! xterm*color6: #20B2AA
+! xterm*color7: #FFEBCD
+! xterm*color8: #696969
+! xterm*color9: #CD5C5C
+! xterm*color10: #8FBC8B
+! xterm*color11: #8B4000
+! xterm*color12: #00BFFF
+! xterm*color13: #FF00FF
+! xterm*color14: #00CED1
+! xterm*color15: #FFF5EE
+! xterm*color16: #FFEBCD
+
+xterm*veryBoldColors: 6
+! xterm*color0:  rgb:28/2a/2b
+! xterm*colorBDMode: true
+! xterm*colorBD: Red
+! xterm*colorULMode: true
+! xterm*colorUL: Cyan
+
+
 !           _)
 !  __ `__ \  |  __|  __|
 !  |   |   | |\__ \ (
 ! _|  _|  _|_|____/\___|
 !
 
-!! for otave via emacs
+! for otave via emacs
 gnuplot*background: transparent truecolor

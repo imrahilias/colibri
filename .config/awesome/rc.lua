@@ -62,14 +62,14 @@ revelation.init()
 
 -- this is used later as the default terminal and editor to run:
 terminal = "urxvtc"
-editor = os.getenv("EDITOR") or "neovim" or "vim" or "vi"
+editor = os.getenv("EDITOR") or "emacs" or "neovim" or "vim" or "vi"
 editor_cmd = terminal .. " -e " .. editor
 
 -- default modkey:
--- usually, Mod4 is the key with a logo between Control and Alt.
+-- usually, mod4 is the key with a logo between control and alt.
 -- if you do not like this or do not have such a key,
--- i suggest you to remap Mod4 to another key using xmodmap or other tools.
--- however, you can use another modifier like Mod1, but it may interact with others.
+-- i suggest you to remap mod4 to another key using xmodmap or other tools.
+-- however, you can use another modifier like mod1, but it may interact with others.
 modkey = "Mod4"
 
 -- table of layouts to cover with awful.layout.inc, order matters:
@@ -534,19 +534,28 @@ awful.rules.rules = {
         }
    }, properties = { floating = true }},
 
+   -- non floating clients:
+   { rule_any = {
+        class = {
+           "Nextcloud",
+        },
+   }, properties = { floating = false }},
+
    -- maximized clients:
    { rule_any = {
         class = {
            "Slack",
            "TelegramDesktop",
            "Signal",
-           "Rocket.Chat",
+           "Element",
         },
         name = {
            --"Zoom Meeting",
            --"Zoom - Licensed Account",
         },
    }, properties = { maximized = true }},
+
+
 
    -- vsc
    { rule_any = {
@@ -817,6 +826,66 @@ client.connect_signal("unfocus", function (c) c.border_color = beautiful.border_
 --         c.icon = img._native
 --     end
 -- end)
+
+
+--              |              |              |
+--   _` | |   | __|  _ \   __| __|  _` |  __| __|
+--  (   | |   | |   (   |\__ \ |   (   | |    |
+-- \__,_|\__,_|\__|\___/ ____/\__|\__,_|_|   \__|
+--
+
+-- these just add up:
+awful.spawn.with_shell("killall pasystray")
+awful.spawn.with_shell("killall cbatticon")
+
+-- both *cloud runs on qt, which runs qt6gtk2. so whenever qt or gtk
+-- change, this qt6gtk2 aur pkg needs to be rebuilt (install, no clean
+-- build). Also nextcloud might not like the gtk2 theme, so needs to
+-- run default:
+awful.spawn.with_shell("QT_QPA_PLATFORMTHEME='' QT_STYLE_OVERRIDE='' nextcloud")
+
+autorun = true
+autorunners =
+   {
+      -- start some deamons:
+      "udiskie",
+      "urxvtd -q -f -o",
+      "xbindkeys", -- mouse button to key stroke binder for lf
+      "picom -b",
+      "xset s 300 10",
+      "xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock",
+      "xset -b",
+      "owncloud",
+
+      --"thunar --daemon",
+      --"conky -c ~/.config/conky/left.lua",
+      --"conky -c ~/.config/conky/middle.lua",
+      --"conky -c ~/.config/conky/right.lua",
+
+      -- start some trays:
+      "pasystray",
+      "blueman-applet",
+      "nm-applet",
+      "cbatticon -r 10 -c 'notify-send Power on 10%'",
+      "1password",
+      --"syncthingtray",
+
+      -- now fire up some programs:
+      "signal-desktop",
+      "telegram-desktop",
+      "element-desktop",
+      "firefox",
+      "evolution",
+      "gnome-calendar",
+      'urxvtc -title "  lf" -e /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc',
+   }
+
+if autorun then
+   for _, app in ipairs(autorunners) do
+      awful.spawn.once(app, awful.rules.rules)
+   end
+end
+
 
 --           _)
 --  __ `__ \  |  __|  __|

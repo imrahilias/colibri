@@ -4,7 +4,7 @@
 #              |  _)
 #   _ \  __ \  __| |  _ \  __ \   __|
 #  (   | |   | |   | (   | |   |\__ \
-# \___/  .__/ \__|_|\___/ _|  _|____/
+    # \___/  .__/ \__|_|\___/ _|  _|____/
 #       _|
 
 # Interpreter for shell commands
@@ -86,7 +86,7 @@ set watch true
 #                                                 |
 #   __|  _ \  __ `__ \  __ `__ \   _` | __ \   _` |  __|
 #  (    (   | |   |   | |   |   | (   | |   | (   |\__ \
-# \___|\___/ _|  _|  _|_|  _|  _|\__,_|_|  _|\__,_|____/
+    # \___|\___/ _|  _|  _|_|  _|  _|\__,_|_|  _|\__,_|____/
 #
 
 # $f ... focussed file.
@@ -156,7 +156,7 @@ cmd mdorg &{{
 
 
 # Custom 'chmod' command:
-# Prompt in lf '%' but oen in shell '$' via remote.
+# Prompt in lf '%' but open in shell '$' via remote.
 cmd chmod %{{
                read ans
                $lf -remote "send $id \$chmod $ans \$fx"
@@ -164,7 +164,7 @@ cmd chmod %{{
            }}
 
 # Custom 'chown' command:
-# Prompt in lf '%' but oen in shell '$' via remote.
+# Prompt in lf '%' but open in shell '$' via remote.
 cmd chown %{{
                read ans
                $lf -remote "send $id \$chown $ans \$fx"
@@ -210,25 +210,25 @@ cmd grepitall %{{
 
 # find specific filename in cwd recursively:
 cmd findall %{{
-                   read ans
-                   $lf -remote "send $id \$find . -iname "*$ans*"  | less -r"
-               }}
+                 read ans
+                 $lf -remote "send $id \$find . -iname "*$ans*"  | less -r"
+             }}
 
 # if you want to jump to a file or directory in lf using fuzzy
 # matching, you can utilize fzf for this purpose:
 cmd fzfjump ${{
-    #res="$(find . -maxdepth 10 | fzf --reverse --header="Jump to location")"
-    res="$(find . | fzf --reverse --header="Jump to location")"
-    if [ -n "$res" ]; then
-        if [ -d "$res" ]; then
-            cmd="cd"
-        else
-            cmd="select"
-        fi
-        res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
-        lf -remote "send $id $cmd \"$res\""
-    fi
-}}
+                 #res="$(find . -maxdepth 10 | fzf --reverse --header="Jump to location")"
+                 res="$(find . | fzf --reverse --header="Jump to location")"
+                 if [ -n "$res" ]; then
+                     if [ -d "$res" ]; then
+                         cmd="cd"
+                     else
+                         cmd="select"
+                     fi
+                     res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+                     lf -remote "send $id $cmd \"$res\""
+                 fi
+             }}
 
 
 # define a custom 'rename' command without prompt for overwrite
@@ -288,7 +288,8 @@ cmd copyto ${{
 		        eval cp -ivr \"$x\" \"$dest\"
 	            done
             }}
-# this messes up the copy-paste cuplicate file function!
+
+# this messes up the copy-paste duplicate file function!
 # cmd paste &{{
 #     set -- $(cat ~/.local/share/lf/files)
 #     mode="$1"
@@ -311,7 +312,6 @@ cmd copyto ${{
 cmd bulkrename ${{
                     tmpfile_old="$(mktemp)"
                     tmpfile_new="$(mktemp)"
-
                     [ -n "$fs" ] && fs=$(basename -a $fs) || fs=$(ls)
 
                     echo "$fs" > "$tmpfile_old"
@@ -359,16 +359,16 @@ cmd doc $$lf -doc | $PAGER
 # contents of files under the current directory and select a file from
 # the results:
 cmd fzfsearch ${{
-    cmd="rg --column --line-number --no-heading --color=always --smart-case"
-    fzf --ansi --disabled --layout=reverse  --delimiter=: \
-        --border=none --color=dark --no-info --no-separator \
-        --color='prompt:magenta' \
-        --bind="start:reload([ -n {q} ] && $cmd -- {q} || true)" \
-        --bind="change:reload([ -n {q} ] && $cmd -- {q} || true)" \
-        --bind='enter:become(lf -remote "send $id select \"$(printf "%s" {1} | sed '\''s/\\/\\\\/g;s/"/\\"/g'\'')\"")' \
-        --preview-window=border-none \
-        --preview='~/.config/lf/preview_images.sh {1}'
-}}
+                   cmd="rg --column --line-number --no-heading --color=always --smart-case"
+                   fzf --ansi --disabled --layout=reverse  --delimiter=: \
+                       --border=none --color=dark --no-info --no-separator \
+                       --color='prompt:magenta' \
+                       --bind="start:reload([ -n {q} ] && $cmd -- {q} || true)" \
+                       --bind="change:reload([ -n {q} ] && $cmd -- {q} || true)" \
+                       --bind='enter:become(lf -remote "send $id select \"$(printf "%s" {1} | sed '\''s/\\/\\\\/g;s/"/\\"/g'\'')\"")' \
+                       --preview-window=border-none \
+                       --preview='~/.config/lf/preview_images.sh {1}'
+               }}
 
 # Use your favorite previewer here (bat, source-highlight, etc.), for example:
 #--preview='cat -- {1}'
@@ -387,7 +387,7 @@ cmd fzfsearch ${{
 
 #
 #  __ `__ \   _ \  |   |  __|  _ \
-#  |   |   | (   | |   |\__ \  __/
+    #  |   |   | (   | |   |\__ \  __/
 # _|  _|  _|\___/ \__,_|____/\___|
 #
 
@@ -412,11 +412,13 @@ map <m-3> :push <right>
 #  |
 #  |  /  _ \ |   |  __|
 #    <   __/ |   |\__ \
-# _|\_\\___|\__, |____/
+    # _|\_\\___|\__, |____/
 #            ____/
 
 # the following additional keybindings are provided by default,
 # unset predefined map by leaving it empty:
+
+map <esc> :unselect; glob-unselect; setfilter; clear
 
 map <space> :toggle; down
 
@@ -552,11 +554,9 @@ map sn :set sortby natural; set info; set reverse true
 map ss :set sortby size; set info size; set reverse true
 map st :set sortby time; set info time; set reverse true
 
-map T $top
+map T $htop
 
 map u :unselect; glob-unselect; setfilter; clear
-
-map w $htop
 
 # execute current file (must be executable),
 # w/o show output in pager and wait:

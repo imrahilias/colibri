@@ -1,6 +1,35 @@
 #!/bin/false
 #blabla
 
+
+
+
+
+
+
+
+
+
+
+
+
+# temp
+export TERM=rxvt-unicode
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -121,11 +150,11 @@ alias fifi='figlet -w 200 -f "shadow" '
 alias cp='rsync -aP' # show percentage.
 #alias ap='adb pull /sdcard/DCIM/Camera/ /mnt/troika/photos/2021/' more complicated: moved to bin.
 alias dauto='xrandr --auto --output DisplayPort-0 --scale 1 --output DisplayPort-1 --scale 1 --output HDMI-A-0 --scale 1'
-alias dhome='xrandr --output eDP --off --output HDMI-A-0 --auto --output HDMI-A-0 --scale 1'
-alias dleft='xrandr --output HDMI-A-0 --auto --output eDP --auto --left-of HDMI-A-0'
+alias dhome='xrandr --output eDP --off --output HDMI-A-0 --auto --primary --scale 1'
+alias dleft='xrandr --output HDMI-A-0 --auto --primary --scale 1 --output eDP --auto --left-of HDMI-A-0'
+alias dmid='xrandr --output HDMI-A-0 --auto --primary --scale 1 --output eDP --auto --below HDMI-A-0'
 alias dwide='xrandr --output eDP --off --output DisplayPort-0 --auto --scale 0.7 --output DisplayPort-1 --auto --scale 0.7 --output HDMI-A-0 --auto --scale 0.7'
 alias dtwo='xrandr --output eDP --off --output DisplayPort-0 --mode 3840x2160 --scale 0.7 --right-of HDMI-A-0'
-alias dmid='xrandr --output HDMI-A-0 --auto --output eDP --auto --below HDMI-A-0'
 alias wh='which '
 alias r='zranger'
 alias scrot='scrot ~/.screens/%H%M%S.png'

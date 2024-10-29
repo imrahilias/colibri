@@ -68,18 +68,18 @@ set previewer "/opt/sw/vsc4/VSC/x86_64/generic/lf/preview.sh"
 # text files and a file opener for the rest.
 
 # Custom 'open' command, in background to prevent flicker.
-cmd open &{{
+cmd open &{{ 
     test -L $fx && f=$(readlink -f $fx)
     case $(file --mime-type -Lb $f) in
-        text/*|inode/x-empty) $lf -remote "send $id \$vim -O \$fx";;
-        *) $lf -remote "send $id openwith \$fx";;
+        application/pdf) $lf -remote "send $id \$pdftotext \$fx - | less -r";;
+	text/*|inode/x-empty) $lf -remote "send $id \$vim -O \$fx";;
+        *) $lf -remote "send $id push $<space><space>\$fx<left><left><left><left>";;
     esac
 }}
 
 # Custom 'chmod' command:
 # Prompt in lf '%' but oen in shell '$' via remote.
 cmd chmod %{{
-    test -L $fx && f=$(readlink -f $fx)
     read -p "chmod " ans
     $lf -remote "send $id \$chmod $ans \$fx"
     $lf -remote "send reload"
@@ -88,10 +88,52 @@ cmd chmod %{{
 # Custom 'chown' command:
 # Prompt in lf dd'%' but oen in shell '$' via remote.
 cmd chown %{{
-    test -L $fx && f=$(readlink -f $fx)
     read -p "chown " ans
     $lf -remote "send $id \$chown $ans \$fx"
     $lf -remote "send reload"
+}}
+
+# glob in selected files or pwd, nonrecursive, only visible files:
+cmd grepit %{{
+    read ans
+    $lf -remote "send $id \$grep -Hirn --color=always --exclude-dir='.*' --exclude='*~' --exclude='#*#' -- $ans * | less -r"
+}}
+
+# grep glob in selected files or pwd, recursive, all files:
+cmd grepitall %{{
+    read ans
+    $lf -remote "send $id \$grep -Hirn --color=always -- $ans * | less -r"
+}}
+
+# breaks on many selected files?!
+# cmd grepit %{{
+#                 read ans
+#                 # cwd or are files selected to search in?
+#                 if [ -z "$fs" ]; then # use cwd:
+#                     loc="*"
+#                 else # use files
+#                     loc="$fs"
+#                 fi
+#                 # breaks on many selected files?!
+#                 $lf -remote "send $id \$grep -Hirn --color=always --exclude-dir='.*' --exclude='*~' --exclude='#*#' -- $ans $loc | less"
+#             }}
+
+# # breaks on many selected files?!
+# cmd grepitall %{{
+#                    read ans
+#                    # cwd or are files selected to search in?
+#                    if [ -z "$fs" ]; then # use cwd:
+#                        loc="*"
+#                    else # use files
+#                        loc=$fs
+#                    fi
+#                    $lf -remote "send $id \$grep -Hirn --color=always -- $ans $loc | less"
+#                }}
+
+# find specific filename in cwd recursively:
+cmd findall %{{
+    read ans
+    $lf -remote "send $id \$find . -iname "*$ans*"  | less -r"
 }}
 
 # define a custom 'rename' command without prompt for overwrite
@@ -196,6 +238,8 @@ map <m-3> :cmd-enter; open
 # the following additional keybindings are provided by default,
 # unset predefined map by leaving it empty:
 
+map <esc> :unselect; glob-unselect; setfilter; clear
+
 map <space> :toggle; down
 
 #map <a-right> :push <right>
@@ -212,6 +256,12 @@ map <f-1> doc
 map ` !true
 
 map , push :glob-select<space>
+
+map | :grepit
+
+map \\ :grepitall
+
+#map ? :findall
 
 map . set hidden!
 
@@ -239,7 +289,12 @@ map bX $git rm --cached $fx
 
 map B
 
+# do not have delete key! make sure this `e` comes before the `D`, or
+# getting out of !whatever (eg. !git) with left arrow press tries to
+# delete everything!
+map Bz clear
 map D delete
+map ea clear
 
 map e
 #map ea !beautify_all
@@ -251,8 +306,10 @@ map ed $diff --color=always -u $fx | less -R
 map ee push $emacs<space>
 map ef !time gfortran -Og -Wall -fimplicit-none -fcheck=all -fbacktrace $fx
 map eg !gnuplot $fx
+map el $emacs "/opt/sw/vsc4/VSC/x86_64/generic/lf/lfrc"
 map ep !adb push $fx storage/self/primary/
 map er !rmtmp
+map es %sbatch $fx
 #map eu !du -h --apparent-size | sort -rh
 #map ew !dwdiff --less-mode --color $fx
 map ex !time ./$fs
@@ -263,6 +320,7 @@ map F setfilter # empty filter
 map g/ cd /
 map ga cd /opt/adm
 map gb cd /bin
+map gd cd /opt/sw/dev
 map ge cd /etc
 map gg cd ~
 map gh cd /home
@@ -304,13 +362,13 @@ map x $$f
 map X !$f
 
 ## copy selected file names, because no clipboard in terminal:
-map Yn !echo $fx
+map Yn $printf "%s" "$fx"
 
 map za set info size:time
 map zc set info
 map zh set hidden!
-map zl :set number false; set relativenumber!
 map zi set icons!
+map zl :set number false; set relativenumber!
 map zn :set relativenumber false; set number!
 map zr set reverse!
 map zs set info size
