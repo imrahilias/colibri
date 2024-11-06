@@ -40,7 +40,7 @@ highlightz() {
 # be regenerated once seen.
 
 path="$1"
-file="${path#*/}"
+file="${path##*/}"
 mime="$(file --dereference --brief --mime-type -- "$1")"
 name="${file%%.*}" # shell escape
 ext="${file#*.}" # shell escape; "example.tar.gz" gives "tar.gz"

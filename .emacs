@@ -60,7 +60,7 @@ There are two things you can do about this warning:
      (sql . t)
      (sqlite . t)))
  '(package-selected-packages
-   '(yaml-pro org-view-mode org-modern hl-block-mode atom-one-dark-theme timu-caribbean-theme php-mode org-auto-tangle gnuplot blacken poly-ansible poly-markdown polymode mmm-mode cuda-mode csv-mode spinner string-inflection json-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode ess auto-correct))
+   '(bash-completion yaml-pro org-view-mode org-modern hl-block-mode atom-one-dark-theme timu-caribbean-theme php-mode org-auto-tangle gnuplot blacken poly-ansible poly-markdown polymode mmm-mode cuda-mode csv-mode spinner string-inflection json-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode ess auto-correct))
  '(warning-suppress-log-types '((auto-save))))
 
 ;; markdown/org translator:
@@ -420,6 +420,14 @@ There are two things you can do about this warning:
 ;;  __| |   | |   | (    |   | (   | |   |\__ \
 ;; _|  \__,_|_|  _|\___|\__|_|\___/ _|  _|____/
 ;;
+
+(defun my-outline-set-global-ellipsis (ellipsis)
+  "Apply the ellipsis ELLIPSIS to outline mode globally."
+  (let* ((face-offset (* (face-id 'shadow) (ash 1 22)))
+         (value (vconcat (mapcar (lambda (c) (+ face-offset c)) ellipsis))))
+    (set-display-table-slot standard-display-table 'selective-display value)))
+
+(my-outline-set-global-ellipsis " ▼ ")
 
 ;; (defun scroll-down-keep-cursor ()
 ;;   ;; Scroll the text one line down while keeping the cursor

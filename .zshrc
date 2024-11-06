@@ -1,34 +1,11 @@
 #!/bin/false
 #blabla
 
-
-
-
-
-
-
-
-
-
-
-
-
-# temp
-export TERM=rxvt-unicode
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#           |
+# _  /  __| __ \   __| __|
+#   / \__ \ | | | |   (
+# ___|____/_| |_|_|  \___|
+#
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -76,6 +53,7 @@ RPROMPT='%F{magenta}%D{%H%M}%f'
 #   _` | | |  _` |  __|
 #  (   | | | (   |\__ \
 # \__,_|_|_|\__,_|____/
+#
 
 if [[ $EUID != 0 ]] ; then
     source /home/m/vsc/bin/aliases
@@ -196,10 +174,12 @@ HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
 
+
 #   _|                  |  _)
 #  |   |   | __ \   __| __| |  _ \  __ \   __|
 #  __| |   | |   | (    |   | (   | |   |\__ \
 # _|  \__,_|_|  _|\___|\__|_|\___/ _|  _|____/
+#
 
 # sort filesize by size & in color:
 dus() {
@@ -276,7 +256,6 @@ zle -N rationalize-dot
 bindkey . rationalize-dot
 
 
-
 # |  _|
 # | |
 # | __|
@@ -291,9 +270,11 @@ autoload -U lf # embedded in zshrc
 bindkey -s '^D' "\eq lf\n"
 
 
+#
 #   _ \ __ \\ \   /
 #   __/ |   |\ \ /
 # \___|_|  _| \_/
+#
 
 export EDITOR='emacs'
 export PATH='/home/m/bin:/home/m/vscloud/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:/usr/games:/usr/local/games:/opt'
@@ -309,6 +290,7 @@ xset s 300 10
 #   __| __| |   | |   |
 # \__ \ |   |   | __| __|
 # ____/\__|\__,_|_|  _|
+#
 
 # turn off XOFF/XON:
 stty -ixon

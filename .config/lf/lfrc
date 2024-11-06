@@ -4,10 +4,10 @@
 #              |  _)
 #   _ \  __ \  __| |  _ \  __ \   __|
 #  (   | |   | |   | (   | |   |\__ \
-    # \___/  .__/ \__|_|\___/ _|  _|____/
+# \___/  .__/ \__|_|\___/ _|  _|____/
 #       _|
 
-# Interpreter for shell commands
+# Interpreter for shell commands:
 set shell sh
 
 # Set '-eu' options for shell commands
@@ -26,11 +26,13 @@ set shellopts '-eu'
 # commands accordingly.
 set ifs "\n"
 
-# leave some space at the top and the bottom of the screen
+# leave some space at the top and the bottom of the screen:
 set scrolloff 10
 
-# Use the `dim` attribute instead of underline for the cursor in the preview pane
+# Use the `dim` attribute instead of underline for the cursor in the preview pane:
 set cursorpreviewfmt "\033[7;2m"
+
+set promptfmt "\033[0m\033[1m%d%f$git\033[0m"
 
 # When this option is enabled, search command patterns are considered as globs,
 # otherwise they are literals. With globbing, '*' matches any sequence, '?'
@@ -43,10 +45,10 @@ set cursorpreviewfmt "\033[7;2m"
 # absolute paths. To add multiple patterns, use ':' as a separator.
 set hiddenfiles ".*:*~:*#:*.bak:/home/m/Downloads:/home/m/license:/home/m/readme.md:/home/m/explicit_filter.restore"
 
-# Jump to the first match after each keystroke during searching.
+# Jump to the first match after each keystroke during searching:
 set incsearch true
 
-# Apply filter pattern after each keystroke during filtering.
+# Apply filter pattern after each keystroke during filtering:
 set incfilter true
 
 # Previewer script: Either a very simple shell script covering some
@@ -70,7 +72,6 @@ set cleaner "~/.config/lf/cleaner.sh"
 # &ctpv -s $id
 # &ctpvquit $id
 
-# icons:
 #curl https://raw.githubusercontent.com/gokcehan/lf/master/etc/icons.example -o ~/.config/lf/icons
 set icons true
 
@@ -82,17 +83,17 @@ set ratios "1:2:3"
 # period 1, and should address many of the issues associated with it.
 set watch true
 
+set dupfilefmt '%b_%n%e'
 
 #                                                 |
 #   __|  _ \  __ `__ \  __ `__ \   _` | __ \   _` |  __|
 #  (    (   | |   |   | |   |   | (   | |   | (   |\__ \
-    # \___|\___/ _|  _|  _|_|  _|  _|\__,_|_|  _|\__,_|____/
+# \___|\___/ _|  _|  _|_|  _|  _|\__,_|_|  _|\__,_|____/
 #
 
 # $f ... focussed file.
 # $fs ... selected files, empty if none.
 # $fx ... selected files, focussed file if none selected.
-
 
 # use this to dereference links of many files:
 # for file in $fs
@@ -332,18 +333,17 @@ cmd bulkrename ${{
 
 # git info:
 cmd on-cd &{{
-               bash -c '
     # display git repository status in your prompt
     source /usr/share/git/completion/git-prompt.sh
     GIT_PS1_SHOWDIRTYSTATE=auto
     GIT_PS1_SHOWSTASHSTATE=auto
     GIT_PS1_SHOWUNTRACKEDFILES=auto
     GIT_PS1_SHOWUPSTREAM=auto
-    git=$(__git_ps1 " (%s)")
+    git="$(__git_ps1 " (%s)")" || true
     #fmt="\033[32;1m%u@%h\033[0m:\033[34;1m%d\033[0m\033[1m%f$git\033[0m"
     fmt="\033[0m\033[1m%d%f$git\033[0m"
     lf -remote "send $id set promptfmt \"$fmt\""
-    '
+    lf -remote "send $id unselect"
            }}
 
 # show config:
@@ -387,7 +387,7 @@ cmd fzfsearch ${{
 
 #
 #  __ `__ \   _ \  |   |  __|  _ \
-    #  |   |   | (   | |   |\__ \  __/
+#  |   |   | (   | |   |\__ \  __/
 # _|  _|  _|\___/ \__,_|____/\___|
 #
 
@@ -406,13 +406,14 @@ map <m-3> :push <right>
 #map <m-3> :toggle; down
 
 # does not work, collides with builtin scroll, so use xbindkeys:
-# map <m-8> :push <left>
-# map <m-9> :push <right>
+#map <m-8> :push <left>
+#map <m-9> :push <right>
+
 
 #  |
 #  |  /  _ \ |   |  __|
 #    <   __/ |   |\__ \
-    # _|\_\\___|\__, |____/
+# _|\_\\___|\__, |____/
 #            ____/
 
 # the following additional keybindings are provided by default,
@@ -422,8 +423,13 @@ map <esc> :unselect; glob-unselect; setfilter; clear
 
 map <space> :toggle; down
 
+# this emulates double key press on mouse buttons via xbindkeys and xdotool:
 map <a-right> :push <right>
 map <a-left> :push <left>
+
+# this would be nice, doesnt work:
+map <f-19> :push <right>
+map <f-18> :push <left>
 
 map <backspace2>
 

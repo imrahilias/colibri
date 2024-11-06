@@ -160,8 +160,6 @@ globalkeys = gears.table.join(
    awful.key({ modkey }, "h", function () awful.tag.incmwfact(-0.05) end),
    awful.key({ modkey }, "space", function () awful.layout.inc( 1) end), -- "space" is lo-caps!
    awful.key({ modkey, "Shift" }, "space", function () awful.layout.inc(-1) end), -- "space" is lo-caps!
-   awful.key({ modkey, "Shift"  }, "m", awful.layout.suit.max),
-   --awful.key({ modkey, "Shift"  }, "b", awful.layout.suit.floating),
 
    -- restore minimised client:
    awful.key({ modkey, "Shift" }, "n",
@@ -219,7 +217,6 @@ globalkeys = gears.table.join(
    awful.key({ modkey, "Shift" }, "t", function () awful.spawn("urxvtc -e rtorrent") end),
    awful.key({ modkey }, "g", function () awful.spawn("urxvtc -e htop") end),
    awful.key({ modkey, "Shift" }, "g", function () awful.spawn("urxvtc -e top") end),
-   --awful.key({ modkey }, "o", function () awful.spawn("octave --gui") end),
    -- awful.key({ modkey }, "x", function () awful.spawn("xterm -T 'VSConsole' -fa 'xft:DejaVuSansMono' -fs 24 -e 'bash'") end),
    -- awful.key({ modkey, "Shift" }, "x", function () awful.spawn("xterm -T 'VSConsole' -fa 'xft:DejaVuSansMono' -fs 24 -e 'trainee'") end),
 
@@ -229,11 +226,10 @@ globalkeys = gears.table.join(
    --awful.key({ }, "XF86AudioMute", function () awful.spawn('for x in {"Master","Headphone","Front","Surround","Center","LFE","Side"} ; do amixer -c 0 set "${x}" toggle; done', false) end),
    awful.key({ }, "XF86AudioMute", function () awful.spawn("amixer set Master toggle", false) end),
    awful.key({ }, "XF86AudioMicMute", function () awful.spawn("amixer set Capture toggle", false) end),
-   --awful.key({ }, "XF86Tools", function () awful.spawn(terminal .. " -e ncmpcpp", false) end),
-   --awful.key({ }, "XF86Tools", function () awful.spawn("spotify", false) end),
-   --awful.key({ }, "XF86AudioPrev", function () awful.spawn("playerctl previous", false) end),
-   --awful.key({ }, "XF86AudioPlay", function () awful.spawn("playerctl play-pause", false) end),
-   --awful.key({ }, "XF86AudioNext", function () awful.spawn("playerctl next", false) end),
+   awful.key({ }, "XF86Tools", function () awful.spawn("spotify", false) end),
+   awful.key({ }, "XF86AudioPrev", function () awful.spawn("playerctl previous", false) end),
+   awful.key({ }, "XF86AudioPlay", function () awful.spawn("playerctl play-pause", false) end),
+   awful.key({ }, "XF86AudioNext", function () awful.spawn("playerctl next", false) end),
 
    -- lights:
    awful.key({ }, "XF86MonBrightnessDown", function () awful.spawn("sudo light -U 30", false) end),
@@ -250,24 +246,12 @@ globalkeys = gears.table.join(
    awful.key({ modkey }, "#86", function () awful.spawn("razercfg -l glowinglogo:off -l scrollwheel:on", false) end),
    awful.key({ modkey }, "#82", function () awful.spawn("razercfg -l all:off", false) end),
 
-   -- -- boinc:
-   -- awful.key({ modkey }, "b", function () awful.spawn("boinccmd --set_run_mode never 3600", false) end), -- snooze whole boinc for 1h
-   -- awful.key({ modkey, "control" }, "b", function () awful.spawn("boinccmd --set_run_mode auto", false) end), -- wake up whole boinc
-   -- awful.key({ modkey, "shift" }, "b", function () awful.spawn("boinccmd --set_gpu_mode never 3600", false) end),  -- snooze up boinc gpu
-   -- awful.key({ modkey, "shift", "control" }, "b", function () awful.spawn("boinccmd --set_gpu_mode auto", false) end),  -- wake up boinc gpu
-
-   -- -- slurm:
-   -- awful.key({ modkey }, "c", function () awful.spawn("schnegg -p", false) end), -- snooze whole (drain node + suspend all jobs) slurm for 1h
-   -- awful.key({ modkey, "shift" }, "c", function () awful.spawn("schnegg -r", false) end), -- resume all
-
    -- rotate:
    awful.key({ modkey, "Shift" }, "r", function () awful.spawn("xrandr -o 1", false) end),
    awful.key({ modkey, "Control", "Shift" }, "r", function () awful.spawn("xrandr -o 0", false) end),
 
    -- fun:
    awful.key({ modkey }, "z", function () awful.spawn.with_shell('notify-send "$(cowsay $(fortune))"', false) end)
-   --awful.key({ modkey }, "w", function () awful.spawn.with_shell("killall conky && feh --bg-fill ~/wind/canvas/wrld12.png & conky -c ~/wind/wind_blow.lua", false) end),
-   --awful.key({ modkey , "Shift" }, "w", function () awful.spawn.with_shell("killall conky && feh --bg-fill ~/.config/awesome/themes/canyon.jpg && conky -c ~/.config/conky/left.lua && conky -c ~/.config/conky/middle.lua", false) end)
 )
 
 -- client keys:
@@ -522,11 +506,11 @@ awful.rules.rules = {
    { rule_any = {
         class = {
            "Scrcpy",
-           "zoom",
+           --"zoom",
         },
         name = {
            "Event Tester",  -- xev.
-           "Zoom - Licensed Account", -- zoom main window
+           --"Zoom - Licensed Account", -- zoom main window
         },
         role = {
            "AlarmWindow",
@@ -813,20 +797,6 @@ end)
 client.connect_signal("focus", function (c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function (c) c.border_color = beautiful.border_normal end)
 
--- use a fallback icon in the taskbar when none is found for a given application:
--- client.connect_signal("manage", function(c)
---     local cairo = require("lgi").cairo
---     local default_icon = "/usr/share/icons/HighContrast/scalable/apps/help-browser.svg"
---     if c and c.valid and not c.icon then
---         local s = gears.surface(default_icon)
---         local img = cairo.ImageSurface.create(cairo.Format.ARGB32, s:get_width(), s:get_height())
---         local cr = cairo.Context(img)
---         cr:set_source_surface(s, 0, 0)
---         cr:paint()
---         c.icon = img._native
---     end
--- end)
-
 
 --              |              |              |
 --   _` | |   | __|  _ \   __| __|  _` |  __| __|
@@ -856,6 +826,7 @@ autorunners =
       "xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock",
       "xset -b",
       "owncloud",
+      "emacs --daemon",
 
       --"thunar --daemon",
       --"conky -c ~/.config/conky/left.lua",
