@@ -27,7 +27,7 @@ ZSH_DISABLE_COMPFIX="true"
 # this could be set in .xinitrc but might not be loaded due to latency!
 # enables multiple layouts, switch via awesome, us(m) is custom (see notes).
 # also just drop the caps lock key, it is a second ctrl now.
-setxkbmap -layout "us(m),de" -option ctrl:nocaps
+setxkbmap -layout "us(m)" -option ctrl:nocaps
 
 
 #                                  |
@@ -270,6 +270,22 @@ autoload -U lf # embedded in zshrc
 bindkey -s '^D' "\eq lf\n"
 
 
+#                 _)
+#  |   |  _` |_  / |
+#  |   | (   |  /  |
+# \__, |\__,_|___|_|
+# ____/
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+
 #
 #   _ \ __ \\ \   /
 #   __/ |   |\ \ /
@@ -355,6 +371,7 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 # autocompletion for lf:
 #fpath=(/home/m/.config/lf $fpath)
+
 
 #
 #   __|  _ \  __ `__ \  __ \

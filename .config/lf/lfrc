@@ -32,7 +32,8 @@ set scrolloff 10
 # Use the `dim` attribute instead of underline for the cursor in the preview pane:
 set cursorpreviewfmt "\033[7;2m"
 
-set promptfmt "\033[0m\033[1m%d%f$git\033[0m"
+# init empty, once on-cd runs it adds git info:
+set promptfmt "\033[0m\033[1m%d%f\033[0m"
 
 # When this option is enabled, search command patterns are considered as globs,
 # otherwise they are literals. With globbing, '*' matches any sequence, '?'
@@ -499,14 +500,17 @@ map Bu $git --git-dir=$HOME/.dotfiles --work-tree=$HOME add -u
 map Bx $git --git-dir=$HOME/.dotfiles --work-tree=$HOME rm $fx
 map BX $git --git-dir=$HOME/.dotfiles --work-tree=$HOME rm --cached $fx
 
+map c &dragon-drop $fx
+map C &ripdrag -i $fx
+
 # do not have delete key! make sure this `Bz`, and `ea` fence the `D`, or
 # getting out of !whatever (eg. !git) with left arrow press tries to
 # delete everything!
-map Bz clear
+map cz clear
 map D delete
+map e
 map ea clear
 
-map e
 map eb %beautify $fx
 #map ed $diff --color=always -u $fx | less
 #map ed !dwdiff --color $fx | less

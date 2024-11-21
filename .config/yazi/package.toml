@@ -1,0 +1,22 @@
+[plugin]
+deps = [
+{ use = "yazi-rs/plugins:max-preview", rev = "dc11879" },
+{ use = "yazi-rs/plugins:hide-preview", rev = "dc11879" },
+{ use = "yazi-rs/plugins:jump-to-char", rev = "dc11879" },
+{ use = "yazi-rs/plugins:git", rev = "dc11879" },
+{ use = "yazi-rs/plugins:chmod", rev = "dc11879" },
+{ use = "yazi-rs/plugins:mime-ext", rev = "fb3ae90" },
+{ use = "yazi-rs/plugins:diff", rev = "fb3ae90" },
+{ use = "AnirudhG07/custom-shell", rev = "d00d2f9" },
+{ use = "Reledia/hexyl", rev = "ccc0a4a" },
+{ use = "Reledia/miller", rev = "40e0265" },
+#{ use = "AnirudhG07/nbpreview", rev = "52a14b3" },
+#{ use = "AnirudhG07/rich-preview", rev = "fe43219" },
+{ use = "Lil-Dank/lazygit", rev = "c82794f" },
+{ use = "Ape/open-with-cmd", rev = "8d7abc8" },
+{ use = "Ape/simple-status", rev = "709f653" },
+{ use = "Rolv-Apneseth/starship", rev = "77a65f5" }, { use = "lpnh/fg", rev = "a7e1a82" },
+]
+
+[flavor]
+deps = []

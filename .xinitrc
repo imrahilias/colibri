@@ -65,7 +65,8 @@ export XSECURELOCK_SHOW_USERNAME=0
 export XSECURELOCK_SHOW_KEYBOARD_LAYOUT=0
 
 # make urxvt work on vsc:
-export TERM=rxvt-unicode
+#export TERM=rxvt-unicode
+export TERM=rxvt-unicode-256color
 
 # start awesome:
 exec awesome

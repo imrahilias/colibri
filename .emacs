@@ -60,7 +60,7 @@ There are two things you can do about this warning:
      (sql . t)
      (sqlite . t)))
  '(package-selected-packages
-   '(bash-completion yaml-pro org-view-mode org-modern hl-block-mode atom-one-dark-theme timu-caribbean-theme php-mode org-auto-tangle gnuplot blacken poly-ansible poly-markdown polymode mmm-mode cuda-mode csv-mode spinner string-inflection json-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode ess auto-correct))
+   '(evil bash-completion yaml-pro org-view-mode org-modern hl-block-mode atom-one-dark-theme timu-caribbean-theme php-mode org-auto-tangle gnuplot blacken poly-ansible poly-markdown polymode mmm-mode cuda-mode csv-mode spinner string-inflection json-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode auto-correct))
  '(warning-suppress-log-types '((auto-save))))
 
 ;; markdown/org translator:
@@ -281,6 +281,9 @@ There are two things you can do about this warning:
 ;; ____/\___|\__|\__|_|_|  _|\__, |____/
 ;;                           |___/
 
+;; sort case insensitively:
+(setq sort-fold-case nil)
+
 ;; revert buffers when the underlying file has changed
 (global-auto-revert-mode 1)
 
@@ -361,6 +364,9 @@ There are two things you can do about this warning:
 (setq-default show-trailing-whitespace t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+;; ecil mode:
+(evil-mode t)
+
 ;;  |
 ;;  |  /  _ \ |   |  __|
 ;;    <   __/ |   |\__ \
@@ -387,6 +393,7 @@ There are two things you can do about this warning:
 (global-set-key (kbd "C-c R") (lambda() (interactive) (find-file "~/.config/ranger/rifle.conf")))
 (global-set-key (kbd "C-c x") (lambda() (interactive) (find-file "~/.xinitrc")))
 (global-set-key (kbd "C-c X") (lambda() (interactive) (find-file "~/.Xresources")))
+(global-set-key (kbd "C-c y") (lambda() (interactive) (find-file "~/.config/yazi/keymap.toml")))
 (global-set-key (kbd "C-c z") (lambda() (interactive) (find-file "~/.zshrc")))
 
 ;; printer command:

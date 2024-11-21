@@ -1,4 +1,4 @@
-# zephyr
+w# zephyr
 summary of various scripts and dotfiles featuring archlinux + awesome
 window manager + lf + urxvt + etc.
 

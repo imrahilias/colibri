@@ -205,8 +205,8 @@ globalkeys = gears.table.join(
    awful.key({ modkey }, "Return", function () awful.spawn(terminal) end),
    awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('urxvtc -e ssh admin') end),
    awful.key({ modkey, "Control" }, "Return", function () awful.spawn("urxvtc -e ssh 5") end),
-   awful.key({ modkey }, "d", function () awful.spawn.with_shell('urxvtc -title "  lf" -e /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc', false) end),
-   awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell('urxvtc -title "  sudo lf"" -e sudo /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc', false) end),
+   --awful.key({ modkey }, "d", function () awful.spawn.with_shell('urxvtc -e yazi', false) end),
+   awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell('urxvtc -e sudo yazi', false) end),
    awful.key({ modkey }, "e", function () awful.spawn("emacsclient -ca ''", false) end),
    awful.key({ modkey, "Shift" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_browser") end),
    awful.key({ modkey, "Control" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_google_translate") end),
@@ -237,7 +237,8 @@ globalkeys = gears.table.join(
    awful.key({ }, "XF86Display", function () awful.spawn("xset dpms force off", false) end),
 
    -- screenshot:
-   awful.key({ }, "Print", function () awful.spawn("scrot -s -e 'mv $f ~/.screens/ 2>/dev/null'") end),
+   awful.key({ }, "Print", function () awful.spawn("scrot -s -e 'mv $f ~/.screens/ 2>/dev/null'") end), -- screenshot selection
+   awful.key({ modkey }, "Print", function () awful.spawn("scrot -e 'mv $f ~/.screens/ 2>/dev/null'") end), -- screenshot screen
 
    -- killer:
    awful.key({ modkey, "Shift" }, "k", function () awful.spawn("sudo xkill", false) end),
@@ -570,7 +571,7 @@ awful.rules.rules = {
            "Thunar",
         },
         name = {
-           " ", -- customised lf
+           "  Yazi", -- customised file manager
    }}, properties = { tag = " ", switchtotag = true }},
 
    -- doc
@@ -848,7 +849,7 @@ autorunners =
       "firefox",
       "evolution",
       "gnome-calendar",
-      'urxvtc -title "  lf" -e /home/m/.config/lf/lfub -config /home/m/.config/lf/lfrc',
+      'urxvtc -e yazi',
    }
 
 if autorun then

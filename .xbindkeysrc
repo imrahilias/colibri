@@ -66,30 +66,32 @@
 #  Control + b:2 + Release
 
 
-#   __| _` | __ \   _` |  _ \  __|
-#  |   (   | |   | (   |  __/ |
-# _|  \__,_|_|  _|\__, |\___|_|
-#                 |___/
+#                 _)
+#  |   |  _` |_  / |
+#  |   | (   |  /  |
+# \__, |\__,_|___|_|
+# ____/
 
-# map mouse buttons to left/right for ranger @ urxvtc,
-# the terminal ignores the "alt gr" and "alt",
-# yet "alt" is shortcuts the back/forth action in chromium!
-# so two birds with one stone.'ISO_Level3_Shift+Left+alt'
+# map mouse buttons to left/right for yazi in urxvtc, the terminal
+# ignores the "alt gr" and "alt", yet "alt" is shortcuts the
+# back/forth action in browser. so set the mousewheewl left/right
+# buttons to 'alt+l/r'. or set both with: 'ISO_Level3_Shift+Left+Alt',
+# doesnt work for yazi though.
 
-"xdotool key 'Alt_L+Left'"
+"xdotool key 'ISO_Level3_Shift+Left'"
 b:8
 
-"xdotool key 'Alt_L+Right'"
+"xdotool key 'Alt+Left'"
+b:6
+
+"xdotool key 'ISO_Level3_Shift+Right'"
 b:9
 
+"xdotool key 'Alt+Right'"
+b:7
 
-#  |  _|
-#  | |
-#  | __|
-# _|_|
-#
 
-# broken! unfortunately this is a reursive loop. map mouse buttons to
+# broken! unfortunately this is a recursive loop. map mouse buttons to
 # f18/f19 and mouse click, to be available to lf:
 
 # "xdotool key 'F18'; xdotool click 8"
