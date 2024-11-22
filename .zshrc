@@ -141,6 +141,7 @@ alias v='nvim '
 alias vi='nvim '
 alias vim='nvim '
 alias mnt=' mount | column -t'
+alias y='yazi'
 
 # some gnome stuff:
 alias gnome-session='echo "haha nice try:D"'
@@ -276,6 +277,7 @@ bindkey -s '^D' "\eq lf\n"
 # \__, |\__,_|___|_|
 # ____/
 
+
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
@@ -284,6 +286,19 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+
+# this doesnt work on zsh!
+# change yazi's cwd to pwd on subshell exit:
+# if [[ -n "$YAZI_ID" ]]; then
+# 	function _yazi_cd() {
+# 		ya pub dds-cd --str "$PWD"
+# 	}
+# 	add-zsh-hook zshexit _yazi_cd
+# fi
+
+# 'Ctrl+D' fires up yazi:
+#bindkey -s "^y" "yy\n"
+bindkey -s '^D' "\eq y\n"
 
 
 #
@@ -301,6 +316,8 @@ export GOPATH="$HOME/.go"
 # it unfortunately resets after one suspend:
 xset s 300 10
 
+# signal now fails:
+#export SIGNAL_PASSWORD_STORE='gnome-libsecret'
 
 #       |          _|  _|
 #   __| __| |   | |   |
@@ -372,6 +389,8 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 # autocompletion for lf:
 #fpath=(/home/m/.config/lf $fpath)
 
+# 1password unlock:
+export OP_BIOMETRIC_UNLOCK_ENABLED=true
 
 #
 #   __|  _ \  __ `__ \  __ \
@@ -401,7 +420,15 @@ zstyle ':completion:*:match:*' original only
 zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:*:kill:*:processes' command 'ps haxopid:5,user:4,%cpu:4,ni:2,stat:3,etime:8,args'
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' force-list always
 zstyle ':completion:*:processes' command "ps -au${USER}"
 zstyle ':completion:*:sudo:*' command-path /bin /usr/bin /usr/local/bin /home/m/bin /sbin /usr/sbin /usr/local/sbin /usr/games /usr/local/games
+zstyle ':completion:*:parameters' list-colors '=*=1;36'
+zstyle ':completion:*:options' list-colors '=^(-- *)=34'
+zstyle ':completion:*:commands' list-colors '=*=1;33'
+zstyle ':completion:*:builtins' list-colors '=*=1;38;5;142'
+zstyle ':completion:*:aliases' list-colors '=*=2;38;5;128'
+zstyle ':completion:*:*:kill:*' list-colors '=(#b) #([0-9]#)*( *[a-z])*=34=31=33'
+#zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+
+eval "$(op completion zsh)"; compdef _op op # 1pasword cli completion

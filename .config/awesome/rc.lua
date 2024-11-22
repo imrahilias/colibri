@@ -205,7 +205,7 @@ globalkeys = gears.table.join(
    awful.key({ modkey }, "Return", function () awful.spawn(terminal) end),
    awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('urxvtc -e ssh admin') end),
    awful.key({ modkey, "Control" }, "Return", function () awful.spawn("urxvtc -e ssh 5") end),
-   --awful.key({ modkey }, "d", function () awful.spawn.with_shell('urxvtc -e yazi', false) end),
+   awful.key({ modkey }, "d", function () awful.spawn.with_shell("urxvtc -title '  Yazi' -e yazi", false) end),
    awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell('urxvtc -e sudo yazi', false) end),
    awful.key({ modkey }, "e", function () awful.spawn("emacsclient -ca ''", false) end),
    awful.key({ modkey, "Shift" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_browser") end),
@@ -213,7 +213,7 @@ globalkeys = gears.table.join(
    awful.key({ modkey, "Shift", "Control" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_thesaurus") end),
    awful.key({ modkey, "Shift" }, "z", function () awful.spawn("/home/m/bin/open_primary_selection_as_qr_code") end),
    awful.key({ modkey, "Shift" }, "e", function () awful.spawn("/home/m/bin/open_primary_selection_in_emacs") end),
-   awful.key({ modkey, "Shift" }, "d", function () awful.spawn("/home/m/bin/open_primary_selection_in_lf") end),
+   awful.key({ modkey, "Shift" }, "d", function () awful.spawn("/home/m/bin/open_primary_selection_in_yazi") end),
    awful.key({ modkey, "Shift" }, "t", function () awful.spawn("urxvtc -e rtorrent") end),
    awful.key({ modkey }, "g", function () awful.spawn("urxvtc -e htop") end),
    awful.key({ modkey, "Shift" }, "g", function () awful.spawn("urxvtc -e top") end),
@@ -821,7 +821,7 @@ autorunners =
       -- start some deamons:
       "udiskie",
       "urxvtd -q -f -o",
-      "xbindkeys", -- mouse button to key stroke binder for lf
+      "xbindkeys", -- mouse button to key stroke binder for yazi
       "picom -b",
       "xset s 300 10",
       "xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock",
@@ -849,7 +849,7 @@ autorunners =
       "firefox",
       "evolution",
       "gnome-calendar",
-      'urxvtc -e yazi',
+      "urxvtc -title '  Yazi' -e yazi",
    }
 
 if autorun then

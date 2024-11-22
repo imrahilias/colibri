@@ -60,7 +60,7 @@ separator_style = { fg = "reset", bg = "reset" }
 # Mode
 mode_normal = { fg = "black", bg = "blue", bold = true }
 mode_select = { bg = "magenta", bold = true }
-mode_unset  = { bg = "yellow", bold = true }
+mode_unset  = { fg = "black", bg = "yellow", bold = true }
 
 # Progress
 progress_label  = { bold = true }
@@ -169,19 +169,6 @@ icon_error = ""
 [filetype]
 
 rules = [
-{ mime = "image/*", fg = "lightblue" },
-
-{ mime = "{audio}/*", fg = "lightgreen" },
-{ mime = "{video}/*", fg = "magenta" },
-
-{ mime = "application/{,g}zip", fg = "magenta", bold = true },
-{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", fg = "magenta", bold = true },
-
-{ mime = "application/{pdf,doc,rtf,vnd.*}", fg = "green" },
-
-{ mime = "inode/x-empty", fg = "darkgrey" },
-
-{ mime = "{text/*,*/xml,application/x-ndjson,application/javascript}", fg = "yellow" },
 
 # Special files
 { name = "*", is = "block" , fg = "black", bg = "green" },
@@ -193,6 +180,22 @@ rules = [
 { name = "*", is = "sock"  , fg = "black", bg = "magenta" },
 { name = "*", is = "sticky", fg = "black", bg = "red"},
 
+# tmp files
+{ name = "*~", fg = "darkgrey"},
+{ name = "*~", fg = "darkgrey"},
+{ name = "*#", fg = "darkgrey"},
+{ name = "*.bak", fg = "darkgrey"},
+
+# mime
+{ mime = "image/*", fg = "lightblue" },
+{ mime = "{audio}/*", fg = "lightgreen" },
+{ mime = "{video}/*", fg = "magenta" },
+{ mime = "application/{,g}zip", fg = "magenta", bold = true },
+{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", fg = "magenta", bold = true },
+{ mime = "application/{pdf,doc,rtf,vnd.*}", fg = "green" },
+{ mime = "inode/x-empty", fg = "darkgrey" },
+{ mime = "{text/*,*/xml,application/x-ndjson,application/javascript}", fg = "yellow" },
+
 # Dummy files
 # Whether the file is dummy, which fails to load complete metadata,
 # possibly the filesystem doesn't support it, such as FUSE.
@@ -200,7 +203,7 @@ rules = [
 { name = "*/", is = "dummy", bg = "red" },
 
 # Files Dirs Fallback
-#{ name = "*", fg = "reset" },
+{ name = "*", fg = "reset" },
 { name = "*/", fg = "blue", bold = true }
 ]
 

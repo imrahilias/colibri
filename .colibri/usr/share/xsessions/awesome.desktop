@@ -1,0 +1,7 @@
+# rename everything else to whatever.bak or whatever to not start gnome:
+[Desktop Entry]
+Name=awesome
+Comment=Highly configurable framework window manager
+TryExec=awesome
+Exec=awesome
+Type=Application

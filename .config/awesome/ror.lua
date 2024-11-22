@@ -22,7 +22,7 @@
 table5={
   ["a"]={"spotify", "Spotify"},
   --["s"]={"google-chrome-stable", "Google-chrome"},
-  ["d"]={"urxvtc -title '  Yazi' -e yazi", "  Yazi", "name"},
+  --["d"]={"urxvtc -title '  Yazi' -e yazi", "  Yazi", "name"},
   ["s"]={"firefox", "firefox"},
   ["t"]={"gnome-calendar", "gnome-calendar"},
   ["y"]={"evolution", "Evolution"},

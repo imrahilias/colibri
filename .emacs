@@ -60,7 +60,7 @@ There are two things you can do about this warning:
      (sql . t)
      (sqlite . t)))
  '(package-selected-packages
-   '(evil bash-completion yaml-pro org-view-mode org-modern hl-block-mode atom-one-dark-theme timu-caribbean-theme php-mode org-auto-tangle gnuplot blacken poly-ansible poly-markdown polymode mmm-mode cuda-mode csv-mode spinner string-inflection json-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode auto-correct))
+   '(magit rust-mode evil bash-completion yaml-pro org-view-mode org-modern hl-block-mode atom-one-dark-theme timu-caribbean-theme php-mode org-auto-tangle gnuplot blacken poly-ansible poly-markdown polymode mmm-mode cuda-mode csv-mode spinner string-inflection json-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode auto-correct))
  '(warning-suppress-log-types '((auto-save))))
 
 ;; markdown/org translator:
@@ -427,6 +427,40 @@ There are two things you can do about this warning:
 ;;  __| |   | |   | (    |   | (   | |   |\__ \
 ;; _|  \__,_|_|  _|\___|\__|_|\___/ _|  _|____/
 ;;
+
+;; You can change the backup-file naming convention by redefining this
+;; function. The following example redefines make-backup-file-name to
+;; prepend a ‘.’ in addition to appending a tilde:
+;; (defun make-backup-file-name (filename)
+;;   (expand-file-name
+;;     (concat "." (file-name-nondirectory filename) "~")
+;;     (file-name-directory filename)))
+
+
+;; This function exists so that you can customize it if you wish to
+;; change the naming convention for auto-save files. If you redefine
+;; it, be sure to redefine the function make-auto-save-file-name
+;; correspondingly:
+(defun auto-save-file-name-p (filename)
+  "Return non-nil if FILENAME can be yielded by..."
+  (string-match "^\.*~$" filename))
+
+;; This exists as a separate function so that you can redefine it to
+;; customize the naming convention for auto-save files. Be sure to
+;; change auto-save-file-name-p in a corresponding way:
+(defun make-auto-save-file-name ()
+  "Return file name to use for auto-saves \
+of current buffer.
+..."
+  (if buffer-file-name
+      (concat
+       (file-name-directory buffer-file-name)
+       "."
+       (file-name-nondirectory buffer-file-name)
+       "~")
+    (expand-file-name
+     (concat (buffer-name) "~"))))
+
 
 (defun my-outline-set-global-ellipsis (ellipsis)
   "Apply the ellipsis ELLIPSIS to outline mode globally."

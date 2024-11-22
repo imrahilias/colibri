@@ -32,10 +32,14 @@ sudo cp --parents /etc/mkinitcpio.conf $loc/
 sudo cp --parents /etc/pacman.conf $loc/
 sudo cp --parents /etc/fstab $loc/
 sudo cp --parents /etc/profile $loc/
+sudo cp --parents /etc/profile.d/xinitrc.sh $loc/
 sudo cp --parents /etc/X11/xorg.conf.d/70-synaptics.conf $loc/
 sudo cp --parents /etc/pacman.d/hooks/xkeyboard-config.hook $loc/
 sudo cp --parents /etc/security/limits.conf $loc/
 sudo cp --parents /etc/systemd/system/user.slice $loc/
+
+# usr
+sudo cp --parents /usr/share/xsessions/awesome.desktop $loc/
 
 ## on system maintenance and stuff
 

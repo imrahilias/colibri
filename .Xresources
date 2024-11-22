@@ -33,7 +33,7 @@ Xft.rgba: rgb
 ! URxvt (case sensitive?)
 ! ttps://wiki.archlinux.org/index.php/Rxvt-unicode
 
-URxvt*termName: rxvt-unicode
+URxvt*termName: rxvt-unicode-256color
 URxvt*loginshell: true
 URxvt*saveLines: 10000
 URxvt*pointerblank: true

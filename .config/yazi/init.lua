@@ -1,3 +1,10 @@
+-- this plugin provides cross-instance yank ability, which means you
+-- can yank files in one instance, and then paste them in another
+-- instance:
+require("session"):setup {
+	sync_yanked = true,
+}
+
 require("starship"):setup()
 
 -- git needs nightly:

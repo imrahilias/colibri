@@ -34,13 +34,18 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 rifle = [
 { run = 'rifle -p 0 "$1"', for = "linux" },
 { run = 'riffle "$1"', block = true, for = "linux" },
-{ run = 'emacsclient "$@"', desc = "emacsclient", block = false, for = "unix" },
+{ run = 'emacsclient "$@"', desc = "emacsclient", block = false, for = "linux" },
+{ run = 'emacsclient "$@"', desc = "emacsclient (block)", block = true, for = "linux" },
+{ run = 'nvim"$@"', desc = "nvim (block)", block = true, for = "linux" },
+{ run = 'vi "$@"', desc = "vi (block)", block = true, for = "linux" },
 # exiftool semms to be broken?!
 #{ run = '''perl-exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
 ]
 edit = [
 { run = 'emacsclient "$@"', desc = "emacsclient", block = false, for = "unix" },
-{ run = '${EDITOR:-vi} "$@"', desc = "$EDITOR (block)", block = true, for = "unix" },
+{ run = 'emacsclient "$@"', desc = "emacsclient (block)", block = true, for = "unix" },
+{ run = 'nvim"$@"', desc = "nvim (block)", block = true, for = "unix" },
+{ run = 'vi "$@"', desc = "vi (block)", block = true, for = "unix" },
 ]
 open = [
 { run = 'riffle "$1"', block = true, for = "linux" },
@@ -63,25 +68,25 @@ play = [
 [open]
 rules = [
 # rifle
-{ name = "*", use = [ "rifle" ] },
-# # folder
-# { name = "*/", use = [ "open" ] },
-# # text
-# { mime = "text/*", use = [ "edit" ] },
-# # image
-# { mime = "image/*", use = [ "open" ] },
-# # media
-# { mime = "{audio,video}/*", use = [ "play" ] },
-# # archive
-# { mime = "application/{,g}zip", use = [ "extract" ] },
-# { mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", use = [ "extract" ] },
-# # json
-# { mime = "application/{json,x-ndjson}", use = [ "edit" ] },
-# { mime = "*/javascript", use = [ "edit" ] },
-# # empty file
-# { mime = "inode/x-empty", use = [ "edit" ] },
-# # fallback
-# { name = "*", use = [ "open" ] },
+#{ name = "*", use = [ "rifle" ] },
+# folder
+{ name = "*/", use = [ "open" ] },
+# text
+{ mime = "text/*", use = [ "edit" ] },
+# image
+{ mime = "image/*", use = [ "open" ] },
+# media
+{ mime = "{audio,video}/*", use = [ "play" ] },
+# archive
+{ mime = "application/{,g}zip", use = [ "extract" ] },
+{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", use = [ "extract" ] },
+# json
+{ mime = "application/{json,x-ndjson}", use = [ "edit" ] },
+{ mime = "*/javascript", use = [ "edit" ] },
+# empty file
+{ mime = "inode/x-empty", use = [ "edit" ] },
+# fallback
+{ name = "*", use = [ "open" ] },
 ]
 
 [tasks]
