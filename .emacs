@@ -68,6 +68,9 @@ There are two things you can do about this warning:
 (require 'org-pandoc-import)
 (require 'org-pandoc-import-transient)
 
+;; highlight tabs:
+(setq whitespace-style '(face tabs))
+(global-whitespace-mode 1)
 
 ;;  |   |
 ;;  __| __ \   _ \ __ `__ \   _ \
@@ -104,6 +107,7 @@ There are two things you can do about this warning:
 (set-face-background 'isearch "#FF00FF")
 (set-face-foreground 'isearch-fail "#000000")
 (set-face-background 'isearch-fail "yellow")
+(set-face-background 'whitespace-tab "#ff6000")
 
 ;; ui and base colors:
 ;;(setq theme-color-accent  "#ff6000")
@@ -281,6 +285,7 @@ There are two things you can do about this warning:
 ;; ____/\___|\__|\__|_|_|  _|\__, |____/
 ;;                           |___/
 
+
 ;; sort case insensitively:
 (setq sort-fold-case nil)
 
@@ -365,7 +370,7 @@ There are two things you can do about this warning:
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; ecil mode:
-(evil-mode t)
+;(evil-mode t)
 
 ;;  |
 ;;  |  /  _ \ |   |  __|
@@ -431,10 +436,10 @@ There are two things you can do about this warning:
 ;; You can change the backup-file naming convention by redefining this
 ;; function. The following example redefines make-backup-file-name to
 ;; prepend a ‘.’ in addition to appending a tilde:
-;; (defun make-backup-file-name (filename)
-;;   (expand-file-name
-;;     (concat "." (file-name-nondirectory filename) "~")
-;;     (file-name-directory filename)))
+(defun make-backup-file-name (filename)
+  (expand-file-name
+   (concat "." (file-name-nondirectory filename) "~")
+   (file-name-directory filename)))
 
 
 ;; This function exists so that you can customize it if you wish to
@@ -459,7 +464,7 @@ of current buffer.
        (file-name-nondirectory buffer-file-name)
        "~")
     (expand-file-name
-     (concat (buffer-name) "~"))))
+     (concat "." (buffer-name) "~"))))
 
 
 (defun my-outline-set-global-ellipsis (ellipsis)
@@ -468,7 +473,7 @@ of current buffer.
          (value (vconcat (mapcar (lambda (c) (+ face-offset c)) ellipsis))))
     (set-display-table-slot standard-display-table 'selective-display value)))
 
-(my-outline-set-global-ellipsis " ▼ ")
+(my-outline-set-global-ellipsis " ▼")
 
 ;; (defun scroll-down-keep-cursor ()
 ;;   ;; Scroll the text one line down while keeping the cursor

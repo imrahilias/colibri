@@ -13,10 +13,10 @@ do
     esac
 done
 
-#        |_)            
-#   _` | | |  _` |  __| 
-#  (   | | | (   |\__ \ 
-# \__,_|_|_|\__,_|____/ 
+#        |_)
+#   _` | | |  _` |  __|
+#  (   | | | (   |\__ \
+# \__,_|_|_|\__,_|____/
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -40,7 +40,7 @@ fi
 # alias
 
 ## list aliasas
-alias l='ls -1Bhl --group-directories-first' # '1' one entry/line, 'B' ignores backups (~), 'h' 4 human readable (kiB, MiB, ...), 'n' numeric uid/gid, 'o' like 'l' without group 
+alias l='ls -1Bhl --group-directories-first' # '1' one entry/line, 'B' ignores backups (~), 'h' 4 human readable (kiB, MiB, ...), 'n' numeric uid/gid, 'o' like 'l' without group
 alias ll='ls -1ABhl --group-directories-first' # 'A' almost all
 alias d='dirs -v' # lists zsh directory stack (enter <cd +- tab>, plus & minus (reverse) literally, with completion!'
 alias hist='fc -El 0 | grep '
@@ -54,11 +54,11 @@ alias v='nvim '
 alias vi='nvim '
 alias vim='nvim '
 
-#              |  _)                  
-#   _ \  __ \  __| |  _ \  __ \   __| 
-#  (   | |   | |   | (   | |   |\__ \ 
-# \___/  .__/ \__|_|\___/ _|  _|____/ 
-#       _|                  
+#              |  _)
+#   _ \  __ \  __| |  _ \  __ \   __|
+#  (   | |   | |   | (   | |   |\__ \
+# \___/  .__/ \__|_|\___/ _|  _|____/
+#       _|
 
 shopt -s autocd # auto enter
 shopt -s checkwinsize # check the window size after each command and, if necessary,update the values of LINES and COLUMNS.
@@ -77,10 +77,10 @@ HISTCONTROL=ignoreboth
 # make less more friendly for non-text input files, see lesspipe(1)
 #[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-#   _|                  |  _)                  
-#  |   |   | __ \   __| __| |  _ \  __ \   __| 
-#  __| |   | |   | (    |   | (   | |   |\__ \ 
-# _|  \__,_|_|  _|\___|\__|_|\___/ _|  _|____/ 
+#   _|                  |  _)
+#  |   |   | __ \   __| __| |  _ \  __ \   __|
+#  __| |   | |   | (    |   | (   | |   |\__ \
+# _|  \__,_|_|  _|\___|\__|_|\___/ _|  _|____/
 
 ## This will print the readable ~/ and ./ when starting which from
 ## your prompt, while still printing the full path when used from a
@@ -154,11 +154,11 @@ bind '"^[^[[C": forward-word'
 bind '"^[^[[D": backward-word'
 
 
-#                                  |   
-#  __ \   __| _ \  __ `__ \  __ \  __| 
-#  |   | |   (   | |   |   | |   | |   
-#  .__/ _|  \___/ _|  _|  _| .__/ \__| 
-# _|                        _|         
+#                                  |
+#  __ \   __| _ \  __ `__ \  __ \  __|
+#  |   | |   (   | |   |   | |   | |
+#  .__/ _|  \___/ _|  _|  _| .__/ \__|
+# _|                        _|
 
 # Colors
 bb="\[\e[34;1m\]" # bold blue

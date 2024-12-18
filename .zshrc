@@ -312,10 +312,6 @@ export PATH='/home/m/bin:/home/m/vscloud/bin:/bin:/usr/bin:/usr/local/bin:/sbin:
 #PATH+=/scripts # hängt zur $path eben was an...
 export GOPATH="$HOME/.go"
 
-# start dimmer after 300s and lock after 10 more s,
-# it unfortunately resets after one suspend:
-xset s 300 10
-
 # signal now fails:
 #export SIGNAL_PASSWORD_STORE='gnome-libsecret'
 
@@ -328,12 +324,19 @@ xset s 300 10
 # turn off XOFF/XON:
 stty -ixon
 
-# turn off powersaver/screensaver/blanking/bell:
-#xset -dpms
-#xset s off
-#xset s noblank
-xset +dpms
-xset -b &> /dev/null
+# dumb lock:
+hasssid=`nmcli d show wlan0 | grep "GENERAL.CONNECTION:" | awk '{print $2}'`
+if [[ $hasssid = "internetz" ]] ; then
+    # turn off powersaver/screensaver/blanking/bell:
+    xset -dpms
+    xset s off
+    xset s noblank
+else
+    # start dimmer after 300s and lock after 10 more s:
+    xset s 300 10
+    xset +dpms
+fi
+xset -b &> /dev/null # turn off bell
 
 # key setups:
 bindkey -e # emacs key bindings

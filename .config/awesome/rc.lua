@@ -201,10 +201,10 @@ globalkeys = gears.table.join(
 
    -- launch:
    -- icons:   
-   awful.key({ modkey, "Shift", "Control"}, "q", function () awful.spawn("xset s activate") end),
+   awful.key({ modkey, "Shift", "Control"}, "q", function () awful.spawn("systemctl suspend") end),
    awful.key({ modkey }, "Return", function () awful.spawn(terminal) end),
-   awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('urxvtc -e ssh admin') end),
-   awful.key({ modkey, "Control" }, "Return", function () awful.spawn("urxvtc -e ssh 5") end),
+   awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('urxvtc -e sh -c "TERM=rxvt-unicode ssh 5m"') end),
+   awful.key({ modkey, "Control" }, "Return", function () awful.spawn('urxvtc -e sh -c "TERM=rxvt-unicode ssh 5login"') end),
    awful.key({ modkey }, "d", function () awful.spawn.with_shell("urxvtc -title '  Yazi' -e yazi", false) end),
    awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell('urxvtc -e sudo yazi', false) end),
    awful.key({ modkey }, "e", function () awful.spawn("emacsclient -ca ''", false) end),
@@ -214,9 +214,9 @@ globalkeys = gears.table.join(
    awful.key({ modkey, "Shift" }, "z", function () awful.spawn("/home/m/bin/open_primary_selection_as_qr_code") end),
    awful.key({ modkey, "Shift" }, "e", function () awful.spawn("/home/m/bin/open_primary_selection_in_emacs") end),
    awful.key({ modkey, "Shift" }, "d", function () awful.spawn("/home/m/bin/open_primary_selection_in_yazi") end),
-   awful.key({ modkey, "Shift" }, "t", function () awful.spawn("urxvtc -e rtorrent") end),
-   awful.key({ modkey }, "g", function () awful.spawn("urxvtc -e htop") end),
-   awful.key({ modkey, "Shift" }, "g", function () awful.spawn("urxvtc -e top") end),
+   awful.key({ modkey, "Shift" }, "t", function () awful.spawn.with_shell("urxvtc -e rtorrent") end),
+   awful.key({ modkey }, "g", function () awful.spawn.with_shell("urxvtc -e htop") end),
+   awful.key({ modkey, "Shift" }, "g", function () awful.spawn.with_shell("urxvtc -e top") end),
    -- awful.key({ modkey }, "x", function () awful.spawn("xterm -T 'VSConsole' -fa 'xft:DejaVuSansMono' -fs 24 -e 'bash'") end),
    -- awful.key({ modkey, "Shift" }, "x", function () awful.spawn("xterm -T 'VSConsole' -fa 'xft:DejaVuSansMono' -fs 24 -e 'trainee'") end),
 
@@ -805,27 +805,15 @@ client.connect_signal("unfocus", function (c) c.border_color = beautiful.border_
 -- \__,_|\__,_|\__|\___/ ____/\__|\__,_|_|   \__|
 --
 
--- these just add up:
-awful.spawn.with_shell("killall pasystray")
-awful.spawn.with_shell("killall cbatticon")
-
--- both *cloud runs on qt, which runs qt6gtk2. so whenever qt or gtk
--- change, this qt6gtk2 aur pkg needs to be rebuilt (install, no clean
--- build). Also nextcloud might not like the gtk2 theme, so needs to
--- run default:
-awful.spawn.with_shell("QT_QPA_PLATFORMTHEME='' QT_STYLE_OVERRIDE='' nextcloud")
-
 autorun = true
 autorunners =
    {
       -- start some deamons:
       "udiskie",
-      "urxvtd -q -f -o",
+      "urxvtd -q -f -o", -- exec doesn't work here?!
       "xbindkeys", -- mouse button to key stroke binder for yazi
       "picom -b",
-      "xset s 300 10",
       "xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock",
-      "xset -b",
       "owncloud",
       "emacs --daemon",
 
@@ -850,9 +838,23 @@ autorunners =
       "evolution",
       "gnome-calendar",
       "urxvtc -title '  Yazi' -e yazi",
+
+      -- change to autodetected display config:
+      --"autorandr -c",
    }
 
 if autorun then
+
+   -- these just add up:
+   awful.spawn.with_shell("killall pasystray")
+   awful.spawn.with_shell("killall cbatticon")
+
+   -- both *cloud runs on qt, which runs qt6gtk2. so whenever qt or gtk
+   -- change, this qt6gtk2 aur pkg needs to be rebuilt (install, no clean
+   -- build). Also nextcloud might not like the gtk2 theme, so needs to
+   -- run default:
+   awful.spawn.with_shell("QT_QPA_PLATFORMTHEME='' QT_STYLE_OVERRIDE='' nextcloud")
+
    for _, app in ipairs(autorunners) do
       awful.spawn.once(app, awful.rules.rules)
    end

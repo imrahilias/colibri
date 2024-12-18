@@ -33,106 +33,112 @@ Xft.rgba: rgb
 ! URxvt (case sensitive?)
 ! ttps://wiki.archlinux.org/index.php/Rxvt-unicode
 
-URxvt*termName: rxvt-unicode-256color
-URxvt*loginshell: true
-URxvt*saveLines: 10000
-URxvt*pointerblank: true
-URxvt*letterSpace: 0
-URxvt*font: xft:BitstromWera Nerd Font Mono:size=12:antialias=true,\
+URxvt.*termName: rxvt-unicode-256color
+URxvt.*loginshell: true
+URxvt.*saveLines: 10000
+URxvt.*pointerblank: true
+URxvt.*letterSpace: 0
+URxvt.*font: xft:BitstromWera Nerd Font Mono:size=12:antialias=true,\
             xft: Bitstream Vera Sans Mono:size=12
-URxvt*boldFont: xft:BitstromWera Nerd Font Mono:size=12:antialias=true:style=Bold,\
+URxvt.*boldFont: xft:BitstromWera Nerd Font Mono:size=12:antialias=true:style=Bold,\
                 xft: Bitstream Vera Sans Mono:size=12:antialias=true:style=Bold
-URxvt*intensityStyles: false
-URxvt*secondaryScreen: true
+URxvt.*intensityStyles: false
+URxvt.*secondaryScreen: true
 
 ! SCROLLING
 ! do not scroll with output:
-URxvt*scrollTtyOutput: false
+URxvt.*scrollTtyOutput: false
 ! scroll in relation to buffer (with mouse scroll or Shift+Page Up):
-URxvt*scrollWithBuffer: true
+URxvt.*scrollWithBuffer: true
 ! scroll back to the bottom on keypress:
-URxvt*scrollTtyKeypress: true
-URxvt*secondaryScroll: false
-URxvt*secondaryWheel: true
-!URxvt*scrollStyle:rxvt
-URxvt*scrollBar: true
-URxvt*scrollBar_right: true
-URxvt*scrollBar_floating: true
-URxvt*scrollColor: #A9A9A9
-URxvt*scrollstyle: plain
-URxvt*scrollBar_align: centre
-URxvt*jumpScroll: true
-URxvt*mouseWheelScrollPage: true
+URxvt.*scrollTtyKeypress: true
+URxvt.*secondaryScroll: false
+URxvt.*secondaryWheel: true
+!URxvt.*scrollStyle:rxvt
+URxvt.*scrollBar: true
+URxvt.*scrollBar_right: true
+URxvt.*scrollBar_floating: true
+URxvt.*scrollColor: #A9A9A9
+URxvt.*scrollstyle: plain
+URxvt.*scrollBar_align: centre
+URxvt.*jumpScroll: true
+URxvt.*mouseWheelScrollPage: true
 
 ! scroll up/down 10 lines
-URxvt*keysym.Shift-Up: command:\033]720;10\007
-URxvt*keysym.Shift-Down: command:\033]721;10\007
+URxvt.*keysym.Shift-Up: command:\033]720;10\007
+URxvt.*keysym.Shift-Down: command:\033]721;10\007
 ! scroll up/down 100 lines
-URxvt*keysym.Control-Up: command:\033]720;100\007
-URxvt*keysym.Control-Down: command:\033]721;100\007
+URxvt.*keysym.Control-Up: command:\033]720;100\007
+URxvt.*keysym.Control-Down: command:\033]721;100\007
 ! scroll up/down all the way (10000 lines)
-URxvt*keysym.Control-Shift-Up: command:\033]720;10000\007
-URxvt*keysym.Control-Shift-Down: command:\033]721;10000\007
+URxvt.*keysym.Control-Shift-Up: command:\033]720;10000\007
+URxvt.*keysym.Control-Shift-Down: command:\033]721;10000\007
 
 ! page up/page down/home/end conflicts with pager (less)!
-! URxvt*keysym.Prior: command:\033]720;100\007
-! URxvt*keysym.Next: command:\033]721;100\007
-! URxvt*keysym.Home: command:\033]720;10000\007
-! URxvt*keysym.End: command:\033]721;10000\007
+! URxvt.*keysym.Prior: command:\033]720;100\007
+! URxvt.*keysym.Next: command:\033]721;100\007
+! URxvt.*keysym.Home: command:\033]720;10000\007
+! URxvt.*keysym.End: command:\033]721;10000\007
 
 ! PERL EXT
 ! if you do not use the perl extension features, you can improve the
 ! security and speed by disabling perl extensions completely.
-!URxvt*perl-ext:
-URxvt*perl-ext-common:      default,clipboard,url-select,keyboard-select,resize-font
-URxvt*url-select.launcher:  chromium
-URxvt*url-select.underline: true
-URxvt*underlineURLs:        true
-URxvt*urlButton:            M-1
-URxvt*keysym.M-u:           perl:url-select:select_next
-URxvt*keysym.M-Escape:      perl:keyboard-select:activate
-URxvt*keysym.M-s:           perl:keyboard-select:search
-!URxvt*copyCommand: xclip -i -selection clipboard
-!URxvt*pasteCommand: xclip -o -selection clipboard
-!URxvt*keysym.M-w: perl:clipboard:copy
-!URxvt*keysym.C-y: perl:clipboard:paste
-!URxvt*keysym.M-C-v: perl:clipboard:paste_escaped
-!URxvt*keysym.M-Escape: perl:keyboard-select:activate
-
+!URxvt.*perl-ext:
+! minus disables the stupid paste bracketing (messes up code):
+!URxvt.*perl-ext-common:      default,-confirm-paste
+URxvt.perl-ext-common:       resize-font,keyboard-select,searchable-scrollback
+URxvt.*url-select.launcher:  firefox
+URxvt.*url-select.underline: true
+URxvt.*underlineURLs:        true
+URxvt.*urlButton:            M-1
+!URxvt.*keysym.M-u:           perl:url-select:select_next
+URxvt.*keysym.M-Escape:      perl:keyboard-select:activate
+!URxvt.*keysym.M-s:           perl:keyboard-select:search
+URxvt.keysym.M-s: searchable-scrollback:start
+!URxvt.*copyCommand: xclip -i -selection clipboard
+!URxvt.*pasteCommand: xclip -o -selection clipboard
+!URxvt.*keysym.M-w: perl:clipboard:copy
+!URxvt.*keysym.C-y: perl:clipboard:paste
+!URxvt.*keysym.M-C-v: perl:clipboard:paste_escaped
+!URxvt.*keysym.M-Escape: perl:keyboard-select:activate
+URxvt.*keysym.M-minus:     resize-font:smaller
+URxvt.*keysym.M-plus:      resize-font:bigger
+URxvt.*keysym.M-equal:     resize-font:reset
+!URxvt.*keysym.M-question:  resize-font:show
 
 ! GRAPHICS:
-URxvt*skipBuiltinGlyphs: true
-URxvt*iconFile: /usr/share/icons/Adwaita/scalable/apps/utilities-terminal-symbolic.svg
+URxvt.*skipBuiltinGlyphs: true
+URxvt.*iconFile: /usr/share/icons/Adwaita/scalable/apps/utilities-terminal-symbolic.svg
 ! borderless conflicts with something! awesome?
-!URxvt*borderLess: true
-URxvt*cursorBlink: false
+!URxvt.*borderLess: true
+URxvt.*cursorBlink: false
 
 !The 2023-01-02 update may require adding some lines into ~/.Xresources:
-URxvt*geometry: 400x400
+URxvt.*geometry: 400x400
 
 ! fake transparency:
 ! fade the text by the given percentage when focus is lost:
-! URxvt*fading: 30
-URxvt*transparent: true
+! URxvt.*fading: 30
+URxvt.*transparent: true
 ! shading; 0 to 99 darkens, 101 to 200 lightens:
-URxvt*shading: 10
-URxvt*buffered: true
+URxvt.*shading: 10
+URxvt.*buffered: true
 
 ! real transparency:
-! URxvt*depth: 32
-! URxvt*background: [80]#000000
-! URxvt*background: rgba:0000/0000/0000/c900
-URxvt*foreground: #FAF0E6
-URxvt*background: #000000
-URxvt*cursorColor: #FF00FF
-URxvt*cursorColor2: #FF00FF
-URxvt*pointerColor: #FF00FF
-URxvt*pointerColor2: #FF00FF
-! URxvt*underlineColor:
-! URxvt*scrollColor:
-! URxvt*troughColor:
-! URxvt*highlightColor:
-! URxvt*highlightTextColor:
+! URxvt.*depth: 32
+! URxvt.*background: [80]#000000
+! URxvt.*background: rgba:0000/0000/0000/c900
+URxvt.*foreground: #FAF0E6
+URxvt.*background: #000000
+URxvt.*cursorColor: #FF00FF
+URxvt.*cursorColor2: #FF00FF
+URxvt.*pointerColor: #FF00FF
+URxvt.*pointerColor2: #FF00FF
+! URxvt.*underlineColor:
+! URxvt.*scrollColor:
+! URxvt.*troughColor:
+! URxvt.*highlightColor:
+! URxvt.*highlightTextColor:
 
 !             |
 !   __|  _ \  |  _ \   __| __|
@@ -205,94 +211,100 @@ URxvt*pointerColor2: #FF00FF
 !  _/\_\\__|\___|_|   _|  _|  _|
 !
 
-xterm*.termName: xterm-256color
-xterm*locale: false
-xterm*utf8: true
-xterm*metaSendsEscape: true
-xterm*backarrowKey: false
-xterm*ttyModes: erase ^?
-xterm*saveLines: 4096
-xterm*scrollBar: false
-xterm*scrollbar.width: 8
-xterm*geometry: 80x32
+xterm.*.termName: xterm-256color
+xterm.*locale: false
+xterm.*utf8: true
+xterm.*metaSendsEscape: true
+xterm.*backarrowKey: false
+xterm.*ttyModes: erase ^?
+xterm.*saveLines: 4096
+xterm.*scrollBar: false
+xterm.*scrollbar.width: 8
+xterm.*geometry: 80x32
 
-! bright mode for vsc:
-xterm*foreground: #000000
-xterm*background: #ffffff
-xterm*transparent: false
-xterm*cursorColor: #8B008B
-xterm*cursorColor2: #8B008B
-xterm*faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=16:antialias=true
-xterm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=16:antialias=true:style=Bold
-xterm*color0: #000000
-xterm*color1: #ff0000
-xterm*color2: #00ff00
-xterm*color3: #ff8800
-xterm*color4: #0000ff
-xterm*color5: #ff00ff
-xterm*color6: #00ffff
-xterm*color7: #ffffff
-xterm*color8: #808080
-xterm*color9: #800000
-xterm*color10:#008000
-xterm*color11:#808000
-xterm*color12:#000080
-xterm*color13:#800080
-xterm*color14:#008080
-xterm*color15:#c0c0c0
-xterm*color16:#808080
+! font size hot key:
+XTerm.vt100.translations: #override \n\
+  Alt <Key> minus: smaller-vt-font() \n\
+  Alt <Key> plus: larger-vt-font() \n\
+  Alt <Key> 0: set-vt-font(d)
 
 ! standard:
-! xterm*color0: #000000
-! xterm*color1: #800000
-! xterm*color2: #008000
-! xterm*color3: #808000
-! xterm*color4: #000080
-! xterm*color5: #800080
-! xterm*color6: #008080
-! xterm*color7: #c0c0c0
-! xterm*color8: #808080
-! xterm*color9: #ff0000
-! xterm*color10:#00ff00
-! xterm*color11:#ffff00
-! xterm*color12:#0000ff
-! xterm*color13:#ff00ff
-! xterm*color14:#00ffff
-! xterm*color15:#ffffff
-! xterm*color16:#ffffff
+! xterm.*color0: #000000
+! xterm.*color1: #800000
+! xterm.*color2: #008000
+! xterm.*color3: #808000
+! xterm.*color4: #000080
+! xterm.*color5: #800080
+! xterm.*color6: #008080
+! xterm.*color7: #c0c0c0
+! xterm.*color8: #808080
+! xterm.*color9: #ff0000
+! xterm.*color10:#00ff00
+! xterm.*color11:#ffff00
+! xterm.*color12:#0000ff
+! xterm.*color13:#ff00ff
+! xterm.*color14:#00ffff
+! xterm.*color15:#ffffff
+! xterm.*color16:#ffffff
+
+! bright mode for vsc:
+xterm.*foreground: #000000
+xterm.*background: #ffffff
+xterm.*transparent: false
+xterm.*cursorColor: #8B008B
+xterm.*cursorColor2: #8B008B
+xterm.*faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=16:antialias=true
+xterm.*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=16:antialias=true:style=Bold
+xterm.*color0: #000000
+xterm.*color1: #ff0000
+xterm.*color2: #00ff00
+xterm.*color3: #ff8800
+xterm.*color4: #0000ff
+xterm.*color5: #ff00ff
+xterm.*color6: #00ffff
+xterm.*color7: #ffffff
+xterm.*color8: #808080
+xterm.*color9: #800000
+xterm.*color10:#008000
+xterm.*color11:#808000
+xterm.*color12:#000080
+xterm.*color13:#800080
+xterm.*color14:#008080
+xterm.*color15:#c0c0c0
+xterm.*color16:#808080
 
 ! dark mode at home:
-! xterm*foreground: #FAF0E6
-! xterm*background: #000000
-! xterm*transparent: true
-! xterm*cursorColor: #FF00FF
-! xterm*cursorColor2: #FF00FF
-! xterm*faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true
-! xterm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true:style=Bold
-! xterm*color0: #000000
-! xterm*color1: #8B0000
-! xterm*color2: #2E8B57
-! xterm*color3: #DAA520
-! xterm*color4: #4682B4
-! xterm*color5: #8B008B
-! xterm*color6: #20B2AA
-! xterm*color7: #FFEBCD
-! xterm*color8: #696969
-! xterm*color9: #CD5C5C
-! xterm*color10: #8FBC8B
-! xterm*color11: #8B4000
-! xterm*color12: #00BFFF
-! xterm*color13: #FF00FF
-! xterm*color14: #00CED1
-! xterm*color15: #FFF5EE
-! xterm*color16: #FFEBCD
+! xterm.*foreground: #FAF0E6
+! xterm.*background: #000000
+! xterm.*transparent: true
+! xterm.*cursorColor: #FF00FF
+! xterm.*cursorColor2: #FF00FF
+! xterm.*faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true
+! xterm.*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true:style=Bold
+! xterm.*color0: #000000
+! xterm.*color1: #8B0000
+! xterm.*color2: #2E8B57
+! xterm.*color3: #DAA520
+! xterm.*color4: #4682B4
+! xterm.*color5: #8B008B
+! xterm.*color6: #20B2AA
+! xterm.*color7: #FFEBCD
+! xterm.*color8: #696969
+! xterm.*color9: #CD5C5C
+! xterm.*color10: #8FBC8B
+! xterm.*color11: #8B4000
+! xterm.*color12: #00BFFF
+! xterm.*color13: #FF00FF
+! xterm.*color14: #00CED1
+! xterm.*color15: #FFF5EE
+! xterm.*color16: #FFEBCD
 
-xterm*veryBoldColors: 6
-! xterm*color0:  rgb:28/2a/2b
-! xterm*colorBDMode: true
-! xterm*colorBD: Red
-! xterm*colorULMode: true
-! xterm*colorUL: Cyan
+xterm.*veryBoldColors: 6
+! xterm.*color0:  rgb:28/2a/2b
+! xterm.*colorBDMode: true
+! xterm.*colorBD: Red
+! xterm.*colorULMode: true
+! xterm.*colorUL: Cyan
 
 
 !           _)
@@ -302,4 +314,4 @@ xterm*veryBoldColors: 6
 !
 
 ! for otave via emacs
-gnuplot*background: transparent truecolor
+gnuplot.*background: transparent truecolor

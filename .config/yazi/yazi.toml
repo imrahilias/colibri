@@ -32,25 +32,25 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 
 [opener]
 rifle = [
-{ run = 'rifle -p 0 "$1"', for = "linux" },
+{ run = 'rifle -p 0 "$@"', for = "linux" },
 { run = 'riffle "$1"', block = true, for = "linux" },
-{ run = 'emacsclient "$@"', desc = "emacsclient", block = false, for = "linux" },
-{ run = 'emacsclient "$@"', desc = "emacsclient (block)", block = true, for = "linux" },
+{ run = '''emacsclient -ca '' "$@"''', desc = "emacsclient", block = false, for = "linux" },
+{ run = '''emacsclient -ca '' "$@"''', desc = "emacsclient (block)", block = true, for = "linux" },
 { run = 'nvim"$@"', desc = "nvim (block)", block = true, for = "linux" },
 { run = 'vi "$@"', desc = "vi (block)", block = true, for = "linux" },
 # exiftool semms to be broken?!
 #{ run = '''perl-exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
 ]
 edit = [
-{ run = 'emacsclient "$@"', desc = "emacsclient", block = false, for = "unix" },
-{ run = 'emacsclient "$@"', desc = "emacsclient (block)", block = true, for = "unix" },
+{ run = '''emacsclient -ca '' "$@"''', desc = "emacsclient", block = false, for = "unix" },
+{ run = '''emacsclient -ca '' "$@"''', desc = "emacsclient (block)", block = true, for = "unix" },
 { run = 'nvim"$@"', desc = "nvim (block)", block = true, for = "unix" },
 { run = 'vi "$@"', desc = "vi (block)", block = true, for = "unix" },
 ]
 open = [
+{ run = 'rifle -p 0 "$@"', for = "linux" },
 { run = 'riffle "$1"', block = true, for = "linux" },
-{ run = 'rifle -p 0 "$1"', for = "linux" },
-{ run = 'xdg-open "$1"', for = "linux" },
+{ run = 'xdg-open "$@"', for = "linux" },
 ]
 reveal = [
 { run = 'xdg-open "$(dirname "$1")"', desc = "Reveal", for = "linux" },
