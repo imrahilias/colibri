@@ -37,6 +37,12 @@ sudo cp --parents /etc/X11/xorg.conf.d/70-synaptics.conf $loc/
 sudo cp --parents /etc/pacman.d/hooks/xkeyboard-config.hook $loc/
 sudo cp --parents /etc/security/limits.conf $loc/
 sudo cp --parents /etc/systemd/system/user.slice $loc/
+sudo cp --parents /etc/systemd/system/kill-printd.service $loc/
+sudo cp --parents /etc/systemd/system/x11-autologin.service $loc/
+sudo cp --parents /etc/pam.d/login $loc/
+sudo cp --parents /etc/pam.d/system-auth $loc/
+sudo cp --parents /etc/pam.d/system-local-login $loc/
+sudo cp --parents /etc/pam.d/system-login $loc/
 
 # usr
 sudo cp --parents /usr/share/xsessions/awesome.desktop $loc/

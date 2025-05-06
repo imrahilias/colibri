@@ -16,7 +16,7 @@
     (warn "\
 Your version of Emacs does not support SSL connections,
 which is unsafe because it allows man-in-the-middle attacks.
-There are two things you can do about this warning:
+There are two thing you can do about this warning:
 1. Install an Emacs version that does support SSL and be safe.
 2. Remove this warning from your init file so you won't see it again."))
   ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
@@ -38,29 +38,32 @@ There are two things you can do about this warning:
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
-   ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#729fcf" "#eeeeec"])
+   ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#729fcf"
+    "#eeeeec"])
  '(custom-safe-themes
-   '("171d1ae90e46978eb9c342be6658d937a83aaa45997b1d7af7657546cae5985b" default))
+   '("171d1ae90e46978eb9c342be6658d937a83aaa45997b1d7af7657546cae5985b"
+     default))
  '(org-babel-load-languages
-   '((C . t)
-     (R . t)
-     (emacs-lisp . t)
-     (fortran . t)
-     (gnuplot . t)
-     (haskell . t)
-     (latex . t)
-     (lisp . t)
-     (lua . t)
-     (makefile . t)
-     (octave . t)
-     (org . t)
-     (python . t)
-     (sed . t)
-     (shell . t)
-     (sql . t)
+   '((C . t) (R . t) (emacs-lisp . t) (fortran . t) (gnuplot . t)
+     (haskell . t) (lisp . t) (lua . t) (makefile . t) (octave . t)
+     (org . t) (python . t) (sed . t) (shell . t) (sql . t)
      (sqlite . t)))
  '(package-selected-packages
-   '(magit rust-mode evil bash-completion yaml-pro org-view-mode org-modern hl-block-mode atom-one-dark-theme timu-caribbean-theme php-mode org-auto-tangle gnuplot blacken poly-ansible poly-markdown polymode mmm-mode cuda-mode csv-mode spinner string-inflection json-mode ample-regexps fuzzy auto-complete-auctex luarocks highlight-unique-symbol highlight-defined highlight-function-calls highlight-thing highlight-symbol highlight-parentheses highlight-operators highlight highlight-blocks highlight-escape-sequences highlight-quoted highlight-numbers color-identifiers-mode lua-mode flycheck markdown-mode company auto-complete auctex matlab-mode live-py-mode rainbow-identifiers rainbow-mode auto-correct))
+   '(ample-regexps atom-one-dark-theme auto-complete auto-correct
+                   bash-completion blacken color-identifiers-mode
+                   company csv-mode cuda-mode evil flycheck fuzzy
+                   gnuplot highlight highlight-blocks
+                   highlight-defined highlight-escape-sequences
+                   highlight-function-calls highlight-numbers
+                   highlight-operators highlight-parentheses
+                   highlight-quoted highlight-symbol highlight-thing
+                   highlight-unique-symbol hl-block-mode json-mode
+                   live-py-mode lua-mode luarocks magit markdown-mode
+                   matlab-mode mmm-mode org-auto-tangle org-modern
+                   org-view-mode php-mode poly-ansible poly-markdown
+                   polymode rainbow-identifiers rainbow-mode rust-mode
+                   spinner string-inflection timu-caribbean-theme
+                   yaml-pro))
  '(warning-suppress-log-types '((auto-save))))
 
 ;; markdown/org translator:
@@ -131,16 +134,16 @@ There are two things you can do about this warning:
 (setq font-lock-maximum-decoration t)
 (setq font-lock-maximum-size '262144)
 (global-hi-lock-mode t)
-(global-highlight-operators-mode t)
 (global-highlight-parentheses-mode t)
-(global-highlight-thing-mode t)
 (set-face-attribute 'hi-yellow nil :foreground "#FAF0E6" :background "#1A004E")
+(global-highlight-thing-mode t)
+(global-highlight-operators-mode t)
 
 ;; make ugly glyphs from greek letters?
 ;;global-prettify-symbols-mode t)
 
 ;; highlight line:
-;(global-hl-line-mode t)
+(global-hl-line-mode t)
 (set-face-background 'highlight "#0D0D0D")
 
 ;; opacity:
@@ -235,6 +238,12 @@ There are two things you can do about this warning:
 ;;(setq display-time-24hr-format t)
 ;;(display-time)
 
+;
+;  _ \   __| _` |
+; (   | |   (   |
+;\___/ _|  \__, |
+;          |___/
+
 ;; org headers become bold:
 (set-face-attribute 'org-level-1 nil :bold t)
 (set-face-attribute 'org-level-2 nil :bold t)
@@ -244,8 +253,8 @@ There are two things you can do about this warning:
 (set-face-attribute 'org-level-6 nil :bold t)
 (set-face-attribute 'org-level-7 nil :bold t)
 (set-face-attribute 'org-level-8 nil :bold t)
-;; (set-face-attribute 'org-level-1 nil :foreground "#FAF0E6" :background "#4682B4")
-;; (set-face-attribute 'org-level-1 nil :background "#4682B4")
+(set-face-attribute 'org-level-1 nil :foreground "#FAF0E6" :background "#4682B4")
+(set-face-attribute 'org-level-1 nil :background "#4682B4")
 
 ;; org mode colours:
 (setq org-fontify-quote-and-verse-blocks t)
@@ -257,11 +266,7 @@ There are two things you can do about this warning:
 
 ;; table (header) is same as block (begin line):
 (set-face-attribute 'org-table nil :background "#0b0d0f")
-(set-face-attribute 'org-table-header nil
-:foreground "#787787"
-:background "#161a1f"
-:bold t
-)
+(set-face-attribute 'org-table-header nil :foreground "#787787" :background "#161a1f" :bold t)
 
 ;; magic comments face:
 (set-face-attribute 'org-meta-line nil :bold t)
@@ -311,6 +316,7 @@ There are two things you can do about this warning:
 ;; example, < s tab creates a code block:
 (require 'org-tempo)
 
+;; BROKEN
 ;; collapse clutter in org-view-mode (not working):
 ;; (add-hook 'org-mode-hook
 ;;           (lambda ()
@@ -318,6 +324,7 @@ There are two things you can do about this warning:
 ;;                 (org-view-mode +1)
 ;;               (org-view-mode -1))) nil t)
 
+;; BROKEN
 ;; collapse clutter in org-view-mode (not working):
 ;; (add-hook 'org-mode-hook (lambda ()
 ;;                            ('org-view-mode 1)
@@ -353,8 +360,8 @@ There are two things you can do about this warning:
   (lambda () (rainbow-mode t)))
 (my-global-rainbow-mode t)
 
-;; subword mode (camelcase mode):
-(global-subword-mode t)
+;; subword mode (camelCase mode):
+;(global-subword-mode t)
 
 ;; i hate tabs!
 (setq-default indent-tabs-mode nil)

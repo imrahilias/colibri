@@ -71,7 +71,7 @@ then
     alias -g fgrep='grep --ignore-case --color=auto'
     alias -g egrep='egrep --ignore-case --color=auto'
 
-    alias -g diff='grc diff --color=auto'
+    #alias -g diff='grc diff --color=auto'
 
     export LESS="-R"
     export LESS_TERMCAP_md=$'\e[01;31m'
@@ -141,7 +141,6 @@ alias v='nvim '
 alias vi='nvim '
 alias vim='nvim '
 alias mnt=' mount | column -t'
-alias y='yazi'
 
 # some gnome stuff:
 alias gnome-session='echo "haha nice try:D"'
@@ -279,21 +278,21 @@ bindkey -s '^D' "\eq lf\n"
 
 
 function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
 }
 
-# this doesnt work on zsh!
-# change yazi's cwd to pwd on subshell exit:
+#this doesnt work on zsh!
+#change yazi's cwd to pwd on subshell exit:
 # if [[ -n "$YAZI_ID" ]]; then
-# 	function _yazi_cd() {
-# 		ya pub dds-cd --str "$PWD"
-# 	}
-# 	add-zsh-hook zshexit _yazi_cd
+#     function _yazi_cd() {
+#         ya pub dds-cd --str "$PWD"
+#     }
+#     add-zsh-hook zshexit _yazi_cd
 # fi
 
 # 'Ctrl+D' fires up yazi:

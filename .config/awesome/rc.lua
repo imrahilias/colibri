@@ -106,7 +106,7 @@ globalkeys = gears.table.join(
 
    -- awesome:
    awful.key({ modkey, "Shift" }, "q", awesome.restart),
-   awful.key({ modkey, "Control" }, "q", awesome.quit),
+   awful.key({ modkey, "Shift", "Control" }, "q", awesome.quit),
 
    -- machi:
    awful.key({ modkey }, ".", function () machi.default_editor.start_interactive() end),
@@ -201,10 +201,10 @@ globalkeys = gears.table.join(
 
    -- launch:
    -- icons:   
-   awful.key({ modkey, "Shift", "Control"}, "q", function () awful.spawn("systemctl suspend") end),
+   awful.key({ modkey, "Control"}, "q", function () awful.spawn("systemctl suspend") end),
    awful.key({ modkey }, "Return", function () awful.spawn(terminal) end),
-   awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('urxvtc -e sh -c "TERM=rxvt-unicode ssh 5m"') end),
-   awful.key({ modkey, "Control" }, "Return", function () awful.spawn('urxvtc -e sh -c "TERM=rxvt-unicode ssh 5login"') end),
+   awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('urxvtc -e sh -c "TERM=rxvt-unicode ssh admin"') end),
+   awful.key({ modkey, "Control" }, "Return", function () awful.spawn('urxvtc -e sh -c "TERM=rxvt-unicode ssh l55"') end),
    awful.key({ modkey }, "d", function () awful.spawn.with_shell("urxvtc -title '  Yazi' -e yazi", false) end),
    awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell('urxvtc -e sudo yazi', false) end),
    awful.key({ modkey }, "e", function () awful.spawn("emacsclient -ca ''", false) end),
@@ -219,6 +219,8 @@ globalkeys = gears.table.join(
    awful.key({ modkey, "Shift" }, "g", function () awful.spawn.with_shell("urxvtc -e top") end),
    -- awful.key({ modkey }, "x", function () awful.spawn("xterm -T 'VSConsole' -fa 'xft:DejaVuSansMono' -fs 24 -e 'bash'") end),
    -- awful.key({ modkey, "Shift" }, "x", function () awful.spawn("xterm -T 'VSConsole' -fa 'xft:DejaVuSansMono' -fs 24 -e 'trainee'") end),
+   awful.key({ modkey, "Shift" }, "p", function () awful.spawn("autorandr --change") end),
+   awful.key({ modkey, "Control" }, "p", function () awful.spawn("arandr") end),
 
    -- audio:
    awful.key({ }, "XF86AudioRaiseVolume", function () awful.spawn("amixer set Master 1%+", false) end),
@@ -832,7 +834,7 @@ autorunners =
 
       -- now fire up some programs:
       "signal-desktop",
-      "telegram-desktop",
+      --"telegram-desktop",
       "element-desktop",
       "firefox",
       "evolution",
@@ -840,7 +842,7 @@ autorunners =
       "urxvtc -title '  Yazi' -e yazi",
 
       -- change to autodetected display config:
-      --"autorandr -c",
+      "autorandr -c",
    }
 
 if autorun then

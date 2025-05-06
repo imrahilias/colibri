@@ -1,22 +1,97 @@
-[plugin]
-deps = [
-{ use = "yazi-rs/plugins:max-preview", rev = "dc11879" },
-{ use = "yazi-rs/plugins:hide-preview", rev = "dc11879" },
-{ use = "yazi-rs/plugins:jump-to-char", rev = "dc11879" },
-{ use = "yazi-rs/plugins:git", rev = "dc11879" },
-{ use = "yazi-rs/plugins:chmod", rev = "dc11879" },
-{ use = "yazi-rs/plugins:mime-ext", rev = "fb3ae90" },
-{ use = "yazi-rs/plugins:diff", rev = "fb3ae90" },
-{ use = "AnirudhG07/custom-shell", rev = "d00d2f9" },
-{ use = "Reledia/hexyl", rev = "ccc0a4a" },
-{ use = "Reledia/miller", rev = "40e0265" },
-#{ use = "AnirudhG07/nbpreview", rev = "52a14b3" },
-#{ use = "AnirudhG07/rich-preview", rev = "fe43219" },
-{ use = "Lil-Dank/lazygit", rev = "c82794f" },
-{ use = "Ape/open-with-cmd", rev = "8d7abc8" },
-{ use = "Ape/simple-status", rev = "709f653" },
-{ use = "Rolv-Apneseth/starship", rev = "77a65f5" }, { use = "lpnh/fg", rev = "a7e1a82" },
-]
+[[plugin.deps]]
+use = "yazi-rs/plugins:max-preview"
+rev = "2730199"
+hash = "a8025f2bb311e869069364fba01abffc"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:hide-preview"
+rev = "2730199"
+hash = "53f826884e2c7e521cecc492a7f31d7e"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:jump-to-char"
+rev = "2730199"
+hash = "a670c03eb3760812e044a24f94cedc55"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:git"
+rev = "2730199"
+hash = "e0d2c8d7e7afe5b82270367098d1a821"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:chmod"
+rev = "2730199"
+hash = "2f1053f89d1a301a648ab181d0948e38"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:mime-ext"
+rev = "2730199"
+hash = "1f9fc0e55ff859a32e793833403ee7bd"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:diff"
+rev = "2730199"
+hash = "7a08e303167d5b655c06da6d570f0333"
+
+[[plugin.deps]]
+use = "AnirudhG07/custom-shell"
+rev = "6b4550a"
+hash = "43019cca17a4d7b41746c2e0a6b8f33f"
+
+[[plugin.deps]]
+use = "Reledia/hexyl"
+rev = "228a9ef"
+hash = "cdc65cfe4e60e1bf5afe5769d074fa9c"
+
+[[plugin.deps]]
+use = "Reledia/miller"
+rev = "40e0265"
+hash = "2d6d77583162aaf0a599e7a3091b5878"
+
+[[plugin.deps]]
+use = "Lil-Dank/lazygit"
+rev = "7a08a09"
+hash = "a1fa2b3e1826c3a34804ea8c548e9f80"
+
+[[plugin.deps]]
+use = "Ape/open-with-cmd"
+rev = "433cf30"
+hash = "86e0312b01bc5762813c6c1d0517f073"
+
+[[plugin.deps]]
+use = "Ape/simple-status"
+rev = "d0da104"
+hash = "68603fdd1dcaf415227e2c77a9317947"
+
+[[plugin.deps]]
+use = "lpnh/fg"
+rev = "92edf0b"
+hash = "b0edc5e9b7f44b2d3303e74f785d0bc9"
+
+[[plugin.deps]]
+use = "Rolv-Apneseth/starship"
+rev = "6c639b4"
+hash = "5614c46d5de76623c283d415bfac8025"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:mount"
+rev = "b12a9ab"
+hash = "dd97eede8e20e59cd2604e8006e470e2"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-filter"
+rev = "b12a9ab"
+hash = "f0c4b41b5d19a3144958383333eff6e7"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:vcs-files"
+rev = "b12a9ab"
+hash = "36405f8781fcaf33ceab24dffd5cea19"
+
+[[plugin.deps]]
+use = "lpnh/fr"
+rev = "92edf0b"
+hash = "b0edc5e9b7f44b2d3303e74f785d0bc9"
 
 [flavor]
 deps = []

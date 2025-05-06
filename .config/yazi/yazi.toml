@@ -14,7 +14,7 @@ show_hidden    = false
 show_symlink   = true
 scrolloff      = 5
 mouse_events   = [ "click", "scroll" ]
-title_format   = "  Yazi"
+title_format   = "  Yazi: {cwd} "
 
 [preview]
 wrap            = "no"
@@ -30,51 +30,63 @@ sixel_fraction  = 15
 ueberzug_scale  = 1
 ueberzug_offset = [ 0, 0, 0, 0 ]
 
+
+# $n : The N-th selected file, starting from 1. e.g. $2 represents the second selected file.
+# $@ : All selected files, i.e. $1, $2, ..., $n.
+# $0 : The hovered file.
+
 [opener]
-rifle = [
-{ run = 'rifle -p 0 "$@"', for = "linux" },
-{ run = 'riffle "$1"', block = true, for = "linux" },
-{ run = '''emacsclient -ca '' "$@"''', desc = "emacsclient", block = false, for = "linux" },
-{ run = '''emacsclient -ca '' "$@"''', desc = "emacsclient (block)", block = true, for = "linux" },
-{ run = 'nvim"$@"', desc = "nvim (block)", block = true, for = "linux" },
-{ run = 'vi "$@"', desc = "vi (block)", block = true, for = "linux" },
-# exiftool semms to be broken?!
-#{ run = '''perl-exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
-]
 edit = [
-{ run = '''emacsclient -ca '' "$@"''', desc = "emacsclient", block = false, for = "unix" },
-{ run = '''emacsclient -ca '' "$@"''', desc = "emacsclient (block)", block = true, for = "unix" },
-{ run = 'nvim"$@"', desc = "nvim (block)", block = true, for = "unix" },
-{ run = 'vi "$@"', desc = "vi (block)", block = true, for = "unix" },
+{ run = '''emacsclient -ca '' "$@"''', orphan = true, block = false },
+#{ run = '''emacsclient -ca '' "$@"''', desc = "emacsclient (block)", block = true },
+#{ run = 'nvim "$@"', desc = "nvim (block)", block = true },
+#{ run = 'vi "$@"', desc = "vi (block)", block = true },
 ]
 open = [
-{ run = 'rifle -p 0 "$@"', for = "linux" },
-{ run = 'riffle "$1"', block = true, for = "linux" },
+#{ run = 'rifle -p 0 "$@"', for = "linux" },
+#{ run = 'riffle "$1"', block = true, for = "linux" },
 { run = 'xdg-open "$@"', for = "linux" },
 ]
-reveal = [
-{ run = 'xdg-open "$(dirname "$1")"', desc = "Reveal", for = "linux" },
-# exiftool semms to be broken?!
-#{ run = '''perl-exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
-]
-extract = [
-{ run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
-]
+extract = [ { run = 'ya pub extract --list "$@"' }, ]
 play = [
-{ run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
-{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
+{ run = 'mpv --force-window -- "$1"', orphan = true },
+{ run = 'mpv -- "$1"', orphan = true },
+{ run = 'mplayer2 -- "$1"', orphan = true },
+{ run = 'vlc -- "$1"', orphan = true },
+{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true },
 ]
+web = [
+{ run = 'firefox -- "$@"', orphan = true },
+{ run = 'lynx -- "$@"', block = true },
+]
+black = [ { run = 'black -- "$@"', orphan = true }, ]
+python = [ { run = 'python -- "$1"', block = true }, ]
+octave = [
+{ run = 'octave --gui --persist --eval "edit "$1""', orphan = true },
+{ run = 'octave --force-gui --persist "$1"', orphan = true },
+{ run = 'octave -- "$1"', block = true },
+]
+fortran = [ { run = 'time gfortran -Og -Wall -fimplicit-none -ftree-parallelize-loops=2048 -fopt-info -fcheck=all -fbacktrace "$1"', block = true }, ]
+gnuplot = [ { run = 'gnuplot "$1"', orphan = true }, ]
+pandoc = [ { run = 'pandoc -o "$1".pdf "$1"', orphan = true }, ]
+jupyter = [
+{ run = 'jupyter-lab "$@"', orphan = true },
+{ run = 'jupyter nbconvert --to markdown "$@"', orphan = true },
+]
+gimp = [ { run = 'gimp -- "$@"', orphan = true }, ]
+make = [ { run = 'make -j 16 -f "$1"', block = true }, ]
+nsys = [ { run = 'nsys-ui "$@"', orphan = true }, ]
+view = [ { run = 'feh --auto-zoom --scale-down --start-at "$@"', orphan = true }, ]
+exec = [ { run = "$1", block = true }, ]
 
 [open]
 rules = [
-# rifle
-#{ name = "*", use = [ "rifle" ] },
-# folder
-{ name = "*/", use = [ "open" ] },
+# dir uses edit because of smart enter
+{ name = "*/", use = [ "edit" ] },
 # text
 { mime = "text/*", use = [ "edit" ] },
 # image
-{ mime = "image/*", use = [ "open" ] },
+{ mime = "image/*", use = [ "view", "gimp" ] },
 # media
 { mime = "{audio,video}/*", use = [ "play" ] },
 # archive
@@ -85,8 +97,17 @@ rules = [
 { mime = "*/javascript", use = [ "edit" ] },
 # empty file
 { mime = "inode/x-empty", use = [ "edit" ] },
+# code
+{ name = "*.py", use = [ "python", "black" ] },
+{ name = "*.m", use = [ "octave" ] },
+{ name = "*.f??", use = [ "fortran" ] },
+{ name = "*.gp", use = [ "gnuplot" ] },
+{ name = "*.md", use = [ "pandoc" ] },
+{ name = "*.ipynb", use = [ "jupyter" ] },
+{ name = "*.nsys-rep", use = [ "nsys" ] },
+{ name = "*makefile", use = [ "make" ] },
 # fallback
-{ name = "*", use = [ "open" ] },
+{ name = "*", use = [ "open", "exec", "edit" ] },
 ]
 
 [tasks]
@@ -102,10 +123,24 @@ fetchers = [
 # git needs nightly:
 { id = "git", name = "*", run  = "git"},
 { id = "git", name = "*/", run  = "git"},
-# fast but inaccurate:
-#{ id = "mime", if   = "!mime", name = "*", run  = "mime-ext", prio = "high"},
 # mimetype
 { id = "mime", name = "*", run = "mime", if = "!mime", prio = "high" },
+# fast but inaccurate:
+{ id = "mime", if = "!mime", name = "*", run  = "mime-ext", prio = "high"},
+]
+
+spotters = [
+{ name = "*/", run = "folder" },
+# Code
+{ mime = "text/*", run = "code" },
+{ mime = "*/{xml,javascript,wine-extension-ini}", run = "code" },
+# Image
+{ mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
+{ mime = "image/*", run = "image" },
+# Video
+{ mime = "video/*", run = "video" },
+# Fallback
+{ name = "*", run = "file" },
 ]
 
 preloaders = [
@@ -164,67 +199,67 @@ previewers = [
 cursor_blink = false
 
 # cd
-cd_title  = "Change directory:"
-cd_origin = "top-center"
-cd_offset = [ 0, 2, 50, 3 ]
+cd_title  = "change directory:"
+cd_origin = "center"
+cd_offset = [ 0, 0, 50, 3 ]
 
 # create
-create_title = ["Create:", "Create (dir):"]
-create_origin = "top-center"
-create_offset = [ 0, 2, 50, 3 ]
+create_title = ["create:", "create (dir):"]
+create_origin = "center"
+create_offset = [ 0, 0, 50, 3 ]
 
 # rename
-rename_title  = "Rename:"
+rename_title  = "rename:"
 rename_origin = "hovered"
 rename_offset = [ 0, 1, 50, 3 ]
 
 # filter
-filter_title  = "Filter:"
-filter_origin = "top-center"
-filter_offset = [ 0, 2, 50, 3 ]
+filter_title  = "filter:"
+filter_origin = "bottom-left"
+filter_offset = [ 0, -1, 50, 3 ]
 
 # find
-find_title  = [ "Find next:", "Find previous:" ]
-find_origin = "top-center"
-find_offset = [ 0, 2, 50, 3 ]
+find_title  = [ "find next:", "find previous:" ]
+find_origin = "bottom-left"
+find_offset = [ 0, -1, 50, 3 ]
 
 # search
-search_title  = "Search via {n}:"
-search_origin = "top-center"
-search_offset = [ 0, 2, 50, 3 ]
+search_title  = "search via {n}:"
+search_origin = "bottom-left"
+search_offset = [ 0, -1, 50, 3 ]
 
 # shell
-shell_title  = [ "Shell:", "Shell (block):" ]
-shell_origin = "top-center"
-shell_offset = [ 0, 2, 50, 3 ]
+shell_title  = [ "shell:", "shell (block):" ]
+shell_origin = "bottom-left"
+shell_offset = [ 0, -1, 50, 3 ]
 
 [confirm]
 # trash
-trash_title 	= "Trash {n} selected file{s}?"
-trash_origin	= "center"
-trash_offset	= [ 0, 0, 70, 20 ]
+trash_title     = "trash {n} selected file{s}?"
+trash_origin    = "center"
+trash_offset    = [ 0, 0, 80, 30 ]
 
 # delete
-delete_title 	= "Permanently delete {n} selected file{s}?"
-delete_origin	= "center"
-delete_offset	= [ 0, 0, 70, 20 ]
+delete_title    = "permanently delete {n} selected file{s}?"
+delete_origin   = "center"
+delete_offset   = [ 0, 0, 80, 30 ]
 
 # overwrite
-overwrite_title   = "Overwrite file?"
-overwrite_content = "Will overwrite the following file:"
+overwrite_title   = "overwrite file?"
+overwrite_content = "will overwrite the following file:"
 overwrite_origin  = "center"
-overwrite_offset  = [ 0, 0, 50, 15 ]
+overwrite_offset  = [ 0, 0, 80, 30 ]
 
 # quit
-quit_title   = "Quit?"
-quit_content = "The following task is still running, are you sure you want to quit?"
+quit_title   = "quit?"
+quit_content = "the following task is still running, are you sure you want to quit?"
 quit_origin  = "center"
-quit_offset  = [ 0, 0, 50, 15 ]
+quit_offset  = [ 0, 0, 80, 30 ]
 
 [select]
-open_title  = "Open with:"
+open_title  = "open with:"
 open_origin = "hovered"
-open_offset = [ 0, 1, 50, 7 ]
+open_offset = [ 0, 0, 80, 30 ]
 
 [which]
 sort_by        = "none"
