@@ -1,5 +1,5 @@
 [Unit]
-Description=X11 session for bernat
+Description=X11 session for m
 After=graphical.target systemd-user-sessions.service
 
 [Service]

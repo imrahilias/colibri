@@ -49,7 +49,7 @@ local fzf_from = function(job_args, opts_tbl)
          grep = "rga --color=always --files-with-matches --smart-case" .. opts_tbl.rga,
          prev = "--preview='rga --context 5 --no-messages --pretty "
             .. opts_tbl.rga_preview
-            .. " {q} {}' --preview-window=right,50%",
+            .. " {q} {}' --preview-window=up,50%",
          prompt = "--prompt='rga> '",
       },
    }
@@ -71,7 +71,7 @@ local fzf_from = function(job_args, opts_tbl)
       cmd.prompt,
       "--bind='start:reload:" .. cmd.grep .. " {q}'",
       "--bind='change:reload:sleep 0.1; " .. cmd.grep .. " {q} || true'",
-      "--bind='ctrl-]:change-preview-window(80%|50%)'",
+      "--bind='ctrl-]:change-preview-window(75%|50%)'",
       "--bind='ctrl-\\:change-preview-window(right|up)'",
       "--bind='ctrl-r:clear-query+reload:" .. cmd.grep .. " {q} || true'",
       opts_tbl.fzf,

@@ -300,6 +300,42 @@ function y() {
 bindkey -s '^D' "\eq y\n"
 
 
+#   _|     _|
+#  | _  / |
+#  __| /  __|
+# _| ___|_|
+
+#https://github.com/junegunn/fzf
+#`--ansi` tells fzf to extract and parse ANSI color codes in the
+# input, and it makes the initial scanning slower. So it's not
+# recommended that you add it to your $FZF_DEFAULT_OPTS. `--nth` makes
+# fzf slower because it has to tokenize each line.
+
+export FZF_DEFAULT_OPTS="
+--style=minimal
+--color=dark
+--no-info
+--no-separator
+--border=none
+--color=fg:#FAF0E6,fg+:#FAF0E6,bg:#000000,bg+:#1D1F21,preview-bg:#000000
+--color=hl:#00FFFF,hl+:#FF00FF,info:#FAF0E6,marker:#FF00FF
+--color=prompt:#FF00FF,spinner:#330099,pointer:#FF00FF,header:#FAF0E6
+--color=border:#FAF0E6,label:#FAF0E6,query:#FAF0E6,gutter:#000000
+--marker='█'
+--pointer='◆'
+"
+
+
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
+# Enable execution tracing. For more details, refer to 'man zshbuiltins'
+#typeset -ft fzf-completion
+
+# Verbose Execution trace prompt (default: '+%N:%i> '). For more details, refer to 'man zshparam/zshmisc'
+#PS4=$'\n%B%F{0}+ %D{%T:%3.} %2N:%I%f%b '
+
+
 #
 #   _ \ __ \\ \   /
 #   __/ |   |\ \ /
@@ -325,7 +361,7 @@ stty -ixon
 
 # dumb lock:
 hasssid=`nmcli d show wlan0 | grep "GENERAL.CONNECTION:" | awk '{print $2}'`
-if [[ $hasssid = "internetz" ]] ; then
+if [[ $hasssid = "internetz" ]] | [[ $hasssid = "tephelon" ]] ; then
     # turn off powersaver/screensaver/blanking/bell:
     xset -dpms
     xset s off

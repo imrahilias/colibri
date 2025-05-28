@@ -9,9 +9,9 @@ ctpv-git r264.4efa0f9-1
 ctpv-git-debug r264.4efa0f9-1
 dragon-drop 1.2.0-2
 dragon-drop-debug 1.2.0-2
-element-desktop-git 1.11.80.r16.g8d77b2a15a-1
+electron32 32.3.3-1
+electron33 33.4.11-2
 element-desktop-git-debug 1.11.80.r16.g8d77b2a15a-1
-element-web-git 1.11.80.r16.g8d77b2a15a-1
 env-modules-debug 5.4.0-1
 epeg-git 0.9.3.r0.g17bbae0-1
 gtk3-nocsd-git 3.0.8+2.r84.20221015.a356bf7-2
@@ -71,6 +71,8 @@ samsung-unified-driver-printer 1.00.39-10
 samsung-unified-driver-scanner 1.00.39-10
 samsung_magician-consumer-ssd 1.0-1
 slack-desktop 4.43.52-1
+spack 0.23.1-1
+spack-debug 0.23.1-1
 spark-bash 1.0.1-1
 spotify 1:1.2.60.564-2
 toilet-fonts 1.0-2

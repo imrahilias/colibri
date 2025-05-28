@@ -56,7 +56,7 @@ gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 export XSECURELOCK_AUTH="auth_x11"
 export XSECURELOCK_AUTHPROTO="authproto_pam"
-export XSECURELOCK_PAM_SERVICE="login"
+export XSECURELOCK_PAM_SERVICE="xsecurelock"
 export XSECURELOCK_BLANK_DPMS_STATE="suspend"
 export XSECURELOCK_PASSWORD_PROMPT="time_hex"
 export XSECURELOCK_NO_PAM_RHOST=1

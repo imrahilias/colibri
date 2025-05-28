@@ -52,7 +52,7 @@ dragon-drop
 easyeffects
 edk2-shell
 efibootmgr
-element-desktop-git
+element-desktop
 elinks
 emacs
 emacs-lua-mode
@@ -279,6 +279,7 @@ shellcheck
 shotwell
 signal-desktop
 slack-desktop
+spack
 spark-bash
 spotify
 sshfs

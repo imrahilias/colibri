@@ -52,14 +52,29 @@ end, 500, Status.RIGHT)
 require("custom-shell"):setup({
     history_path = "default",
     save_history = true,
-})
+                             })
 
 -- fg customisations, do not work for the window `--preview-window
 -- 'right:50%'`, that has to be changed in the plugin `main.lua`!
 require("fr"):setup {
-   fzf = [[--color=dark --no-info --no-separator --color='prompt:magenta' --inline-info --border=none --preview-window=border-none --layout=reverse --ansi]],
-   --rg = "--colors 'line:fg:red' --colors 'match:style:nobold'",
-   rg = "--hidden --column --line-number --no-heading --color=always --smart-case",
+   fzf = {
+      "--style=minimal",
+      "--color=dark",
+      "--layout=reverse",
+      "--color=dark",
+      "--no-info",
+      "--no-separator",
+      "--border=none",
+      "--preview-window=border-none",
+      "--color=fg:#FAF0E6,fg+:#FAF0E6,bg:#000000,bg+:#1D1F21,preview-bg:#000000",
+      "--color=hl:#00FFFF,hl+:#FF00FF,info:#FAF0E6,marker:#FF00FF",
+      "--color=prompt:#FF00FF,spinner:#330099,pointer:#FF00FF,header:#FAF0E6",
+      "--color=border:#FAF0E6,label:#FAF0E6,query:#FAF0E6,gutter:#000000",
+      "--marker='█'",
+      "--pointer='◆'",
+   },
+   --rg = "--colors 'line:fg:red' --colors 'match:style:nobold' --line-number",
+   rg = "--hidden --column --no-heading --color=always --smart-case",
    bat = "--style 'header,grid' --number --color=always",
    rga = {
       "--follow",
