@@ -81,7 +81,8 @@ keymap = [
 
 { on = "[", run = "tab_switch -1 --relative", desc = "Switch to the previous tab" },
 
-{ on = "\\", run  = "plugin fr fzf",  desc = "find file by filename (fuzzy match)"},
+# fg could do that, fr cant:
+#{ on = "\\", run  = "plugin fr fzf",  desc = "find file by filename (fuzzy match)"},
 
 { on = "]", run = "tab_switch 1 --relative",  desc = "Switch to the next tab" },
 
@@ -248,7 +249,7 @@ keymap = [
 { on = [ "z", "p" ], run = "linemode permissions", desc = "Set linemode to permissions" },
 { on = [ "z", "s" ], run = "linemode size",        desc = "Set linemode to size" },
 
-#{ on = "Z", run = "plugin fzf", desc = "Jump to a directory or reveal a file using fzf" },
+{ on = "\\", run = "plugin fzf", desc = "Jump to a directory or reveal a file using fzf" },
 
 ]
 
