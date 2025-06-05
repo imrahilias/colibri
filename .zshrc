@@ -29,6 +29,9 @@ ZSH_DISABLE_COMPFIX="true"
 # also just drop the caps lock key, it is a second ctrl now.
 setxkbmap -layout "us(m)" -option ctrl:nocaps
 
+# set some theme options as global envs via sourcing this in .zashrc:
+source "${XDG_CONFIG_HOME:-$HOME}/theme"
+
 
 #                                  |
 #  __ \   __| _ \  __ `__ \  __ \  __|
@@ -141,6 +144,11 @@ alias v='nvim '
 alias vi='nvim '
 alias vim='nvim '
 alias mnt=' mount | column -t'
+#alias day='export THEME=light && source ~/bin/theme'
+#alias night='export THEME=dark && source ~/bin/theme'
+alias day='darkman set light'
+alias night='darkman set dark'
+
 
 # some gnome stuff:
 alias gnome-session='echo "haha nice try:D"'
@@ -311,21 +319,6 @@ bindkey -s '^D' "\eq y\n"
 # recommended that you add it to your $FZF_DEFAULT_OPTS. `--nth` makes
 # fzf slower because it has to tokenize each line.
 
-export FZF_DEFAULT_OPTS="
---style=minimal
---color=dark
---no-info
---no-separator
---border=none
---color=fg:#FAF0E6,fg+:#FAF0E6,bg:#000000,bg+:#1D1F21,preview-bg:#000000
---color=hl:#00FFFF,hl+:#FF00FF,info:#FAF0E6,marker:#FF00FF
---color=prompt:#FF00FF,spinner:#330099,pointer:#FF00FF,header:#FAF0E6
---color=border:#FAF0E6,label:#FAF0E6,query:#FAF0E6,gutter:#000000
---marker='█'
---pointer='◆'
-"
-
-
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 
@@ -349,6 +342,58 @@ export GOPATH="$HOME/.go"
 
 # signal now fails:
 #export SIGNAL_PASSWORD_STORE='gnome-libsecret'
+
+
+#  |   |
+#  __| __ \   _ \ __ `__ \   _ \
+#  |   | | |  __/ |   |   |  __/
+# \__|_| |_|\___|_|  _|  _|\___|
+#
+
+# this is changed via sed by darkman:
+THEME_DARK=1
+
+# set fzf options as global envs via sourcing this in .zshrc.
+FZF_DEFAULT_OPTS_BASE="--style=minimal --no-info --no-separator --border=none --marker='█' --pointer='◆'"
+
+# dark color palette:
+FZF_DEFAULT_OPTS_DARK="--color=light --color=fg:#000000,fg+:#000000,bg:#FFFFFF,bg+:#FFFFFF,preview-bg:#FFFFFF,hl:#008080,hl+:#800080,info:#000000,marker:#800080,prompt:#800080,spinner:#330099,pointer:#800080,header:#000000,border:#000000,label:#000000,query:#000000,gutter:#FFFFFF"
+
+# light color palette:
+FZF_DEFAULT_OPTS_LIGHT="--color=dark --color=fg:#FAF0E6,fg+:#FAF0E6,bg:#000000,bg+:#1D1F21,preview-bg:#000000,hl:#00FFFF,hl+:#FF00FF,info:#FAF0E6,marker:#FF00FF,prompt:#FF00FF,spinner:#330099,pointer:#FF00FF,header:#FAF0E6,border:#FAF0E6,label:#FAF0E6,query:#FAF0E6,gutter:#000000"
+
+# dark side or light side?
+if [[ $THEME_DARK == 1 ]]
+then
+    export CALIBRE_USE_DARK_PALETTE=1
+
+    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS_BASE $FZF_DEFAULT_OPTS_DARK"
+
+    # term colors:
+    xrdb -merge ~/.config/darkman/dark
+    xrdb -merge ~/.Xresources
+
+    # qt looks like current gtk theme
+    # qt themes use the gtk2/3 theme arc-blackest converted via qt6gtk2,
+    # has to be run from yay whenever either qt6 or gtk2/3 change,
+    # no way to do that for two themes in the background though.
+    export QT_QPA_PLATFORMTHEME="gtk2" # qt looks like current gtk theme
+    export QT_STYLE_OVERRIDE="gtk2"
+
+else
+    export CALIBRE_USE_DARK_PALETTE=0
+
+    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS_BASE $FZF_DEFAULT_OPTS_LIGHT"
+
+    # term colors:
+    xrdb -merge ~/.config/darkman/light
+    xrdb -merge ~/.Xresources
+
+    # qt themes use the gtk2/3 theme arc-blackest converted via qt6gtk2:
+    export QT_QPA_PLATFORMTHEME="gtk2"
+    export QT_STYLE_OVERRIDE="gtk2"
+fi
+
 
 #       |          _|  _|
 #   __| __| |   | |   |

@@ -28,22 +28,29 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-# start keyring:
-#eval $(gnome-keyring-daemon --start)
-#export SSH_AUTH_SOCK
 # ssh managment is moving to grc:
-export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
 
 # has to be called before owncloud, via zshrc is not enough!?
 export XDG_CONFIG_HOME="/home/m/.config"
 
+# unless some random channel should main whenever something changes:
+export ALSA_CARD="PCH"
+export ALSA_CTL="PCH"
+
+# theme stuf moved to zshrc, and is changed by darkman:
+export XDG_CURRENT_DESKTOP="darkman"
+
+# not sure what that does?!
+#export XDG_CURRENT_DESKTOP="GNOME"
+
+# default is dark theme, sets the tray icons:
+export CALIBRE_USE_DARK_PALETTE=1
+gsettings set org.gnome.desktop.interface gtk-theme Arc-BLACKEST
+
 # qt themes use the gtk2/3 theme arc-blackest converted via qt6gtk2:
 export QT_QPA_PLATFORMTHEME="gtk2" # qt looks like current gtk theme
 export QT_STYLE_OVERRIDE="gtk2"
-export ALSA_CARD="PCH"
-export ALSA_CTL="PCH"
-export CALIBRE_USE_DARK_PALETTE=1
-export XDG_CURRENT_DESKTOP="GNOME"
 
 # on arch linux, you should use ~/.xsession instead of ~/.bashrc for
 # the csds to be disabled properly:
@@ -65,7 +72,6 @@ export XSECURELOCK_SHOW_USERNAME=0
 export XSECURELOCK_SHOW_KEYBOARD_LAYOUT=0
 
 # make urxvt work on vsc:
-#export TERM=rxvt-unicode
 export TERM=rxvt-unicode-256color
 
 # start awesome:

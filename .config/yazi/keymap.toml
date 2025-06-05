@@ -8,7 +8,7 @@
 # $0 (Unix): The hovered file.
 
 
-[manager]
+[mgr]
 
 keymap = [
 # wanted; lf has that:
