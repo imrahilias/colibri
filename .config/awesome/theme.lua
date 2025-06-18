@@ -8,8 +8,6 @@ theme = {}
 
 theme.wallpaper = "/home/m/.config/awesome/wall/beach6.jpg"
 
---theme.font          = "Bitstream Vera Sans 12"
---theme.taglist_font  = "Bitstream Vera Sans 18"
 theme.font          = "BitstromWera Nerd Font:style=Regular 12"
 theme.taglist_font  = "BitstromWera Nerd Font 14"
 
@@ -20,13 +18,14 @@ theme.bg_minimize   = theme.bg_normal
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = "#D3D3D3"
-theme.fg_focus      = "#00BFFF" -- "#4682B4"
+theme.fg_focus      = "#00BFFF"
 theme.fg_urgent     = "#FF00FF"
 theme.fg_minimize   = "#696969"
 
 -- cool: border doesnt know names, this gives transparent background!
-theme.border_width  = 1
 --theme.border_normal = "LightGray"
+
+theme.border_width  = 1
 theme.border_normal = "#444444"
 theme.border_focus  = theme.border_normal
 theme.border_marked = theme.fg_focus
@@ -107,5 +106,7 @@ theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used:
 --theme.icon_theme = nil
 theme.icon_theme = "/usr/share/icons/HighContrast"
+
+theme.notification_icon_size = 70
 
 return theme

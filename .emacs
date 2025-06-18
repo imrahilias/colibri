@@ -128,16 +128,22 @@ There are two thing you can do about this warning:
 ;; (setq theme-color-cyan    "DarkCyan")
 ;; (setq theme-color-gray    "grey")
 
-;; syntax highlighting:
-(global-color-identifiers-mode t)
 (global-font-lock-mode t)
 (setq font-lock-maximum-decoration t)
 (setq font-lock-maximum-size '262144)
+
+;; rainbow style syntax highlighting:
+;(global-color-identifiers-mode t)
+
+;;toggle selective highlighting of patterns (hi-lock-mode):
 (global-hi-lock-mode t)
+
+(global-highlight-operators-mode t)
 (global-highlight-parentheses-mode t)
 (set-face-attribute 'hi-yellow nil :foreground "#FAF0E6" :background "#1A004E")
+
+;minor mode that highlights things at point:
 (global-highlight-thing-mode t)
-(global-highlight-operators-mode t)
 
 ;; make ugly glyphs from greek letters?
 ;;global-prettify-symbols-mode t)

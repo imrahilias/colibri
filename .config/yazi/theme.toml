@@ -86,7 +86,7 @@ permissions_s = { fg = "darkgray" }
 # : Pick {{{
 
 [pick]
-border   = { fg = "blue" }
+border   = { fg = "white" }
 active   = { fg = "magenta", bold = true }
 inactive = {}
 
@@ -95,7 +95,7 @@ inactive = {}
 # : Input {{{
 
 [input]
-border   = { fg = "blue" }
+border   = { fg = "white" }
 title    = {}
 value    = {}
 selected = { reversed = true }
@@ -105,8 +105,8 @@ selected = { reversed = true }
 # : Confirm {{{
 
 [confirm]
-border     = { fg = "blue" }
-title      = { fg = "blue" }
+border     = { fg = "white" }
+title      = { fg = "white" }
 content    = {}
 list       = {}
 btn_yes    = { reversed = true }
@@ -118,7 +118,7 @@ btn_labels = [ "  [Y]es  ", "  (N)o  " ]
 # : Completion {{{
 
 [completion]
-border   = { fg = "blue" }
+border   = { fg = "white" }
 active   = { reversed = true }
 inactive = {}
 
@@ -133,7 +133,7 @@ icon_command = ""
 # : Tasks {{{
 
 [tasks]
-border  = { fg = "blue" }
+border  = { fg = "white" }
 title   = {}
 hovered = { fg = "magenta", underline = true }
 
