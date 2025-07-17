@@ -42,6 +42,7 @@ cups
 cups-pdf
 cyrus-sasl
 cyrus-sasl-gssapi
+darkman
 darktable
 dbus-broker
 dconf-editor
@@ -57,7 +58,6 @@ elinks
 emacs
 emacs-lua-mode
 emacs-python-mode
-epeg-git
 evince
 evolution
 evolution-ews
@@ -72,7 +72,6 @@ firefox
 flex
 fontforge
 fortune-mod
-fprintd
 fwupd
 fwupd-efi
 fzf
@@ -88,6 +87,7 @@ gnome-calendar
 gnome-contacts
 gnome-control-center
 gnome-keyring
+gnome-themes-extra
 gnuplot
 gpick
 grc
@@ -126,6 +126,7 @@ linux-headers
 linux-zen
 lolcat
 lostfiles
+luakit
 luarocks
 lxappearance-gtk3
 lynx
@@ -134,6 +135,7 @@ make
 materia-gtk-theme
 mdcat
 mediainfo
+mesa-utils
 meson
 modemmanager
 most
@@ -152,6 +154,7 @@ networkmanager-vpnc
 nextcloud-client
 nnn
 nodejs-material-design-icons
+nsight-systems
 ntfs-3g
 ntp
 nvtop
@@ -159,7 +162,6 @@ octave
 odt2txt
 openconnect
 openssh-askpass
-owncloud-client
 pandoc-cli
 pandoc-crossref
 pandoc-plot
@@ -190,7 +192,6 @@ qt5-3d
 qt5-base
 qt5-charts
 qt5-connectivity
-qt5-datavis3d
 qt5-declarative
 qt5-doc
 qt5-examples
@@ -210,7 +211,6 @@ qt5-remoteobjects
 qt5-script
 qt5-scxml
 qt5-sensors
-qt5-serialbus
 qt5-serialport
 qt5-speech
 qt5-styleplugins
@@ -264,8 +264,9 @@ reveal-md
 ripdrag-git
 ripgrep
 ripgrep-all
+rofi
 rsync
-rtorrent-ps
+rtorrent
 rxvt-unicode
 samsung-unified-driver
 samsung_magician-consumer-ssd
@@ -406,6 +407,7 @@ xss-lock
 xterm
 yay
 yazi
+yq
 zathura
 zathura-cb
 zathura-djvu

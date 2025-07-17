@@ -9,6 +9,7 @@ echo "$fg_bold[blue]::$fg_bold[white] Running on $loc $reset_color"
 case $(hostname) in
     archaeopteryx)
         ## rsnapshot timers
+        echo "$fg_bold[blue]::$fg_bold[white] Archive rsnapshot timers... $reset_color"
         sudo cp --parents /etc/systemd/system/rsnapshot-weekly.timer $loc/
         sudo cp --parents /etc/systemd/system/rsnapshot-daily.timer $loc/
         sudo cp --parents /etc/systemd/system/rsnapshot-hourly.timer $loc/
@@ -23,11 +24,13 @@ case $(hostname) in
 esac
 
 ## boot
+echo "$fg_bold[blue]::$fg_bold[white] Archive /boot/stuff... $reset_color"
 sudo cp --parents /boot/loader/loader.conf $loc/
 sudo rm -rf $loc/boot/loader/entries/*
 sudo cp --parents /boot/loader/entries/*.conf $loc/
 
 ## etc
+echo "$fg_bold[blue]::$fg_bold[white] Archive /etc/stuff... $reset_color"
 sudo cp --parents /etc/mkinitcpio.conf $loc/
 sudo cp --parents /etc/pacman.conf $loc/
 sudo cp --parents /etc/fstab $loc/
@@ -45,6 +48,7 @@ sudo cp --parents /etc/pam.d/system-local-login $loc/
 sudo cp --parents /etc/pam.d/system-login $loc/
 
 # usr
+echo "$fg_bold[blue]::$fg_bold[white] Archive Xsession... $reset_color"
 sudo cp --parents /usr/share/xsessions/awesome.desktop $loc/
 
 ## on system maintenance and stuff

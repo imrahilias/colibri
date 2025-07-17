@@ -196,7 +196,7 @@ globalkeys = gears.table.join(
    -- icons:   
    awful.key({ modkey, "Control"}, "q", function () awful.spawn("systemctl suspend") end),
    awful.key({ modkey }, "Return", function () awful.spawn(terminal) end),
-   awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('urxvtc -e sh -c "TERM=rxvt-unicode ssh admin"') end),
+   awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('urxvtc -e sh -c "TERM=rxvt-unicode ssh login"') end),
    awful.key({ modkey, "Control" }, "Return", function () awful.spawn('urxvtc -e sh -c "TERM=rxvt-unicode ssh l55"') end),
    awful.key({ modkey }, "d", function () awful.spawn.with_shell("urxvtc -title '  Yazi' -e yazi", false) end),
    awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell('urxvtc -e sudo yazi', false) end),
@@ -672,7 +672,6 @@ awful.rules.rules = {
            "TelegramDesktop",
            "Signal",
            "scrcpy",
-           "Rocket.Chat",
            "Slack",
            "Element",
    }}, properties = { tag = " ", switchtotag = true }},
@@ -682,6 +681,8 @@ awful.rules.rules = {
         class = {
            "steam",
            "zoom",
+           "Zoom",
+           "1Password",
         },
         name = {
            "Zoom Meeting",

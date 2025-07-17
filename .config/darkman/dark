@@ -1,0 +1,130 @@
+!~/.Xresources
+! no inline comments!
+
+!        | |
+!   _` | | |
+!  (   | | |
+! \__,_|_|_|
+!
+
+!*.background: rgb:0/0/0
+
+!             |
+!   __|  _ \  |  _ \   __| __|
+!  (    (   | | (   | |  \__ \
+! \___|\___/ _|\___/ _|  ____/
+
+! type 'rainbow' for quick demo
+
+! foreground: background
+! 0: 30, black
+! 1: 31, red
+! 2: 32, green
+! 3: 33, yellow
+! 4: 34, blue
+! 5: 35, magenta
+! 6: 36, cyan
+! 7: 37, white
+! bold foreground: background
+! 8: 40, black
+! 9: 41, red
+! 10: 42, green
+! 11: 43, yellow
+! 12: 44, blue
+! 13: 45, magenta
+! 14: 46, cyan
+! 15: 47, white
+! 16: 48, default
+
+! xterm standard:
+! *color0: #000000
+! *color1: #800000
+! *color2: #008000
+! *color3: #808000
+! *color4: #000080
+! *color5: #800080
+! *color6: #008080
+! *color7: #c0c0c0
+! *color8: #808080
+! *color9: #ff0000
+! *color10:#00ff00
+! *color11:#ffff00
+! *color12:#0000ff
+! *color13:#ff00ff
+! *color14:#00ffff
+! *color15:#ffffff
+! *color16:#ffffff
+
+! dark mode:
+*color0: #000000
+*color1: #8B0000
+*color2: #2E8B57
+*color3: #DAA520
+*color4: #4682B4
+*color5: #8B008B
+*color6: #20B2AA
+*color7: #FFEBCD
+*color8: #696969
+*color9: #CD5C5C
+*color10: #8FBC8B
+*color11: #8B4000
+*color12: #00BFFF
+*color13: #FF00FF
+*color14: #00CED1
+*color15: #FFF5EE
+*color16: #FFEBCD
+
+!                          |
+!  |   |  __|\ \  /\ \   / __|
+!  |   | |    `  <  \ \ /  |
+! \__,_|_|    _/\_\  \_/  \__|
+!
+
+! URxvt (case sensitive?)
+! ttps://wiki.archlinux.org/index.php/Rxvt-unicode
+
+URxvt.*scrollColor: #A9A9A9
+
+! fake transparency; possible clash with darkmman mode switching:
+! fade the text by the given percentage when focus is lost:
+! URxvt.*fading: 30
+URxvt.*transparent: false
+! shading; 0 to 99 darkens, 101 to 200 lightens:
+!URxvt.*shading: 10
+
+! real transparency; possible clash with darkmman mode switching:
+! URxvt.*depth: 32
+! URxvt.*background: [80]#000000
+! URxvt.*background: rgba:0000/0000/0000/c900
+
+URxvt.*foreground: #FAF0E6
+URxvt.*background: #000000
+URxvt.*cursorColor: #FF00FF
+URxvt.*cursorColor2: #FF00FF
+URxvt.*pointerColor: #FF00FF
+URxvt.*pointerColor2: #FF00FF
+! URxvt.*underlineColor:
+! URxvt.*scrollColor:
+! URxvt.*troughColor:
+! URxvt.*highlightColor:
+! URxvt.*highlightTextColor:
+
+
+!        |
+! \ \  / __|  _ \  __| __ `__ \
+!  `  <  |    __/ |    |   |   |
+!  _/\_\\__|\___|_|   _|  _|  _|
+!
+
+xterm.*foreground: #FAF0E6
+xterm.*background: #000000
+xterm.*transparent: true
+xterm.*cursorColor: #FF00FF
+xterm.*cursorColor2: #FF00FF
+
+xterm.*veryBoldColors: 6
+! xterm.*color0:  rgb:28/2a/2b
+! xterm.*colorBDMode: true
+! xterm.*colorBD: Red
+! xterm.*colorULMode: true
+! xterm.*colorUL: Cyan

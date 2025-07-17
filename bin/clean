@@ -1,13 +1,13 @@
 #!/bin/zsh
-## m@archaeopteryx
-## on system maintenance and stuff
-## https://wiki.archlinux.org/index.php/System_maintenance
-## https://wiki.archlinux.org/index.php/Pacman/Tips_and_tricks
+# m@archaeopteryx
+# on system maintenance and stuff
+# https://wiki.archlinux.org/index.php/System_maintenance
+# https://wiki.archlinux.org/index.php/Pacman/Tips_and_tricks
 
 autoload colors; colors
 loc=/home/m/.$(hostname)
 
-## check root access
+# check root access
 if [[ $UID = 0 || $EUID = 0 ]]; then
     echo "$fg_bold[blue]::$fg_bold[white] Got root access; will do as please... $reset_color"
 else
@@ -15,39 +15,50 @@ else
     exit 0
 fi
 
-## shrink cache
+# shrink cache
 # echo "$fg_bold[blue]::$fg_bold[white] Shrink cache? $reset_color"
 # echo "delete all cached versions of installed and uninstalled packages except for the most recent 3?$reset_color"
 # echo "   paccache -r"
 # paccache -r
 
-## remove unused cache
+# remove unused cache
 # echo "$fg_bold[blue]::$fg_bold[white] Remove unused cache? $reset_color"
 # echo "remove all the cached packages that are not currently installed, and the unused sync database?$reset_color"
 # echo "   pacman -Sc"
 # pacman -Sc
 
-## purge cache
+# purge cache
 echo "$fg_bold[blue]::$fg_bold[white] Purge cache? $reset_color"
 echo "   most aggressive approach will leave nothing in the cache folder"
 echo "   pacman -Scc"
 pacman -Scc
 
-## orphans
+# orphans
 echo "$fg_bold[blue]::$fg_bold[white] Delete orphans and dropped packages?"
 echo "   pacman -Rns $(pacman -Qtdq)"
 pacman -Rns $(pacman -Qtdq)
 
-## lost
+# lost
 echo "$fg_bold[blue]::$fg_bold[white] Search for lost files ()not owned by any pacman package)... $reset_color"
 echo "   sudo lostfiles strict > $loc/lost_files"
 lostfiles strict > $loc/lost_files
 echo "   $(wc -l < $loc/lost_files) lost files found"
 
-## broken
+# broken
 echo "$fg_bold[blue]::$fg_bold[white] Search for broken symlinks... $reset_color"
 echo "   sudo find / -xtype l -print > $loc/broken_links"
 find / -xtype l -print > $loc/broken_links
 echo "   $(wc -l < $loc/broken_links) broken symlinks found"
+
+# mirrorlist
+echo "$fg_bold[blue]::$fg_bold[white] Filter Arch mirrors by highest score & latest & fastest... $reset_color"
+# filters are inclusive, i.e. the returned list will only contain mirrors for which all of the given conditions are met.
+reflector --protocol https --threads 16 --score 100 --latest 100 --fastest 100 --sort rate --save /etc/pacman.d/mirrorlist_fastest
+echo "$fg_bold[blue]::$fg_bold[white] Add Arch mirrors of Austria as fallback... $reset_color"
+reflector --protocol https --threads 16 --country Austria --sort rate --save /etc/pacman.d/mirrorlist_austria
+echo "$fg_bold[blue]::$fg_bold[white] Concatenate /etc/pacman.d/mirrorlist... $reset_color"
+cat /etc/pacman.d/mirrorlist_fastest /etc/pacman.d/mirrorlist_austria > /etc/pacman.d/mirrorlist
+rm /etc/pacman.d/mirrorlist_fastest
+rm /etc/pacman.d/mirrorlist_austria
 
 exit 0

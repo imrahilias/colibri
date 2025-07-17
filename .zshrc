@@ -409,12 +409,13 @@ hasssid=`nmcli d show wlan0 | grep "GENERAL.CONNECTION:" | awk '{print $2}'`
 if [[ $hasssid = "internetz" || $hasssid = "tephelon" ]] ; then
     # turn off powersaver/screensaver/blanking/bell:
     xset -dpms
+    xset s blank
     xset s off
-    xset s noblank
 else
     # start dimmer after 300s and lock after 10 more s:
-    xset s 300 10
     xset +dpms
+    xset s 300 10
+    xset s on
 fi
 xset -b &> /dev/null # turn off bell
 
