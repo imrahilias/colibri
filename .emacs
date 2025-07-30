@@ -3,9 +3,6 @@
 ;; \__ \ |   |   | __| __|
 ;; ____/\__|\__,_|_|  _|
 
-;; fun:
-;;(Global-set-key (kbd "C-x C-s") 'spook)
-
 ;; melpa
 (require 'package)
 (package-initialize)
@@ -66,10 +63,10 @@ There are two thing you can do about this warning:
                    yaml-pro))
  '(warning-suppress-log-types '((auto-save))))
 
-;; markdown/org translator:
-(add-to-list 'load-path "~/.emacs.d/others/org-pandoc-import")
-(require 'org-pandoc-import)
-(require 'org-pandoc-import-transient)
+;; ;; markdown/org translator:
+;; (add-to-list 'load-path "~/.emacs.d/others/org-pandoc-import")
+;; (require 'org-pandoc-import)
+;; (require 'org-pandoc-import-transient)
 
 ;; highlight tabs:
 (setq whitespace-style '(face tabs))
@@ -133,12 +130,12 @@ There are two thing you can do about this warning:
 (setq font-lock-maximum-size '262144)
 
 ;; rainbow style syntax highlighting:
-;(global-color-identifiers-mode t)
+(global-color-identifiers-mode t)
 
 ;;toggle selective highlighting of patterns (hi-lock-mode):
 (global-hi-lock-mode t)
 
-(global-highlight-operators-mode t)
+;(highlight-operators-mode t)
 (global-highlight-parentheses-mode t)
 (set-face-attribute 'hi-yellow nil :foreground "#FAF0E6" :background "#1A004E")
 
@@ -146,7 +143,7 @@ There are two thing you can do about this warning:
 (global-highlight-thing-mode t)
 
 ;; make ugly glyphs from greek letters?
-;;global-prettify-symbols-mode t)
+;(global-prettify-symbols-mode t)
 
 ;; highlight line:
 (global-hl-line-mode t)
@@ -250,44 +247,49 @@ There are two thing you can do about this warning:
 ;\___/ _|  \__, |
 ;          |___/
 
-;; org headers become bold:
-(set-face-attribute 'org-level-1 nil :bold t)
-(set-face-attribute 'org-level-2 nil :bold t)
-(set-face-attribute 'org-level-3 nil :bold t)
-(set-face-attribute 'org-level-4 nil :bold t)
-(set-face-attribute 'org-level-5 nil :bold t)
-(set-face-attribute 'org-level-6 nil :bold t)
-(set-face-attribute 'org-level-7 nil :bold t)
-(set-face-attribute 'org-level-8 nil :bold t)
-(set-face-attribute 'org-level-1 nil :foreground "#FAF0E6" :background "#4682B4")
-(set-face-attribute 'org-level-1 nil :background "#4682B4")
+(require 'org-faces)
+;; load faces first, then customise:
+(with-eval-after-load 'org-faces
+  ;; org headers become bold:
+  (set-face-attribute 'org-level-1 nil :bold t)
+  (set-face-attribute 'org-level-2 nil :bold t)
+  (set-face-attribute 'org-level-3 nil :bold t)
+  (set-face-attribute 'org-level-4 nil :bold t)
+  (set-face-attribute 'org-level-5 nil :bold t)
+  (set-face-attribute 'org-level-6 nil :bold t)
+  (set-face-attribute 'org-level-7 nil :bold t)
+  (set-face-attribute 'org-level-8 nil :bold t)
+  (set-face-attribute 'org-level-1 nil :foreground "#FAF0E6" :background "#4682B4")
+  (set-face-attribute 'org-level-1 nil :background "#4682B4")
 
-;; org mode colours:
-(setq org-fontify-quote-and-verse-blocks t)
-(set-face-attribute 'org-quote nil :italic t)
-(set-face-attribute 'org-verbatim nil :foreground "#000000" :background "#787787")
-(set-face-attribute 'org-code nil :background "#0b0d0f")
-(set-face-attribute 'org-block nil :background "#0b0d0f")
-(set-face-attribute 'org-block-begin-line nil :background "#161a1f" :bold t)
+  ;; org mode colours:
+  (setq org-fontify-quote-and-verse-blocks t)
+  (set-face-attribute 'org-quote nil :italic t)
+  (set-face-attribute 'org-verbatim nil :foreground "#000000" :background "#787787")
+  (set-face-attribute 'org-code nil :background "#0b0d0f")
+  (set-face-attribute 'org-block nil :background "#0b0d0f")
+  (set-face-attribute 'org-block-begin-line nil :background "#161a1f" :bold t)
 
-;; table (header) is same as block (begin line):
-(set-face-attribute 'org-table nil :background "#0b0d0f")
-(set-face-attribute 'org-table-header nil :foreground "#787787" :background "#161a1f" :bold t)
+  ;; table (header) is same as block (begin line):
+  (set-face-attribute 'org-table nil :background "#0b0d0f")
+  (set-face-attribute 'org-table-header nil :foreground "#787787" :background "#161a1f" :bold t)
 
-;; magic comments face:
-(set-face-attribute 'org-meta-line nil :bold t)
+  ;; magic comments face:
+  (set-face-attribute 'org-meta-line nil :bold t)
+  )
 
 ;; org mode emphasis styles:
 (setq org-emphasis-alist
-      (quote (
-              ("*" bold)
-              ("/" italic)
-              ("_" underline)
-              ("-" overline)
-              ("=" org-verbatim org-verbatim)
-              ("~" org-code org-code)
-              ("+" (:strike-through t))
-              )))
+      (quote
+       (
+        ("*" bold)
+        ("/" italic)
+        ("_" underline)
+        ("-" overline)
+        ("=" org-verbatim org-verbatim)
+        ("~" org-code org-code)
+        ("+" (:strike-through t))
+        )))
 
 
 ;;            |   |  _)
@@ -424,6 +426,8 @@ There are two thing you can do about this warning:
 
 (global-set-key (kbd "M-<mouse-8>") 'next-buffer)
 (global-set-key (kbd "M-<mouse-9>") 'previous-buffer)
+(global-set-key (kbd "C-<right>") 'next-buffer)
+(global-set-key (kbd "C-<left>") 'previous-buffer)
 
 ;; page down/up:
 (global-set-key (kbd "M-<wheel-down>") (kbd "C-v"))
