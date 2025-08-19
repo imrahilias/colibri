@@ -30,7 +30,7 @@ ZSH_DISABLE_COMPFIX="true"
 setxkbmap -layout "us(m)" -option ctrl:nocaps
 
 # set some theme options as global envs via sourcing this in .zashrc:
-source "${XDG_CONFIG_HOME:-$HOME}/theme"
+#source "${XDG_CONFIG_HOME:-$HOME}/theme"
 
 
 #                                  |
@@ -135,6 +135,7 @@ alias dhome='xrandr --output eDP --off --output HDMI-A-0 --auto --primary --scal
 alias dleft='xrandr --output HDMI-A-0 --auto --primary --scale 1 --output eDP --auto --left-of HDMI-A-0'
 alias dmid='xrandr --output HDMI-A-0 --auto --primary --scale 1 --output eDP --auto --below HDMI-A-0'
 alias dwide='xrandr --output eDP --off --output DisplayPort-0 --auto --scale 0.7 --output DisplayPort-1 --auto --scale 0.7 --output HDMI-A-0 --auto --scale 0.7'
+alias dlap='xrandr --output eDP --auto  --output --primary --scale 1 --output DisplayPort-0 off --output DisplayPort-1 off --output HDMI-A-0 off --output HDMI-A-1 off'
 alias dtwo='xrandr --output eDP --off --output DisplayPort-0 --mode 3840x2160 --scale 0.7 --right-of HDMI-A-0'
 alias wh='which '
 alias r='zranger'
@@ -405,7 +406,7 @@ fi
 stty -ixon
 
 # dumb lock:
-hasssid=`nmcli d show wlan0 | grep "GENERAL.CONNECTION:" | awk '{print $2}'`
+hasssid=`nmcli d show wlp3s0 | grep "GENERAL.CONNECTION:" | awk '{print $2}'`
 if [[ $hasssid = "internetz" || $hasssid = "tephelon" ]] ; then
     # turn off powersaver/screensaver/blanking/bell:
     xset -dpms

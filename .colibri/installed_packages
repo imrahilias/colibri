@@ -34,6 +34,7 @@ calibre
 catdoc
 cbatticon
 ccze
+chromium
 colordiff
 cowsay
 cpupower
@@ -48,6 +49,7 @@ dbus-broker
 dconf-editor
 dhcpcd
 diff-so-fancy
+discord
 docker
 dragon-drop
 easyeffects
@@ -107,7 +109,6 @@ hunspell-en_us
 hwinfo
 inetutils
 inkscape
-iwd
 jdk11-openjdk
 jupyterlab
 keepass

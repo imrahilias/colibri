@@ -1,5 +1,5 @@
-1password 8.11.0-29
-1password-cli 2.31.0-1
+1password 8.11.4-27
+1password-cli 2.31.1-1
 arc-gtk-theme 20221218-2
 better-adb-sync-git r76.2d19f23-1
 ccze 0.2.1-13
@@ -33,12 +33,12 @@ samsung-unified-driver-common 1.00.39-11
 samsung-unified-driver-printer 1.00.39-11
 samsung-unified-driver-scanner 1.00.39-11
 samsung_magician-consumer-ssd 1.0-1
-slack-desktop 4.44.60-1
-spack 0.23.1-1
+slack-desktop 4.45.64-1
+spack 1.0.0-2
 spark-bash 1.0.1-1
 spotify 1:1.2.63.394-1
-toilet-fonts 1.0-2
+toilet-fonts 1.1-2
 waydroid 1.5.4-1
 xautolock 2.2-8
 yay 12.5.0-1
-zoom 6.5.3-1
+zoom 6.5.8-1

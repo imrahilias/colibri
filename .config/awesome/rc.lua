@@ -574,10 +574,11 @@ awful.rules.rules = {
    -- maximized clients:
    { rule_any = {
         class = {
-           "Slack",
-           "TelegramDesktop",
-           "Signal",
+           "Discord",
            "Element",
+           "Slack",
+           "Signal",
+           "TelegramDesktop",
         },
         name = {
            --"Zoom Meeting",

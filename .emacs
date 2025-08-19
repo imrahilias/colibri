@@ -298,6 +298,8 @@ There are two thing you can do about this warning:
 ;; ____/\___|\__|\__|_|_|  _|\__, |____/
 ;;                           |___/
 
+; flycheck for shellchecking
+(global-flycheck-mode 1)
 
 ;; sort case insensitively:
 (setq sort-fold-case nil)
