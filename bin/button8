@@ -1,0 +1,4 @@
+!/bin/bash
+
+xdotool key 'F18'
+xdotool click 8

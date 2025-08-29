@@ -1,0 +1,12 @@
+#!/bin/sh
+clear
+set -f
+rifle -l $1 | sed -e "s/:[a-Z]*:[a-Z]*:/ \| /"
+num=$(rifle -l $1 | wc -l)
+if [[ $num -lt 10 ]]
+then
+read -n1 method
+else
+read -n2 method
+fi
+rifle -p $method $1

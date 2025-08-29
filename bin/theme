@@ -1,0 +1,40 @@
+#!/bin/bash
+
+THEME="${THEME:=dark}"
+
+xrdb -merge ~/.Xresources
+
+xrdb -merge ~/.config/xtheme/$THEME
+
+
+if [[ $THEME == "dark" ]]
+then
+    export FZF_DEFAULT_OPTS="
+--style=minimal
+--color=dark
+--no-info
+--no-separator
+--border=none
+--color=fg:#FAF0E6,fg+:#FAF0E6,bg:#000000,bg+:#1D1F21,preview-bg:#000000
+--color=hl:#00FFFF,hl+:#FF00FF,info:#FAF0E6,marker:#FF00FF
+--color=prompt:#FF00FF,spinner:#330099,pointer:#FF00FF,header:#FAF0E6
+--color=border:#FAF0E6,label:#FAF0E6,query:#FAF0E6,gutter:#000000
+--marker='█'
+--pointer='◆'
+"
+elif [[ $THEME == "bright" ]]
+then
+    export FZF_DEFAULT_OPTS="
+--style=minimal
+--color=dark
+--no-info
+--no-separator
+--border=none
+--color=fg:#000000,fg+:#000000,bg:#FFFFFF,bg+:#FFFFFF,preview-bg:#FFFFFF
+--color=hl:#008080,hl+:#800080,info:#000000,marker:#800080
+--color=prompt:#800080,spinner:#330099,pointer:#800080,header:#000000
+--color=border:#000000,label:#000000,query:#000000,gutter:#FFFFFF
+--marker='█'
+--pointer='◆'
+"
+fi

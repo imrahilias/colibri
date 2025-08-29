@@ -1,0 +1,4 @@
+!/bin/bash
+
+xdotool key 'F19'
+xdotool click 9

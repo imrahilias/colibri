@@ -121,7 +121,6 @@ libcaca
 libreoffice-fresh
 libreoffice-fresh-de
 light
-linux
 linux-firmware
 linux-headers
 linux-zen
@@ -163,6 +162,7 @@ octave
 odt2txt
 openconnect
 openssh-askpass
+ouch
 pandoc-cli
 pandoc-crossref
 pandoc-plot
@@ -261,6 +261,7 @@ radeontop
 ranger
 razercfg
 reflector
+resvg
 reveal-md
 ripdrag-git
 ripgrep
