@@ -196,9 +196,9 @@ globalkeys = gears.table.join(
    -- icons:   
    awful.key({ modkey, "Control"}, "q", function () awful.spawn("systemctl suspend") end),
    awful.key({ modkey }, "Return", function () awful.spawn(terminal) end),
-   awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('urxvtc -e sh -c "TERM=rxvt-unicode ssh login"') end),
+   awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('urxvtc -e sh -c "TERM=rxvt-unicode ssh loginm"') end),
    awful.key({ modkey, "Control" }, "Return", function () awful.spawn('urxvtc -e sh -c "TERM=rxvt-unicode ssh l55"') end),
-   awful.key({ modkey }, "d", function () awful.spawn.with_shell("urxvtc -title '  Yazi' -e yazi", false) end),
+   awful.key({ modkey }, "d", function () awful.spawn.with_shell('urxvtc -title "  Yazi" -e zsh -i -c "yazi"', false) end),
    awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell('urxvtc -e sudo yazi', false) end),
    awful.key({ modkey }, "e", function () awful.spawn("emacsclient -ca ''", false) end),
    awful.key({ modkey, "Shift" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_browser") end),
@@ -899,7 +899,7 @@ autorunners =
    {
       -- start some deamons:
       "udiskie",
-      "urxvtd -q -f -o", -- exec doesn't work here?!
+      "urxvtd -q -f -o",
       "xbindkeys", -- mouse button to key stroke binder for yazi
       "picom -b",
       "xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock",
