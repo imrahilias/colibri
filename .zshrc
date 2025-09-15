@@ -1,6 +1,9 @@
 #!/bin/false
 #blabla
 
+# profiling: Add this to the TOP of your .zshrc:
+#zmodload zsh/zprof
+
 #           |
 # _  /  __| __ \   __| __|
 #   / \__ \ | | | |   (
@@ -32,24 +35,24 @@ setxkbmap -layout "us(m)" -option ctrl:nocaps
 # set some theme options as global envs via sourcing this in .zashrc:
 #source "${XDG_CONFIG_HOME:-$HOME}/theme"
 
-
 #                                  |
 #  __ \   __| _ \  __ `__ \  __ \  __|
 #  |   | |   (   | |   |   | |   | |
 #  .__/ _|  \___/ _|  _|  _| .__/ \__|
 # _|                        _|
 
-autoload -Uz add-zsh-hook vcs_info
-add-zsh-hook precmd vcs_info
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' check-for-staged-changes true
-zstyle ':vcs_info:*' unstagedstr '%B%F{red}*%f%b '
-zstyle ':vcs_info:*' stagedstr '%B%F{blue}+%f%b '
-zstyle ':vcs_info:*' formats "%F{magenta}%b%f %u%c"
-zstyle ':vcs_info:git:*' actionformats '(%b|%a%u%c)'
-PROMPT='%B%(#.%F{red}%40<.../<%~%f%b.%F{blue}%40<.../<%~%f%b) ${vcs_info_msg_0_}'
-RPROMPT='%F{magenta}%D{%H%M}%f'
+# starship does that faster.
+# autoload -Uz add-zsh-hook vcs_info
+# add-zsh-hook precmd vcs_info
+# zstyle ':vcs_info:*' enable git
+# zstyle ':vcs_info:git:*' check-for-changes true
+# zstyle ':vcs_info:git:*' check-for-staged-changes true
+# zstyle ':vcs_info:*' unstagedstr '%B%F{red}*%f%b '
+# zstyle ':vcs_info:*' stagedstr '%B%F{blue}+%f%b '
+# zstyle ':vcs_info:*' formats "%F{magenta}%b%f %u%c"
+# zstyle ':vcs_info:git:*' actionformats '(%b|%a%u%c)'
+# PROMPT='%B%(#.%F{red}%40<.../<%~%f%b.%F{blue}%40<.../<%~%f%b) ${vcs_info_msg_0_}'
+# RPROMPT='%F{magenta}%D{%H%M}%f'
 
 
 #        |_)
@@ -108,6 +111,14 @@ alias reflect='sudo reflector -p https -f 10 -l 10 --sort rate --save /etc/pacma
 alias df='df -h'
 alias countf='find . -type f | wc -l' # number of all files in dir.
 alias countd='find . -type d | wc -l' # number of all subdirs in dir.
+# sort filesize by size & in color:
+alias dus="paste <(du --exclude './.*' --all --apparent-size --human-readable --max-depth=1 2>/dev/null | sed 's/\s.*//') <(ls --color=always -1 -U) | sort --human-numeric-sort"
+# sort all filesize by size & in color:
+alias dusd="paste <(du --apparent-size --all --human-readable --max-depth=1 2>/dev/null | sed 's/\s.*//') <(ls --color=always -1 --almost-all -U) | sort --human-numeric-sort"
+# sort size by filename (no color cause escape sequences mess that up):
+alias duh="du --apparent-size --exclude './.*' --all --human-readable --max-depth=1 2>/dev/null | sort -t$'\t' -k2 --dictionary-order"
+# sort all size by filename (no color cause escape sequences mess that up):
+alias duhd="du --apparent-size --all --human-readable --max-depth=1 2>/dev/null | sort -t$'\t' -k2 --dictionary-order"
 
 # launch alias
 #alias evince='dbus-launch evince'
@@ -145,16 +156,10 @@ alias v='nvim '
 alias vi='nvim '
 alias vim='nvim '
 alias mnt=' mount | column -t'
-#alias day='export THEME=light && source ~/bin/theme'
-#alias night='export THEME=dark && source ~/bin/theme'
-alias day='darkman set light'
-alias night='darkman set dark'
-
 
 # some gnome stuff:
 alias gnome-session='echo "haha nice try:D"'
 alias gnome-settings='LD_PRELOAD="" gnome-control-center' # gtk3-nocsd breaks gnome-control-center and possibly more...
-
 
 #              |  _)
 #   _ \  __ \  __| |  _ \  __ \   __|
@@ -162,6 +167,7 @@ alias gnome-settings='LD_PRELOAD="" gnome-control-center' # gtk3-nocsd breaks gn
 # \___/  .__/ \__|_|\___/ _|  _|____/
 #       _|
 
+stty -ixon # turn off XOFF/XON
 setopt extendedglob # inverted expansion like: ls *~*.txt.
 #setopt correct # correct mistakes.
 setopt auto_list # list choice on ambiguous command.
@@ -183,43 +189,46 @@ HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
 
-
 #   _|                  |  _)
 #  |   |   | __ \   __| __| |  _ \  __ \   __|
 #  __| |   | |   | (    |   | (   | |   |\__ \
 # _|  \__,_|_|  _|\___|\__|_|\___/ _|  _|____/
 #
 
-# sort filesize by size & in color:
-dus() {
-    paste <(du --exclude "./.*" --all --apparent-size --human-readable --max-depth=1 2>/dev/null | sed 's/\s.*//') <(ls --color=always -1 -U) | sort --human-numeric-sort
+autoload -Uz add-zsh-hook
+
+# term title
+function xterm_title_precmd () {
+    print -Pn -- '\e]2;%n@%m %~\a'
+    [[ "$TERM" == 'screen'* ]] && print -Pn -- '\e_\005{2}%n\005{-}@\005{5}%m\005{-} \005{+b 4}%~\005{-}\e\\'
 }
 
-# sort all filesize by size & in color:
-dusd() {
-    paste <(du --apparent-size --all --human-readable --max-depth=1 2>/dev/null | sed 's/\s.*//') <(ls --color=always -1 --almost-all -U) | sort --human-numeric-sort
+function xterm_title_preexec () {
+    print -Pn -- '\e]2;%n@%m %~ %# ' && print -n -- "${(q)1}\a"
+    [[ "$TERM" == 'screen'* ]] && { print -Pn -- '\e_\005{2}%n\005{-}@\005{5}%m\005{-} \005{+b 4}%~\005{-} %# ' && print -n -- "${(q)1}\e\\"; }
 }
 
-# sort size by filename (no color cause escape sequences mess that up):
-duh() {
-    du --apparent-size --exclude "./.*" --all --human-readable --max-depth=1 2>/dev/null | sort -t$'\t' -k2 --dictionary-order
-}
+if [[ "$TERM" == (Eterm*|alacritty*|aterm*|foot*|gnome*|konsole*|kterm*|putty*|rxvt*|screen*|wezterm*|tmux*|xterm*) ]]; then
+    add-zsh-hook -Uz precmd xterm_title_precmd
+    add-zsh-hook -Uz preexec xterm_title_preexec
+fi
 
-# sort all size by filename (no color cause escape sequences mess that up):
-duhd() {
-    du --apparent-size --all --human-readable --max-depth=1 2>/dev/null | sort -t$'\t' -k2 --dictionary-order
+# faster on demand rehash (https://wiki.archlinux.org/title/Zsh):
+zshcache_time="$(date +%s%N)"
+rehash_precmd() {
+  if [[ -a /var/cache/zsh/pacman ]]; then
+    local paccache_time="$(date -r /var/cache/zsh/pacman +%s%N)"
+    if (( zshcache_time < paccache_time )); then
+      rehash
+      zshcache_time="$paccache_time"
+    fi
+  fi
 }
-
-rainbow() {
-    for code in {0..255}
-    do echo -e "\e[38;5;${code}m"'\\e[38;5;'"$code"m"\e[0m"
-    done
-}
-
+add-zsh-hook -Uz precmd rehash_precmd
 # highlight help messages:
-# help() {
-#     "$@" --help 2>&1 | bathelp
-# }
+help() {
+    "$@" --help 2>&1 | bat --color=always --language=help
+}
 
 # Pressing enter in a git directory runs `git status`,
 # in other directories `ls`.
@@ -242,13 +251,11 @@ magic-enter() {
     fi
 }
 zle -N magic-enter
-bindkey "^M" magic-enter
-
 
 # run ls after typing cd:
 function chpwd() {
     emulate -L zsh
-    grc ls -1Bhl --color=always --group-directories-first . # runs ls (...) after typing cd!
+    grc ls -1Bhl --color=always --group-directories-first .
 }
 
 
@@ -262,29 +269,13 @@ rationalize-dot() {
     fi
 }
 zle -N rationalize-dot
-bindkey . rationalize-dot
-
-
-# |  _|
-# | |
-# | __|
-#_|_|
-#
 
 # ueberzug:
-alias lf="~/.config/lf/lfub"
+#alias lf="~/.config/lf/lfub"
 
 # lf() will fire for 'Ctrl+D':
-autoload -U lf # embedded in zshrc
-bindkey -s '^D' "\eq lf\n"
-
-
-#                 _)
-#  |   |  _` |_  / |
-#  |   | (   |  /  |
-# \__, |\__,_|___|_|
-# ____/
-
+#autoload -U lf # embedded in zshrc
+#bindkey -s '^D' "\eq lf\n"
 
 function y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -304,10 +295,19 @@ function y() {
 #     add-zsh-hook zshexit _yazi_cd
 # fi
 
-# 'Ctrl+D' fires up yazi:
-#bindkey -s "^y" "yy\n"
-bindkey -s '^D' "\eq y\n"
+function day() {
+    # term colors:
+    xrdb ~/.Xresources
+    xrdb -merge ~/.config/darkman/light
+    darkman set light
+}
 
+function night() {
+    # term colors:
+    xrdb ~/.Xresources
+    xrdb -merge ~/.config/darkman/dark
+    darkman set dark
+}
 
 #   _|     _|
 #  | _  / |
@@ -323,11 +323,12 @@ bindkey -s '^D' "\eq y\n"
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 
-# Enable execution tracing. For more details, refer to 'man zshbuiltins'
+# Debug: Enable execution tracing. For more details, refer to 'man zshbuiltins'
 #typeset -ft fzf-completion
 
-# Verbose Execution trace prompt (default: '+%N:%i> '). For more details, refer to 'man zshparam/zshmisc'
+# Debug: Verbose Execution trace prompt (default: '+%N:%i> '). For more details, refer to 'man zshparam/zshmisc'
 #PS4=$'\n%B%F{0}+ %D{%T:%3.} %2N:%I%f%b '
+
 
 
 #
@@ -337,25 +338,23 @@ source <(fzf --zsh)
 #
 
 export EDITOR='emacs'
-export PATH='/home/m/bin:/home/m/vscloud/bin:/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:/usr/games:/usr/local/games:/opt'
-#PATH+=/scripts # hängt zur $path eben was an...
+
+# Zsh ties the PATH variable to a path array.
+path=(~/bin ~/vscloud/bin $path)
+
 export GOPATH="$HOME/.go"
 
 # signal now fails:
 #export SIGNAL_PASSWORD_STORE='gnome-libsecret'
 
+# 1password unlock:
+#export OP_BIOMETRIC_UNLOCK_ENABLED=true
 
-#  |   |
-#  __| __ \   _ \ __ `__ \   _ \
-#  |   | | |  __/ |   |   |  __/
-# \__|_| |_|\___|_|  _|  _|\___|
-#
-
-# this is changed via sed by darkman:
+# this is changed via sed by darkman from $HOME/.local/share/light-mode.d/:
 THEME_DARK=1
 
 # set fzf options as global envs via sourcing this in .zshrc.
-FZF_DEFAULT_OPTS_BASE="--style=minimal --no-info --no-separator --border=none --marker='█' --pointer='◆'"
+FZF_DEFAULT_OPTS_BASE="--style=minimal --tiebreak=chunk --no-height --reverse --no-info --no-separator --border=none --prompt '▶ ' --marker='█' --pointer='◆'"
 
 # dark color palette:
 FZF_DEFAULT_OPTS_LIGHT="--color=light --color=fg:#000000,fg+:#000000,bg:#FAF0E6,bg+:#FAF0E6,preview-bg:#FAF0E6,hl:#008080,hl+:#800080,info:#000000,marker:#800080,prompt:#800080,spinner:#330099,pointer:#800080,header:#000000,border:#000000,label:#000000,query:#000000,gutter:#FAF0E6"
@@ -363,16 +362,11 @@ FZF_DEFAULT_OPTS_LIGHT="--color=light --color=fg:#000000,fg+:#000000,bg:#FAF0E6,
 # light color palette:
 FZF_DEFAULT_OPTS_DARK="--color=dark --color=fg:#FAF0E6,fg+:#FAF0E6,bg:#000000,bg+:#1D1F21,preview-bg:#000000,hl:#00FFFF,hl+:#FF00FF,info:#FAF0E6,marker:#FF00FF,prompt:#FF00FF,spinner:#330099,pointer:#FF00FF,header:#FAF0E6,border:#FAF0E6,label:#FAF0E6,query:#FAF0E6,gutter:#000000"
 
-# dark side or light side?
 if [[ $THEME_DARK == 1 ]]
 then
     export CALIBRE_USE_DARK_PALETTE=1
 
     export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS_BASE $FZF_DEFAULT_OPTS_DARK"
-
-    # term colors:
-    xrdb -merge ~/.config/darkman/dark
-    xrdb -merge ~/.Xresources
 
     # qt looks like current gtk theme
     # qt themes use the gtk2/3 theme arc-blackest converted via qt6gtk2,
@@ -380,30 +374,23 @@ then
     # no way to do that for two themes in the background though.
     export QT_QPA_PLATFORMTHEME="gtk2" # qt looks like current gtk theme
     export QT_STYLE_OVERRIDE="gtk2"
-
 else
     export CALIBRE_USE_DARK_PALETTE=0
 
     export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS_BASE $FZF_DEFAULT_OPTS_LIGHT"
-
-    # term colors:
-    xrdb -merge ~/.config/darkman/light
-    xrdb -merge ~/.Xresources
 
     # qt themes use the gtk2/3 theme arc-blackest converted via qt6gtk2:
     export QT_QPA_PLATFORMTHEME="gtk2"
     export QT_STYLE_OVERRIDE="gtk2"
 fi
 
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100'"
 
 #       |          _|  _|
 #   __| __| |   | |   |
 # \__ \ |   |   | __| __|
 # ____/\__|\__,_|_|  _|
 #
-
-# turn off XOFF/XON:
-stty -ixon
 
 # dumb lock:
 hasssid=`nmcli d show wlp3s0 | grep "GENERAL.CONNECTION:" | awk '{print $2}'`
@@ -420,62 +407,143 @@ else
 fi
 xset -b &> /dev/null # turn off bell
 
-# key setups:
-bindkey -e # emacs key bindings
-bindkey ' ' magic-space # also do history expansion on space, type '!!', then hit enter, watch.
-
-# word jumping:
-zle -A delete-char delete-char-num
-zle -A overwrite-mode overwrite-mode-num
-bindkey ";5C" forward-word
-bindkey ";5D" backward-word
-bindkey "[C" forward-word
-bindkey "[D" backward-word
-bindkey "^[Oc" forward-word
-bindkey "^[Od" backward-word
-bindkey ";5A" up-line
-bindkey ";5B" down-line
-bindkey "^[[5~" up-history
-bindkey "^[[6~" down-history
-bindkey "^[[2~" overwrite-mode
-bindkey "^[Op"  overwrite-mode-num
-bindkey "${terminfo[khome]}" beginning-of-line
-bindkey "${terminfo[kend]}" end-of-line
-bindkey "^[[3~" delete-char
-bindkey "^[On"  delete-char-num
-
-
 #        |            _)
 #  __ \  | |   |  _` | | __ \   __|
 #  |   | | |   | (   | | |   |\__ \
 #  .__/ _|\__,_|\__, |_|_|  _|____/
 # _|            |___/
 
-# auto suggestion:
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
+#source '/usr/share/zsh-antidote/antidote.zsh'
+#antidote load
+
+# even faster than `antidote load`:
+
+# Set the root name of the plugins files (.txt and .zsh) antidote will use.
+zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
+
+# Ensure the .zsh_plugins.txt file exists so you can add plugins.
+[[ -f ${zsh_plugins}.txt ]] || touch ${zsh_plugins}.txt
+
+# Lazy-load antidote from its functions directory.
+fpath=(/usr/share/zsh-antidote/functions $fpath)
+autoload -Uz antidote
+
+# Generate a new static file whenever .zsh_plugins.txt is updated.
+if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
+  antidote bundle <${zsh_plugins}.txt >|${zsh_plugins}.zsh
+fi
+
+# Source your static plugins file.
+source ${zsh_plugins}.zsh
+
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=6,bg=grey"
-ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion) # will first try to find a suggestion from your history, but, if it can't find a match, will find a suggestion from the completion engine (experimental).
+ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
-# history-substring-search:
-source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+#ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
-# autojump:
-#source /etc/profile.d/autojump.zsh
+# |
+# |  /  _ \ |   |  __|
+#   <   __/ |   |\__ \
+#_|\_\\___|\__, |____/
+#          ____/
 
-# more colors! > manually copied:
-#source ~/.zsh/zsh-dircolors/zsh-dircolors.plugin.zsh
+bindkey -e # emacs key bindings
+bindkey ' ' magic-space # also do history expansion on space like '!!'
+bindkey "^M" magic-enter
+bindkey . rationalize-dot
+bindkey -s '^D' "\eq y\n"
+bindkey -s '^\' "\eq rga-fzf\n"
+#bindkey '^I' fzf_completion
 
-# syntax highlighning has to be last:
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+# You are using zsh in MULTIBYTE mode to support modern character sets (for
+# languages other than English).  To use the Meta or Alt keys, you probably
+# need to revert to single-byte mode with a command such as:
+unsetopt MULTIBYTE
 
-# autocompletion for lf:
-#fpath=(/home/m/.config/lf $fpath)
+# create a zkbd compatible hash; to add other keys to this hash, see:
+# man 5 terminfo:
+typeset -g -A key
 
-# 1password unlock:
-export OP_BIOMETRIC_UNLOCK_ENABLED=true
+# find the suffix nuber at https://man.archlinux.org/man/user_caps.5
+key[Home]="${terminfo[khome]}"
+key[End]="${terminfo[kend]}"
+key[Insert]="${terminfo[kich1]}"
+key[Backspace]="${terminfo[kbs]}"
+key[Delete]="${terminfo[kdch1]}"
+key[Up]="${terminfo[kcuu1]}"
+key[Down]="${terminfo[kcud1]}"
+key[Left]="${terminfo[kcub1]}"
+key[Right]="${terminfo[kcuf1]}"
+key[PageUp]="${terminfo[kpp]}"
+key[PageDown]="${terminfo[knp]}"
+key[Shift-Tab]="${terminfo[kcbt]}"
+key[Control-Left]="${terminfo[kLFT5]}"
+key[Control-Right]="${terminfo[kRIT5]}"
+key[Alt-Left]="${terminfo[kLFT3]}"
+key[Alt-Right]="${terminfo[kRIT3]}"
+
+# setup key accordingly:
+[[ -n "${key[Home]}"      ]] && bindkey -- "${key[Home]}"       beginning-of-line
+[[ -n "${key[End]}"       ]] && bindkey -- "${key[End]}"        end-of-line
+[[ -n "${key[Insert]}"    ]] && bindkey -- "${key[Insert]}"     overwrite-mode
+[[ -n "${key[Backspace]}" ]] && bindkey -- "${key[Backspace]}"  backward-delete-char
+[[ -n "${key[Delete]}"    ]] && bindkey -- "${key[Delete]}"     delete-char
+[[ -n "${key[Up]}"        ]] && bindkey -- "${key[Up]}"         up-line-or-history
+[[ -n "${key[Down]}"      ]] && bindkey -- "${key[Down]}"       down-line-or-history
+[[ -n "${key[Left]}"      ]] && bindkey -- "${key[Left]}"       backward-char
+[[ -n "${key[Right]}"     ]] && bindkey -- "${key[Right]}"      forward-char
+[[ -n "${key[PageUp]}"    ]] && bindkey -- "${key[PageUp]}"     beginning-of-buffer-or-history
+[[ -n "${key[PageDown]}"  ]] && bindkey -- "${key[PageDown]}"   end-of-buffer-or-history
+[[ -n "${key[Shift-Tab]}" ]] && bindkey -- "${key[Shift-Tab]}"  reverse-menu-complete
+[[ -n "${key[Control-Left]}"  ]] && bindkey -- "${key[Control-Left]}"  backward-word
+[[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
+[[ -n "${key[Alt-Left]}"  ]] && bindkey -- "${key[Alt-Left]}"  backward-word
+[[ -n "${key[Alt-Right]}" ]] && bindkey -- "${key[Alt-Right]}" forward-word
+
+
+# Finally, make sure the terminal is in application mode, when zle is
+# active. Only then are the values from $terminfo valid.
+if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
+    autoload -Uz add-zle-hook-widget
+    function zle_application_mode_start { echoti smkx }
+    function zle_application_mode_stop { echoti rmkx }
+    add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
+    add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
+fi
+
+# hacked word jumping for urxvt:
+# zle -A delete-char delete-char-num
+# zle -A overwrite-mode overwrite-mode-num
+# bindkey ";5C" forward-word
+# bindkey ";5D" backward-word
+# bindkey "[C" forward-word
+# bindkey "[D" backward-word
+# bindkey "^[Oc" forward-word
+# bindkey "^[Od" backward-word
+# bindkey ";5A" up-line
+# bindkey ";5B" down-line
+# bindkey "^[[5~" up-history
+# bindkey "^[[6~" down-history
+# bindkey "^[[2~" overwrite-mode
+# bindkey "^[Op"  overwrite-mode-num
+# bindkey "${terminfo[khome]}" beginning-of-line
+# bindkey "${terminfo[kend]}" end-of-line
+# bindkey "^[[3~" delete-char
+# bindkey "^[On"  delete-char-num
+
+# or run zkbd: `autoload zkbd; zkbd` to find out which key maps to which caracter.
+#source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
+
+# arrow keys & page up/dpwn in history (fzf too):
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+[[ -n "${key[Up]}"   ]] && bindkey -- "${key[Up]}"   up-line-or-beginning-search
+[[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
 #
 #   __|  _ \  __ `__ \  __ \
@@ -483,8 +551,22 @@ export OP_BIOMETRIC_UNLOCK_ENABLED=true
 # \___|\___/ _|  _|  _| .__/
 #                      _|
 
-autoload -Uz compinit; compinit
-autoload -U colors && colors
+# # Smarter completion initialization, only compile once a day.
+# autoload -Uz compinit
+# if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+#     compinit
+# else
+#     compinit -C
+# fi
+
+# 1pasword cli completion depends on compinit:
+#eval "$(op completion zsh)"; compdef _op op
+
+# faster with antidote:
+# autoload -U colors && colors
+
+zstyle ':completion:*' rehash false # faster on demand
+zstyle ':completion:*' special-dirs true # tab-completion for .. and others
 zstyle ':completion:*' completer _match _expand _complete _correct _approximate
 zstyle ':completion:*' completions 1
 zstyle ':completion:*' file-sort name
@@ -493,13 +575,13 @@ zstyle ':completion:*' insert-unambiguous true
 zstyle ':completion:*' max-errors 2
 zstyle ':completion:*' original true
 zstyle ':completion:*' substitute 1
-zstyle ':completion:*' special-dirs true # tab-completion for .. and others
 zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
 zstyle ':completion:*' menu select
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.config/shell/zsh_cache
+zstyle ':completion::complete:*' gain-privileges 1 # This will let Zsh completion scripts run commands with sudo privileges. You should not enable this if you use untrusted autocompletion scripts.
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:match:*' original only
 zstyle ':completion:*' verbose true
@@ -514,6 +596,19 @@ zstyle ':completion:*:commands' list-colors '=*=1;33'
 zstyle ':completion:*:builtins' list-colors '=*=1;38;5;142'
 zstyle ':completion:*:aliases' list-colors '=*=2;38;5;128'
 zstyle ':completion:*:*:kill:*' list-colors '=(#b) #([0-9]#)*( *[a-z])*=34=31=33'
-#zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
-eval "$(op completion zsh)"; compdef _op op # 1pasword cli completion
+#autocompletion for lf:
+#fpath=(/home/m/.config/lf $fpath)
+
+#  |   |                          |
+#  __| __ \   _ \   _ \ __ \   _` |
+#  |   | | |  __/   __/ |   | (   |
+# \__|_| |_|\___| \___|_|  _|\__,_|
+#
+
+# Add the following to the end of ~/.zshrc:
+eval "$(starship init zsh)"
+
+# Add this to the BOTTOM of your .zshrc
+#zprof

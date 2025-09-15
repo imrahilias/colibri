@@ -61,8 +61,8 @@ beautiful.layout_machi = machi.get_icon()
 revelation.init()
 
 -- this is used later as the default terminal and editor to run:
-terminal = "urxvtc"
-editor = os.getenv("EDITOR") or "emacs" or "neovim" or "vim" or "vi"
+terminal = "xterm"
+editor = os.getenv("EDITOR") or "emacs" or "nvim" or "vim" or "vi"
 editor_cmd = terminal .. " -e " .. editor
 
 -- default modkey:
@@ -196,10 +196,10 @@ globalkeys = gears.table.join(
    -- icons:   
    awful.key({ modkey, "Control"}, "q", function () awful.spawn("systemctl suspend") end),
    awful.key({ modkey }, "Return", function () awful.spawn(terminal) end),
-   awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('urxvtc -e sh -c "TERM=rxvt-unicode ssh loginm"') end),
-   awful.key({ modkey, "Control" }, "Return", function () awful.spawn('urxvtc -e sh -c "TERM=rxvt-unicode ssh l55"') end),
-   awful.key({ modkey }, "d", function () awful.spawn.with_shell('urxvtc -title "  Yazi" -e zsh -i -c "yazi"', false) end),
-   awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell('urxvtc -e sudo yazi', false) end),
+   awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('xterm -e sh -c "TERM=rxvt-unicode ssh loginm"') end),
+   awful.key({ modkey, "Control" }, "Return", function () awful.spawn('xterm -e sh -c "TERM=rxvt-unicode ssh l55"') end),
+   awful.key({ modkey }, "d", function () awful.spawn.with_shell('xterm -title "  Yazi" -e zsh -i -c "yazi"', false) end),
+   awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell('xterm -e sudo yazi', false) end),
    awful.key({ modkey }, "e", function () awful.spawn("emacsclient -ca ''", false) end),
    awful.key({ modkey, "Shift" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_browser") end),
    awful.key({ modkey, "Control" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_google_translate") end),
@@ -207,9 +207,9 @@ globalkeys = gears.table.join(
    awful.key({ modkey, "Shift" }, "z", function () awful.spawn("/home/m/bin/open_primary_selection_as_qr_code") end),
    awful.key({ modkey, "Shift" }, "e", function () awful.spawn("/home/m/bin/open_primary_selection_in_emacs") end),
    awful.key({ modkey, "Shift" }, "d", function () awful.spawn("/home/m/bin/open_primary_selection_in_yazi") end),
-   awful.key({ modkey, "Shift" }, "t", function () awful.spawn.with_shell("urxvtc -e rtorrent") end),
-   awful.key({ modkey }, "g", function () awful.spawn.with_shell("urxvtc -e htop") end),
-   awful.key({ modkey, "Shift" }, "g", function () awful.spawn.with_shell("urxvtc -e top") end),
+   awful.key({ modkey, "Shift" }, "t", function () awful.spawn.with_shell("xterm -e rtorrent") end),
+   awful.key({ modkey }, "g", function () awful.spawn.with_shell("xterm -e htop") end),
+   awful.key({ modkey, "Shift" }, "g", function () awful.spawn.with_shell("xterm -e top") end),
    -- awful.key({ modkey }, "x", function () awful.spawn("xterm -T 'VSConsole' -fa 'xft:DejaVuSansMono' -fs 24 -e 'bash'") end),
    -- awful.key({ modkey, "Shift" }, "x", function () awful.spawn("xterm -T 'VSConsole' -fa 'xft:DejaVuSansMono' -fs 24 -e 'trainee'") end),
    awful.key({ modkey, "Shift" }, "p", function () awful.spawn("autorandr --change") end),
@@ -591,7 +591,7 @@ awful.rules.rules = {
    -- vsc
    { rule_any = {
         class = {
-           "XTerm",
+           --"XTerm",
    }}, properties = { tag = " ", switchtotag = true }},
 
    -- internet
@@ -920,13 +920,13 @@ autorunners =
       --"syncthingtray",
 
       -- now fire up some programs:
-      "signal-desktop",
+      --"signal-desktop",
       --"telegram-desktop",
-      "element-desktop",
-      "firefox",
-      "evolution",
-      "gnome-calendar",
-      "urxvtc -title '  Yazi' -e yazi",
+      --"element-desktop",
+      --"firefox",
+      --"evolution",
+      --"gnome-calendar",
+      --"xterm -title '  Yazi' -e yazi",
 
       -- change to autodetected display config:
       "autorandr -c",

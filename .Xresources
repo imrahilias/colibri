@@ -148,6 +148,6 @@ XTerm.vt100.vt100.translations: #override \n\
 XTerm.vt100.faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true
 XTerm.vt100.boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true:style=Bold
 
-! search history
-XTerm*printerCommand: xterm -T History -e sh -c 'less -r <&3' 3<&0
-XTerm*translations: #override Ctrl <Key>slash: print-everything()
+! open a new terminal to search scrollback buffer:
+!XTerm*printerCommand: xterm -T History -e sh -c 'less -r <&3' 3<&0
+!XTerm*translations: #override Ctrl <Key>slash: print-everything()
