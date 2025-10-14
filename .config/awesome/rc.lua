@@ -905,6 +905,7 @@ autorunners =
       "xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock",
       --"owncloud", --tucloud moved to nextcloud
       "emacs --daemon",
+      --"clipcatd",
 
       --"thunar --daemon",
       --"conky -c ~/.config/conky/left.lua",
@@ -927,6 +928,9 @@ autorunners =
       --"evolution",
       --"gnome-calendar",
       --"xterm -title '  Yazi' -e yazi",
+
+      "xrdb ~/.Xresources",
+      "xrdb -merge ~/.config/darkman/dark",
 
       -- change to autodetected display config:
       "autorandr -c",

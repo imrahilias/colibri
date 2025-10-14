@@ -123,31 +123,35 @@ URxvt.*geometry: 400x400
 !  _/\_\\__|\___|_|   _|  _|  _|
 !
 
-XTerm.termName: xterm-256color
-XTerm.vt100.locale: false
-XTerm.vt100.utf8: true
-XTerm.vt100.metaSendsEscape: true
-XTerm.vt100.backarrowKey: false
-XTerm.vt100.ttyModes: erase ^?
-XTerm.vt100.saveLines: 16384
-XTerm.vt100.scrollBar: true
-XTerm*rightScrollBar: true
-XTerm.vt100.scrollbar.width: 8
-!XTerm.vt100.geometry: 80x32
-XTerm*visualbell: false
-XTerm*bellIsUrgent: false
+xterm*termName: xterm-256color
+xterm*locale: false
+xterm*utf8: true
+xterm*metaSendsEscape: true
+xterm*backarrowKey: false
+xterm*ttyModes: erase ^?
+xterm*saveLines: 16384
+xterm*scrollBar: true
+xterm*rightScrollBar: true
+xterm*scrollbar.width: 8
+!xterm*geometry: 80x32
+xterm*visualbell: false
+xterm*bellIsUrgent: false
 
 ! tmux needs that for clipboard
-XTerm.Vt100.disallowedWindowOps: 20,21,SetXprop
+xterm*disallowedWindowOps: 20,21,SetXprop
+! xterm*selectToClipboard: true
+! xterm*VT100*translations: #override \n\
+!     Shift Ctrl <Key> V: insert-selection(CLIPBOARD) \n\
+!     Shift Ctrl <Key> C: select-end(CLIPBOARD)
 
 ! font size hot key:
-XTerm.vt100.vt100.translations: #override \n\
+xterm*translations: #override \n\
   Alt <Key> minus: smaller-vt-font() \n\
   Alt <Key> plus: larger-vt-font() \n\
   Alt <Key> 0: set-vt-font(d)
-XTerm.vt100.faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true
-XTerm.vt100.boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true:style=Bold
+xterm*faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true
+xterm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true:style=Bold
 
 ! open a new terminal to search scrollback buffer:
-!XTerm*printerCommand: xterm -T History -e sh -c 'less -r <&3' 3<&0
-!XTerm*translations: #override Ctrl <Key>slash: print-everything()
+!xterm*printerCommand: xterm -T History -e sh -c 'less -r <&3' 3<&0
+!xterm*translations: #override Ctrl <Key>slash: print-everything()
