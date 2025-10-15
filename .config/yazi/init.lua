@@ -102,47 +102,63 @@ end, 500, Status.RIGHT)
 --     save_history = true,
 --                              })
 
--- fr customisations, do not work for the window:
+-- fr customisations, does not work for the window:
 --preview-window -- 'right:50%'`, that has to be changed in the plugin `main.lua`!
--- require("fr"):setup {
---    fzf = {
---       "--style=minimal",
---       "--color=dark",
---       "--layout=reverse",
---       "--color=dark",
---       "--no-info",
---       "--no-separator",
---       "--border=none",
---       "--preview-window=border-none",
---       "--color=fg:#FAF0E6,fg+:#FAF0E6,bg:#000000,bg+:#1D1F21,preview-bg:#000000",
---       "--color=hl:#00FFFF,hl+:#FF00FF,info:#FAF0E6,marker:#FF00FF",
---       "--color=prompt:#FF00FF,spinner:#330099,pointer:#FF00FF,header:#FAF0E6",
---       "--color=border:#FAF0E6,label:#FAF0E6,query:#FAF0E6,gutter:#000000",
---       "--marker='█'",
---       "--pointer='◆'",
---    },
---    --rg = "--colors 'line:fg:red' --colors 'match:style:nobold' --line-number",
---    rg = "--hidden --column --no-heading --color=always --smart-case",
---    bat = "--style 'header,grid' --number --color=always",
---    rga = "--follow --hidden --no-ignore --column --no-heading --color=always --smart-case",
---    -- rga = {
---    --    "--glob",
---    --    "'!.git'",
---    --    "--glob",
---    --    "!'.venv'",
---    --    "--glob",
---    --    "'!node_modules'",
---    --    "--glob",
---    --    "'!.history'",
---    --    "--glob",
---    --    "'!.Rproj.user'",
---    --    "--glob",
---    --    "'!.ipynb_checkpoints'",
---    -- },
---    rga_preview = {
---       "--colors 'line:fg:red'"
---          .. " --colors 'match:fg:blue'"
---          .. " --colors 'match:bg:black'"
---          .. " --colors 'match:style:nobold'",
---    },
---                    }
+require("fr"):setup {
+   fzf = {
+      --"--layout=reverse",
+   },
+   --rg = "--colors 'line:fg:red' --colors 'match:style:nobold' --line-number",
+   rg = {
+      "--hidden",
+      "--column",
+      "--no-heading",
+      "--color=always",
+      "--smart-case",
+      "--line-number",
+      "--colors 'path:fg:blue'",
+      --"--colors 'path:bg:black'",
+      "--colors 'path:style:bold'",
+      "--colors 'line:fg:black'",
+      "--colors 'line:bg:black'",
+      "--colors 'line:style:bold'",
+      "--colors 'column:fg:black'",
+      "--colors 'column:bg:black'",
+      "--colors 'column:style:nobold'",
+      "--colors 'match:fg:magenta'",
+      "--colors 'match:bg:black'",
+      "--colors 'match:style:bold'",
+   },
+   -- "--style 'header,grid'"
+   bat = "--color=always --style=plain --number --color=always",
+   rga = {
+      "--follow",
+      "--files-with-matches",
+      "--no-ignore",
+      "--hidden",
+      "--column",
+      "--no-heading",
+      "--color=always",
+      "--smart-case",
+   },
+   -- rga = {
+   --    "--glob",
+   --    "'!.git'",
+   --    "--glob",
+   --    "!'.venv'",
+   --    "--glob",
+   --    "'!node_modules'",
+   --    "--glob",
+   --    "'!.history'",
+   --    "--glob",
+   --    "'!.Rproj.user'",
+   --    "--glob",
+   --    "'!.ipynb_checkpoints'",
+   -- },
+   rga_preview = {
+      "--colors 'line:fg:red'"
+         .. " --colors 'match:fg:blue'"
+         .. " --colors 'match:bg:black'"
+         .. " --colors 'match:style:nobold'",
+   },
+                    }

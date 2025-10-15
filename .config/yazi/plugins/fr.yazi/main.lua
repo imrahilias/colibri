@@ -28,11 +28,11 @@ end)
 local fzf_from = function(job_args, opts_tbl, major, minor)
    local cmd_tbl = {
       rg = {
-         grep = "rg --color=always --line-number --smart-case" .. opts_tbl.rg,
-         prev = "--preview='bat --color=always "
+         grep = "rg" .. opts_tbl.rg,
+         prev = "--preview='bat"
             .. opts_tbl.bat
             .. " --highlight-line={2} {1}' --preview-window=~3,+{2}+3/2,right,50%",
-         prompt = "--prompt='rg> '",
+         prompt = "--prompt='rg > '",
          extra = function(cmd_grep)
             local logic = {
                default = { cond = "[[ ! $FZF_PROMPT =~ rg ]] &&", op = "||" },
@@ -40,17 +40,17 @@ local fzf_from = function(job_args, opts_tbl, major, minor)
             }
             local lgc = logic[shell] or logic.default
             local extra_bind = "--bind='ctrl-s:transform:%s "
-               .. [[echo "rebind(change)+change-prompt(rg> )+disable-search+clear-query+reload(%s {q} || true)" %s ]]
-               .. [[echo "unbind(change)+change-prompt(fzf> )+enable-search+clear-query"']]
+               .. [[echo "rebind(change)+change-prompt(rg > )+disable-search+clear-query+reload(%s {q} || true)" %s ]]
+               .. [[echo "unbind(change)+change-prompt(fzf > )+enable-search+clear-query"']]
             return string.format(extra_bind, lgc.cond, cmd_grep, lgc.op)
          end,
       },
       rga = {
-         grep = "rga --color=always --files-with-matches --smart-case" .. opts_tbl.rga,
+         grep = "rga " .. opts_tbl.rga,
          prev = "--preview='rga --context 5 --no-messages --pretty "
             .. opts_tbl.rga_preview
             .. " {q} {}' --preview-window=right,50%",
-         prompt = "--prompt='rga> '",
+         prompt = "--prompt='rga > '",
       },
    }
 
@@ -64,8 +64,7 @@ local fzf_from = function(job_args, opts_tbl, major, minor)
       "--ansi",
       "--delimiter=:",
       "--disabled",
-      "--layout=reverse",
-      "--no-multi",
+      "--multi",
       "--nth=3..",
       cmd.prev,
       cmd.prompt,

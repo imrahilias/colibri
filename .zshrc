@@ -354,13 +354,14 @@ export GOPATH="$HOME/.go"
 THEME_DARK=1
 
 # set fzf options as global envs via sourcing this in .zshrc.
-FZF_DEFAULT_OPTS_BASE="--style=minimal --tiebreak=chunk --no-height --reverse --no-info --no-separator --border=none --prompt '▶ ' --marker='█' --pointer='◆'"
+# other nice options: "--preview-border=none --layout=reverse"
+FZF_DEFAULT_OPTS_BASE="--style=minimal --no-height --no-info --no-separator --border=none --prompt '▶ ' --marker='█' --pointer='◆'"
 
 # dark color palette:
-FZF_DEFAULT_OPTS_LIGHT="--color=light --color=fg:#000000,fg+:#000000,bg:#FAF0E6,bg+:#FAF0E6,preview-bg:#FAF0E6,hl:#008080,hl+:#800080,info:#000000,marker:#800080,prompt:#800080,spinner:#330099,pointer:#800080,header:#000000,border:#000000,label:#000000,query:#000000,gutter:#FAF0E6"
+FZF_DEFAULT_OPTS_LIGHT="--color=light --color=fg:-1,fg+:-1,bg:-1,bg+:-1,preview-bg:-1,hl:cyan,hl+:magenta,info:-1,marker:magenta,prompt:magenta,spinner:#330099,pointer:magenta,header:-1,border:-1,label:-1,query:-1,gutter:-1"
 
 # light color palette:
-FZF_DEFAULT_OPTS_DARK="--color=dark --color=fg:#FAF0E6,fg+:#FAF0E6,bg:#000000,bg+:#1D1F21,preview-bg:#000000,hl:#00FFFF,hl+:#FF00FF,info:#FAF0E6,marker:#FF00FF,prompt:#FF00FF,spinner:#330099,pointer:#FF00FF,header:#FAF0E6,border:#FAF0E6,label:#FAF0E6,query:#FAF0E6,gutter:#000000"
+FZF_DEFAULT_OPTS_DARK="--color=dark --color=fg:-1,fg+:-1,bg:-1,bg+:-1,preview-bg:-1,hl:cyan,hl+:magenta,info:-1,marker:magenta,prompt:magenta,spinner:#330099,pointer:magenta,header:-1,border:-1,label:-1,query:-1,gutter:-1"
 
 if [[ $THEME_DARK == 1 ]]
 then
