@@ -1,3 +1,10 @@
+;; -- lexical-binding: t;--
+
+;;; Commentary:
+"well its merely my emacs config"
+
+;;; Code:
+
 ;;       |          _|  _|
 ;;   __| __| |   | |   |
 ;; \__ \ |   |   | __| __|
@@ -6,28 +13,12 @@
 
 ;; melpa
 (require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
+;; and `package-pinned-packages`. Most users will not need or want to do this.
+;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
-(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
-       (proto (if no-ssl "http" "https")))
-  (when no-ssl
-    (warn "\
-Your version of Emacs does not support SSL connections,
-which is unsafe because it allows man-in-the-middle attacks.
-There are two thing you can do about this warning:
-1. Install an Emacs version that does support SSL and be safe.
-2. Remove this warning from your init file so you won't see it again."))
-  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-  (when (< emacs-major-version 24)
-    ;; For important compatibility libraries like cl-lib
-    (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 
-;; custom-set-variables was added by Custom.
-;; If you edit it by hand, you could mess it up, so be careful.
-;; Your init file should contain only one such instance.
-;; If there is more than one, they won't work right.
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -47,21 +38,26 @@ There are two thing you can do about this warning:
      (org . t) (python . t) (sed . t) (shell . t) (sql . t)
      (sqlite . t)))
  '(package-selected-packages
-   '(ample-regexps atom-one-dark-theme auto-complete auto-correct
+   '(all-the-icons all-the-icons-completion all-the-icons-dired
+                   all-the-icons-nerd-fonts ample-regexps
+                   atom-one-dark-theme auto-complete auto-correct
                    bash-completion blacken color-identifiers-mode
-                   company csv-mode cuda-mode evil flycheck fuzzy
-                   gnuplot highlight highlight-blocks
-                   highlight-defined highlight-escape-sequences
-                   highlight-function-calls highlight-numbers
-                   highlight-operators highlight-parentheses
-                   highlight-quoted highlight-symbol highlight-thing
+                   company consult consult-flycheck consult-flyspell
+                   csv-mode cuda-mode dired-subtree eat embark
+                   embark-consult evil flycheck fuzzy glab gnuplot
+                   highlight highlight-blocks highlight-defined
+                   highlight-escape-sequences highlight-function-calls
+                   highlight-numbers highlight-operators
+                   highlight-parentheses highlight-quoted
+                   highlight-symbol highlight-thing
                    highlight-unique-symbol hl-block-mode json-mode
-                   live-py-mode lua-mode luarocks magit markdown-mode
-                   matlab-mode mmm-mode org-auto-tangle org-modern
-                   org-view-mode php-mode poly-ansible poly-markdown
-                   polymode rainbow-identifiers rainbow-mode rust-mode
-                   spinner string-inflection timu-caribbean-theme
-                   yaml-pro))
+                   live-py-mode lua-mode luarocks magit magit-gitlab
+                   marginalia markdown-mode matlab-mode mmm-mode
+                   orderless org-auto-tangle org-modern org-view-mode
+                   php-mode poly-ansible poly-markdown polymode
+                   rainbow-identifiers rainbow-mode ranger ripgrep
+                   rust-mode spinner string-inflection
+                   timu-caribbean-theme vertico wgrep yaml-pro))
  '(warning-suppress-log-types '((auto-save))))
 
 ;; ;; markdown/org translator:
@@ -80,13 +76,13 @@ There are two thing you can do about this warning:
 ;;
 
 ;; readymade themes:
-;;(load-theme 'timu-caribbean t)
-;;(customize-set-variable 'timu-caribbean-org-intense-colors t)
-;;(load-theme 'atom-one-dark t)
+;; (load-theme 'timu-caribbean t)
+;; (customize-set-variable 'timu-caribbean-org-intense-colors t)
+;; (load-theme 'atom-one-dark t)
 
 ;; fonts:
-;;(set-face-attribute 'default nil :family "DejaVu Nerd Font Mono")
-;;(set-face-attribute 'default nil :height (* 12 10))
+;; (set-face-attribute 'default nil :family "DejaVu Nerd Font Mono")
+;; (set-face-attribute 'default nil :height (* 12 10))
 (set-face-attribute 'default nil :family "BitstromWera Nerd Font")
 (set-face-attribute 'default nil :height (* 12 10))
 
@@ -111,7 +107,7 @@ There are two thing you can do about this warning:
 (set-face-background 'whitespace-tab "#ff6000")
 
 ;; ui and base colors:
-;;(setq theme-color-accent  "#ff6000")
+;; (setq theme-color-accent  "#ff6000")
 (setq theme-color-accent  "#4682B4")
 (setq theme-color-level-1 "#1D1F21")
 (setq theme-color-level-2 "#373B41")
@@ -133,18 +129,18 @@ There are two thing you can do about this warning:
 ;; rainbow style syntax highlighting:
 (global-color-identifiers-mode t)
 
-;;toggle selective highlighting of patterns (hi-lock-mode):
+;; toggle selective highlighting of patterns (hi-lock-mode):
 (global-hi-lock-mode t)
 
-;(highlight-operators-mode t)
+;; (highlight-operators-mode t)
 (global-highlight-parentheses-mode t)
 (set-face-attribute 'hi-yellow nil :foreground "#FAF0E6" :background "#1A004E")
 
-;minor mode that highlights things at point:
+;; minor mode that highlights things at point:
 (global-highlight-thing-mode t)
 
 ;; make ugly glyphs from greek letters?
-;(global-prettify-symbols-mode t)
+;;(global-prettify-symbols-mode t)
 
 ;; highlight line:
 (global-hl-line-mode t)
@@ -159,7 +155,8 @@ There are two thing you can do about this warning:
 ;; you can use the following snippet after you’ve set the alpha as
 ;; above to assign a toggle to “c-c t”:
 (defun toggle-transparency ()
-  (interactive)
+  "Toggle transparency."
+  (interactive "Toggle transparency.")
   (let ((alpha (frame-parameter nil 'alpha)))
     (set-frame-parameter
      nil 'alpha
@@ -173,7 +170,7 @@ There are two thing you can do about this warning:
 
 ;; a general transparency function:
 (defun transparency (value)
-  "Sets the transparency of the frame window. 0=transparent/100=opaque"
+  "Set the transparency of the frame window.  VALUE 0=transparent/100=opaque."
   (interactive "Transparency Value 0 - 100 opaque:")
   (set-frame-parameter (selected-frame) 'alpha value))
 
@@ -213,7 +210,7 @@ There are two thing you can do about this warning:
 ;; hide modeline:
 (defvar-local hidden-mode-line-mode nil)
 (define-minor-mode hidden-mode-line-mode
-  "minor mode to hide the mode-line in the current buffer."
+  "Minor mode to hide the mode-line in the current buffer."
   :init-value nil
   :global t
   :variable hidden-mode-line-mode
@@ -238,15 +235,15 @@ There are two thing you can do about this warning:
 (add-hook 'after-change-major-mode-hook 'hidden-mode-line-mode)
 
 ;; show date and time in mode-line:
-;;(setq display-time-day-and-date t )
-;;(setq display-time-24hr-format t)
-;;(display-time)
+;; (setq display-time-day-and-date t )
+;; (setq display-time-24hr-format t)
+;; (display-time)
 
-;
-;  _ \   __| _` |
-; (   | |   (   |
-;\___/ _|  \__, |
-;          |___/
+;;
+;;   _ \   __| _` |
+;;  (   | |   (   |
+;; \___/ _|  \__, |
+;;           |___/
 
 (require 'org-faces)
 ;; load faces first, then customise:
@@ -299,14 +296,21 @@ There are two thing you can do about this warning:
 ;; ____/\___|\__|\__|_|_|  _|\__, |____/
 ;;                           |___/
 
-; flycheck for shellchecking
-(global-flycheck-mode 1)
+;; ranger
+
+
+
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/EditorConfig-support.html
+(editorconfig-mode t)
+
+;; flycheck for shellchecking
+(global-flycheck-mode t)
 
 ;; sort case insensitively:
 (setq sort-fold-case nil)
 
 ;; revert buffers when the underlying file has changed
-(global-auto-revert-mode 1)
+(global-auto-revert-mode t)
 
 ;; org mode header styles:
 (setq org-startup-indented t)
@@ -348,7 +352,7 @@ There are two thing you can do about this warning:
 (setq initial-scratch-message "")
 
 ;; save and restore my buffers every time:
-;;(desktop-save-mode 1)
+;; (desktop-save-mode 1)
 
 ;; scrolling
 (setq scroll-margin 5 scroll-conservatively 0 )
@@ -359,20 +363,21 @@ There are two thing you can do about this warning:
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse nil) ;; scroll window under mouse
 
-;; interactively do things mode:
-(require 'ido)
-(ido-mode t)
+;; interactively do things mode, this is done with vertico now.
+;; (require 'ido)
+;; (ido-mode t)
 
 ;; emacs paste on line curser (not mouse):
 (setq mouse-yank-at-point t)
 
-;; always show color as color:
+
+;; Always show color as color
 (define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
   (lambda () (rainbow-mode t)))
 (my-global-rainbow-mode t)
 
 ;; subword mode (camelCase mode):
-;(global-subword-mode t)
+;; (global-subword-mode t)
 
 ;; i hate tabs!
 (setq-default indent-tabs-mode nil)
@@ -388,13 +393,81 @@ There are two thing you can do about this warning:
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; ecil mode:
-;(evil-mode t)
+;; (evil-mode t)
+
+;; all completion styles, including vertico:
+(setq completion-styles '(orderless substring partial-completion flex))
+
+;; vertico ripgrep embark: its over 9000:
+(vertico-mode t)
+(vertico-mouse-mode t)
+
+;; In case you want to use Vertico to show the completion candidates
+;; of completion-at-point and completion-in-region, you can use the
+;; function consult-completion-in-region provided by the Consult
+;; package.
+(setq completion-in-region-function #'consult-completion-in-region)
+
+
+
+;; always use buffers or enable vertico-multiform and select for each type:
+;; (vertico-buffer-mode)
+(vertico-multiform-mode)
+
+;; configure the display per command.  use a buffer with indices for
+;; imenu and a flat (Ido-like) menu for M-x.
+;; (setq vertico-multiform-commands
+;;       '((consult-imenu buffer indexed)
+;;         (execute-extended-command unobtrusive)))
+(setq vertico-multiform-commands
+      '((consult-imenu buffer indexed)))
+
+;; Configure the display per completion category.  Use the grid
+;; display for files and a buffer for the consult-grep commands.
+;; (setq vertico-multiform-categories
+;;       '((file grid)
+;;         (consult-grep buffer)))
+(setq vertico-multiform-categories
+      '((consult-grep buffer)))
+
+;; Enable cycling for 'vertico-next/previous':
+(setq vertico-cycle t)
+
+(setq all-the-icons-completion-mode t)
+(setq all-the-icons-dired-mode t)
+
+(setq read-file-name-completion-ignore-case t)
+(setq read-buffer-completion-ignore-case t)
+(setq completion-ignore-case t)
+
+;; electric pairs:
+(electric-pair-mode)
 
 ;;  |
 ;;  |  /  _ \ |   |  __|
 ;;    <   __/ |   |\__ \
 ;; _|\_\\___|\__, |____/
 ;;           ____/
+
+;; cycle inside the list of completions (like vanilla emacs and zsh),
+;; cycle back with 'S-Tab' which is '<backtab>' whyever:
+(keymap-set vertico-map "TAB" 'vertico-next)
+(keymap-set vertico-map "<backtab>" 'vertico-previous)
+
+;; consult, and its over 9000 modes:
+(define-key global-map (kbd "M-f") 'consult-flycheck)
+(define-key global-map (kbd "M-m") 'consult-flymake)
+(define-key global-map (kbd "M-i") 'consult-flyspell)
+(define-key global-map (kbd "M-s") 'consult-line)
+
+(define-key global-map (kbd "M-/") 'consult-fd)
+(define-key global-map (kbd "M-\\") 'consult-ripgrep)
+
+;; possible actions with shortkeys
+(define-key global-map (kbd "M-a") 'embark-act)
+
+;; eranger
+(define-key global-map (kbd "M-r") 'ranger)
 
 ;; window modifications
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
@@ -412,8 +485,8 @@ There are two thing you can do about this warning:
 ;; open various configs:
 (global-set-key (kbd "C-c a") (lambda() (interactive) (find-file "~/.config/awesome/rc.lua")))
 (global-set-key (kbd "C-c e") (lambda() (interactive) (find-file "~/.emacs")))
-(global-set-key (kbd "C-c l") (lambda() (interactive) (find-file "~/.config/lf/lfrc")))
-(global-set-key (kbd "C-c R") (lambda() (interactive) (find-file "~/.config/ranger/rifle.conf")))
+                                        ;(global-set-key (kbd "C-c l") (lambda() (interactive) (find-file "~/.config/lf/lfrc")))
+                                        ;(global-set-key (kbd "C-c R") (lambda() (interactive) (find-file "~/.config/ranger/rifle.conf")))
 (global-set-key (kbd "C-c x") (lambda() (interactive) (find-file "~/.xinitrc")))
 (global-set-key (kbd "C-c X") (lambda() (interactive) (find-file "~/.Xresources")))
 (global-set-key (kbd "C-c y") (lambda() (interactive) (find-file "~/.config/yazi/keymap.toml")))
@@ -424,8 +497,8 @@ There are two thing you can do about this warning:
 (setq lpr-add-switches nil)
 
 ;; switch window:
-;;(global-set-key [C-tab] 'other-window)
-;;(global-set-key [C-C-tab] (lambda () (interactive) (other-window -1)))
+;; (global-set-key [C-tab] 'other-window)
+;; (global-set-key [C-C-tab] (lambda () (interactive) (other-window -1)))
 
 (global-set-key (kbd "M-<mouse-8>") 'next-buffer)
 (global-set-key (kbd "M-<mouse-9>") 'previous-buffer)
@@ -439,13 +512,12 @@ There are two thing you can do about this warning:
 ;; this does not work, since <mouse-8> and <mouse-9> are intercepted
 ;; by xbindkeys and mapped to "alt-left" / "alt-right" to work with
 ;; lf!
-;;(global-set-key (kbd "<mouse-8>") (kbd "C-v"))
-;;(global-set-key (kbd "<mouse-9>") (kbd "M-v"))
+;; (global-set-key (kbd "<mouse-8>") (kbd "C-v"))
+;; (global-set-key (kbd "<mouse-9>") (kbd "M-v"))
 
 ;; ?
 ;; (define-key (current-local-map) (kbd "<mouse-8>")
 ;;             (lookup-key (current-local-map) (kbd "C-v")))
-
 
 ;;   _|                  |  _)
 ;;  |   |   | __ \   __| __| |  _ \  __ \   __|
@@ -453,14 +525,32 @@ There are two thing you can do about this warning:
 ;; _|  \__,_|_|  _|\___|\__|_|\___/ _|  _|____/
 ;;
 
+;; Enable rich annotations using the Marginalia package
+(use-package marginalia
+  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
+  ;; available in the *Completions* buffer, add it to the
+  ;; `completion-list-mode-map'.
+  :bind (:map minibuffer-local-map
+              ("M-A" . marginalia-cycle))
+
+  ;; The :init section is always executed.
+  :init
+
+  ;; Marginalia must be activated in the :init section of use-package such that
+  ;; the mode gets enabled right away. Note that this forces loading the
+  ;; package.
+  (marginalia-mode))
+
 ;; You can change the backup-file naming convention by redefining this
 ;; function. The following example redefines make-backup-file-name to
 ;; prepend a ‘.’ in addition to appending a tilde:
 (defun make-backup-file-name (filename)
+  "Change the backup-file naming convention to FILENAME.  The following
+example redefines 'make-backup-file-name' to prepend a '.' in addition
+to appending a tilde '~'."
   (expand-file-name
    (concat "." (file-name-nondirectory filename) "~")
    (file-name-directory filename)))
-
 
 ;; This function exists so that you can customize it if you wish to
 ;; change the naming convention for auto-save files. If you redefine
@@ -492,7 +582,6 @@ of current buffer.
   (let* ((face-offset (* (face-id 'shadow) (ash 1 22)))
          (value (vconcat (mapcar (lambda (c) (+ face-offset c)) ellipsis))))
     (set-display-table-slot standard-display-table 'selective-display value)))
-
 (my-outline-set-global-ellipsis " ▼")
 
 ;; (defun scroll-down-keep-cursor ()
@@ -510,19 +599,20 @@ of current buffer.
 ;;   )
 ;; (global-set-key (kbd "C-.") 'scroll-up-keep-cursor)
 
-;; current date:
-(defun insert-current-date() (interactive)
-       (insert (shell-command-to-string "echo -n $(date '+%Y-%m-%d %k:%M')") )
-       )
+(defun insert-current-date()
+  "Insert current date."
+  (interactive)
+  (insert (shell-command-to-string "echo -n $(date '+%Y-%m-%d %k:%M')") )
+  )
 (global-set-key (kbd "C-c d") 'insert-current-date)
 
 ;; un/compact block:
 (defun fill-or-unfill ()
   "Reformat current paragraph or region to `fill-column', like
 `fill-paragraph' or “unfill”.  When there is a text selection, act on
-the selection, else, act on a text block separated by blank lines.
-URL `http://xahlee.info/emacs/emacs/modernization_fill-paragraph.html'
-Version 2017-01-08"
+the selection, else, act on a text block separated by blank lines.  URL
+`http://xahlee.info/emacs/emacs/modernization_fill-paragraph.html'
+Version 2017-01-08."
   (interactive)
   ;; This command symbol has a property “'compact-p”, the possible
   ;; values are t and nil. This property is used to easily determine
@@ -555,19 +645,17 @@ Version 2017-01-08"
     (put this-command 'compact-p (not $compact-p))))
 (global-set-key (kbd "M-q") 'fill-or-unfill)
 
-;; electric-pair mode (mark region, then press "*":
-(electric-pair-mode t)
-(defvar org-electric-pairs '((?\* . ?\*) (?/ . ?/) (?= . ?=)
-                             (?\_ . ?\_) (?~ . ?~) (?+ . ?+)) "Electric pairs for org-mode.")
+(defvar org-electric-pairs '((?\* . ?\*) (?/ . ?/) (?= . ?=) (?\_ . ?\_) (?~ . ?~) (?+ . ?+))
+  "'electric-pair-mode' for 'org-mode': mark region, then press *.")
+
 (defun org-add-electric-pairs ()
+  "Enable electric-pair-pairs automatically in 'org-mode'."
   (setq-local electric-pair-pairs (append electric-pair-pairs org-electric-pairs))
   (setq-local electric-pair-text-pairs electric-pair-pairs))
 (add-hook 'org-mode-hook 'org-add-electric-pairs)
 
-;; only insert electric pairs when selecting something, not on single
-;; key press:
-(electric-pair-mode)
 (defun only-if-use-region (func &rest args)
+  "Only insert electric pairs (FUNC ARGS) when selecting something, not on single key press."
   (if (use-region-p)
       (apply func args)))
 (advice-add 'electric-pair-post-self-insert-function :around 'only-if-use-region)
@@ -581,7 +669,7 @@ Version 2017-01-08"
 ;; _|\__,_|_|  _|\__, |
 ;;               |___/
 
-;; start auto-complete-mode:
+;; Start auto-complete-mode:
 (dolist (hook '(text-mode-hook))
   (add-hook hook (lambda () (auto-complete-mode 1))))
 
@@ -597,7 +685,7 @@ Version 2017-01-08"
 (global-set-key (kbd "C-c p") 'compile)
 
 ;; octave mode:
-;;(global-set-key (kbd "C-c C-c") 'octave-send-region)
+;; (global-set-key (kbd "C-c C-c") 'octave-send-region)
 
 ;; latex mode:
 (with-eval-after-load "tex"
@@ -654,10 +742,13 @@ Version 2017-01-08"
 
 ;; the personal dictionary file has to exist, otherwise hunspell will
 ;; silently not use it:
-;;(unless (file-exists-p ispell-personal-dictionary)
-;;(write-region "" nil ispell-personal-dictionary nil 0))
+;; (unless (file-exists-p ispell-personal-dictionary)
+;; (write-region "" nil ispell-personal-dictionary nil 0))
 
 (setenv "LANG" "en_US.UTF-8")
+
+(provide '.emacs)
+;;; .emacs ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
