@@ -1,4 +1,4 @@
-;; -*- lexical-binding: t; -*-
+;;; package --- Summary ; -*- lexical-binding: t; -*-
 
 ;; Initialize package sources
 (require 'package)
@@ -26,14 +26,14 @@
 	 all-the-icons-nerd-fonts auto-complete auto-correct blacken
 	 color-identifiers-mode consult consult-flycheck consult-flyspell
 	 csv-mode cuda-mode eat embark embark-consult flycheck
-	 flycheck-bashate flycheck-yamllint fuzzy ghnuplot glab highlight
+	 flycheck-bashate flycheck-yamllint fuzzy highlight
 	 highlight-blocks highlight-defined highlight-escape-sequences
 	 highlight-function-calls highlight-numbers highlight-operators
 	 highlight-parentheses highlight-quoted highlight-symbol
 	 highlight-thing highlight-unique-symbol hl-block-mode json-mode
 	 live-py-mode lua-mode luarocks magit magit-gitlab marginalia
-	 markdown-mode mmm-mode orderless org-auto-tangle org-faces org-modern
-	 org-view-mode poly-markdown poly-org rainbow rainbow-identifiers
+	 markdown-mode mmm-mode orderless org-appear org-auto-tangle org-faces org-modern
+	 org-view-mode poly-mode poly-markdown rainbow rainbow-identifiers
 	 rainbow-mode ranger ripgrep string-inflection vertico wgrep yaml-mode yaml-pro))
 
 ;;; Commentary:
@@ -57,13 +57,12 @@
     (window-divider ((t (:foreground "#444444"))))
     (trailing-whitespace ((t (:background "#330099"))))
     (lazy-highlight ((t (:background "#003641"))))
-    (isearch ((t (:foreground "#000000":background "#FF00FF"))))
+    (isearch ((t (:foreground "#000000" :background "#FF00FF"))))
     (isearch-fail ((t (:foreground "#000000" :background "yellow"))))
     (highlight ((t (:background "#0D0D0D"))))
 
-    :custom
+    :init
     ;; (set-face-attribute 'default nil :family "DejaVu Nerd Font Mono")
-    ;; (set-face-attribute 'default nil :height (* 12 10))
     (set-face-attribute 'default nil :family "BitstromWera Nerd Font")
     (set-face-attribute 'default nil :height (* 12 10))
     (set-face-attribute 'fringe nil :background "#000000")
@@ -71,7 +70,14 @@
     (set-foreground-color "#FAF0E6")
     (set-background-color "#000000")
 
-    :init
+    (global-font-lock-mode)
+    (global-color-identifiers-mode)
+    (global-hi-lock-mode)
+    (global-highlight-parentheses-mode)
+    (global-hl-line-mode)
+    (global-auto-revert-mode)
+
+    (flyspell-mode 0)
     (scroll-bar-mode 0)
     (tool-bar-mode 0)
     (menu-bar-mode 0)
@@ -165,8 +171,8 @@
 
     (defun make-backup-file-name (filename)
         "Change the backup-file naming convention to FILENAME.  The following
-example redefines 'make-backup-file-name' to prepend a '.' in addition
-to appending a tilde '~'."
+example redefines 'make-backup-file-name' to prepend a `.` in addition
+to appending a tilde `~`."
         (expand-file-name
             (concat "." (file-name-nondirectory filename) "~")
             (file-name-directory filename)))
@@ -238,13 +244,7 @@ Version 2017-01-08."
     :hook
     (after-change-major-mode . hidden-mode-line-mode)
     (before-save . delete-trailing-whitespace)
-    (text-mode . (auto-complete-mode auto-correct-mode))
-    (prog-mode . global-font-lock-mode)
-    (prog-mode . global-color-identifiers-mode)
-    (prog-mode . global-hi-lock-mode)
-    (prog-mode . global-highlight-parentheses-mode)
-    (prog-mode . global-hl-line-mode)
-    (prog-mode . global-auto-revert-mode)
+    ;;(text-mode . (auto-complete-mode auto-correct-mode))
 
     :bind
     ("M-<mouse-8>" . previous-buffer)
@@ -261,26 +261,23 @@ Version 2017-01-08."
 (global-set-key (kbd "C-c r") (lambda() (interactive) (load-file "~/.config/emacs/init.el")))
 
 (use-package org
-    :custom
-    (org-emphasis-alist
-        '(("*" bold)
-             ("/" italic)
-             ("_" underline)
-             ("-" overline)
-             ("=" org-verbatim org-verbatim)
-             ("~" org-code org-code)
-             ("+" (:strike-through t))))
-    (org-src-fontify-natively t)
-    (org-fontify-quote-and-verse-blocks t)
-    (org-startup-indented t)
-    (org-confirm-babel-evaluate nil)
-    (org-table-header-line-p t)
-
     :config
-    (dolist (face '(org-level-1 org-level-2 org-level-3
-		       org-level-4 org-level-5 org-level-6
-		       org-level-7 org-level-8))
-        (set-face-attribute face nil :bold t))
+    (setopt
+        org-src-fontify-natively t
+        org-fontify-quote-and-verse-blocks t
+        org-startup-indented t
+        org-confirm-babel-evaluate nil
+        org-table-header-line-p t
+        org-fontify-quote-and-verse-blocks t)
+
+    (set-face-attribute 'org-level-1 nil :bold t :foreground "#FAF0E6" :background "#4682B4")
+    (set-face-attribute 'org-level-2 nil :bold t)
+    (set-face-attribute 'org-level-3 nil :bold t)
+    (set-face-attribute 'org-level-4 nil :bold t)
+    (set-face-attribute 'org-level-5 nil :bold t)
+    (set-face-attribute 'org-level-6 nil :bold t)
+    (set-face-attribute 'org-level-7 nil :bold t)
+    (set-face-attribute 'org-level-8 nil :bold t)
     (set-face-attribute 'org-quote nil :italic t)
     (set-face-attribute 'org-verbatim nil :foreground "#000000" :background "#787787")
     (set-face-attribute 'org-code nil :background "#0b0d0f")
@@ -290,10 +287,20 @@ Version 2017-01-08."
     (set-face-attribute 'org-table-header nil :foreground "#787787" :background "#161a1f" :bold t)
     (set-face-attribute 'org-meta-line nil :bold t)
 
+    ;; org mode emphasis styles, collides with 'org-appear'.
+    ;; (setq org-emphasis-alist
+    ;;     (quote(
+    ;;               ("*" bold)
+    ;;               ("/" italic)
+    ;;               ("_" underline)
+    ;;               ("-" overline)
+    ;;               ("=" org-verbatim org-verbatim)
+    ;;               ("~" org-code org-code)
+    ;;               ("+" (:strike-through t)))))
+
     ;; '<s tab' creates a code block;
     (require 'org-tempo)
 
-    ;; Electric Pairs for Org
     (electric-pair-mode)
     (defvar org-electric-pairs '((?\* . ?\*) (?/ . ?/) (?= . ?=) (?\_ . ?\_) (?~ . ?~) (?+ . ?+))
         "'electric-pair-mode' for 'org-mode': mark region, then press *.")
@@ -303,61 +310,74 @@ Version 2017-01-08."
 	    electric-pair-text-pairs electric-pair-pairs))
     (defun only-if-use-region (func &rest args)
         "Only insert electric pairs (FUNC ARGS) when selecting something, not on
-single key press."
+  single key press."
         (if (use-region-p)
             (apply func args)))
     (advice-add 'electric-pair-post-self-insert-function :around 'only-if-use-region)
 
     :hook (org-mode . org-add-electric-pairs)
 
-    :bind ("C-c v" . 'org-view-mode)
+    :bind ("C-c v" . org-view-mode)
     )
 
+(use-package org-appear
+    :after org
+    :hook (org-mode . org-appear-mode)
+    :config
+    (setopt org-appear-autoemphasis t
+        org-hide-emphasis-markers t
+        org-appear-autolinks t
+        org-appear-autoentities t
+        org-appear-autosubmarkers t
+        )
+    (run-at-time nil nil #'org-appear--set-elements))
+
 (use-package highlight-thing
-    :ensure t
-    :custom-face
-    (hi-yellow ((t (:foreground "#FAF0E6" :background "#1A004E"))))
-    :init (global-highlight-thing-mode))
+  :ensure t
+  :custom-face
+  (hi-yellow ((t (:foreground "#FAF0E6" :background "#1A004E"))))
+  :init (global-highlight-thing-mode))
 
 (use-package editorconfig
-    :ensure t
+  :ensure t
     :init (editorconfig-mode))
 
 (use-package rainbow-mode
-    :ensure t
-    :init
-    (define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
-        (lambda () (rainbow-mode t)))
-    (my-global-rainbow-mode))
+   :ensure t
+   :init
+   (define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
+       (lambda () (rainbow-mode t)))
+   (my-global-rainbow-mode))
 
 (use-package vertico
-    :init
-    (vertico-mode)
-    (vertico-mouse-mode)
-    (vertico-multiform-mode)
-    :config
-    (setopt completion-in-region-function #'consult-completion-in-region
-        vertico-cycle t)
+  :ensure t
+  :init
+  (vertico-mode)
+  (vertico-mouse-mode)
+  (vertico-multiform-mode)
+  :config
+  (setopt completion-in-region-function #'consult-completion-in-region
+          vertico-cycle t)
 
-    ;; configure the display per command.  use a buffer with indices for
-    ;; imenu and a flat (Ido-like) menu for M-x.
-    ;; (setq vertico-multiform-commands
-    ;;       '((consult-imenu buffer indexed)
-    ;;         (execute-extended-command unobtrusive)))
-    (setopt vertico-multiform-commands
-        '((consult-imenu buffer indexed)))
+  ;; configure the display per command.  use a buffer with indices for
+  ;; imenu and a flat (Ido-like) menu for M-x.
+  ;; (setq vertico-multiform-commands
+  ;;       '((consult-imenu buffer indexed)
+  ;;         (execute-extended-command unobtrusive)))
+  (setopt vertico-multiform-commands
+          '((consult-imenu buffer indexed)))
 
-    ;; Configure the display per completion category.  Use the grid
-    ;; display for files and a buffer for the consult-grep commands.
-    ;; (setq vertico-multiform-categories
-    ;;       '((file grid)
-    ;;         (consult-grep buffer)))
-    (setopt vertico-multiform-categories
-        '((consult-grep buffer)))
+  ;; Configure the display per completion category.  Use the grid
+  ;; display for files and a buffer for the consult-grep commands.
+  ;; (setq vertico-multiform-categories
+  ;;       '((file grid)
+  ;;         (consult-grep buffer)))
+  (setopt vertico-multiform-categories
+          '((consult-grep buffer)))
 
-    ;; If you don't want to go back to the prompt line by setting
-    ;; vertico-cycle, define another function like this:
-    (defun my-vertico-next (&optional n)
+  ;; If you don't want to go back to the prompt line by setting
+  ;; vertico-cycle, define another function like this:
+  (defun my-vertico-next (&optional n)
         "Circulate without returning to the prompt line"
         (interactive "p")
         (let ((index (+ vertico--index (or n 1))))
@@ -371,6 +391,7 @@ single key press."
     )
 
 (use-package orderless
+    :ensure t
     :custom
     ;; Configure a custom style dispatcher (see the Consult wiki)
     ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
@@ -382,10 +403,12 @@ single key press."
 
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
+    :ensure t
     :bind (:map minibuffer-local-map ("M-A" . marginalia-cycle))
     :init (marginalia-mode))
 
 (use-package all-the-icons
+    :ensure t
     :init
     (all-the-icons-completion-mode t)
     (all-the-icons-dired-mode t))
@@ -398,7 +421,7 @@ single key press."
     :ensure t
     :bind
     ("M-f" . consult-flycheck)
-    ("M-i" . consult-flyspell)
+    ;("M-i" . consult-flyspell)
     ("M-s" . consult-line)
     ("M-/" . consult-fd)
     ("M-\\" . consult-ripgrep)
@@ -414,45 +437,42 @@ single key press."
 (use-package octave
     :bind ("C-c C-c" . octave-send-region))
 
-;; latex mode:
-(with-eval-after-load "tex"
-    (add-to-list 'TeX-command-list
-        `("Arara" "arara --verbose %s" TeX-run-TeX nil t :help "Run Arara") t)
-    (add-to-list 'TeX-command-list
-        `("Extex" "lualatex -synctex=1 -interaction=nonstopmode --shell-escape %s" TeX-run-TeX nil t :help "LuaLatex + SyncTex + ShellEscape + NonstopMode (no halt-on-error)") t)
-    (tex-source-correlate-mode t) )
+;; ;; latex mode:
+;; (with-eval-after-load "tex"
+;;     (add-to-list 'TeX-command-list
+;;         `("Arara" "arara --verbose %s" TeX-run-TeX nil t :help "Run Arara") t)
+;;     (add-to-list 'TeX-command-list
+;;         `("Extex" "lualatex -synctex=1 -interaction=nonstopmode --shell-escape %s" TeX-run-TeX nil t :help "LuaLatex + SyncTex + ShellEscape + NonstopMode (no halt-on-error)") t)
+;;     (tex-source-correlate-mode t) )
 
-(with-eval-after-load "latex"
-    (define-key LaTeX-mode-map (kbd "C-c C-a")
-        (lambda ()
-	    (interactive)
-	    (TeX-command-sequence '("Arara" "Extex") t))))
-;;              (TeX-command-sequence '("Arara" "View") t))))
-
-;; (use-package flyspell
-;;   :defer 1
-;;   :custom-face
-;;   (flyspell-incorrect ((t (:underline (:color "dark violet" :style wave :position nil)))))
-;;   :hook
-;;   (text-mode . flyspell-mode)
-;;   (prog-mode . flyspell-prog-mode)
-;; )
-
-;; (use-package flyspell
-;;     :hook
-;;     (text-mode . flyspell-mode)
-;;     ((change-log-mode log-edit-mode) . (lambda () (flyspell-mode -1))))
+;; (with-eval-after-load "latex"
+;;     (define-key LaTeX-mode-map (kbd "C-c C-a")
+;;         (lambda ()
+;; 	    (interactive)
+;; 	    (TeX-command-sequence '("Arara" "Extex") t))))
+;; ;;              (TeX-command-sequence '("Arara" "View") t))))
 
 (use-package ispell
-    :custom
-    (ispell-program-name "hunspell")
-    (ispell-dictionary "de_DE,en_GB,en_US")
-    (ispell-personal-dictionary "~/.hunspell_personal")
+    ;;:custom
+    :init
+    (setopt ispell-program-name "hunspell"
+        ispell-dictionary "de_DE,en_GB,en_US"
+        ispell-personal-dictionary "~/.hunspell_personal")
     ;; ispell-set-spellchecker-params has to be called before
     ;; ispell-hunspell-add-multi-dic will work
-    :config
+    ;;:config
     (ispell-set-spellchecker-params)
-    (ispell-hunspell-add-multi-dic "de_DE,en_GB,en_US"))
+    (ispell-hunspell-add-multi-dic "de_AT,de_DE,en_GB,en_US"))
 
+(use-package jinx
+    :ensure t
+    :config
+    (jinx-languages "de_AT de_DE en_GB en_US")
+    :hook (emacs-startup . global-jinx-mode)
+    :bind
+    ("M-j" . jinx-correct)
+    ("C-M-j" . jinx-languages))
 
 ;;; init.el ends here
+
+;; End:
