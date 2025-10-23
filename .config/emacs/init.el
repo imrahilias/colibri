@@ -135,12 +135,6 @@ each savepoint.")
                 (make-directory backup-container t))
             (format "%s/%s~%s~.%s" backup-container basename
 	        (format-time-string backup-each-save-time-format) extension)))
-    (defun my-outline-set-global-ellipsis (ellipsis)
-        "Apply the ellipsis ELLIPSIS to outline mode globally."
-        (let* ((face-offset (* (face-id 'shadow) (ash 1 22)))
-                  (value (vconcat (mapcar (lambda (c) (+ face-offset c)) ellipsis))))
-            (set-display-table-slot standard-display-table 'selective-display value)))
-    (my-outline-set-global-ellipsis " ▼")
     :hook
     (before-save . delete-trailing-whitespace)
     (after-save . backup-each-save)
@@ -161,12 +155,13 @@ each savepoint.")
 
 (use-package gptel
     :custom
+    (gptel-default-mode 'org-mode)
     ;; (gptel-api-key
     ;;     (auth-source-pick-first-password
     ;;         :host "OpenWebUI"
     ;;         :user "credential"))
     (gptel-api-key (getenv "OPENWEBUI_API_KEY"))
-    (gptel-model "glm-4.6-355b")
+    (gptel-model 'glm-4.6-355b)
     (gptel-backend (gptel-make-openai "OpenWebUI"
                        :host "chat.ai.datalab.tuwien.ac.at"
                        :protocol "https"
@@ -177,6 +172,7 @@ each savepoint.")
     :bind
     ("M-l" . gptel)
     ("C-<return>" . gptel-send))
+
 
 (use-package highlight-thing
     :custom-face
@@ -221,10 +217,11 @@ each savepoint.")
 (use-package org
     :mode ("\\.org$" . org-mode)
     :custom
-    (org-src-fontify-natively t)
-    (org-fontify-quote-and-verse-blocks t)
-    (org-startup-indented t)
     (org-confirm-babel-evaluate nil)
+    (org-ellipsis " ▼")
+    (org-fontify-quote-and-verse-blocks t)
+    (org-src-fontify-natively t)
+    (org-startup-indented t)
     (org-table-header-line-p t)
     :config
     (electric-pair-mode)
@@ -239,7 +236,6 @@ each savepoint.")
              (org . t)
              (python . t)
              (shell . t)))
-    (set-face-attribute 'org-block nil :background "#0b0d0f")
     (set-face-attribute 'org-block-begin-line nil :background "#161a1f" :bold t)
     (set-face-attribute 'org-code nil :background "#0b0d0f")
     (set-face-attribute 'org-level-1 nil :bold t :foreground "#FAF0E6" :background "#4682B4")
@@ -255,6 +251,7 @@ each savepoint.")
     (set-face-attribute 'org-table nil :background "#0b0d0f")
     (set-face-attribute 'org-table-header nil :foreground "#787787" :background "#161a1f" :bold t)
     (set-face-attribute 'org-verbatim nil :foreground "#000000" :background "#787787")
+    (set-face-attribute 'org-block nil :background "#0b0d0f")
     (defvar org-electric-pairs '((?\* . ?\*) (?/ . ?/) (?= . ?=) (?\_ . ?\_) (?~ . ?~) (?+ . ?+))
         "electric-pair-mode for org-mode: mark region, then press `*` or `/`.")
     (defun org-add-electric-pairs ()
