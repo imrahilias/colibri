@@ -9,6 +9,29 @@
 
 !*.background: rgb:10/10/10
 
+!
+!   _ \ __ `__ \   _` |  __|  __|
+!   __/ |   |   | (   | (   \__ \
+! \___|_|  _|  _|\__,_|\___|____/
+!
+
+Emacs.font: BitstromWera Nerd Font Mono-12
+Emacs.MenuBar: off
+Emacs.ToolBar: off
+Emacs.TabBar: off
+Emacs.ScrollBars: off
+Emacs.BorderWidth: 0
+Emacs.LineSpacing: 0
+Emacs.cursorBlink: off
+Emacs.foreground: #FAF0E6
+Emacs.background: #000000
+Emacs.cursorColor: #FF00FF
+Emacs.cursorColor2: #FF00FF
+Emacs.pointerColor: #FF00FF
+Emacs.pointerColor2: #FF00FF
+Emacs.Alpha: 100
+Emacs.alphaBackground: 90
+
 !   _|             |
 !  |    _ \  __ \  __|  __|
 !  __| (   | |   | |  \__ \
@@ -22,7 +45,6 @@ Xft.hinting: 1
 Xft.hintstyle: hintfull
 Xft.lcdfilter: lcddefault
 Xft.rgba: rgb
-
 
 !                          |
 !  |   |  __|\ \  /\ \   / __|

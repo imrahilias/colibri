@@ -35,6 +35,8 @@ setxkbmap -layout "us(m)" -option ctrl:nocaps
 # set some theme options as global envs via sourcing this in .zashrc:
 #source "${XDG_CONFIG_HOME:-$HOME}/theme"
 
+source "$HOME/vsc/bin/api.conf"
+
 #                                  |
 #  __ \   __| _ \  __ `__ \  __ \  __|
 #  |   | |   (   | |   |   | |   | |
@@ -351,7 +353,7 @@ export GOPATH="$HOME/.go"
 #export OP_BIOMETRIC_UNLOCK_ENABLED=true
 
 # this is changed via sed by darkman from $HOME/.local/share/light-mode.d/:
-THEME_DARK=1
+THEME_DARK=0
 
 # set fzf options as global envs via sourcing this in .zshrc.
 # other nice options: "--preview-border=none --layout=reverse"

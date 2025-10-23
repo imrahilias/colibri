@@ -1,119 +1,101 @@
 ;;; package --- Summary ; -*- lexical-binding: t; -*-
 
-;; Initialize package sources
-(require 'package)
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                            ("gnu"   . "https://elpa.gnu.org/packages/")
-                            ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
-(package-initialize)
-
-;; Install use-package if it's not already there
-(unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-    (package-install 'use-package))
-
-;; Load use-package
-(require 'use-package)
-;; This is a crucial line that makes `:ensure t` work everywhere
-(setq use-package-always-ensure t)
-
-;; All persistent customisation is here in init.el
-(setq custom-file (make-temp-file "emacs-custom"))
-
-;; Install all these with 'package-install-selected-packages'
-(setq package-selected-packages
-    '(all-the-icons all-the-icons-completion all-the-icons-dired
-	 all-the-icons-nerd-fonts auto-complete auto-correct blacken
-	 color-identifiers-mode consult consult-flycheck consult-flyspell
-	 csv-mode cuda-mode eat embark embark-consult flycheck
-	 flycheck-bashate flycheck-yamllint fuzzy highlight
-	 highlight-blocks highlight-defined highlight-escape-sequences
-	 highlight-function-calls highlight-numbers highlight-operators
-	 highlight-parentheses highlight-quoted highlight-symbol
-	 highlight-thing highlight-unique-symbol hl-block-mode json-mode
-	 live-py-mode lua-mode luarocks magit magit-gitlab marginalia
-	 markdown-mode mmm-mode orderless org-appear org-auto-tangle org-faces org-modern
-	 org-view-mode poly-mode poly-markdown rainbow rainbow-identifiers
-	 rainbow-mode ranger ripgrep string-inflection vertico wgrep yaml-mode yaml-pro))
-
 ;;; Commentary:
 "well its merely my emacs config"
 
 ;;; Code:
 
-;; ;; markdown/org translator:
-;; (add-to-list 'load-path "~/.emacs.d/others/org-pandoc-import")
-;; (require 'org-pandoc-import)
-;; (require 'org-pandoc-import-transient)
+;; Significantly increase the gc threshold, makes startup take about 50% less.
+(setq gc-cons-threshold 100000000)
+
+;; This is about 0.1 seconds faster than running (tool-bar-mode -1)
+;;(push '(tool-bar-lines . 0) default-frame-alist)
+
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+(require 'use-package)
+(setopt
+    package-quickstart t
+    use-package-verbose t
+    use-package-always-ensure t
+    use-package-always-defer t
+    use-package-compute-statistics t
+    )
 
 (use-package emacs
     :custom-face
     (default ((t (:foreground "#FAF0E6" :background "#000000"))))
-    (font-lock-string-face ((t (:foreground "#008080"))))
+    (diff-added ((t (:foreground "#2E8B57" :background "#000000"))))
+    (diff-file-header ((t (:foreground "#FAF0E6" :background "#161A1F" :bold t))))
+    (diff-indicator-added ((t (:foreground "#2E8B57" :background "#000000"))))
+    (diff-indicator-removed ((t (:foreground "#8B0000" :background "#000000"))))
+    (diff-refine-added ((t (:foreground "#000000" :background"#2E8B57"))))
+    (diff-refine-removed ((t (:foreground "#000000" :background "#8B0000"))))
+    (diff-removed ((t (:foreground "#8B0000" :background "#000000"))))
     (font-lock-comment-face ((t (:foreground "#666699"))))
+    (font-lock-string-face ((t (:foreground "#008080"))))
     (font-lock-variable-name-face ((t (:foreground "#8B008B"))))
-    (region ((t (:background "#191970"))))
-    (secondary-selection ((t (:background "#330099"))))
-    (window-divider ((t (:foreground "#444444"))))
-    (trailing-whitespace ((t (:background "#330099"))))
-    (lazy-highlight ((t (:background "#003641"))))
+    (fringe ((t (:background "#000000"))))
+    (highlight ((t (:background "#0D0D0D"))))
     (isearch ((t (:foreground "#000000" :background "#FF00FF"))))
     (isearch-fail ((t (:foreground "#000000" :background "yellow"))))
-    (highlight ((t (:background "#0D0D0D"))))
+    (lazy-highlight ((t (:background "#003641"))))
+    (region ((t (:background "#191970"))))
+    (secondary-selection ((t (:background "#330099"))))
+    (trailing-whitespace ((t (:background "#330099"))))
+    (window-divider ((t (:foreground "#444444"))))
 
-    :init
-    ;; (set-face-attribute 'default nil :family "DejaVu Nerd Font Mono")
-    (set-face-attribute 'default nil :family "BitstromWera Nerd Font")
-    (set-face-attribute 'default nil :height (* 12 10))
-    (set-face-attribute 'fringe nil :background "#000000")
-    (set-cursor-color "#FF00FF")
-    (set-foreground-color "#FAF0E6")
-    (set-background-color "#000000")
+    :custom
+    (auto-save-default t)
+    (auto-save-no-message nil)
+    (auto-save-visited-file-name t)
+    (backup-each-save-remote-files t)
+    (completion-ignore-case t)
+    (create-lockfiles t)
+    (custom-file (make-temp-file "emacs-custom"))
+    (enable-recursive-minibuffers t)
+    (font-lock-maximum-decoration t)
+    (font-lock-maximum-size '262144)
+    (inhibit-default-init t)
+    (inhibit-startup-echo-area-message "m")
+    (inhibit-startup-screen t)
+    (initial-scratch-message "")
+    (left-fringe-width  10)
+    (lpr-add-switches nil)
+    (lpr-command "lp")
+    (make-backup-files nil)
+    (mode-line-format nil)
+    (mouse-wheel-follow-mouse nil)
+    (mouse-wheel-progressive-speed nil)
+    (mouse-wheel-scroll-amount '(3 ((shift) . 1)))
+    (mouse-yank-at-point t)
+    (pop-up-frames t)
+    (read-buffer-completion-ignore-case t)
+    (read-file-name-completion-ignore-case t)
+    (right-fringe-width  0)
+    (scroll-conservatively 0)
+    (scroll-down-aggressively 0.01)
+    (scroll-margin 5)
+    (scroll-up-aggressively 0.01)
+    (show-trailing-whitespace t)
+    (sort-fold-case nil)
+    (use-short-answers t)
+    (vc-make-backup-files t)
 
-    (global-font-lock-mode)
-    (global-color-identifiers-mode)
-    (global-hi-lock-mode)
-    (global-highlight-parentheses-mode)
-    (global-hl-line-mode)
-    (global-auto-revert-mode)
+    ;; :init
+    ;; ;; Significantly increase the gc threshold, makes startup take about 50% less.
+    ;; (setq gc-cons-threshold 100000000)
 
-    (flyspell-mode 0)
-    (scroll-bar-mode 0)
-    (tool-bar-mode 0)
-    (menu-bar-mode 0)
-    (blink-cursor-mode 0)
-    (indent-tabs-mode 0)
+    ;; ;; This is about 0.1 seconds faster than running (tool-bar-mode -1)
+    ;; (push '(tool-bar-lines . 0) default-frame-alist)
+    ;; (setq default-frame-alist (cons '(tool-bar-lines . 0) default-frame-alist))
+    ;; (setq initial-frame-alist (cons '(tool-bar-lines . 0) initial-frame-alist))
 
-    (setopt
-        pop-up-frames t
-        sort-fold-case nil
-        inhibit-startup-message t
-        initial-scratch-message ""
-        scroll-margin 5
-        scroll-conservatively 0
-        scroll-up-aggressively 0.01
-        scroll-down-aggressively 0.01
-        mouse-wheel-scroll-amount '(3 ((shift) . 1))
-        mouse-wheel-progressive-speed nil
-        mouse-wheel-follow-mouse nil
-        mouse-yank-at-point t
-        show-trailing-whitespace t
-        ;;enable-recursive-minibuffers t
-        use-short-answers t
-        font-lock-maximum-decoration t
-        font-lock-maximum-size '262144
-        left-fringe-width  10
-        right-fringe-width  0
-        lpr-command "lp"
-        lpr-add-switches nil
-        read-file-name-completion-ignore-case t
-        read-buffer-completion-ignore-case t
-        completion-ignore-case t
-        )
-
-    ;; opacity
-    (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-    (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+    :config
+    (put 'downcase-region 'disabled nil)
+    (put 'upcase-region 'disabled nil)
+    (put 'erase-buffer 'disabled nil)
 
     (defun toggle-transparency ()
         "Toggle frame transparency between 90% and 100%."
@@ -127,75 +109,42 @@
                         100)
                     '(90 . 90) '(100 . 100)))))
 
-    ;; disable up/downcase region warning message:
-    (put 'downcase-region 'disabled nil)
-    (put 'upcase-region 'disabled nil)
 
-    ;; `window-divider-mode' gives us finer control over the border
-    ;; between windows. The native border "consumes" a pixel of the left
-    ;; fringe on righter-most splits (in Yamamoto's emacs-mac at least),
-    ;; window-divider does not. NOTE Only available on Emacs 25.1+:
-    ;; (when (boundp 'window-divider-mode)
-    ;;     (setq window-divider-default-places t
-    ;;         window-divider-default-bottom-width 1
-    ;;         window-divider-default-right-width 1)
-    ;;     (window-divider-mode 1))
+    ;; auto-save-everything-all-the-time
+    (defvar backup-each-save-mirror-location "~/.backups")
+    (defvar backup-each-save-remote-files t)
+    (defvar backup-each-save-time-format "%y%m%d%H%M%S")
+    (defvar backup-each-save-filter-function 'identity
+        "Function which should return non-nil if the file should be backed up.")
+    (defvar backup-each-save-size-limit 500000
+        "Maximum size of a file (in bytes, nil disables) that should be copied at
+each savepoint.")
 
-    (defvar-local hidden-mode-line-mode nil)
-    (define-minor-mode hidden-mode-line-mode
-        "Minor mode to hide the mode-line in the current buffer."
-        :init-value nil
-        :global t
-        :variable hidden-mode-line-mode
-        :group 'editing-basics
-        (if hidden-mode-line-mode
-            (setq hide-mode-line mode-line-format
-                mode-line-format nil)
-            (setq mode-line-format hide-mode-line
-                hide-mode-line nil))
-        (force-mode-line-update)
-        ;; Apparently force-mode-line-update is not always enough to
-        ;; redisplay the mode-line
-        (redraw-display)
-        (when (and (called-interactively-p 'interactive)
-                  hidden-mode-line-mode)
-            (run-with-idle-timer
-                0 nil 'message
-                (concat "hidden mode line mode enabled.  "
-                    "Use M-x hidden-mode-line-mode to make the mode-line appear."))))
+    (defun backup-each-save ()
+        "auto-save-everything-all-the-time: versioned backups are
+    created as a dir tree in `~/.backups` whenever a file is saved or
+    before auto-saved, hence auto-safe writes to the actual file (after
+    the backup) by setting 'auto-save-visited-file-name'."
+        (let ((bfn (buffer-file-name)))
+            (when (and (or backup-each-save-remote-files
+		           (not (file-remote-p bfn)))
+	              (funcall backup-each-save-filter-function bfn)
+	              (or (not backup-each-save-size-limit)
+		          (<= (buffer-size) backup-each-save-size-limit)))
+                (copy-file bfn (backup-each-save-compute-location bfn) t t t))))
 
-    (defun insert-current-date()
-        "Insert current date."
-        (interactive)
-        (insert (shell-command-to-string "echo -n $(date '+%Y-%m-%d %k:%M')")))
-
-    (defun make-backup-file-name (filename)
-        "Change the backup-file naming convention to FILENAME.  The following
-example redefines 'make-backup-file-name' to prepend a `.` in addition
-to appending a tilde `~`."
-        (expand-file-name
-            (concat "." (file-name-nondirectory filename) "~")
-            (file-name-directory filename)))
-
-    (defun auto-save-file-name-p (filename)
-        "Change the naming convention for auto-save files.  If you redefine it,
-be sure to redefine the function 'make-auto-save-file-name'
-correspondingly.  Return non-nil if FILENAME can be yielded by FILENAME."
-        (string-match "^\.*~$" filename))
-
-    (defun make-auto-save-file-name ()
-        "This exists as a separate function so that you can redefine it to
-customize the naming convention for auto-save files.  Be sure to change
-'auto-save-file-name-p' in a corresponding way.  Return file name to use
-for auto-saves of current buffer."
-        (if buffer-file-name
-            (concat
-                (file-name-directory buffer-file-name)
-                "."
-                (file-name-nondirectory buffer-file-name)
-                "~")
-            (expand-file-name
-                (concat "." (buffer-name) "~"))))
+    (defun backup-each-save-compute-location (filename)
+        (let* ((containing-dir (file-name-directory filename))
+	          (basename (file-name-base filename))
+                  (extension (file-name-extension filename))
+	          (backup-container
+	              (format "%s/%s"
+		          backup-each-save-mirror-location
+		          containing-dir)))
+            (when (not (file-exists-p backup-container))
+                (make-directory backup-container t))
+            (format "%s/%s~%s~.%s" backup-container basename
+	        (format-time-string backup-each-save-time-format) extension)))
 
     (defun my-outline-set-global-ellipsis (ellipsis)
         "Apply the ellipsis ELLIPSIS to outline mode globally."
@@ -242,9 +191,11 @@ Version 2017-01-08."
             (put this-command 'compact-p (not $compact-p))))
 
     :hook
-    (after-change-major-mode . hidden-mode-line-mode)
-    (before-save . delete-trailing-whitespace)
     ;;(text-mode . (auto-complete-mode auto-correct-mode))
+    ;;(after-change-major-mode . hidden-mode-line-mode)
+    (before-save . delete-trailing-whitespace)
+    (after-save . backup-each-save)
+    (auto-save . backup-each-save)
 
     :bind
     ("M-<mouse-8>" . previous-buffer)
@@ -253,7 +204,6 @@ Version 2017-01-08."
     ("C-<left>" . previous-buffer)
     ("M-<wheel-down>" . scroll-up)
     ("M-<wheel-up>" . scroll-down)
-    ("C-c d" . insert-current-date)
     ("M-q" . fill-or-unfill)
     ("C-c t". toggle-transparency)
     )
@@ -261,14 +211,27 @@ Version 2017-01-08."
 (global-set-key (kbd "C-c r") (lambda() (interactive) (load-file "~/.config/emacs/init.el")))
 
 (use-package org
+    :mode (("\\.org$" . org-mode))
+    :custom
+    (org-src-fontify-natively t)
+    (org-fontify-quote-and-verse-blocks t)
+    (org-startup-indented t)
+    (org-confirm-babel-evaluate nil)
+    (org-table-header-line-p t)
+
     :config
-    (setopt
-        org-src-fontify-natively t
-        org-fontify-quote-and-verse-blocks t
-        org-startup-indented t
-        org-confirm-babel-evaluate nil
-        org-table-header-line-p t
-        org-fontify-quote-and-verse-blocks t)
+    (electric-pair-mode)
+    (org-babel-do-load-languages
+        'org-babel-load-languages
+        '((C . t)
+             (emacs-lisp . t)
+             (fortran . t)
+             (gnuplot . t)
+             (lua . t)
+             (makefile . t)
+             (org . t)
+             (python . t)
+             (shell . t)))
 
     (set-face-attribute 'org-level-1 nil :bold t :foreground "#FAF0E6" :background "#4682B4")
     (set-face-attribute 'org-level-2 nil :bold t)
@@ -287,21 +250,9 @@ Version 2017-01-08."
     (set-face-attribute 'org-table-header nil :foreground "#787787" :background "#161a1f" :bold t)
     (set-face-attribute 'org-meta-line nil :bold t)
 
-    ;; org mode emphasis styles, collides with 'org-appear'.
-    ;; (setq org-emphasis-alist
-    ;;     (quote(
-    ;;               ("*" bold)
-    ;;               ("/" italic)
-    ;;               ("_" underline)
-    ;;               ("-" overline)
-    ;;               ("=" org-verbatim org-verbatim)
-    ;;               ("~" org-code org-code)
-    ;;               ("+" (:strike-through t)))))
-
     ;; '<s tab' creates a code block;
     (require 'org-tempo)
 
-    (electric-pair-mode)
     (defvar org-electric-pairs '((?\* . ?\*) (?/ . ?/) (?= . ?=) (?\_ . ?\_) (?~ . ?~) (?+ . ?+))
         "'electric-pair-mode' for 'org-mode': mark region, then press *.")
     (defun org-add-electric-pairs ()
@@ -317,67 +268,56 @@ Version 2017-01-08."
 
     :hook (org-mode . org-add-electric-pairs)
 
-    :bind ("C-c v" . org-view-mode)
+    :bind ("M-o" . org-view-mode)
     )
 
 (use-package org-appear
     :after org
     :hook (org-mode . org-appear-mode)
-    :config
-    (setopt org-appear-autoemphasis t
-        org-hide-emphasis-markers t
-        org-appear-autolinks t
-        org-appear-autoentities t
-        org-appear-autosubmarkers t
-        )
+    :custom
+    (org-appear-autoemphasis t)
+    (org-hide-emphasis-markers t)
+    (org-appear-autolinks t)
+    (org-appear-autoentities t)
+    (org-appear-autosubmarkers t)
     (run-at-time nil nil #'org-appear--set-elements))
 
 (use-package highlight-thing
-  :ensure t
-  :custom-face
-  (hi-yellow ((t (:foreground "#FAF0E6" :background "#1A004E"))))
-  :init (global-highlight-thing-mode))
+    :custom-face
+    (hi-yellow ((t (:foreground "#FAF0E6" :background "#1A004E"))))
+    :init (global-highlight-thing-mode))
 
 (use-package editorconfig
-  :ensure t
     :init (editorconfig-mode))
 
-(use-package rainbow-mode
-   :ensure t
-   :init
-   (define-globalized-minor-mode my-global-rainbow-mode rainbow-mode
-       (lambda () (rainbow-mode t)))
-   (my-global-rainbow-mode))
-
 (use-package vertico
-  :ensure t
-  :init
-  (vertico-mode)
-  (vertico-mouse-mode)
-  (vertico-multiform-mode)
-  :config
-  (setopt completion-in-region-function #'consult-completion-in-region
-          vertico-cycle t)
+    :init
+    (vertico-mode)
+    (vertico-mouse-mode)
+    (vertico-multiform-mode)
 
-  ;; configure the display per command.  use a buffer with indices for
-  ;; imenu and a flat (Ido-like) menu for M-x.
-  ;; (setq vertico-multiform-commands
-  ;;       '((consult-imenu buffer indexed)
-  ;;         (execute-extended-command unobtrusive)))
-  (setopt vertico-multiform-commands
-          '((consult-imenu buffer indexed)))
+    :custom
+    (completion-in-region-function #'consult-completion-in-region)
+    (vertico-cycle t)
 
-  ;; Configure the display per completion category.  Use the grid
-  ;; display for files and a buffer for the consult-grep commands.
-  ;; (setq vertico-multiform-categories
-  ;;       '((file grid)
-  ;;         (consult-grep buffer)))
-  (setopt vertico-multiform-categories
-          '((consult-grep buffer)))
+    ;; configure the display per command.  use a buffer with indices for
+    ;; imenu and a flat (Ido-like) menu for M-x.
+    ;; (setq vertico-multiform-commands
+    ;;       '((consult-imenu buffer indexed)
+    ;;         (execute-extended-command unobtrusive)))
+    (vertico-multiform-commands  '((consult-imenu buffer indexed)))
 
-  ;; If you don't want to go back to the prompt line by setting
-  ;; vertico-cycle, define another function like this:
-  (defun my-vertico-next (&optional n)
+    ;; Configure the display per completion category.  Use the grid
+    ;; display for files and a buffer for the consult-grep commands.
+    ;; (setq vertico-multiform-categories
+    ;;       '((file grid)
+    ;;         (consult-grep buffer)))
+    (vertico-multiform-categories '((consult-grep buffer)))
+
+    :config
+    ;; If you don't want to go back to the prompt line by setting
+    ;; vertico-cycle, define another function like this:
+    (defun my-vertico-next (&optional n)
         "Circulate without returning to the prompt line"
         (interactive "p")
         (let ((index (+ vertico--index (or n 1))))
@@ -391,50 +331,52 @@ Version 2017-01-08."
     )
 
 (use-package orderless
-    :ensure t
     :custom
-    ;; Configure a custom style dispatcher (see the Consult wiki)
-    ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
-    ;; (orderless-component-separator #'orderless-escapable-split-on-space)
     (completion-styles '(orderless basic))
-    (completion-category-overrides '((file (styles partial-completion))))
-    (completion-category-defaults nil) ;; Disable defaults, use our settings
-    (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
+    (completion-category-overrides '(file (styles partial-completion)))
+    (completion-category-defaults nil)
+    (completion-pcm-leading-wildcard t))
 
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
-    :ensure t
     :bind (:map minibuffer-local-map ("M-A" . marginalia-cycle))
     :init (marginalia-mode))
 
-(use-package all-the-icons
-    :ensure t
-    :init
-    (all-the-icons-completion-mode t)
-    (all-the-icons-dired-mode t))
+;; (use-package all-the-icons
+;;     :init
+;;     (all-the-icons-completion-mode)
+;;     (all-the-icons-dired-mode))
 
 (use-package flycheck
-    :ensure t
     :init (global-flycheck-mode))
 
 (use-package consult
-    :ensure t
+    :after (flycheck)
     :bind
     ("M-f" . consult-flycheck)
-    ;("M-i" . consult-flyspell)
+    ;;("M-i" . consult-flyspell)
     ("M-s" . consult-line)
     ("M-/" . consult-fd)
-    ("M-\\" . consult-ripgrep)
-    )
+    ("M-\\" . consult-ripgrep))
 
 ;; todo: this crashes instantly!
-(use-package embark
-    :bind ("M-a" . embark-act))
+;; (use-package embark
+;;     :bind ("M-a" . embark-act))
+
+;; (use-package embark-consult
+;;   :hook
+;;     (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package ranger
-    :bind ("M-r" . ranger))
+    :custom
+    (ranger-width-preview 0.5)
+    (ranger-preview-file t)
+    (ranger-max-preview-size 10)
+    (ranger-dont-show-binary t)
+    :bind ("M-d" . ranger))
 
 (use-package octave
+    ;;:mode ("\\.m\\" . octave-mode)
     :bind ("C-c C-c" . octave-send-region))
 
 ;; ;; latex mode:
@@ -452,27 +394,66 @@ Version 2017-01-08."
 ;; 	    (TeX-command-sequence '("Arara" "Extex") t))))
 ;; ;;              (TeX-command-sequence '("Arara" "View") t))))
 
-(use-package ispell
-    ;;:custom
-    :init
-    (setopt ispell-program-name "hunspell"
-        ispell-dictionary "de_DE,en_GB,en_US"
-        ispell-personal-dictionary "~/.hunspell_personal")
-    ;; ispell-set-spellchecker-params has to be called before
-    ;; ispell-hunspell-add-multi-dic will work
-    ;;:config
-    (ispell-set-spellchecker-params)
-    (ispell-hunspell-add-multi-dic "de_AT,de_DE,en_GB,en_US"))
-
 (use-package jinx
-    :ensure t
-    :config
+    :custom
     (jinx-languages "de_AT de_DE en_GB en_US")
-    :hook (emacs-startup . global-jinx-mode)
+    ;;:hook (emacs-startup . global-jinx-mode)
     :bind
     ("M-j" . jinx-correct)
     ("C-M-j" . jinx-languages))
 
+(use-package magit
+    :custom-face
+    (magit-diff-added ((t (:foreground "#2E8B57" :background "#000000"))))
+    (magit-diff-removed ((t (:foreground "#8B0000" :background "#000000"))))
+    :custom
+    (magit-diff-refine-hunk 'all)
+    (magit-diff-highlight-hunk-body nil)
+    :bind ("M-g" . magit))
+
+;; (use-package auth-source-1password
+;;     :config
+;;     (setq auth-source-1password-executable "op")
+;;     (setq auth-source-1password-vault "Employee")
+;;     (auth-source-1password-enable))
+
+(use-package gptel
+    :custom
+    ;; (gptel-api-key
+    ;;     (auth-source-pick-first-password
+    ;;         :host "OpenWebUI"
+    ;;         :user "credential"))
+    (gptel-api-key (getenv "OPENWEBUI_API_KEY"))
+    (gptel-model "glm-4.6-355b")
+    (gptel-backend (gptel-make-openai "OpenWebUI"
+                       :host "chat.ai.datalab.tuwien.ac.at"
+                       :protocol "https"
+                       :key 'gptel-api-key
+                       :endpoint "/api/chat/completions"
+                       :stream t
+                       :models '(glm-4.6-355b glm-4.5v-106b mistral-small-3.2-24b)))
+    :bind
+    ("M-l" . gptel)
+    ("C-<return>" . gptel-send))
+
+(use-package vundo
+    :custom
+    (vundo-glyph-alist vundo-unicode-symbols)
+    :bind ("M-v" . vundo))
+
+(use-package treemacs
+    :bind ("M-t" . treemacs))
+
+;; (use-package treemacs-icons-dired
+;;   :hook (dired-mode . treemacs-icons-dired-enable-once)
+
+(use-package treemacs-magit
+    :after (treemacs magit)
+    :ensure t)
+
+
 ;;; init.el ends here
 
+;; Local Variables:
+;; jinx-languages: "de_AT de_DE en_GB en_US"
 ;; End:

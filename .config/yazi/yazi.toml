@@ -39,7 +39,8 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 
 [opener]
 edit = [
-{ run = '''emacsclient -ca '' "$@"''', orphan = true, block = false },
+{ run = 'emacs "$@"', orphan = true, block = false },
+#{ run = '''emacsclient -ca '' "$@"''', orphan = true, block = false },
 #{ run = '''emacsclient -ca '' "$@"''', desc = "emacsclient (block)", block = true },
 #{ run = 'nvim "$@"', desc = "nvim (block)", block = true },
 #{ run = 'vi "$@"', desc = "vi (block)", block = true },
