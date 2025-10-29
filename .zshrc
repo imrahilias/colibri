@@ -32,29 +32,8 @@ ZSH_DISABLE_COMPFIX="true"
 # also just drop the caps lock key, it is a second ctrl now.
 setxkbmap -layout "us(m)" -option ctrl:nocaps
 
-# set some theme options as global envs via sourcing this in .zashrc:
-#source "${XDG_CONFIG_HOME:-$HOME}/theme"
-
+# llm api for easier access
 source "$HOME/vsc/bin/api.conf"
-
-#                                  |
-#  __ \   __| _ \  __ `__ \  __ \  __|
-#  |   | |   (   | |   |   | |   | |
-#  .__/ _|  \___/ _|  _|  _| .__/ \__|
-# _|                        _|
-
-# starship does that faster.
-# autoload -Uz add-zsh-hook vcs_info
-# add-zsh-hook precmd vcs_info
-# zstyle ':vcs_info:*' enable git
-# zstyle ':vcs_info:git:*' check-for-changes true
-# zstyle ':vcs_info:git:*' check-for-staged-changes true
-# zstyle ':vcs_info:*' unstagedstr '%B%F{red}*%f%b '
-# zstyle ':vcs_info:*' stagedstr '%B%F{blue}+%f%b '
-# zstyle ':vcs_info:*' formats "%F{magenta}%b%f %u%c"
-# zstyle ':vcs_info:git:*' actionformats '(%b|%a%u%c)'
-# PROMPT='%B%(#.%F{red}%40<.../<%~%f%b.%F{blue}%40<.../<%~%f%b) ${vcs_info_msg_0_}'
-# RPROMPT='%F{magenta}%D{%H%M}%f'
 
 
 #        |_)
@@ -79,8 +58,6 @@ then
     alias -g fgrep='grep --ignore-case --color=auto'
     alias -g egrep='egrep --ignore-case --color=auto'
 
-    #alias -g diff='grc diff --color=auto'
-
     export LESS="-R"
     export LESS_TERMCAP_md=$'\e[01;31m'
     export LESS_TERMCAP_me=$'\e[0m'
@@ -91,9 +68,9 @@ then
 fi
 
 # list aliasas
-alias l='grc ls -1Bhl --color=always --group-directories-first' # '1' 4 one entry/line, 'B' ignores backups (~), 'h' 4 human readable (kiB, MiB, ...).
-alias ll='grc ls -1ABhl --color=always --group-directories-first' # 'A' 4 almost all.
-alias d='dirs -v' # lists zsh directory stack (enter <cd +- tab>, plus & minus (reverse) literally, with completion!.
+alias l='grc ls -1Bhl --color=always --group-directories-first' # one entry/line, ignores backups (~), human readable (kiB, MiB, ...).
+alias ll='grc ls -1ABhl --color=always --group-directories-first' # almost all.
+alias d='dirs -v' # lists zsh directory stack (enter <cd +- tab>, plus & minus (reverse) literally, with completion!
 alias blk='sudo blkid -o list'
 alias hist='fc -El 0 | grep'
 alias lsa='lsarchives '
@@ -128,7 +105,6 @@ alias e="emacsclient -ca \'\'" # > service moved to systemd
 alias scan='scanimage --format=tiff --mode=Color' #>http://lists.alioth.debian.org/pipermail/sane-devel/2001-December/001177.html
 alias halt='sudo systemctl poweroff'
 alias sus='sudo systemctl suspend'
-#alias sus='umount /mnt/vsc3; umount /mnt/vsc4; sleep 10; systemctl suspend'
 alias hib='sudo systemctl hibernate'
 
 # misc
@@ -139,10 +115,8 @@ alias c='clear'
 alias rdark='razercfg -l all:off'
 alias rlight='razercfg -l GlowingLogo:off -l Scrollwheel:on'
 alias rename='perl-rename '
-#alias zephyr='/usr/bin/git --git-dir=$HOME/.zephyr --work-tree=$HOME'
 alias fifi='figlet -w 200 -f "shadow" '
 alias cp='rsync -aP' # show percentage.
-#alias ap='adb pull /sdcard/DCIM/Camera/ /mnt/troika/photos/2021/' more complicated: moved to bin.
 alias dauto='xrandr --auto --output DisplayPort-0 --scale 1 --output DisplayPort-1 --scale 1 --output HDMI-A-0 --scale 1'
 alias dhome='xrandr --output eDP --off --output HDMI-A-0 --auto --primary --scale 1'
 alias dleft='xrandr --output HDMI-A-0 --auto --primary --scale 1 --output eDP --auto --left-of HDMI-A-0'
@@ -227,6 +201,7 @@ rehash_precmd() {
   fi
 }
 add-zsh-hook -Uz precmd rehash_precmd
+
 # highlight help messages:
 help() {
     "$@" --help 2>&1 | bat --color=always --language=help
@@ -288,15 +263,6 @@ function y() {
     rm -f -- "$tmp"
 }
 
-#this doesnt work on zsh!
-#change yazi's cwd to pwd on subshell exit:
-# if [[ -n "$YAZI_ID" ]]; then
-#     function _yazi_cd() {
-#         ya pub dds-cd --str "$PWD"
-#     }
-#     add-zsh-hook zshexit _yazi_cd
-# fi
-
 function day() {
     # term colors:
     xrdb ~/.Xresources
@@ -330,8 +296,6 @@ source <(fzf --zsh)
 
 # Debug: Verbose Execution trace prompt (default: '+%N:%i> '). For more details, refer to 'man zshparam/zshmisc'
 #PS4=$'\n%B%F{0}+ %D{%T:%3.} %2N:%I%f%b '
-
-
 
 #
 #   _ \ __ \\ \   /
@@ -416,11 +380,9 @@ xset -b &> /dev/null # turn off bell
 #  .__/ _|\__,_|\__, |_|_|  _|____/
 # _|            |___/
 
-# initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
+# redo that only in case clearing cache thows plugin not found errors:
 #source '/usr/share/zsh-antidote/antidote.zsh'
 #antidote load
-
-# even faster than `antidote load`:
 
 # Set the root name of the plugins files (.txt and .zsh) antidote will use.
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
@@ -437,7 +399,7 @@ if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
   antidote bundle <${zsh_plugins}.txt >|${zsh_plugins}.zsh
 fi
 
-# Source your static plugins file.
+# Source the static plugins file.
 source ${zsh_plugins}.zsh
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=6,bg=grey"
@@ -517,26 +479,6 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
     add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
 
-# hacked word jumping for urxvt:
-# zle -A delete-char delete-char-num
-# zle -A overwrite-mode overwrite-mode-num
-# bindkey ";5C" forward-word
-# bindkey ";5D" backward-word
-# bindkey "[C" forward-word
-# bindkey "[D" backward-word
-# bindkey "^[Oc" forward-word
-# bindkey "^[Od" backward-word
-# bindkey ";5A" up-line
-# bindkey ";5B" down-line
-# bindkey "^[[5~" up-history
-# bindkey "^[[6~" down-history
-# bindkey "^[[2~" overwrite-mode
-# bindkey "^[Op"  overwrite-mode-num
-# bindkey "${terminfo[khome]}" beginning-of-line
-# bindkey "${terminfo[kend]}" end-of-line
-# bindkey "^[[3~" delete-char
-# bindkey "^[On"  delete-char-num
-
 # or run zkbd: `autoload zkbd; zkbd` to find out which key maps to which caracter.
 #source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
 
@@ -554,19 +496,8 @@ zle -N down-line-or-beginning-search
 # \___|\___/ _|  _|  _| .__/
 #                      _|
 
-# # Smarter completion initialization, only compile once a day.
-# autoload -Uz compinit
-# if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
-#     compinit
-# else
-#     compinit -C
-# fi
-
 # 1pasword cli completion depends on compinit:
 #eval "$(op completion zsh)"; compdef _op op
-
-# faster with antidote:
-# autoload -U colors && colors
 
 zstyle ':completion:*' rehash false # faster on demand
 zstyle ':completion:*' special-dirs true # tab-completion for .. and others
@@ -601,8 +532,6 @@ zstyle ':completion:*:aliases' list-colors '=*=2;38;5;128'
 zstyle ':completion:*:*:kill:*' list-colors '=(#b) #([0-9]#)*( *[a-z])*=34=31=33'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
-#autocompletion for lf:
-#fpath=(/home/m/.config/lf $fpath)
 
 #  |   |                          |
 #  __| __ \   _ \   _ \ __ \   _` |
