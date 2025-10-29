@@ -10,6 +10,7 @@ alsa-utils
 amd-ucode
 amdvlk
 android-tools
+apptainer
 arandr
 arc-gtk-theme
 atool
@@ -35,6 +36,7 @@ catdoc
 cbatticon
 ccze
 chromium
+clipcat
 colordiff
 cowsay
 cpupower
@@ -128,7 +130,7 @@ lolcat
 lostfiles
 luakit
 luarocks
-lxappearance-gtk3
+lxappearance
 lynx
 m4
 make
@@ -162,6 +164,7 @@ octave
 odt2txt
 openconnect
 openssh-askpass
+opkssh
 ouch
 pandoc-cli
 pandoc-crossref
@@ -275,6 +278,7 @@ samsung_magician-consumer-ssd
 sassc
 sbctl
 sbsigntools
+screen
 scrot
 seahorse
 seahorse-nautilus
@@ -291,6 +295,8 @@ stalonetray
 starship
 steam
 steam-native-runtime
+step-ca
+step-cli
 stress
 sudo
 syncthing
@@ -419,8 +425,12 @@ zip
 zoom
 zoxide
 zsh
+zsh-antidote
+zsh-autocomplete
 zsh-autosuggestions
 zsh-completions
+zsh-doc
 zsh-history-substring-search
 zsh-lovers
 zsh-syntax-highlighting
+zshdb

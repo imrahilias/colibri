@@ -353,7 +353,7 @@ export GOPATH="$HOME/.go"
 #export OP_BIOMETRIC_UNLOCK_ENABLED=true
 
 # this is changed via sed by darkman from $HOME/.local/share/light-mode.d/:
-THEME_DARK=0
+THEME_DARK=1
 
 # set fzf options as global envs via sourcing this in .zshrc.
 # other nice options: "--preview-border=none --layout=reverse"

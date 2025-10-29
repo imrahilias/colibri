@@ -52,7 +52,7 @@
     :custom
     (auto-save-default t)
     (auto-save-no-message nil)
-    (auto-save-visited-file-name t)
+    (auto-save-visited-file-name 0)
     (backup-each-save-remote-files t)
     (completion-ignore-case t)
     (create-lockfiles t)
@@ -267,7 +267,9 @@ each savepoint.")
     :hook
     (org-mode . org-add-electric-pairs)
     (org-mode . (lambda () (require 'org-tempo)))
-    :bind ("M-o" . org-view-mode)
+    :bind
+    ("M-o" . org-view-mode)
+    (:map org-mode-map ("C-<return>" . nil))
     )
 
 (use-package org-appear
@@ -328,8 +330,10 @@ each savepoint.")
                 (if (= vertico--total 0) -1 (mod index vertico--total)))))
     :bind
     (:map vertico-map
-        ("TAB" . my-vertico-next)
-        ("<backtab>" . vertico-previous))
+        ("M-TAB" . my-vertico-next)
+        ("M-<iso-lefttab>" . vertico-previous) ;;M-S-TAB
+        ("M-RET" . vertico-exit-input)
+        )
     )
 
 (use-package vundo
