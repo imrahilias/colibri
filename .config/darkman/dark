@@ -74,6 +74,62 @@
 *color15: #FFF5EE
 *color16: #FFEBCD
 
+!
+!   _ \ __ `__ \   _` |  __|  __|
+!   __/ |   |   | (   | (   \__ \
+! \___|_|  _|  _|\__,_|\___|____/
+!
+
+Emacs.Foreground: #FAF0E6
+Emacs.Background: #000000
+Emacs.cursorColor: #FF00FF
+Emacs.pointerColor: #FF00FF
+Emacs.cursorColor2: #8B008B
+Emacs.pointerColor2: #8B008B
+Emacs.default.attributeForeground: #FAF0E6
+Emacs.default.attributeBackground: #000000
+Emacs.diff-added.attributeForeground: #2E8B57
+Emacs.diff-added.attributeBackground: #000000
+Emacs.diff-file-header.attributeForeground: #000000
+Emacs.diff-file-header.attributeBackground: #FAF0E6 :bold t
+Emacs.diff-indicator-added.attributeForeground: #2E8B57
+Emacs.diff-indicator-added.attributeBackground:  #000000
+Emacs.diff-indicator-removed.attributeForeground: #8B0000
+Emacs.diff-indicator-removed.attributeBackground: #000000
+Emacs.diff-refine-added.attributeForeground: #000000
+Emacs.diff-refine-added.attributeBackground: #2E8B57
+Emacs.diff-refine-removed.attributeForeground: #000000
+Emacs.diff-refine-removed.attributeBackground:  #8B0000
+Emacs.diff-removed.attributeForeground: #8B0000
+Emacs.diff-removed.attributeBackground: #000000
+Emacs.font-lock-comment-face.attributeForeground: #666699
+Emacs.font-lock-string-face.attributeForeground: #008080
+Emacs.font-lock-variable-name-face.attributeForeground: #8B008B
+Emacs.isearch.attributeForeground: #FFFFFF
+Emacs.isearch.attributeBackground: #8B008B
+Emacs.isearch-fail.attributeForeground: #FFFFFF
+Emacs.isearch-fail.attributeBackground:  yellow
+Emacs.window-divider.attributeForeground: #444444
+
+!        |
+! \ \  / __|  _ \  __| __ `__ \
+!  `  <  |    __/ |    |   |   |
+!  _/\_\\__|\___|_|   _|  _|  _|
+!
+
+xterm.*foreground: #FAF0E6
+xterm.*background: #000000
+xterm.*transparent: true
+xterm.*cursorColor: #FF00FF
+xterm.*cursorColor2: #8B008B
+
+xterm.*veryBoldColors: 6
+! xterm.*color0:  rgb:28/2a/2b
+! xterm.*colorBDMode: true
+! xterm.*colorBD: Red
+! xterm.*colorULMode: true
+! xterm.*colorUL: Cyan
+
 !                          |
 !  |   |  __|\ \  /\ \   / __|
 !  |   | |    `  <  \ \ /  |
@@ -108,23 +164,3 @@ URxvt.*pointerColor2: #FF00FF
 ! URxvt.*troughColor:
 ! URxvt.*highlightColor:
 ! URxvt.*highlightTextColor:
-
-
-!        |
-! \ \  / __|  _ \  __| __ `__ \
-!  `  <  |    __/ |    |   |   |
-!  _/\_\\__|\___|_|   _|  _|  _|
-!
-
-xterm.*foreground: #FAF0E6
-xterm.*background: #000000
-xterm.*transparent: true
-xterm.*cursorColor: #FF00FF
-xterm.*cursorColor2: #FF00FF
-
-xterm.*veryBoldColors: 6
-! xterm.*color0:  rgb:28/2a/2b
-! xterm.*colorBDMode: true
-! xterm.*colorBD: Red
-! xterm.*colorULMode: true
-! xterm.*colorUL: Cyan

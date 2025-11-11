@@ -9,6 +9,20 @@
 
 !*.background: rgb:10/10/10
 
+!   _|             |
+!  |    _ \  __ \  __|  __|
+!  __| (   | |   | |  \__ \
+! _|  \___/ _|  _|\__|____/
+!
+
+! applications without fontconfig support:
+Xft.antialias: 1
+Xft.autohint: 0
+Xft.hinting: 1
+Xft.hintstyle: hintfull
+Xft.lcdfilter: lcddefault
+Xft.rgba: rgb
+
 !
 !   _ \ __ `__ \   _` |  __|  __|
 !   __/ |   |   | (   | (   \__ \
@@ -23,28 +37,47 @@ Emacs.ScrollBars: off
 Emacs.BorderWidth: 0
 Emacs.LineSpacing: 0
 Emacs.cursorBlink: off
-Emacs.foreground: #FAF0E6
-Emacs.background: #000000
-Emacs.cursorColor: #FF00FF
-Emacs.cursorColor2: #FF00FF
-Emacs.pointerColor: #FF00FF
-Emacs.pointerColor2: #FF00FF
 Emacs.Alpha: 100
-Emacs.alphaBackground: 90
+Emacs.alphaBackground: 100
 
-!   _|             |
-!  |    _ \  __ \  __|  __|
-!  __| (   | |   | |  \__ \
-! _|  \___/ _|  _|\__|____/
+!        |
+! \ \  / __|  _ \  __| __ `__ \
+!  `  <  |    __/ |    |   |   |
+!  _/\_\\__|\___|_|   _|  _|  _|
 !
 
-! applications without fontconfig support:
-Xft.antialias: 1
-Xft.autohint: 0
-Xft.hinting: 1
-Xft.hintstyle: hintfull
-Xft.lcdfilter: lcddefault
-Xft.rgba: rgb
+XTerm*termName: XTerm-256color
+XTerm*locale: false
+XTerm*utf8: true
+XTerm*metaSendsEscape: true
+XTerm*backarrowKey: false
+XTerm*ttyModes: erase ^?
+XTerm*saveLines: 16384
+XTerm*scrollBar: true
+XTerm*rightScrollBar: true
+XTerm*scrollbar.width: 8
+!XTerm*geometry: 80x32
+XTerm*visualbell: false
+XTerm*bellIsUrgent: false
+
+! tmux needs that for clipboard
+XTerm*disallowedWindowOps: 20,21,SetXprop
+! XTerm*selectToClipboard: true
+! XTerm*VT100*translations: #override \n\
+!     Shift Ctrl <Key> V: insert-selection(CLIPBOARD) \n\
+!     Shift Ctrl <Key> C: select-end(CLIPBOARD)
+
+! font size hot key:
+XTerm*translations: #override \n\
+  Alt <Key> minus: smaller-vt-font() \n\
+  Alt <Key> plus: larger-vt-font() \n\
+  Alt <Key> 0: set-vt-font(d)
+XTerm*faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true
+XTerm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true:style=Bold
+
+! open a new terminal to search scrollback buffer:
+!XTerm*printerCommand: XTerm -T History -e sh -c 'less -r <&3' 3<&0
+!XTerm*translations: #override Ctrl <Key>slash: print-everything()
 
 !                          |
 !  |   |  __|\ \  /\ \   / __|
@@ -137,43 +170,3 @@ URxvt.*buffered: true
 
 !The 2023-01-02 update may require adding some lines into ~/.Xresources:
 URxvt.*geometry: 400x400
-
-
-!        |
-! \ \  / __|  _ \  __| __ `__ \
-!  `  <  |    __/ |    |   |   |
-!  _/\_\\__|\___|_|   _|  _|  _|
-!
-
-xterm*termName: xterm-256color
-xterm*locale: false
-xterm*utf8: true
-xterm*metaSendsEscape: true
-xterm*backarrowKey: false
-xterm*ttyModes: erase ^?
-xterm*saveLines: 16384
-xterm*scrollBar: true
-xterm*rightScrollBar: true
-xterm*scrollbar.width: 8
-!xterm*geometry: 80x32
-xterm*visualbell: false
-xterm*bellIsUrgent: false
-
-! tmux needs that for clipboard
-xterm*disallowedWindowOps: 20,21,SetXprop
-! xterm*selectToClipboard: true
-! xterm*VT100*translations: #override \n\
-!     Shift Ctrl <Key> V: insert-selection(CLIPBOARD) \n\
-!     Shift Ctrl <Key> C: select-end(CLIPBOARD)
-
-! font size hot key:
-xterm*translations: #override \n\
-  Alt <Key> minus: smaller-vt-font() \n\
-  Alt <Key> plus: larger-vt-font() \n\
-  Alt <Key> 0: set-vt-font(d)
-xterm*faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true
-xterm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true:style=Bold
-
-! open a new terminal to search scrollback buffer:
-!xterm*printerCommand: xterm -T History -e sh -c 'less -r <&3' 3<&0
-!xterm*translations: #override Ctrl <Key>slash: print-everything()

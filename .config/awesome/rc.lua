@@ -54,7 +54,7 @@ end
 --
 
 -- themes define colours, icons, font and wallpapers:
-beautiful.init(awful.util.getdir("config") .. "/theme.lua")
+beautiful.init(awful.util.getdir("config") .. "/light.lua")
 beautiful.layout_machi = machi.get_icon()
 
 -- revelation, load after beautiful:
@@ -245,10 +245,7 @@ globalkeys = gears.table.join(
 
    -- rotate:
    awful.key({ modkey, "Shift" }, "r", function () awful.spawn("xrandr -o 1", false) end),
-   awful.key({ modkey, "Control", "Shift" }, "r", function () awful.spawn("xrandr -o 0", false) end),
-
-   -- fun:
-   awful.key({ modkey }, "z", function () awful.spawn.with_shell('notify-send "$(cowsay $(fortune))"', false) end)
+   awful.key({ modkey, "Control", "Shift" }, "r", function () awful.spawn("xrandr -o 0", false) end)
 )
 
 -- client keys:
@@ -793,7 +790,7 @@ awful.screen.connect_for_each_screen(
       s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
 
       -- create the wibox:
-      s.mywibox = awful.wibar({ position = "top", screen = s, height = 30, opacity = 0.8 })
+      s.mywibox = awful.wibar({ position = "top", screen = s, height = 30, opacity = 1 })
 
       -- add widgets to the wibox:
       s.mywibox:setup {
@@ -904,14 +901,7 @@ autorunners =
       "xbindkeys", -- mouse button to key stroke binder for yazi
       "picom -b",
       "xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock",
-      --"owncloud", --tucloud moved to nextcloud
       "emacs --daemon",
-      --"clipcatd",
-
-      --"thunar --daemon",
-      --"conky -c ~/.config/conky/left.lua",
-      --"conky -c ~/.config/conky/middle.lua",
-      --"conky -c ~/.config/conky/right.lua",
 
       -- start some trays:
       "pasystray",
@@ -919,19 +909,9 @@ autorunners =
       "nm-applet",
       "cbatticon -r 10 -c 'notify-send Power on 10%'",
       "1password",
-      --"syncthingtray",
-
-      -- now fire up some programs:
-      --"signal-desktop",
-      --"telegram-desktop",
-      --"element-desktop",
-      --"firefox",
-      --"evolution",
-      --"gnome-calendar",
-      --"xterm -title '  Yazi' -e yazi",
 
       "xrdb ~/.Xresources",
-      "xrdb -merge ~/.config/darkman/dark",
+      "xrdb -merge ~/.config/darkman/light",
 
       -- change to autodetected display config:
       "autorandr -c",

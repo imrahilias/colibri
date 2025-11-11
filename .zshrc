@@ -317,7 +317,7 @@ export GOPATH="$HOME/.go"
 #export OP_BIOMETRIC_UNLOCK_ENABLED=true
 
 # this is changed via sed by darkman from $HOME/.local/share/light-mode.d/:
-THEME_DARK=1
+THEME_DARK=0
 
 # set fzf options as global envs via sourcing this in .zshrc.
 # other nice options: "--preview-border=none --layout=reverse"
@@ -331,6 +331,8 @@ FZF_DEFAULT_OPTS_DARK="--color=dark --color=fg:-1,fg+:-1,bg:-1,bg+:-1,preview-bg
 
 if [[ $THEME_DARK == 1 ]]
 then
+    export THEME="DARK"
+
     export CALIBRE_USE_DARK_PALETTE=1
 
     export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS_BASE $FZF_DEFAULT_OPTS_DARK"
@@ -342,6 +344,8 @@ then
     export QT_QPA_PLATFORMTHEME="gtk2" # qt looks like current gtk theme
     export QT_STYLE_OVERRIDE="gtk2"
 else
+    export THEME="LIGHT"
+
     export CALIBRE_USE_DARK_PALETTE=0
 
     export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS_BASE $FZF_DEFAULT_OPTS_LIGHT"
