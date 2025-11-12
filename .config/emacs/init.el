@@ -27,11 +27,9 @@
 (use-package editorconfig
     :init (editorconfig-mode))
 
-(defvar theme (getenv "THEME"))
-
 (use-package emacs
     :custom-face
-    ;; these can be set by .Xresources which allows for mode switching
+    ;; these can be set by .Xresources which allows for mode switching:
     ;; (default ((t (:foreground "#FAF0E6" :background "#000000"))))
     ;; (diff-added ((t (:foreground "#2E8B57" :background "#000000"))))
     ;; (diff-file-header ((t (:foreground "#FAF0E6" :background "#161A1F" :bold t))))
@@ -46,14 +44,16 @@
     ;; (isearch ((t (:foreground "#000000" :background "#FF00FF"))))
     ;; (isearch-fail ((t (:foreground "#000000" :background "yellow"))))
     ;; (window-divider ((t (:foreground "#444444"))))
-    ;; cant be set by .Xresources
-    (fringe ((t (:background "#FFFFFF"))))
-    (highlight ((t (:background "#F0F0F0"))))
-    (lazy-highlight ((t (:background "#003641"))))
-    (region ((t (:background "#ADD8E6"))))
-    (secondary-selection ((t (:background "#CCCCFF"))))
-    (trailing-whitespace ((t (:background "#CCCCFF"))))
+
+    ;; those cant be set by .Xresources:
+    ;; (fringe ((t (:background "#FFFFFF"))))
+    ;; (highlight ((t (:background "#F0F0F0"))))
+    ;; (lazy-highlight ((t (:background "#003641"))))
+    ;; (region ((t (:background "#ADD8E6"))))
+    ;; (secondary-selection ((t (:background "#CCCCFF"))))
+    ;; (trailing-whitespace ((t (:background "#CCCCFF"))))
     :custom
+    (load-theme 'dichromacy)
     (auto-save-default t)
     (auto-save-no-message nil)
     (auto-save-visited-file-name 0)
@@ -192,6 +192,24 @@ each savepoint.")
     ("M-j" . jinx-correct)
     ("C-M-j" . jinx-languages))
 
+(use-package lsp-mode
+    :init
+    ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+    (setq lsp-keymap-prefix "C-c l")
+    :hook
+    (python-mode . lsp-deferred)
+    (lua-mode . lsp-deferred)
+    (toml-mode . lsp-deferred)
+    (lisp-mode . lsp-deferred)
+    (lsp-mode . lsp-enable-which-key-integration)
+    :commands (lsp-deferred))
+
+(use-package lsp-ui :commands lsp-ui-mode)
+
+;;Elsa currently supports lsp-mode, but it is not yet built-in to lsp-mode
+;;itself because it (Elsa LSP) is not stable enough.
+;;(elsa-lsp-register)
+
 (use-package magit
     :custom-face
     ;; (magit-diff-added ((t (:foreground "#2E8B57" :background "#000000"))))
@@ -201,7 +219,7 @@ each savepoint.")
     :custom
     (magit-diff-refine-hunk 'all)
     (magit-diff-highlight-hunk-body nil)
-    :bind ("C-g" . magit))
+    :bind ("C-c g" . magit))
 
 (use-package marginalia
     :bind (:map minibuffer-local-map ("M-A" . marginalia-cycle))
@@ -353,6 +371,10 @@ each savepoint.")
     :custom
     (vundo-glyph-alist vundo-unicode-symbols)
     :bind ("M-v" . vundo))
+
+(use-package which-key
+    :config
+    (which-key-mode))
 
 ;; (use-package auth-source-1password
 ;;     :config

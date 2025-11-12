@@ -1,0 +1,25 @@
+# only one global config possible, dont state mail globally; get prompted if
+# local config doe not exist!
+
+# github
+[user]
+name = Imrahilias
+#email = siegel.moritz@gmail.com# only one global config possible,
+
+# that is tu gitlab
+#[user]
+#user = Siegel, Moritz
+#email = moritz.siegel@tuwien.ac.at
+
+[filter "lfs"]
+process = git-lfs filter-process
+required = true
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+#thats from 1passwords ssh agent.
+#[gpg]
+# format = ssh
+# [gpg "ssh"]
+# program = /opt/1Password/op-ssh-sign
+#[commit]
+#gpgsign = true

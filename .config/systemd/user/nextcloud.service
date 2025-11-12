@@ -1,0 +1,15 @@
+[Unit]
+Description=nextcloud
+After=network-online.target
+Wants=network-online.target systemd-networkd-wait-online.service
+
+[Service]
+Environment=QT_QPA_PLATFORMTHEME=Adwaita-Dark
+Environment=QT_STYLE_OVERRIDE=Adwaita-Dark
+ExecStart=/usr/bin/nextcloud
+Restart=on-failure
+RestartSec=5s
+LimitNOFILE=65535:65535
+
+[Install]
+WantedBy=default.target

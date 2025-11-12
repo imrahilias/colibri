@@ -37,23 +37,23 @@
 ! 16: 48, default
 
 ! xterm standard:
-*color0: #000000
-*color1: #800000
-*color2: #008000
-*color3: #808000
-*color4: #000080
-*color5: #800080
-*color6: #008080
-*color7: #c0c0c0
-*color8: #808080
-*color9: #ff0000
-*color10:#00ff00
-*color11:#ffff00
-*color12:#0000ff
-*color13:#ff00ff
-*color14:#00ffff
-*color15:#FFFFFF
-*color16:#FFFFFF
+! *color0: #000000
+! *color1: #800000
+! *color2: #008000
+! *color3: #808000
+! *color4: #000080
+! *color5: #800080
+! *color6: #008080
+! *color7: #c0c0c0
+! *color8: #808080
+! *color9: #ff0000
+! *color10:#00ff00
+! *color11:#ffff00
+! *color12:#0000ff
+! *color13:#ff00ff
+! *color14:#00ffff
+! *color15:#FFFFFF
+! *color16:#FFFFFF
 
 !
 !   _ \ __ `__ \   _` |  __|  __|
@@ -99,37 +99,37 @@ Emacs.window-divider.attributeForeground: #FFFFFF
 !  _/\_\\__|\___|_|   _|  _|  _|
 !
 ! bright mode:
-XTerm.*foreground: #000000
-XTerm.*background: #FFFFFF
-XTerm.*transparent: false
-XTerm.*cursorColor: #8B008B
-XTerm.*cursorColor2: #8B008B
+XTerm.*.foreground: #000000
+XTerm.*.background: #FFFFFF
+XTerm.*.transparent: false
+XTerm.*.cursorColor: #8B008B
+XTerm.*.cursorColor2: #8B008B
 
-XTerm.*veryBoldColors: 6
-! XTerm.*color0:  rgb:28/2a/2b
-! XTerm.*colorBDMode: true
-! XTerm.*colorBD: Red
-! XTerm.*colorULMode: true
-! XTerm.*colorUL: Cyan
+XTerm.*.veryBoldColors: 6
+! XTerm.*.color0:  rgb:28/2a/2b
+! XTerm.*.colorBDMode: true
+! XTerm.*.colorBD: Red
+! XTerm.*.colorULMode: true
+! XTerm.*.colorUL: Cyan
 
 ! mine:
-XTerm.*color0: #000000
-XTerm.*color1: #800000
-XTerm.*color2: #008000
-XTerm.*color3: #DAA520
-XTerm.*color4: #000080
-XTerm.*color5: #800080
-XTerm.*color6: #008080
-XTerm.*color7: #FFFFFF
-XTerm.*color8: #808080
-XTerm.*color9: #8B0000
-XTerm.*color10:#2E8B57
-XTerm.*color11:#DAA520
-XTerm.*color12:#4682B4
-XTerm.*color13:#8B008B
-XTerm.*color14:#20B2AA
-XTerm.*color15:#FFFFFF
-XTerm.*color16:#FFFFFF
+XTerm.*.color0: #000000
+XTerm.*.color1: #800000
+XTerm.*.color2: #008000
+XTerm.*.color3: #DAA520
+XTerm.*.color4: #000080
+XTerm.*.color5: #800080
+XTerm.*.color6: #008080
+XTerm.*.color7: #c0c0c0
+XTerm.*.color8: #808080
+XTerm.*.color9: #8B0000
+XTerm.*.color10:#2E8B57
+XTerm.*.color11:#DAA520
+XTerm.*.color12:#4682B4
+XTerm.*.color13:#8B008B
+XTerm.*.color14:#20B2AA
+XTerm.*.color15:#FFFFFF
+XTerm.*.color16:#FFFFFF
 
 !                          |
 !  |   |  __|\ \  /\ \   / __|
@@ -142,26 +142,26 @@ XTerm.*color16:#FFFFFF
 
 ! fake transparency:
 ! fade the text by the given percentage when focus is lost:
-! URxvt.*fading: 30
-URxvt.*transparent: false
+! URxvt.*.fading: 30
+URxvt.*.transparent: false
 ! shading; 0 to 99 darkens, 101 to 200 lightens:
-!URxvt.*shading: 10
-URxvt.*buffered: true
+!URxvt.*.shading: 10
+URxvt.*.buffered: true
 
 ! real transparency:
-! URxvt.*depth: 32
-! URxvt.*background: [80]#000000
-! URxvt.*background: rgba:0000/0000/0000/c900
+! URxvt.*.depth: 32
+! URxvt.*.background: [80]#000000
+! URxvt.*.background: rgba:0000/0000/0000/c900
 
-URxvt.*foreground: #000000
-URxvt.*background: #FFFFFF
-URxvt.*cursorColor: #800080
-URxvt.*cursorColor2: #800080
-URxvt.*pointerColor: #800080
-URxvt.*pointerColor2: #800080
+URxvt.*.foreground: #000000
+URxvt.*.background: #FFFFFF
+URxvt.*.cursorColor: #800080
+URxvt.*.cursorColor2: #800080
+URxvt.*.pointerColor: #800080
+URxvt.*.pointerColor2: #800080
 
-! URxvt.*underlineColor:
-! URxvt.*troughColor:
-! URxvt.*highlightColor:
-! URxvt.*highlightTextColor:
-URxvt.*scrollColor: #A9A9A9
+! URxvt.*.underlineColor:
+! URxvt.*.troughColor:
+! URxvt.*.highlightColor:
+! URxvt.*.highlightTextColor:
+URxvt.*.scrollColor: #A9A9A9

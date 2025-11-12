@@ -62,7 +62,7 @@ rm -rf /home/m/.cache/
 # backup database
 echo "$fg_bold[blue]::$fg_bold[white] Backup the local pacman database. $reset_color"
 echo "   tar -cjf $loc/pacman_database.tar.bz2 /var/lib/pacman/local"
-tar -cjf $loc/pacman_database.tar.bz2 /var/lib/pacman/local
+tar -cjf ~/archive/pacman_database.tar /var/lib/pacman/local
 
 # list pkg
 echo "$fg_bold[blue]::$fg_bold[white] Keep a list of explicitly installed packages. $reset_color"

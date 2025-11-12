@@ -1,0 +1,9 @@
+[Unit]
+Description=Battery icon and reminder
+
+[Service]
+Type=simple
+ExecStart=/bin/cbatticon -r 10 -c 'notify-send Power on 10%'
+
+[Install]
+WantedBy=default.target

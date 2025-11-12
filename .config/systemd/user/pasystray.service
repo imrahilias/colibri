@@ -1,0 +1,9 @@
+[Unit]
+Description=Pulseaudio systray
+
+[Service]
+Type=simple
+ExecStart=/bin/pasystray
+
+[Install]
+WantedBy=default.target

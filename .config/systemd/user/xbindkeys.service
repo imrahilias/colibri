@@ -1,0 +1,10 @@
+[Unit]
+Description=XBindKeys key grabber
+After=environment.target
+
+[Service]
+ExecStart=/usr/bin/xbindkeys
+KillMode=process
+
+[Install]
+WantedBy=default.target

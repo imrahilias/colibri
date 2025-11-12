@@ -1,0 +1,44 @@
+# Standard are nice. The best thing is: there are so many. So lets chose the
+# standard standard for us!  https://editorconfig.org
+
+# top-most EditorConfig file. special property that should be specified at the
+# top of the file outside of any sections. Set to true to stop .editorconfig
+# files search on current file.
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+charset = utf-8
+
+# LCS https://docs.kernel.org/process/coding-style.html
+[*.c]
+indent_style = tab
+tab_width = 8
+max_line_length = 100
+
+# GNU https://www.gnu.org/prep/standards/standards.html
+[*]
+indent_style = space
+indent_size = 4
+max_line_length = 80
+
+# Tab indentation (no size specified) or make breaks
+[{M,m}akefile]
+indent_style = tab
+
+# https://github.com/luarocks/lua-style-guide
+[*.lua]
+indent_style = space
+indent_size = 3
+
+# PEP8 https://peps.python.org/pep-0008/
+[*.py]
+indent_style = space
+indent_size = 4
+max_line_length = 79
+
+[.git/COMMIT_EDITMSG]
+max_line_length = 72

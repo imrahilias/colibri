@@ -902,6 +902,7 @@ autorunners =
       "picom -b",
       "xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock",
       "emacs --daemon",
+      "systemctl --user start xsettingsd.service",
 
       -- start some trays:
       "pasystray",
@@ -909,9 +910,6 @@ autorunners =
       "nm-applet",
       "cbatticon -r 10 -c 'notify-send Power on 10%'",
       "1password",
-
-      "xrdb ~/.Xresources",
-      "xrdb -merge ~/.config/darkman/light",
 
       -- change to autodetected display config:
       "autorandr -c",
@@ -921,6 +919,10 @@ if autorun then
    -- these just add up:
    awful.spawn.with_shell("killall pasystray")
    awful.spawn.with_shell("killall cbatticon")
+
+   -- these dont switch mode otherwise:
+   awful.spawn.with_shell("killall blueman-applet")
+   awful.spawn.with_shell("nm-applet")
 
    -- both *cloud runs on qt, which runs qt6gtk2. so whenever qt or gtk
    -- change, this qt6gtk2 aur pkg needs to be rebuilt (install, no clean

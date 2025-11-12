@@ -1,0 +1,22 @@
+# this git ignore file is meant for excluding top dirs only.
+# git's file name specific ignore file is at ~/.config/git/ignore.
+# And the reference: https://git-scm.com/docs/gitignore
+# Assuming .gitignore is in the root of your repo,
+# mydir/ will match any folder named "mydir"
+# /mydir/ will match only top-level folders named "mydir"
+
+# all data dirs
+/Downloads/
+/alpencloud/
+/archive/
+/asc/
+/ascloud/
+/downloads/
+/media/
+/movies/
+/photos/
+/projects/
+/src/
+/sync/
+/tephelon/
+/tmp/

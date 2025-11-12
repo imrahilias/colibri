@@ -32,8 +32,11 @@ ZSH_DISABLE_COMPFIX="true"
 # also just drop the caps lock key, it is a second ctrl now.
 setxkbmap -layout "us(m)" -option ctrl:nocaps
 
-# llm api for easier access
-source "$HOME/vsc/bin/api.conf"
+if [[ $EUID != 0 ]] ; then
+    path=(~/bin ~/asc/bin $path) # Zsh ties the PATH variable to a path array.
+    source /home/m/asc/bin/aliases
+    source "$HOME/asc/bin/api.conf" # llm chat.ai.tuwien.ac.at api for emacs
+fi
 
 
 #        |_)
@@ -41,10 +44,6 @@ source "$HOME/vsc/bin/api.conf"
 #  (   | | | (   |\__ \
 # \__,_|_|_|\__,_|____/
 #
-
-if [[ $EUID != 0 ]] ; then
-    source /home/m/vsc/bin/aliases
-fi
 
 # enable color support of ls and also add handy aliases.
 if [ -x /usr/bin/dircolors ]
@@ -305,9 +304,6 @@ source <(fzf --zsh)
 
 export EDITOR='emacs'
 
-# Zsh ties the PATH variable to a path array.
-path=(~/bin ~/vscloud/bin $path)
-
 export GOPATH="$HOME/.go"
 
 # signal now fails:
@@ -329,6 +325,13 @@ FZF_DEFAULT_OPTS_LIGHT="--color=light --color=fg:-1,fg+:-1,bg:-1,bg+:-1,preview-
 # light color palette:
 FZF_DEFAULT_OPTS_DARK="--color=dark --color=fg:-1,fg+:-1,bg:-1,bg+:-1,preview-bg:-1,hl:cyan,hl+:magenta,info:-1,marker:magenta,prompt:magenta,spinner:#330099,pointer:magenta,header:-1,border:-1,label:-1,query:-1,gutter:-1"
 
+# qt looks like current gtk theme
+# qt themes use the gtk2/3 theme arc-blackest converted via qt6gtk2,
+# has to be run from yay whenever either qt6 or gtk2/3 change,
+# no way to do that for two themes in the background though.
+#export QT_QPA_PLATFORMTHEME="gtk2" # qt looks like current gtk theme
+#export QT_STYLE_OVERRIDE="gtk2"
+
 if [[ $THEME_DARK == 1 ]]
 then
     export THEME="DARK"
@@ -337,12 +340,8 @@ then
 
     export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS_BASE $FZF_DEFAULT_OPTS_DARK"
 
-    # qt looks like current gtk theme
-    # qt themes use the gtk2/3 theme arc-blackest converted via qt6gtk2,
-    # has to be run from yay whenever either qt6 or gtk2/3 change,
-    # no way to do that for two themes in the background though.
-    export QT_QPA_PLATFORMTHEME="gtk2" # qt looks like current gtk theme
-    export QT_STYLE_OVERRIDE="gtk2"
+    export QT_QPA_PLATFORMTHEME="breeze"
+    export QT_STYLE_OVERRIDE="breeze"
 else
     export THEME="LIGHT"
 
@@ -350,9 +349,8 @@ else
 
     export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS_BASE $FZF_DEFAULT_OPTS_LIGHT"
 
-    # qt themes use the gtk2/3 theme arc-blackest converted via qt6gtk2:
-    export QT_QPA_PLATFORMTHEME="gtk2"
-    export QT_STYLE_OVERRIDE="gtk2"
+    export QT_QPA_PLATFORMTHEME="breeze"
+    export QT_STYLE_OVERRIDE="breeze"
 fi
 
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100'"

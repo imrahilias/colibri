@@ -5,4 +5,5 @@
 
 #gsettings set org.gnome.desktop.interface gtk-theme Arc-Darker
 
-gsettings set org.gnome.desktop.interface gtk-theme Materia
+gsettings set org.gnome.desktop.interface gtk-theme Arc
+gsettings set org.gnome.desktop.interface icon-theme hicolor
