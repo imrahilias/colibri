@@ -313,7 +313,7 @@ export GOPATH="$HOME/.go"
 #export OP_BIOMETRIC_UNLOCK_ENABLED=true
 
 # this is changed via sed by darkman from $HOME/.local/share/light-mode.d/:
-THEME_DARK=0
+THEME_DARK=1
 
 # set fzf options as global envs via sourcing this in .zshrc.
 # other nice options: "--preview-border=none --layout=reverse"
@@ -383,8 +383,8 @@ xset -b &> /dev/null # turn off bell
 # _|            |___/
 
 # redo that only in case clearing cache thows plugin not found errors:
-#source '/usr/share/zsh-antidote/antidote.zsh'
-#antidote load
+# source '/usr/share/zsh-antidote/antidote.zsh'
+# antidote load
 
 # Set the root name of the plugins files (.txt and .zsh) antidote will use.
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins

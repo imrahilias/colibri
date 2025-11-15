@@ -54,7 +54,7 @@ end
 --
 
 -- themes define colours, icons, font and wallpapers:
-beautiful.init(awful.util.getdir("config") .. "/light.lua")
+beautiful.init(awful.util.getdir("config") .. "/dark.lua")
 beautiful.layout_machi = machi.get_icon()
 
 -- revelation, load after beautiful:

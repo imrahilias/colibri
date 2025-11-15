@@ -18,11 +18,60 @@
 (use-package consult
     :after (flycheck)
     :bind
-    ("M-f" . consult-flycheck)
-    ;;("M-i" . consult-flyspell)
-    ("M-s" . consult-line)
-    ("M-/" . consult-fd)
-    ("M-\\" . consult-ripgrep))
+    (;; C-c bindings (mode-specific-map)
+        ("C-c M-x" . consult-mode-command)
+        ("C-c h" . consult-history)
+        ("C-c k" . consult-kmacro)
+        ("C-c m" . consult-man)
+        ("C-c i" . consult-info)
+        ([remap Info-search] . consult-info)
+        ;; C-x bindings (ctl-x-map)
+        ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+        ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+        ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+        ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+        ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
+        ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+        ;; Custom M-# bindings for fast register access
+        ("M-#" . consult-register-load)
+        ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
+        ("C-M-#" . consult-register)
+        ;; Other custom bindings
+        ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+        ;; M-g bindings (goto-map)
+        ("M-g e" . consult-compile-error)
+        ("M-g f" . consult-flycheck)               ;; Alternative: consult-flymake
+        ("M-g g" . consult-goto-line)             ;; orig. goto-line
+        ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+        ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+        ("M-g m" . consult-mark)
+        ("M-g k" . consult-global-mark)
+        ("M-g i" . consult-imenu)
+        ("M-g I" . consult-imenu-multi)
+        ;; M-s bindings (search-map)
+        ("M-s d" . consult-find)
+        ("M-s D" . consult-locate)
+        ("M-s g" . consult-grep)
+        ("M-s G" . consult-git-grep)
+        ("M-s r" . consult-ripgrep)
+        ("M-s l" . consult-line)
+        ("M-s L" . consult-line-multi)
+        ("M-s k" . consult-keep-lines)
+        ("M-s u" . consult-focus-lines)
+        ("M-/" . consult-fd)
+        ("M-\\" . consult-ripgrep)
+        ;; Isearch integration
+        ("M-s e" . consult-isearch-history)
+        :map isearch-mode-map
+        ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
+        ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+        ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
+        ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
+        ;; Minibuffer history
+        :map minibuffer-local-map
+        ("M-s" . consult-history)                 ;; orig. next-matching-history-element
+        ("M-r" . consult-history))                ;; orig. previous-matching-history-element
+    )
 
 (use-package editorconfig
     :init (editorconfig-mode))
@@ -44,16 +93,14 @@
     ;; (isearch ((t (:foreground "#000000" :background "#FF00FF"))))
     ;; (isearch-fail ((t (:foreground "#000000" :background "yellow"))))
     ;; (window-divider ((t (:foreground "#444444"))))
-
     ;; those cant be set by .Xresources:
-    ;; (fringe ((t (:background "#FFFFFF"))))
-    ;; (highlight ((t (:background "#F0F0F0"))))
-    ;; (lazy-highlight ((t (:background "#003641"))))
-    ;; (region ((t (:background "#ADD8E6"))))
-    ;; (secondary-selection ((t (:background "#CCCCFF"))))
-    ;; (trailing-whitespace ((t (:background "#CCCCFF"))))
+    (fringe ((t (:background "#FFFFFF"))))
+    (highlight ((t (:background "#F0F0F0"))))
+    (lazy-highlight ((t (:background "#003641"))))
+    (region ((t (:background "#ADD8E6"))))
+    (secondary-selection ((t (:background "#CCCCFF"))))
+    (trailing-whitespace ((t (:background "#CCCCFF"))))
     :custom
-    (load-theme 'dichromacy)
     (auto-save-default t)
     (auto-save-no-message nil)
     (auto-save-visited-file-name 0)
@@ -90,6 +137,7 @@
     (use-short-answers t)
     (vc-make-backup-files t)
     :config
+    (load-theme 'dichromacy t)
     (put 'downcase-region 'disabled nil)
     (put 'upcase-region 'disabled nil)
     (put 'erase-buffer 'disabled nil)
@@ -155,7 +203,28 @@ each savepoint.")
     )
 
 (use-package flycheck
-    :init (global-flycheck-mode))
+    :init (global-flycheck-mode)
+    :config
+    (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+    (setq flycheck-check-syntax-automatically '(mode-enabled save))
+    :hook
+    ((python-mode . (lambda ()
+                        (flycheck-mode)
+                        (setq flycheck-checker 'python-pylint)
+                        (flycheck-add-next-checker 'python-pylint 'python-pyright)))
+        (sh-mode . (lambda ()
+                       (flycheck-mode)
+                       (flycheck-select-checker 'sh-shellcheck)))
+        (yaml-mode . (lambda ()
+                         (flycheck-mode)
+                         (flycheck-select-checker 'yaml-yamllint)))
+        (puppet-mode . (lambda ()
+                           (flycheck-mode)
+                           (setq flycheck-checker 'puppet-parser)
+                           (flycheck-add-next-checker 'puppet-parser 'puppet-lint)))))
+;; ;; simply enable for all prog-mode
+;; (prog-mode . (lambda ()
+;;                  (flycheck-mode)))))
 
 (use-package gptel
     :custom
@@ -180,17 +249,25 @@ each savepoint.")
 
 (use-package highlight-thing
     :custom-face
-    ;; (hi-yellow ((t (:foreground "#FAF0E6" :background "#1A004E"))))
-    (hi-yellow ((t (:foreground "#000000" :background "#F0F0F0"))))
+    ;; (hi-yellow ((t (:foreground "#FAF0E6" :background "#1A004E")))) ; dark mode
+    (hi-yellow ((t (:foreground "#000000" :background "#F0F0F0")))) ; light mode
     :init (global-highlight-thing-mode))
+
+
 
 (use-package jinx
     :custom
     (jinx-languages "de_AT de_DE en_GB en_US")
-    ;;:hook (emacs-startup . global-jinx-mode)
+    :hook (emacs-startup . global-jinx-mode)
     :bind
     ("M-j" . jinx-correct)
     ("C-M-j" . jinx-languages))
+
+(use-package json-mode
+    :config
+    ;; set tab size to 4
+    (setq json-encoding-default-indentation "    ")
+    )
 
 (use-package lsp-mode
     :init
@@ -210,10 +287,14 @@ each savepoint.")
 ;;itself because it (Elsa LSP) is not stable enough.
 ;;(elsa-lsp-register)
 
+(use-package lua-mode)
+
 (use-package magit
     :custom-face
+    ;; dark mode
     ;; (magit-diff-added ((t (:foreground "#2E8B57" :background "#000000"))))
     ;; (magit-diff-removed ((t (:foreground "#8B0000" :background "#000000"))))
+    ;; light mode
     (magit-diff-added ((t (:foreground "#2E8B57" :background "#FFFFFF"))))
     (magit-diff-removed ((t (:foreground "#8B0000" :background "#FFFFFF"))))
     :custom
@@ -226,7 +307,16 @@ each savepoint.")
     :init (marginalia-mode))
 
 (use-package markdown-mode
-  :custom-face (markdown-code-face ((t (:inherit org-block)))))
+    :custom-face (markdown-code-face ((t (:inherit org-block)))))
+
+(use-package multiple-cursors
+    :bind(("C-c l" . mc/edit-lines)
+             ("C-c >" . mc/mark-next-like-this)
+             ("C-c <" . mc/mark-previous-like-this)
+             ("C-c =" . mc/mark-all-like-this)
+             ("C-c <mouse-1>" . mc/add-cursor-on-click)
+             ("C-c RET" . set-rectangular-region-anchor)
+             ))
 
 (use-package octave
     :mode ("\\.m$" . octave-mode)
@@ -271,18 +361,20 @@ each savepoint.")
     (set-face-attribute 'org-level-8 nil :bold t)
     (set-face-attribute 'org-meta-line nil :bold t)
     (set-face-attribute 'org-quote nil :italic t)
+    ;; dark mode
     ;; (set-face-attribute 'org-block-begin-line nil :background "#161a1f" :bold t)
     ;; (set-face-attribute 'org-code nil :background "#0b0d0f")
     ;; (set-face-attribute 'org-table nil :background "#0b0d0f")
     ;; (set-face-attribute 'org-table-header nil :foreground "#787787" :background "#161a1f" :bold t)
     ;; (set-face-attribute 'org-verbatim nil :foreground "#000000" :background "#787787")
     ;; (set-face-attribute 'org-block nil :background "#0b0d0f")
-    (set-face-attribute 'org-block-begin-line nil :background "#D9D9D9" :bold t)
-    (set-face-attribute 'org-code nil :background "#F0F0F0")
-    (set-face-attribute 'org-table nil :background "#F0F0F0")
-    (set-face-attribute 'org-table-header nil :background "#D9D9D9" :bold t)
-    (set-face-attribute 'org-verbatim nil :background "#F0F0F0")
-    (set-face-attribute 'org-block nil :background "#F0F0F0")
+    ;; light mode
+    (set-face-attribute 'org-block-begin-line nil :background "#F0F0F0" :bold t)
+    (set-face-attribute 'org-code nil :background "#F5F5F5")
+    (set-face-attribute 'org-table nil :foreground "#000000" :background "#F5F5F5")
+    (set-face-attribute 'org-table-header nil :background "#F0F0F0" :bold t)
+    (set-face-attribute 'org-verbatim nil :background "#F5F5F5")
+    (set-face-attribute 'org-block nil :background "#F5F5F5")
     (defvar org-electric-pairs '((?\* . ?\*) (?/ . ?/) (?= . ?=) (?\_ . ?\_) (?~ . ?~) (?+ . ?+))
         "electric-pair-mode for org-mode: mark region, then press `*` or `/`.")
     (defun org-add-electric-pairs ()
@@ -375,6 +467,9 @@ each savepoint.")
 (use-package which-key
     :config
     (which-key-mode))
+
+(use-package yaml-mode)
+
 
 ;; (use-package auth-source-1password
 ;;     :config
