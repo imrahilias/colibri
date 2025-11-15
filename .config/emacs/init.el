@@ -78,21 +78,6 @@
 
 (use-package emacs
     :custom-face
-    ;; these can be set by .Xresources which allows for mode switching:
-    ;; (default ((t (:foreground "#FAF0E6" :background "#000000"))))
-    ;; (diff-added ((t (:foreground "#2E8B57" :background "#000000"))))
-    ;; (diff-file-header ((t (:foreground "#FAF0E6" :background "#161A1F" :bold t))))
-    ;; (diff-indicator-added ((t (:foreground "#2E8B57" :background "#000000"))))
-    ;; (diff-indicator-removed ((t (:foreground "#8B0000" :background "#000000"))))
-    ;; (diff-refine-added ((t (:foreground "#000000" :background"#2E8B57"))))
-    ;; (diff-refine-removed ((t (:foreground "#000000" :background "#8B0000"))))
-    ;; (diff-removed ((t (:foreground "#8B0000" :background "#000000"))))
-    ;; (font-lock-comment-face ((t (:foreground "#666699"))))
-    ;; (font-lock-string-face ((t (:foreground "#008080"))))
-    ;; (font-lock-variable-name-face ((t (:foreground "#8B008B"))))
-    ;; (isearch ((t (:foreground "#000000" :background "#FF00FF"))))
-    ;; (isearch-fail ((t (:foreground "#000000" :background "yellow"))))
-    ;; (window-divider ((t (:foreground "#444444"))))
     ;; those cant be set by .Xresources:
     (fringe ((t (:background "#FFFFFF"))))
     (highlight ((t (:background "#F0F0F0"))))
@@ -203,28 +188,7 @@ each savepoint.")
     )
 
 (use-package flycheck
-    :init (global-flycheck-mode)
-    :config
-    (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
-    (setq flycheck-check-syntax-automatically '(mode-enabled save))
-    :hook
-    ((python-mode . (lambda ()
-                        (flycheck-mode)
-                        (setq flycheck-checker 'python-pylint)
-                        (flycheck-add-next-checker 'python-pylint 'python-pyright)))
-        (sh-mode . (lambda ()
-                       (flycheck-mode)
-                       (flycheck-select-checker 'sh-shellcheck)))
-        (yaml-mode . (lambda ()
-                         (flycheck-mode)
-                         (flycheck-select-checker 'yaml-yamllint)))
-        (puppet-mode . (lambda ()
-                           (flycheck-mode)
-                           (setq flycheck-checker 'puppet-parser)
-                           (flycheck-add-next-checker 'puppet-parser 'puppet-lint)))))
-;; ;; simply enable for all prog-mode
-;; (prog-mode . (lambda ()
-;;                  (flycheck-mode)))))
+    :init (global-flycheck-mode))
 
 (use-package gptel
     :custom
@@ -246,19 +210,16 @@ each savepoint.")
     ("M-l" . gptel)
     ("C-<return>" . gptel-send))
 
-
 (use-package highlight-thing
     :custom-face
     ;; (hi-yellow ((t (:foreground "#FAF0E6" :background "#1A004E")))) ; dark mode
     (hi-yellow ((t (:foreground "#000000" :background "#F0F0F0")))) ; light mode
     :init (global-highlight-thing-mode))
 
-
-
 (use-package jinx
     :custom
     (jinx-languages "de_AT de_DE en_GB en_US")
-    :hook (emacs-startup . global-jinx-mode)
+    ;;:hook (emacs-startup . global-jinx-mode)
     :bind
     ("M-j" . jinx-correct)
     ("C-M-j" . jinx-languages))
@@ -341,16 +302,21 @@ each savepoint.")
     :config
     (electric-pair-mode)
     (org-babel-do-load-languages
-        'org-babel-load-languages
-        '((C . t)
-             (emacs-lisp . t)
-             (fortran . t)
-             (gnuplot . t)
-             (lua . t)
-             (makefile . t)
-             (org . t)
-             (python . t)
-             (shell . t)))
+        'org-babel-load-languages '(
+                                       (C . t)
+                                       (F90 . t)
+                                       (emacs-lisp . t)
+                                       (gnuplot . t)
+                                       (js . t)
+                                       (latex . t)
+                                       (lua . t)
+                                       (makefile . t)
+                                       (matlab . t)
+                                       (octave . t)
+                                       (org . t)
+                                       (python . t)
+                                       (shell . t)
+                                       ))
     (set-face-attribute 'org-level-1 nil :bold t :foreground "#FAF0E6" :background "#4682B4")
     (set-face-attribute 'org-level-2 nil :bold t)
     (set-face-attribute 'org-level-3 nil :bold t)
@@ -418,8 +384,7 @@ each savepoint.")
     :bind ("M-t" . treemacs))
 
 (use-package treemacs-magit
-    :after (treemacs magit)
-    :ensure t)
+    :after (treemacs magit))
 
 (use-package unfill
     :bind ("M-q" . unfill-toggle))
@@ -465,11 +430,10 @@ each savepoint.")
     :bind ("M-v" . vundo))
 
 (use-package which-key
-    :config
+    :init
     (which-key-mode))
 
 (use-package yaml-mode)
-
 
 ;; (use-package auth-source-1password
 ;;     :config
