@@ -34,7 +34,7 @@ Emacs.MenuBar: off
 Emacs.ToolBar: off
 Emacs.TabBar: off
 Emacs.ScrollBars: off
-Emacs.BorderWidth: 0
+Emacs.BorderWidth: 1
 Emacs.LineSpacing: 0
 Emacs.cursorBlink: off
 Emacs.Alpha: 100

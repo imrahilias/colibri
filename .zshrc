@@ -306,10 +306,10 @@ export EDITOR='emacs'
 
 export GOPATH="$HOME/.go"
 
-# signal now fails:
+# signal now fails.
 #export SIGNAL_PASSWORD_STORE='gnome-libsecret'
 
-# 1password unlock:
+# 1password unlock.
 #export OP_BIOMETRIC_UNLOCK_ENABLED=true
 
 # this is changed via sed by darkman from $HOME/.local/share/light-mode.d/:
@@ -319,13 +319,13 @@ THEME_DARK=0
 # other nice options: "--preview-border=none --layout=reverse"
 FZF_DEFAULT_OPTS_BASE="--style=minimal --no-height --no-info --no-separator --border=none --prompt '▶ ' --marker='█' --pointer='◆'"
 
-# dark color palette:
+# dark color palette.
 FZF_DEFAULT_OPTS_LIGHT="--color=light --color=fg:-1,fg+:-1,bg:-1,bg+:-1,preview-bg:-1,hl:cyan,hl+:magenta,info:-1,marker:magenta,prompt:magenta,spinner:#330099,pointer:magenta,header:-1,border:-1,label:-1,query:-1,gutter:-1"
 
-# light color palette:
+# light color palette.
 FZF_DEFAULT_OPTS_DARK="--color=dark --color=fg:-1,fg+:-1,bg:-1,bg+:-1,preview-bg:-1,hl:cyan,hl+:magenta,info:-1,marker:magenta,prompt:magenta,spinner:#330099,pointer:magenta,header:-1,border:-1,label:-1,query:-1,gutter:-1"
 
-# qt looks like current gtk theme
+# qt looks like current gtk theme.
 # qt themes use the gtk2/3 theme arc-blackest converted via qt6gtk2,
 # has to be run from yay whenever either qt6 or gtk2/3 change,
 # no way to do that for two themes in the background though.
@@ -340,8 +340,8 @@ then
 
     export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS_BASE $FZF_DEFAULT_OPTS_DARK"
 
-    export QT_QPA_PLATFORMTHEME="breeze"
-    export QT_STYLE_OVERRIDE="breeze"
+    export QT_QPA_PLATFORMTHEME="breeze-dark"
+    export QT_STYLE_OVERRIDE="breeze-dark"
 else
     export THEME="LIGHT"
 
@@ -364,12 +364,12 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100'"
 # dumb lock:
 hasssid=`nmcli d show wlp3s0 | grep "GENERAL.CONNECTION:" | awk '{print $2}'`
 if [[ $hasssid = "internetz" || $hasssid = "tephelon" ]] ; then
-    # turn off powersaver/screensaver/blanking/bell:
+    # turn off powersaver/screensaver/blanking/bell.
     xset -dpms
     xset s blank
     xset s off
 else
-    # start dimmer after 300s and lock after 10 more s:
+    # start dimmer after 300s and lock after 10 more s.
     xset +dpms
     xset s 300 10
     xset s on
@@ -382,9 +382,9 @@ xset -b &> /dev/null # turn off bell
 #  .__/ _|\__,_|\__, |_|_|  _|____/
 # _|            |___/
 
-# redo that only in case clearing cache thows plugin not found errors:
-# source '/usr/share/zsh-antidote/antidote.zsh'
-# antidote load
+# uncomment only in case cleared cache thows plugin not found errors.
+#source '/usr/share/zsh-antidote/antidote.zsh'
+#antidote load
 
 # Set the root name of the plugins files (.txt and .zsh) antidote will use.
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
@@ -404,12 +404,13 @@ fi
 # Source the static plugins file.
 source ${zsh_plugins}.zsh
 
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=6,bg=grey"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=white, bg=default"
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
-#ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+# collides with completion?
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 # |
 # |  /  _ \ |   |  __|
@@ -423,6 +424,8 @@ bindkey "^M" magic-enter
 bindkey . rationalize-dot
 bindkey -s '^D' "\eq y\n"
 bindkey -s '^\' "\eq rga-fzf\n"
+
+# always fzf for everything is maybe not what i want.
 #bindkey '^I' fzf_completion
 
 # You are using zsh in MULTIBYTE mode to support modern character sets (for
@@ -501,39 +504,52 @@ zle -N down-line-or-beginning-search
 # 1pasword cli completion depends on compinit:
 #eval "$(op completion zsh)"; compdef _op op
 
-zstyle ':completion:*' rehash false # faster on demand
-zstyle ':completion:*' special-dirs true # tab-completion for .. and others
+
+zstyle ':completion:*' cache-path ~/.config/shell/zsh_cache
+zstyle ':completion:*' complete-options true # add dirstack to `cd -` completion
 zstyle ':completion:*' completer _match _expand _complete _correct _approximate
 zstyle ':completion:*' completions 1
 zstyle ':completion:*' file-sort name
 zstyle ':completion:*' glob 1
+zstyle ':completion:*' group-name '' # group in topic blocks, otherwise the colors have no effect
 zstyle ':completion:*' insert-unambiguous true
 zstyle ':completion:*' max-errors 2
+zstyle ':completion:*' menu select search
 zstyle ':completion:*' original true
-zstyle ':completion:*' substitute 1
-zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
-zstyle ':completion:*' menu select
+zstyle ':completion:*' rehash false # faster on demand
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' sort true
+zstyle ':completion:*' special-dirs true # tab-completion for .. and others
 zstyle ':completion:*' squeeze-slashes true
+zstyle ':completion:*' squeeze-slashes true # expand //tmp to /tmp instead of /*/tmp
+zstyle ':completion:*' substitute 1
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.config/shell/zsh_cache
-zstyle ':completion::complete:*' gain-privileges 1 # This will let Zsh completion scripts run commands with sudo privileges. You should not enable this if you use untrusted autocompletion scripts.
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*:match:*' original only
 zstyle ':completion:*' verbose true
+zstyle ':completion:*:*:*:*:aliases' format '%F{blue}%B%d%b%f'
+zstyle ':completion:*:*:*:*:builtins' format '%F{yellow}%B%d%b%f'
+#zstyle ':completion:*:*:*:*:commands' format '%F{yellow}%B%d%b%f' # that is almost everything, all binaries, etc
+zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}%B%d (errors: %e)%b %f'
+zstyle ':completion:*:*:*:*:functions' format '%F{magenta}%B%d%b%f'
+zstyle ':completion:*:*:*:*:options' format '%F{blue}%B%d%b%f'
+zstyle ':completion:*:*:*:*:parameters' format '%F{green}%B%d%b%f'
+zstyle ':completion:*:*:-command-:*:*' group-order alias builtins functions commands
+zstyle ':completion:*:*:kill:*' list-colors '=(#b) #([0-9]#)*( *[a-z])*=34=31=33'
 zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:*:kill:*:processes' command 'ps haxopid:5,user:4,%cpu:4,ni:2,stat:3,etime:8,args'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:aliases' list-colors '=*=34'
+zstyle ':completion:*:builtins' list-colors '=*=33'
+#zstyle ':completion:*:commands' list-colors '=*=33' # that is almost everything, all binaries, etc
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*:functions' list-colors '=*=35'
 zstyle ':completion:*:kill:*' force-list always
+zstyle ':completion:*:match:*' original only
+zstyle ':completion:*:options' list-colors '=^(-- *)=34' # This will present all command options in blue, but description of that options will stay normal.
+zstyle ':completion:*:parameters' list-colors '=*=1;32'
 zstyle ':completion:*:processes' command "ps -au${USER}"
 zstyle ':completion:*:sudo:*' command-path /bin /usr/bin /usr/local/bin /home/m/bin /sbin /usr/sbin /usr/local/sbin /usr/games /usr/local/games
-zstyle ':completion:*:parameters' list-colors '=*=1;36'
-zstyle ':completion:*:options' list-colors '=^(-- *)=34'
-zstyle ':completion:*:commands' list-colors '=*=1;33'
-zstyle ':completion:*:builtins' list-colors '=*=1;38;5;142'
-zstyle ':completion:*:aliases' list-colors '=*=2;38;5;128'
-zstyle ':completion:*:*:kill:*' list-colors '=(#b) #([0-9]#)*( *[a-z])*=34=31=33'
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-
+zstyle ':completion::complete:*' gain-privileges 1 # This will let Zsh completion scripts run commands with sudo privileges. You should not enable this if you use untrusted autocompletion scripts.
 
 #  |   |                          |
 #  __| __ \   _ \   _ \ __ \   _` |

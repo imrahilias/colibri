@@ -78,7 +78,7 @@
 
 (use-package emacs
     :custom-face
-    ;; those cant be set by .Xresources:
+    ;; those cant be set by .Xresources.
     (fringe ((t (:background "#FFFFFF"))))
     (highlight ((t (:background "#F0F0F0"))))
     (lazy-highlight ((t (:background "#003641"))))
@@ -276,7 +276,7 @@ each savepoint.")
              ("C-c <" . mc/mark-previous-like-this)
              ("C-c =" . mc/mark-all-like-this)
              ("C-c <mouse-1>" . mc/add-cursor-on-click)
-             ("C-c RET" . set-rectangular-region-anchor)
+             ("C-c SPC" . set-rectangular-region-anchor)
              ))
 
 (use-package octave
@@ -304,7 +304,7 @@ each savepoint.")
     (org-babel-do-load-languages
         'org-babel-load-languages '(
                                        (C . t)
-                                       (F90 . t)
+                                       (fortran . t)
                                        (emacs-lisp . t)
                                        (gnuplot . t)
                                        (js . t)
