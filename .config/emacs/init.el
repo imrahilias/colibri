@@ -197,15 +197,38 @@ each savepoint.")
     ;;     (auth-source-pick-first-password
     ;;         :host "OpenWebUI"
     ;;         :user "credential"))
-    (gptel-api-key (getenv "OPENWEBUI_API_KEY"))
     (gptel-model 'glm-4.6-355b)
-    (gptel-backend (gptel-make-openai "OpenWebUI"
-                       :host "chat.ai.datalab.tuwien.ac.at"
+    (gptel-api-key (getenv "OPENWEBUI_API_KEY"))
+    ;; (gptel-backend (gptel-make-openai "OpenWebUI"
+    ;;                    :host "chat.ai.datalab.tuwien.ac.at"
+    ;;                    :protocol "https"
+    ;;                    ;;:key (lambda () (getenv "OPENWEBUI_API_KEY")) ; asks confirm
+    ;;                    :key 'gptel-api-key
+    ;;                    :endpoint "/api/chat/completions"
+    ;;                    :stream t
+    ;;                    :models '(glm-4.6-355b :description "Main coding; A powerful multimodal model, primarily for coding tasks."
+    ;;                                 glm-4.5v-106b :description "Multimodal vision; A multimodal model that excels at understanding and describing visual content."
+    ;;                                 mistral-small-3.2-24b :description "General text; A compact and efficient model for general-purpose text generation."
+    ;;                                 )))
+    ;; the last one takes precedence, only one backend can be active in buffer.
+    (gptel-api-key (getenv "AQUEDUCT_API_KEY"))
+    (print (getenv "AQUEDUCT_API_KEY"))
+    (gptel-backend (gptel-make-openai "Aqueduct"
+                       :host "aqueduct.ai.datalab.tuwien.ac.at"
                        :protocol "https"
+                       ;; :endpoint "/v1"
                        :key 'gptel-api-key
-                       :endpoint "/api/chat/completions"
+                       ;:key (lambda () (getenv "AQUEDUCT_API_KEY")) ; asks confirm
                        :stream t
-                       :models '(glm-4.6-355b glm-4.5v-106b mistral-small-3.2-24b)))
+                       :models '(glm-4.6-355b :description "Main coding; A powerful multimodal model, primarily for coding tasks."
+                                    qwen-coder-30b :description "Code generation; A large language model specializing in code generation and completion."
+                                    mistral-small-3.2-24b :description "General text; A compact and efficient model for general-purpose text generation."
+                                    glm-4.5v-106b :description "Multimodal vision; A multimodal model that excels at understanding and describing visual content."
+                                    e5-mistral-7b :description "Text embedding; A lightweight model designed for creating high-quality text embeddings."
+                                    kokoro :description "Text-to-speech; A text-to-speech model for generating natural-sounding female voices."
+                                    piper-thorsten :description "TTS voice; A fast, local text-to-speech system using a neural voice."
+                                    whisper-large :description "Speech-to-text; A robust model for highly accurate speech recognition and translation."
+                                    )))
     :bind
     ("M-l" . gptel)
     ("C-<return>" . gptel-send))

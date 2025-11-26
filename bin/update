@@ -2,6 +2,12 @@
 # backup stray config files
 autoload colors; colors
 
+# check root access
+if [[ $UID = 0 || $EUID = 0 ]]; then
+    echo "$fg_bold[blue]::$fg_bold[white] Root access detected, shutting down. $reset_color"
+    exit 1
+fi
+
 case $(hostname) in
     archaeopteryx)
         files=(
@@ -39,16 +45,22 @@ files+=(
     "/etc/systemd/system/user.slice"
     "/etc/systemd/system/x11-autologin.service"
     "/usr/share/xsessions/awesome.desktop"
+    "/usr/share/xdg-desktop-portal/portals/darkman.portal"
+    "/usr/share/xdg-desktop-portal/portals/gnome-keyring.portal"
+    "/usr/share/xdg-desktop-portal/portals/gnome.portal"
+    "/usr/share/xdg-desktop-portal/portals/gtk.portal"
+    "/usr/share/xdg-desktop-portal/gnome-portals.conf"
+    "/usr/share/xdg-desktop-portal/gtk-portals.conf"
     "/boot/loader/loader.conf"
     "/boot/loader/entries/"*".conf"
 )
 
-loc="/home/$USER/.$(hostname)"
+loc="/home/m/.$(hostname)"
 echo "$fg_bold[blue]::$fg_bold[white] Running on $loc $reset_color"
 
 echo "$fg_bold[blue]::$fg_bold[white] Archive /boot,/etc,/usr. $reset_color"
 for file in "${files[@]}"; do
-    sudo cp --parents --verbose "/$file" "$loc/"
+    cp --parents --verbose "/$file" "$loc/"
 done
 
 # https://wiki.archlinux.org/index.php/System_maintenance
@@ -73,6 +85,5 @@ pacman -Qqe > $loc/installed_packages
 echo "$fg_bold[blue]::$fg_bold[white] Keep a list of manually installed packages (aur). $reset_color"
 echo "   pacman -Qm > $loc/installed_packages_manually"
 pacman -Qm > $loc/installed_packages_manually
-
 
 exit 0

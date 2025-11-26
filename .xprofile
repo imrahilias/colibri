@@ -1,0 +1,46 @@
+#!/bin/sh
+
+# ssh managment is moving to grc.
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
+
+# has to be called before owncloud.
+export XDG_CONFIG_HOME="/home/m/.config"
+
+# theme is managedby darkman, terminal theme stuf moved to zshrc.
+export XDG_CURRENT_DESKTOP="darkman"
+
+for file in ~/.config/darkman/light-mode.d/*.sh; do
+    [ -f "$file" ] && . "$file"
+done
+
+# default is now the light theme, this sets the tray icons.
+export CALIBRE_USE_DARK_PALETTE=0
+
+# dark qt themes use the gtk2/3 theme arc-blackest converted via qt6gtk2.
+#export QT_QPA_PLATFORMTHEME="gtk2" # qt looks like current gtk theme
+#export QT_STYLE_OVERRIDE="gtk2"
+
+# import api keys for datalab.
+. "/home/m/asc/bin/api.conf"
+
+# on arch linux, you should use ~/.xsession instead of ~/.bashrc for
+# the csds to be disabled properly.
+export GTK_CSD=0
+export LD_PRELOAD="/usr/lib/libgtk3-nocsd.so.0${LD_PRELOAD:+:$LD_PRELOAD}"
+
+# disable use of header bars in evolution and other gnome theme stuff.
+gsettings set org.gnome.evolution.shell use-header-bar false
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
+export XSECURELOCK_AUTH="auth_x11"
+export XSECURELOCK_AUTHPROTO="authproto_pam"
+export XSECURELOCK_PAM_SERVICE="xsecurelock"
+export XSECURELOCK_BLANK_DPMS_STATE="suspend"
+export XSECURELOCK_PASSWORD_PROMPT="time_hex"
+export XSECURELOCK_NO_PAM_RHOST=1
+export XSECURELOCK_SHOW_HOSTNAME=0
+export XSECURELOCK_SHOW_USERNAME=0
+export XSECURELOCK_SHOW_KEYBOARD_LAYOUT=0
+
+# make urxvt work on vsc.
+#export TERM=rxvt-unicode-256color

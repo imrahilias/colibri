@@ -200,7 +200,8 @@ globalkeys = gears.table.join(
    awful.key({ modkey, "Control" }, "Return", function () awful.spawn('xterm -e sh -c "TERM=rxvt-unicode ssh l55"') end),
    awful.key({ modkey }, "d", function () awful.spawn.with_shell('xterm -title "  Yazi" -e zsh -i -c "yazi"', false) end),
    awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell('xterm -e sudo yazi', false) end),
-   awful.key({ modkey }, "e", function () awful.spawn("emacsclient -ca ''", false) end),
+   awful.key({ modkey }, "e", function() awful.spawn("emacsclient -ca ''", false) end),
+   --awful.key({ modkey }, "e", function () awful.spawn("emacs") end),
    awful.key({ modkey, "Shift" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_browser") end),
    awful.key({ modkey, "Control" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_google_translate") end),
    awful.key({ modkey, "Shift", "Control" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_thesaurus") end),
@@ -902,6 +903,7 @@ autorunners =
       "xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock",
       "emacs --daemon",
       "systemctl --user start xsettingsd.service",
+      "nextcloud",
 
       -- start some trays:
       "pasystray",
@@ -927,7 +929,7 @@ if autorun then
    -- change, this qt6gtk2 aur pkg needs to be rebuilt (install, no clean
    -- build). also nextcloud might not like the gtk2 theme, so needs to
    -- run default:
-   awful.spawn.with_shell("QT_QPA_PLATFORMTHEME='' QT_STYLE_OVERRIDE='' nextcloud")
+   --awful.spawn.with_shell("QT_QPA_PLATFORMTHEME='' QT_STYLE_OVERRIDE='' nextcloud")
 
    for _, app in ipairs(autorunners) do
       awful.spawn.once(app, awful.rules.rules)
