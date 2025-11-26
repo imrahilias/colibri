@@ -1,10 +1,6 @@
 #!/bin/sh
-# Set GTK theme using gsettings
 
-# Note: The names for the Arc theme variations are terrible.
-# "Darker" is actually LESS DARK than "Dark".
-#gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-#gsettings set org.gnome.desktop.interface gtk-theme Arc-BLACKEST
+export CALIBRE_USE_DARK_PALETTE=1
 
 # this seems to have no effect, actually Adwaita-Dark is run.
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark

@@ -36,6 +36,7 @@ if [[ $EUID != 0 ]] ; then
     path=(~/bin ~/asc/bin $path) # Zsh ties the PATH variable to a path array.
     source /home/m/asc/bin/aliases
     source "$HOME/asc/bin/api.conf" # llm chat.ai.tuwien.ac.at api for emacs
+    source "$HOME/.xprofile"
 fi
 
 
@@ -295,65 +296,6 @@ source <(fzf --zsh)
 
 # Debug: Verbose Execution trace prompt (default: '+%N:%i> '). For more details, refer to 'man zshparam/zshmisc'
 #PS4=$'\n%B%F{0}+ %D{%T:%3.} %2N:%I%f%b '
-
-#
-#   _ \ __ \\ \   /
-#   __/ |   |\ \ /
-# \___|_|  _| \_/
-#
-
-export EDITOR='emacs'
-
-export GOPATH="$HOME/.go"
-
-# signal now fails.
-#export SIGNAL_PASSWORD_STORE='gnome-libsecret'
-
-# 1password unlock.
-#export OP_BIOMETRIC_UNLOCK_ENABLED=true
-
-# this is changed via sed by darkman from $HOME/.local/share/light-mode.d/:
-THEME_DARK=0
-
-# set fzf options as global envs via sourcing this in .zshrc.
-# other nice options: "--preview-border=none --layout=reverse"
-FZF_DEFAULT_OPTS_BASE="--style=minimal --no-height --no-info --no-separator --border=none --prompt '▶ ' --marker='█' --pointer='◆'"
-
-# dark color palette.
-FZF_DEFAULT_OPTS_LIGHT="--color=light --color=fg:-1,fg+:-1,bg:-1,bg+:-1,preview-bg:-1,hl:cyan,hl+:magenta,info:-1,marker:magenta,prompt:magenta,spinner:#330099,pointer:magenta,header:-1,border:-1,label:-1,query:-1,gutter:-1"
-
-# light color palette.
-FZF_DEFAULT_OPTS_DARK="--color=dark --color=fg:-1,fg+:-1,bg:-1,bg+:-1,preview-bg:-1,hl:cyan,hl+:magenta,info:-1,marker:magenta,prompt:magenta,spinner:#330099,pointer:magenta,header:-1,border:-1,label:-1,query:-1,gutter:-1"
-
-# qt looks like current gtk theme.
-# qt themes use the gtk2/3 theme arc-blackest converted via qt6gtk2,
-# has to be run from yay whenever either qt6 or gtk2/3 change,
-# no way to do that for two themes in the background though.
-#export QT_QPA_PLATFORMTHEME="gtk2" # qt looks like current gtk theme
-#export QT_STYLE_OVERRIDE="gtk2"
-
-if [[ $THEME_DARK == 1 ]]
-then
-    export THEME="DARK"
-
-    export CALIBRE_USE_DARK_PALETTE=1
-
-    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS_BASE $FZF_DEFAULT_OPTS_DARK"
-
-    export QT_QPA_PLATFORMTHEME="breeze-dark"
-    export QT_STYLE_OVERRIDE="breeze-dark"
-else
-    export THEME="LIGHT"
-
-    export CALIBRE_USE_DARK_PALETTE=0
-
-    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS_BASE $FZF_DEFAULT_OPTS_LIGHT"
-
-    export QT_QPA_PLATFORMTHEME="breeze"
-    export QT_STYLE_OVERRIDE="breeze"
-fi
-
-export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100'"
 
 #       |          _|  _|
 #   __| __| |   | |   |
