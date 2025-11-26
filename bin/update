@@ -11,13 +11,13 @@ fi
 case $(hostname) in
     archaeopteryx)
         files=(
-            "/etc/systemd/system/rsnapshot-weekly.timer"
+            "/etc/pacman.d/hooks/nvidia.hook"
+            "/etc/rsnapshot.conf"
             "/etc/systemd/system/rsnapshot-daily.timer"
             "/etc/systemd/system/rsnapshot-hourly.timer"
             "/etc/systemd/system/rsnapshot-monthly.timer"
+            "/etc/systemd/system/rsnapshot-weekly.timer"
             "/etc/systemd/system/rsnapshot@.service"
-            "/etc/rsnapshot.conf"
-            "/etc/pacman.d/hooks/nvidia.hook"
         )
         ;;
     colibri)
@@ -25,6 +25,8 @@ case $(hostname) in
 esac
 
 files+=(
+    "/boot/loader/entries/"*".conf"
+    "/boot/loader/loader.conf"
     "/etc/X11/xorg.conf.d/70-synaptics.conf"
     "/etc/fstab"
     "/etc/gdm/custom.conf"
@@ -39,20 +41,17 @@ files+=(
     "/etc/pam.d/system-login"
     "/etc/pam.d/xsecurelock"
     "/etc/profile"
-    "/etc/profile.d/xinitrc.sh"
     "/etc/security/limits.conf"
     "/etc/systemd/system/kill-printd.service"
     "/etc/systemd/system/user.slice"
     "/etc/systemd/system/x11-autologin.service"
-    "/usr/share/xsessions/awesome.desktop"
+    "/usr/share/xdg-desktop-portal/gnome-portals.conf"
+    "/usr/share/xdg-desktop-portal/gtk-portals.conf"
     "/usr/share/xdg-desktop-portal/portals/darkman.portal"
     "/usr/share/xdg-desktop-portal/portals/gnome-keyring.portal"
     "/usr/share/xdg-desktop-portal/portals/gnome.portal"
     "/usr/share/xdg-desktop-portal/portals/gtk.portal"
-    "/usr/share/xdg-desktop-portal/gnome-portals.conf"
-    "/usr/share/xdg-desktop-portal/gtk-portals.conf"
-    "/boot/loader/loader.conf"
-    "/boot/loader/entries/"*".conf"
+    "/usr/share/xsessions/awesome.desktop"
 )
 
 loc="/home/m/.$(hostname)"

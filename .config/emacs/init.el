@@ -206,8 +206,8 @@ each savepoint.")
     ;;                    :key 'gptel-api-key
     ;;                    :endpoint "/api/chat/completions"
     ;;                    :stream t
-    ;;                    :models '(glm-4.6-355b :description "Main coding; A powerful multimodal model, primarily for coding tasks."
-    ;;                                 glm-4.5v-106b :description "Multimodal vision; A multimodal model that excels at understanding and describing visual content."
+    ;;                    :models '(glm-4.6-355b :description "Main, coding; A powerful multimodal model, primarily for coding tasks."
+    ;;                                 glm-4.5v-106b :description "Vision, ocr; A multimodal model that excels at understanding and describing visual content."
     ;;                                 mistral-small-3.2-24b :description "General text; A compact and efficient model for general-purpose text generation."
     ;;                                 )))
     ;; the last one takes precedence, only one backend can be active in buffer.
@@ -220,14 +220,14 @@ each savepoint.")
                        :key 'gptel-api-key
                        ;:key (lambda () (getenv "AQUEDUCT_API_KEY")) ; asks confirm
                        :stream t
-                       :models '(glm-4.6-355b :description "Main coding; A powerful multimodal model, primarily for coding tasks."
-                                    qwen-coder-30b :description "Code generation; A large language model specializing in code generation and completion."
+                       :models '(glm-4.6-355b :description "Main, coding; A powerful multimodal model, primarily for coding tasks."
+                                    qwen-coder-30b :description "tab complete; A large language model specializing in code generation and completion."
                                     mistral-small-3.2-24b :description "General text; A compact and efficient model for general-purpose text generation."
-                                    glm-4.5v-106b :description "Multimodal vision; A multimodal model that excels at understanding and describing visual content."
-                                    e5-mistral-7b :description "Text embedding; A lightweight model designed for creating high-quality text embeddings."
-                                    kokoro :description "Text-to-speech; A text-to-speech model for generating natural-sounding female voices."
-                                    piper-thorsten :description "TTS voice; A fast, local text-to-speech system using a neural voice."
-                                    whisper-large :description "Speech-to-text; A robust model for highly accurate speech recognition and translation."
+                                    glm-4.5v-106b :description "Vision, ocr; A multimodal model that excels at understanding and describing visual content."
+                                    e5-mistral-7b :description "Embed; A lightweight model designed for creating high-quality text embeddings."
+                                    kokoro :description "Text-to-speech English; A text-to-speech model for generating natural-sounding female voices."
+                                    piper-thorsten :description "Text-to-speech German; A fast, local text-to-speech system using a neural voice."
+                                    whisper-large :description "Speech-to-text, transcribe; A robust model for highly accurate speech recognition and translation."
                                     )))
     :bind
     ("M-l" . gptel)

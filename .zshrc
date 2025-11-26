@@ -383,8 +383,10 @@ xset -b &> /dev/null # turn off bell
 # _|            |___/
 
 # uncomment only in case cleared cache thows plugin not found errors.
-#source '/usr/share/zsh-antidote/antidote.zsh'
-#antidote load
+antidote_load () {
+    source '/usr/share/zsh-antidote/antidote.zsh'
+    antidote load
+}
 
 # Set the root name of the plugins files (.txt and .zsh) antidote will use.
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
