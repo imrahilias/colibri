@@ -132,6 +132,7 @@ alias v='nvim '
 alias vi='nvim '
 alias vim='nvim '
 alias mnt=' mount | column -t'
+alias down='yt-dlp --downloader aria2c --downloader-args "-c -j 3 -x 3 -s 3 -k 1M" '
 
 # some gnome stuff:
 alias gnome-session='echo "haha nice try:D"'

@@ -198,7 +198,7 @@ each savepoint.")
     ;;         :host "OpenWebUI"
     ;;         :user "credential"))
     (gptel-model 'glm-4.6-355b)
-    (gptel-api-key (getenv "OPENWEBUI_API_KEY"))
+    ;; (gptel-api-key (getenv "OPENWEBUI_API_KEY"))
     ;; (gptel-backend (gptel-make-openai "OpenWebUI"
     ;;                    :host "chat.ai.datalab.tuwien.ac.at"
     ;;                    :protocol "https"
@@ -220,14 +220,15 @@ each savepoint.")
                        :key 'gptel-api-key
                        ;:key (lambda () (getenv "AQUEDUCT_API_KEY")) ; asks confirm
                        :stream t
-                       :models '(glm-4.6-355b :description "Main, coding; A powerful multimodal model, primarily for coding tasks."
-                                    qwen-coder-30b :description "tab complete; A large language model specializing in code generation and completion."
-                                    mistral-small-3.2-24b :description "General text; A compact and efficient model for general-purpose text generation."
-                                    glm-4.5v-106b :description "Vision, ocr; A multimodal model that excels at understanding and describing visual content."
-                                    e5-mistral-7b :description "Embed; A lightweight model designed for creating high-quality text embeddings."
-                                    kokoro :description "Text-to-speech English; A text-to-speech model for generating natural-sounding female voices."
-                                    piper-thorsten :description "Text-to-speech German; A fast, local text-to-speech system using a neural voice."
-                                    whisper-large :description "Speech-to-text, transcribe; A robust model for highly accurate speech recognition and translation."
+                       :models '(glm-4.6-355b :description "main, coding; A powerful multimodal model, primarily for coding tasks."
+                                    qwen-coder-30b :description "tab, complete; A large language model specializing in code generation and completion."
+                                    mistral-small-3.2-24b :description "small; General text, A compact and efficient model for general-purpose text generation."
+                                    glm-4.5v-106b :description "vision, ocr; A multimodal model that excels at understanding and describing visual content."
+                                    e5-mistral-7b :description "embedding, embed; A lightweight model designed for creating high-quality text embeddings."
+                                    kokoro :description "speech_en; Text-to-speech English; A text-to-speech model for generating natural-sounding female voices."
+                                    piper-thorsten :description "speech_de; Text-to-speech German; A fast, local text-to-speech system using a neural voice."
+                                    whisper-large :description "transcription, transcribe; Speech-to-text; A robust model for highly accurate speech recognition and translation."
+                                    flux-schnell :description "image_generation, image_gen; fast, open-source image generation model."
                                     )))
     :bind
     ("M-l" . gptel)

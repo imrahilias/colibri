@@ -30,6 +30,7 @@ files+=(
     "/etc/X11/xorg.conf.d/70-synaptics.conf"
     "/etc/fstab"
     "/etc/gdm/custom.conf"
+    "/etc/lostfiles.conf"
     "/etc/mkinitcpio.conf"
     "/etc/modprobe.d/blacklist.conf"
     "/etc/pacman.conf"
