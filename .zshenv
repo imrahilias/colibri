@@ -58,3 +58,6 @@ export XSECURELOCK_SHOW_KEYBOARD_LAYOUT=0
 # environment variable ADW_DISABLE_PORTAL=1 for theme set via GSettings to be
 # picked up.
 export ADW_DISABLE_PORTAL=1
+
+export GTK_USE_PORTAL=1
+export GDK_DEBUG=portals

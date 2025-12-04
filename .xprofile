@@ -7,6 +7,6 @@
 gsettings set org.gnome.evolution.shell use-header-bar false
 
 # theme is managedby darkman, terminal theme stuf moved to zshrc.
-xrdb ~/.Xresources
-xrdb -merge ~/.config/darkman/light
-darkman set light
+#xrdb ~/.Xresources
+#xrdb -merge ~/.config/darkman/light
+#darkman set light

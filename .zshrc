@@ -162,9 +162,14 @@ setopt hist_ignore_all_dups # when runing a command several times, only store on
 setopt hist_reduce_blanks # reduce whitespace in history.
 setopt hist_ignore_space # do not remember commands starting with space.
 #setopt SH_WORD_SPLIT # word-splitting on unquoted parameter expansions by default.
+
+# As an aside, if you use any of the HIST_*_DUPS options, you should make sure
+# $HISTSIZE is always at least 20% bigger than $SAVEHIST. Otherwise, Zsh is not
+# able to effectively eliminate duplicates once your history exceeds
+# $SAVEHIST. So, in your case, I would increase it to HISTSIZE=12000 or greater.
+HISTSIZE=1300000
+SAVEHIST=1000000
 HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
 
 #   _|                  |  _)
 #  |   |   | __ \   __| __| |  _ \  __ \   __|
