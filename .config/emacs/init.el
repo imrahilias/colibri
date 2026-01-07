@@ -4,14 +4,39 @@
 "Well its merely my emacs config"
 
 ;;; Code:
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(require 'use-package)
+
+;; package.el init.
+;;(require 'package)
+;;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;;(require 'use-package)
+;; `ensure` only works with package.el.
+;;(setopt use-package-always-ensure t)
+
+;; Straight.el init.
+(setopt straight-use-package-by-default t)
+(setopt package-enable-at-startup nil)
+(defvar bootstrap-version)
+(let ((bootstrap-file
+          (expand-file-name
+              "straight/repos/straight.el/bootstrap.el"
+              (or (bound-and-true-p straight-base-dir)
+                  user-emacs-directory)))
+         (bootstrap-version 7))
+    (unless (file-exists-p bootstrap-file)
+        (with-current-buffer
+            (url-retrieve-synchronously
+                "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+                'silent 'inhibit-cookies)
+            (goto-char (point-max))
+            (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+
+;; use-package options that do not conflict with either package.el or
+;; straight.el.
 (setopt
     ;; use-package-compute-statistics t
     package-quickstart t
     use-package-always-defer t
-    use-package-always-ensure t
     use-package-verbose t
     )
 
@@ -234,6 +259,17 @@ each savepoint.")
     ("M-l" . gptel)
     ("C-<return>" . gptel-send))
 
+(use-package gptel-autocomplete
+    :after gptel
+    :custom
+    (gptel-autocomplete-before-context-lines 10)
+    (gptel-autocomplete-after-context-lines 10)
+    (gptel-autocomplete-temperature 0.1)
+    (gptel-autocomplete-use-context t)
+    :straight (gptel-autocomplete :type git :host github :repo "JDNdeveloper/gptel-autocomplete"))
+
+
+
 (use-package highlight-thing
     :custom-face
     ;; (hi-yellow ((t (:foreground "#FAF0E6" :background "#1A004E")))) ; dark mode
@@ -292,6 +328,7 @@ each savepoint.")
     :init (marginalia-mode))
 
 (use-package markdown-mode
+    :after org
     :custom-face (markdown-code-face ((t (:inherit org-block)))))
 
 (use-package multiple-cursors
@@ -305,7 +342,8 @@ each savepoint.")
 
 (use-package octave
     :mode ("\\.m$" . octave-mode)
-    :bind ("C-c C-c" . octave-send-region))
+    ;;:bind ("C-c C-c" . octave-send-region)
+    )
 
 (use-package orderless
     :custom
