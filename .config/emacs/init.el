@@ -258,7 +258,7 @@ each savepoint.")
                        :protocol "https"
                        ;; :endpoint "/v1"
                        :key 'gptel-api-key
-                       ;:key (lambda () (getenv "AQUEDUCT_API_KEY")) ; asks confirm
+                       ;; :key (lambda () (getenv "AQUEDUCT_API_KEY")) ; asks confirm
                        :stream t
                        :models '(glm-4.6-355b :description "main, coding; A powerful multimodal model, primarily for coding tasks."
                                     qwen-coder-30b :description "tab, complete; A large language model specializing in code generation and completion."
@@ -279,10 +279,11 @@ each savepoint.")
     :after gptel
     :straight (gptel-autocomplete :type git :host github :repo "JDNdeveloper/gptel-autocomplete")
     :custom
-    (gptel-autocomplete-before-context-lines 10)
+    (gptel-autocomplete-before-context-lines 20)
     (gptel-autocomplete-after-context-lines 10)
     (gptel-autocomplete-temperature 0.1)
     (gptel-autocomplete-use-context t)
+    (gptel-model 'qwen-coder-30b)
     :bind
     ("C-c TAB" . gptel-complete)
     ("C-c RET" . gptel-accept-completion)
