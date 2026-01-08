@@ -1,5 +1,5 @@
 !~/.Xresources
-! no inline comments!
+! No inline comments!
 
 !        | |
 !   _` | | |
@@ -15,7 +15,7 @@
 ! _|  \___/ _|  _|\__|____/
 !
 
-! applications without fontconfig support:
+! Applications without fontconfig support.
 Xft.antialias: 1
 Xft.autohint: 0
 Xft.hinting: 1
@@ -29,6 +29,7 @@ Xft.rgba: rgb
 ! \___|_|  _|  _|\__,_|\___|____/
 !
 
+! Setting those font configs here makes emacs start 500ms faster.
 Emacs.font: BitstromWera Nerd Font Mono-12
 Emacs.MenuBar: off
 Emacs.ToolBar: off
@@ -60,14 +61,14 @@ XTerm*scrollbar.width: 8
 XTerm*visualbell: false
 XTerm*bellIsUrgent: false
 
-! tmux needs that for clipboard
+! Tmux needs that for clipboard
 XTerm*disallowedWindowOps: 20,21,SetXprop
 ! XTerm*selectToClipboard: true
 ! XTerm*VT100*translations: #override \n\
 !     Shift Ctrl <Key> V: insert-selection(CLIPBOARD) \n\
 !     Shift Ctrl <Key> C: select-end(CLIPBOARD)
 
-! font size hot key:
+! Font size hot key:
 XTerm*translations: #override \n\
   Alt <Key> minus: smaller-vt-font() \n\
   Alt <Key> plus: larger-vt-font() \n\
@@ -75,7 +76,7 @@ XTerm*translations: #override \n\
 XTerm*faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true
 XTerm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true:style=Bold
 
-! open a new terminal to search scrollback buffer:
+! Open a new terminal to search scrollback buffer.
 !XTerm*printerCommand: XTerm -T History -e sh -c 'less -r <&3' 3<&0
 !XTerm*translations: #override Ctrl <Key>slash: print-everything()
 
@@ -86,7 +87,7 @@ XTerm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=
 !
 
 ! URxvt (case sensitive?)
-! ttps://wiki.archlinux.org/index.php/Rxvt-unicode
+! https://wiki.archlinux.org/index.php/Rxvt-unicode
 
 URxvt.*termName: rxvt-unicode-256color
 URxvt.*loginshell: true
@@ -101,11 +102,11 @@ URxvt.*intensityStyles: false
 URxvt.*secondaryScreen: true
 
 ! SCROLLING
-! do not scroll with output:
+! Do not scroll with output.
 URxvt.*scrollTtyOutput: false
-! scroll in relation to buffer (with mouse scroll or Shift+Page Up):
+! Scroll in relation to buffer (with mouse scroll or Shift+Page Up).
 URxvt.*scrollWithBuffer: true
-! scroll back to the bottom on keypress:
+! Scroll back to the bottom on keypress.
 URxvt.*scrollTtyKeypress: true
 URxvt.*secondaryScroll: false
 URxvt.*secondaryWheel: true
@@ -118,27 +119,27 @@ URxvt.*scrollBar_align: centre
 URxvt.*jumpScroll: true
 URxvt.*mouseWheelScrollPage: true
 
-! scroll up/down 10 lines
+! Scroll up/down 10 lines
 URxvt.*keysym.Shift-Up: command:\033]720;10\007
 URxvt.*keysym.Shift-Down: command:\033]721;10\007
-! scroll up/down 100 lines
+! Scroll up/down 100 lines
 URxvt.*keysym.Control-Up: command:\033]720;100\007
 URxvt.*keysym.Control-Down: command:\033]721;100\007
-! scroll up/down all the way (10000 lines)
+! Scroll up/down all the way (10000 lines)
 URxvt.*keysym.Control-Shift-Up: command:\033]720;10000\007
 URxvt.*keysym.Control-Shift-Down: command:\033]721;10000\007
 
-! page up/page down/home/end conflicts with pager (less)!
+! Page up/page down/home/end conflicts with pager (less)!
 ! URxvt.*keysym.Prior: command:\033]720;100\007
 ! URxvt.*keysym.Next: command:\033]721;100\007
 ! URxvt.*keysym.Home: command:\033]720;10000\007
 ! URxvt.*keysym.End: command:\033]721;10000\007
 
 ! PERL EXT
-! if you do not use the perl extension features, you can improve the
+! If you do not use the perl extension features, you can improve the
 ! security and speed by disabling perl extensions completely.
 !URxvt.*perl-ext:
-! minus disables the stupid paste bracketing (messes up code):
+! Minus disables the stupid paste bracketing (messes up code).
 !URxvt.*perl-ext-common:      default,-confirm-paste
 URxvt.perl-ext-common:       resize-font,keyboard-select,searchable-scrollback
 URxvt.*url-select.launcher:  firefox
@@ -168,5 +169,5 @@ URxvt.*iconFile: /usr/share/icons/Adwaita/scalable/apps/utilities-terminal-symbo
 URxvt.*cursorBlink: false
 URxvt.*buffered: true
 
-!The 2023-01-02 update may require adding some lines into ~/.Xresources:
+! The 2023-01-02 update may require adding some lines into ~/.Xresources:
 URxvt.*geometry: 400x400

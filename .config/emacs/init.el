@@ -5,14 +5,13 @@
 
 ;;; Code:
 
-;; package.el init.
+;; Init package.el; use-package option `ensure` that conflict with straight.el.
 ;;(require 'package)
 ;;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ;;(require 'use-package)
-;; `ensure` only works with package.el.
 ;;(setopt use-package-always-ensure t)
 
-;; Straight.el init.
+;; Init straight.el; use-package options that conflict with package.el.
 (setopt straight-use-package-by-default t)
 (setopt package-enable-at-startup nil)
 (defvar bootstrap-version)
@@ -29,10 +28,10 @@
                 'silent 'inhibit-cookies)
             (goto-char (point-max))
             (eval-print-last-sexp)))
-    (load bootstrap-file nil 'nomessage))
+    (load bootstrap-file nil 'nomessage)
+    )
 
-;; use-package options that do not conflict with either package.el or
-;; straight.el.
+;; General use-package options that work with both package.el and straight.el.
 (setopt
     ;; use-package-compute-statistics t
     package-quickstart t
@@ -99,7 +98,8 @@
     )
 
 (use-package editorconfig
-    :init (editorconfig-mode))
+    :init (editorconfig-mode)
+    )
 
 (use-package emacs
     :custom-face
@@ -110,7 +110,9 @@
     (region ((t (:background "#ADD8E6"))))
     (secondary-selection ((t (:background "#CCCCFF"))))
     (trailing-whitespace ((t (:background "#CCCCFF"))))
+    (isearch-fail ((t (:foreground "#000000"))))
     :custom
+    (which-key-mode t)
     (auto-save-default t)
     (auto-save-no-message nil)
     (auto-save-visited-file-name 0)
@@ -164,7 +166,7 @@
                              ((numberp (cadr alpha)) (cadr alpha)))
                         100)
                     '(80 . 80) '(100 . 100)))))
-    ;; auto-save-everything-all-the-time
+    ;; Custom auto-save-everything-all-the-time
     (defvar backup-each-save-mirror-location "~/.backups")
     (defvar backup-each-save-remote-files t)
     (defvar backup-each-save-time-format "%y%m%d%H%M%S")
@@ -212,8 +214,22 @@ each savepoint.")
     ("C-c r" . (lambda() (interactive) (load-file "~/.config/emacs/init.el")))
     )
 
+;; TODO: M-a crashes instantly!
+(use-package embark
+    :custom
+    (prefix-help-command #'embark-prefix-help-command)
+    :bind ("M-a" . embark-act)
+    )
+
+(use-package embark-consult
+    :after (embark consult)
+    :hook
+    (embark-collect-mode . consult-preview-at-point-mode)
+    )
+
 (use-package flycheck
-    :init (global-flycheck-mode))
+    :init (global-flycheck-mode)
+    )
 
 (use-package gptel
     :custom
@@ -235,9 +251,8 @@ each savepoint.")
     ;;                                 glm-4.5v-106b :description "Vision, ocr; A multimodal model that excels at understanding and describing visual content."
     ;;                                 mistral-small-3.2-24b :description "General text; A compact and efficient model for general-purpose text generation."
     ;;                                 )))
-    ;; the last one takes precedence, only one backend can be active in buffer.
+    ;; The last one takes precedence, only one backend can be active in buffer.
     (gptel-api-key (getenv "AQUEDUCT_API_KEY"))
-    (print (getenv "AQUEDUCT_API_KEY"))
     (gptel-backend (gptel-make-openai "Aqueduct"
                        :host "aqueduct.ai.datalab.tuwien.ac.at"
                        :protocol "https"
@@ -257,24 +272,28 @@ each savepoint.")
                                     )))
     :bind
     ("M-l" . gptel)
-    ("C-<return>" . gptel-send))
+    ("C-<return>" . gptel-send)
+    )
 
 (use-package gptel-autocomplete
     :after gptel
+    :straight (gptel-autocomplete :type git :host github :repo "JDNdeveloper/gptel-autocomplete")
     :custom
     (gptel-autocomplete-before-context-lines 10)
     (gptel-autocomplete-after-context-lines 10)
     (gptel-autocomplete-temperature 0.1)
     (gptel-autocomplete-use-context t)
-    :straight (gptel-autocomplete :type git :host github :repo "JDNdeveloper/gptel-autocomplete"))
-
-
+    :bind
+    ("C-c TAB" . gptel-complete)
+    ("C-c RET" . gptel-accept-completion)
+    )
 
 (use-package highlight-thing
     :custom-face
     ;; (hi-yellow ((t (:foreground "#FAF0E6" :background "#1A004E")))) ; dark mode
     (hi-yellow ((t (:foreground "#000000" :background "#F0F0F0")))) ; light mode
-    :init (global-highlight-thing-mode))
+    :init (global-highlight-thing-mode)
+    )
 
 (use-package jinx
     :custom
@@ -282,7 +301,8 @@ each savepoint.")
     ;;:hook (emacs-startup . global-jinx-mode)
     :bind
     ("M-j" . jinx-correct)
-    ("C-M-j" . jinx-languages))
+    ("C-M-j" . jinx-languages)
+    )
 
 (use-package json-mode
     :config
@@ -292,7 +312,7 @@ each savepoint.")
 
 (use-package lsp-mode
     :init
-    ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+    ;; Set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
     (setq lsp-keymap-prefix "C-c l")
     :hook
     (python-mode . lsp-deferred)
@@ -300,13 +320,17 @@ each savepoint.")
     (toml-mode . lsp-deferred)
     (lisp-mode . lsp-deferred)
     (lsp-mode . lsp-enable-which-key-integration)
-    :commands (lsp-deferred))
+    :commands (lsp-deferred)
+    )
 
-(use-package lsp-ui :commands lsp-ui-mode)
+(use-package lsp-ui
+    :after lsp-mode
+    :commands lsp-ui-mode
+    )
 
-;;Elsa currently supports lsp-mode, but it is not yet built-in to lsp-mode
-;;itself because it (Elsa LSP) is not stable enough.
-;;(elsa-lsp-register)
+;; Elsa currently supports lsp-mode, but it is not yet built-in to lsp-mode
+;; itself because it (Elsa LSP) is not stable enough.
+;; (elsa-lsp-register)
 
 (use-package lua-mode)
 
@@ -321,11 +345,13 @@ each savepoint.")
     :custom
     (magit-diff-refine-hunk 'all)
     (magit-diff-highlight-hunk-body nil)
-    :bind ("C-c g" . magit))
+    :bind ("C-c g" . magit)
+    )
 
 (use-package marginalia
     :bind (:map minibuffer-local-map ("M-A" . marginalia-cycle))
-    :init (marginalia-mode))
+    :init (marginalia-mode)
+    )
 
 (use-package markdown-mode
     :after org
@@ -338,7 +364,8 @@ each savepoint.")
              ("C-c =" . mc/mark-all-like-this)
              ("C-c <mouse-1>" . mc/add-cursor-on-click)
              ("C-c SPC" . set-rectangular-region-anchor)
-             ))
+             )
+    )
 
 (use-package octave
     :mode ("\\.m$" . octave-mode)
@@ -350,7 +377,8 @@ each savepoint.")
     (completion-styles '(orderless basic))
     (completion-category-overrides '(file (styles partial-completion)))
     (completion-category-defaults nil)
-    (completion-pcm-leading-wildcard t))
+    (completion-pcm-leading-wildcard t)
+    )
 
 (use-package org
     :mode ("\\.org$" . org-mode)
@@ -389,14 +417,14 @@ each savepoint.")
     (set-face-attribute 'org-level-8 nil :bold t)
     (set-face-attribute 'org-meta-line nil :bold t)
     (set-face-attribute 'org-quote nil :italic t)
-    ;; dark mode
+    ;; Dark mode
     ;; (set-face-attribute 'org-block-begin-line nil :background "#161a1f" :bold t)
     ;; (set-face-attribute 'org-code nil :background "#0b0d0f")
     ;; (set-face-attribute 'org-table nil :background "#0b0d0f")
     ;; (set-face-attribute 'org-table-header nil :foreground "#787787" :background "#161a1f" :bold t)
     ;; (set-face-attribute 'org-verbatim nil :foreground "#000000" :background "#787787")
     ;; (set-face-attribute 'org-block nil :background "#0b0d0f")
-    ;; light mode
+    ;; Light mode
     (set-face-attribute 'org-block-begin-line nil :background "#F0F0F0" :bold t)
     (set-face-attribute 'org-code nil :background "#F5F5F5")
     (set-face-attribute 'org-table nil :foreground "#000000" :background "#F5F5F5")
@@ -434,22 +462,28 @@ each savepoint.")
     (org-appear-autosubmarkers t)
     (run-at-time nil nil #'org-appear--set-elements))
 
+(use-package rainbow-mode)
+
 (use-package ranger
     :custom
     (ranger-width-preview 0.5)
     (ranger-preview-file t)
     (ranger-max-preview-size 10)
     (ranger-dont-show-binary t)
-    :bind ("M-d" . ranger))
+    :bind ("M-d" . ranger)
+    )
 
 (use-package treemacs
-    :bind ("M-t" . treemacs))
+    :bind ("M-t" . treemacs)
+    )
 
 (use-package treemacs-magit
-    :after (treemacs magit))
+    :after (treemacs magit)
+    )
 
 (use-package unfill
-    :bind ("M-q" . unfill-toggle))
+    :bind ("M-q" . unfill-toggle)
+    )
 
 (use-package vertico
     :init
@@ -459,7 +493,7 @@ each savepoint.")
     :custom
     (completion-in-region-function #'consult-completion-in-region)
     (vertico-cycle t)
-    ;; configure the display per command.  use a buffer with indices for
+    ;; Configure the display per command.  use a buffer with indices for
     ;; imenu and a flat (Ido-like) menu for M-x.
     ;; (setq vertico-multiform-commands
     ;;       '((consult-imenu buffer indexed)
@@ -491,22 +525,16 @@ each savepoint.")
     (vundo-glyph-alist vundo-unicode-symbols)
     :bind ("M-v" . vundo))
 
-(use-package which-key
-    :init
-    (which-key-mode))
-
 (use-package yaml-mode)
 
+;; Leads to annoying constant authentication prompts.
 ;; (use-package auth-source-1password
 ;;     :config
 ;;     (setq auth-source-1password-executable "op")
 ;;     (setq auth-source-1password-vault "Employee")
 ;;     (auth-source-1password-enable))
 
-;; (use-package embark-consult
-;;   :hook
-;;     (embark-collect-mode . consult-preview-at-point-mode))
-
+;; Legacy LaTeX mode.
 ;; (with-eval-after-load "latex"
 ;;     (define-key LaTeX-mode-map (kbd "C-c C-a")
 ;;         (lambda ()
@@ -514,7 +542,6 @@ each savepoint.")
 ;; 	    (TeX-command-sequence '("Arara" "Extex") t))))
 ;; ;;              (TeX-command-sequence '("Arara" "View") t))))
 
-;; ;; latex mode:
 ;; (with-eval-after-load "tex"
 ;;     (add-to-list 'TeX-command-list
 ;;         `("Arara" "arara --verbose %s" TeX-run-TeX nil t :help "Run Arara") t)
@@ -522,9 +549,6 @@ each savepoint.")
 ;;         `("Extex" "lualatex -synctex=1 -interaction=nonstopmode --shell-escape %s" TeX-run-TeX nil t :help "LuaLatex + SyncTex + ShellEscape + NonstopMode (no halt-on-error)") t)
 ;;     (tex-source-correlate-mode t) )
 
-;; todo: this crashes instantly!
-;; (use-package embark
-;;     :bind ("M-a" . embark-act))
 
 ;;; init.el ends here
 
