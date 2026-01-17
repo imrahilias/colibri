@@ -116,7 +116,6 @@ alias rdark='razercfg -l all:off'
 alias rlight='razercfg -l GlowingLogo:off -l Scrollwheel:on'
 alias rename='perl-rename '
 alias fifi='figlet -w 200 -f "shadow" '
-alias cp='rsync -aP' # show percentage.
 alias dauto='xrandr --auto --output DisplayPort-0 --scale 1 --output DisplayPort-1 --scale 1 --output HDMI-A-0 --scale 1'
 alias dhome='xrandr --output eDP --off --output HDMI-A-0 --auto --primary --scale 1'
 alias dleft='xrandr --output HDMI-A-0 --auto --primary --scale 1 --output eDP --auto --left-of HDMI-A-0'
