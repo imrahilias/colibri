@@ -21,7 +21,6 @@ lib32-libindicator-gtk2 12.10.1-11
 lib32-libjpeg6-turbo 1.5.3-4
 lib32-libpng12 1.2.59-3
 lib32-librtmp0 2.6-1
-lib32-librtmp0-debug 2.6-1
 lib32-libtiff4 3.9.7-6
 lib32-libudev0-shim 2-1
 lib32-libvpx1.3 1.3.0-4
@@ -42,8 +41,6 @@ networkmanager-fortisslvpn 1.4.0-6
 openssh-askpass 2.1.0-6
 openssl-1.0 1.0.2.u-7
 popcorntime 0.5.1-2
-python-backports-zstd 1.2.0-3
-python-click-plugins 1.1.1-14
 qt5-charts 5.15.18-1
 qt5-connectivity 5.15.18+kde+r1-1
 qt5-doc 5.15.18-1
@@ -78,6 +75,5 @@ steam-native-runtime 1.0.0.75-8
 toilet-fonts 1.1-2
 xautolock 2.2-8
 yay 12.5.7-1
-yay-debug 12.5.7-1
 zoom 6.7.2-1
 zsh-antidote 1.10.0-1
