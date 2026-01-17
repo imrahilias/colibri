@@ -63,6 +63,7 @@ for file in "${files[@]}"; do
     cp --parents --verbose "/$file" "$loc/"
 done
 sudo cp --parents --verbose "/var/lib/AccountsService/users/m" "$loc/"
+sudo chown m:m "$loc/var/lib/AccountsService/users/m"
 
 # https://wiki.archlinux.org/index.php/System_maintenance
 # https://wiki.archlinux.org/index.php/Pacman/Tips_and_tricks
@@ -73,22 +74,22 @@ rm -rf "$HOME/.cache/"
 
 echo "$fg_bold[blue]:: $fg_bold[default]Backup the local pacman database. $reset_color"
 echo "   tar -cjf $HOME/archive/pacman_database.tar.bz2 /var/lib/pacman/local"
-tar -cjf $HOME/archive/pacman_database.tar.bz2 /var/lib/pacman/local
+tar -cjf $HOME/asc/archive/pacman_database.tar.bz2 /var/lib/pacman/local
 
 echo "$fg_bold[blue]:: $fg_bold[default]Keep a list of explicitly installed packages. $reset_color"
-echo "   pacman -Qqe > $HOME/asc/archive/installed_packages"
-pacman -Qqe > $HOME/asc/archive/installed_packages
-echo "   $(wc -l < $HOME/asc/archive/installed_packages) packages installed"
+echo "   pacman -Qqe > $loc/installed_packages"
+pacman -Qqe > $loc/installed_packages
+echo "   $(wc -l < $loc/installed_packages) packages installed"
 
 echo "$fg_bold[blue]:: $fg_bold[default]Keep a list of manually installed packages (aur). $reset_color"
-echo "   pacman -Qm > $HOME/.$(hostname)/installed_packages_manually"
-pacman -Qm > $HOME/.$(hostname)/installed_packages_manually
-echo "   $(wc -l < $HOME/.$(hostname)/installed_packages_manually) packages manually installed"
+echo "   pacman -Qm > $loc/installed_packages_manually"
+pacman -Qm > $loc/installed_packages_manually
+echo "   $(wc -l < $loc/installed_packages_manually) packages manually installed"
 
 echo "$fg_bold[blue]:: $fg_bold[default]Copy zsh history to asc. $reset_color"
 cp --parents --verbose "$HOME/.histfile" "$HOME/asc/archive/"
 
-echo "$fg_bold[blue]:: $fg_bold[default]Reset antidote (git clones live in cache). $reset_color"
+echo "$fg_bold[blue]:: $fg_bold[default]Reset antidote (git clones live in ~/.cache). $reset_color"
 source '/usr/share/zsh-antidote/antidote.zsh' && antidote load
 
 exit 0
