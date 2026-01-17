@@ -1,0 +1,14 @@
+--max-columns=150
+--max-columns-preview
+--hidden
+--column
+--no-heading
+--color=always
+--smart-case
+--line-number
+--colors=path:fg:blue
+--colors=path:style:intense
+--colors=line:style:intense
+--colors=column:style:nobold
+--colors=match:fg:magenta
+--colors=match:style:nobold

@@ -1,0 +1,91 @@
+# If the user's terminal is in dark mode, Yazi will load `theme-dark.toml` on startup; otherwise, `theme-light.toml`.
+# You can override any parts of them that are not related to the dark/light mode in your own `theme.toml`.
+
+# If you want to dynamically override their content based on dark/light mode, you can specify two different flavors
+# for dark and light modes under `[flavor]`, and do so in those flavors instead.
+"$schema" = "https://yazi-rs.github.io/schemas/theme.json"
+
+# vim:fileencoding=utf-8:foldmethod=marker
+
+# The bg is white in day mode, no ideea, so overriding:
+# : Which {{{
+
+[which]
+cols            = 3
+mask            = { bg = "white" }
+cand            = { fg = "lightcyan" }
+rest            = { fg = "darkgray" }
+desc            = { fg = "lightmagenta" }
+separator       = "  "
+separator_style = { fg = "darkgray" }
+
+# : }}}
+
+
+# : File-specific styles {{{
+
+[filetype]
+
+rules = [
+
+# Special files
+{ url = "*", is = "block" , fg = "black", bg = "green" },
+{ url = "*", is = "char"  , fg = "black", bg = "lightgreen" },
+{ url = "*", is = "exec"  , bold = true },
+{ url = "*", is = "fifo"  , fg = "black", bg = "lightmagenta" },
+{ url = "*/", is = "link"  , fg = "cyan", bold = true },
+#{ url = "*", is = "orphan", bg = "red" },
+{ url = "*", is = "sock"  , fg = "black", bg = "magenta" },
+{ url = "*", is = "sticky", fg = "black", bg = "red"},
+
+# tmp files
+{ url = "*~", fg = "darkgrey"},
+{ url = "*~", fg = "darkgrey"},
+{ url = "*#", fg = "darkgrey"},
+{ url = "*.bak", fg = "darkgrey"},
+
+# mime
+{ mime = "image/*", fg = "lightblue" },
+{ mime = "{audio}/*", fg = "lightgreen" },
+{ mime = "{video}/*", fg = "magenta" },
+{ mime = "application/{,g}zip", fg = "magenta", bold = true },
+{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", fg = "magenta", bold = true },
+{ mime = "application/{pdf,doc,rtf,vnd.*,oasis*}", fg = "green" },
+{ mime = "inode/x-empty", fg = "darkgrey" },
+#{ mime = "{text/*,*/xml,application/x-ndjson,application/javascript}", fg = "yellow" },
+
+# Dummy files
+# Whether the file is dummy, which fails to load complete metadata,
+# possibly the filesystem doesn't support it, such as FUSE.
+{ url = "*", is = "dummy", bg = "red" },
+{ url = "*/", is = "dummy", bg = "red" },
+
+# Files Dirs Fallback
+{ url = "*", fg = "reset" },
+{ url = "*/", fg = "blue", bold = true }
+]
+
+# : }}}
+
+
+# : Icons {{{
+
+[icon]
+conds = [
+# Special files
+{ if = "orphan", text = "" },
+{ if = "link"  , text = "󰌹" },
+{ if = "block" , text = "" },
+{ if = "char"  , text = "" },
+{ if = "fifo"  , text = "" },
+{ if = "sock"  , text = "" },
+{ if = "sticky", text = "" },
+{ if = "dummy",  text = "" },
+
+# Fallback
+{ if = "dir", text = "󰥧" },
+{ if = "exec", text = "󰐊" },
+{ if = "!dir", text = "≣" },
+]
+
+# : }}}

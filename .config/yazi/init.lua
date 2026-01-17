@@ -1,11 +1,13 @@
 -- this plugin provides cross-instance yank ability, which means you
 -- can yank files in one instance, and then paste them in another
 -- instance:
-require("session"):setup {
+require("session"):setup
+{
    sync_yanked = true,
-                         }
+}
 
--- cannot login to musica yet...
+
+-- Never tested.
 -- require("sshfs"):setup({
 --       -- Mount directory
 --       mount_dir = "~/mnt",
@@ -43,11 +45,14 @@ require("session"):setup {
 --       },
 --                       })
 
+
 require("starship"):setup()
+
 
 require("git"):setup()
 
--- need additions, cannot deal with '-' in file ext like 'nsys-rep'!
+
+-- Need additions, cannot deal with '-' in file ext like 'nsys-rep'!
 -- require("mime-ext"):setup {
 --    -- Expand the existing filename database (lowercase), for example:
 --    with_files = {
@@ -70,7 +75,7 @@ require("git"):setup()
 --    -- then fallback to Yazi's preset `mime` plugin, which uses `file(1)`
 --    fallback_file1 = true,
 --                           }
--- change rules in section open of yazi.toml:
+-- Change rules in section open of yazi.toml:
 -- { mime = "text/python", use = [ "python", "black" ] },
 -- { mime = "text/matlab", use = "octave" },
 -- { mime = "text/fortran", use = "fortran" },
@@ -81,7 +86,8 @@ require("git"):setup()
 -- { name = "*.nsys-rep", use = "nsys" },
 -- { mime = "text/makefile", use = "make" },
 
--- show user/group of files in status bar:
+
+-- Show user/group of files in status bar:
 Status:children_add(function()
       local h = cx.active.current.hovered
       if h == nil or ya.target_family() ~= "unix" then
@@ -96,69 +102,28 @@ Status:children_add(function()
       }
 end, 500, Status.RIGHT)
 
--- custom shell:
+
+-- Custom shell.
 -- require("custom-shell"):setup({
 --     history_path = "default",
 --     save_history = true,
 --                              })
 
--- fr customisations, does not work for the window:
---preview-window -- 'right:50%'`, that has to be changed in the plugin `main.lua`!
-require("fr"):setup {
-   fzf = {
-      --"--layout=reverse",
-   },
-   --rg = "--colors 'line:fg:red' --colors 'match:style:nobold' --line-number",
-   rg = {
-      "--hidden",
-      "--column",
-      "--no-heading",
-      "--color=always",
-      "--smart-case",
-      "--line-number",
-      "--colors 'path:fg:blue'",
-      --"--colors 'path:bg:black'",
-      "--colors 'path:style:bold'",
-      "--colors 'line:fg:black'",
-      "--colors 'line:bg:black'",
-      "--colors 'line:style:bold'",
-      "--colors 'column:fg:black'",
-      "--colors 'column:bg:black'",
-      "--colors 'column:style:nobold'",
-      "--colors 'match:fg:magenta'",
-      "--colors 'match:bg:black'",
-      "--colors 'match:style:bold'",
-   },
-   -- "--style 'header,grid'"
-   bat = "--color=always --style=plain --number --color=always",
-   rga = {
-      "--follow",
-      "--files-with-matches",
-      "--no-ignore",
-      "--hidden",
-      "--column",
-      "--no-heading",
-      "--color=always",
-      "--smart-case",
-   },
-   -- rga = {
-   --    "--glob",
-   --    "'!.git'",
-   --    "--glob",
-   --    "!'.venv'",
-   --    "--glob",
-   --    "'!node_modules'",
-   --    "--glob",
-   --    "'!.history'",
-   --    "--glob",
-   --    "'!.Rproj.user'",
-   --    "--glob",
-   --    "'!.ipynb_checkpoints'",
-   -- },
-   rga_preview = {
-      "--colors 'line:fg:red'"
-         .. " --colors 'match:fg:blue'"
-         .. " --colors 'match:bg:black'"
-         .. " --colors 'match:style:nobold'",
-   },
-                    }
+
+-- fr customisations like `--preview-window 'right:50%'`, does not work, that
+-- has to be changed in the plugin `main.lua`.
+-- require("fr"):setup
+-- {
+--    fzf = {
+--       --"--layout=reverse",
+--    },
+--    -- rg moved to ~/.config/ripgreprc.
+--    -- bat moved to ~/.config/bat/config.
+--    -- moved to ~/.config/ripgrep-all
+--    -- not sure if `rga_preview` does anything.
+--    rga_preview = {
+--       "--colors=line:fg:red",
+--       "--colors=match:fg:magenta",
+--       "--colors=match:style:nobold",
+--    },
+-- }

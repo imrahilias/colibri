@@ -135,9 +135,9 @@ globalkeys = gears.table.join(
 
    -- menubar:
    --awful.key({ modkey }, "p", function () menubar.show() end),
-   awful.key({ modkey }, "p", function () awful.spawn("rofi -drun-match-fields name -show drun -show-icons") end),
-   awful.key({ modkey, "Shift" }, "p", function () awful.spawn("rofi -drun -show window") end),
-   awful.key({ modkey, "Control" }, "p", function () awful.spawn("rofi -drun -show windowcd") end),
+   awful.key({ modkey }, "a", function () awful.spawn("rofi -drun-match-fields name -show drun -show-icons") end),
+   awful.key({ modkey, "Shift" }, "a", function () awful.spawn("rofi -drun -show window") end),
+   awful.key({ modkey, "Control" }, "a", function () awful.spawn("rofi -drun -show windowcd") end),
 
    -- navigation:
    awful.key({ modkey }, "Left",  awful.tag.viewprev),
@@ -201,7 +201,6 @@ globalkeys = gears.table.join(
    awful.key({ modkey }, "d", function () awful.spawn.with_shell('xterm -title "  Yazi" -e zsh -i -c "yazi"', false) end),
    awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell('xterm -e sudo yazi', false) end),
    awful.key({ modkey }, "e", function() awful.spawn("emacsclient -ca ''", false) end),
-   --awful.key({ modkey }, "e", function () awful.spawn("emacs") end),
    awful.key({ modkey, "Shift" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_browser") end),
    awful.key({ modkey, "Control" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_google_translate") end),
    awful.key({ modkey, "Shift", "Control" }, "s", function () awful.spawn("/home/m/bin/open_primary_selection_in_thesaurus") end),
@@ -213,8 +212,8 @@ globalkeys = gears.table.join(
    awful.key({ modkey, "Shift" }, "g", function () awful.spawn.with_shell("xterm -e top") end),
    -- awful.key({ modkey }, "x", function () awful.spawn("xterm -T 'VSConsole' -fa 'xft:DejaVuSansMono' -fs 24 -e 'bash'") end),
    -- awful.key({ modkey, "Shift" }, "x", function () awful.spawn("xterm -T 'VSConsole' -fa 'xft:DejaVuSansMono' -fs 24 -e 'trainee'") end),
+   awful.key({ modkey }, "p", function () awful.spawn("arandr") end),
    awful.key({ modkey, "Shift" }, "p", function () awful.spawn("autorandr --change") end),
-   awful.key({ modkey, "Control" }, "p", function () awful.spawn("arandr") end),
 
    -- audio:
    awful.key({ }, "XF86AudioRaiseVolume", function () awful.spawn("amixer set Master 1%+", false) end),
@@ -913,7 +912,7 @@ autorunners =
       --"cbatticon-r 10 -c 'notify-send Power on 10%'",
 
       -- change to autodetected display config:
-      "autorandr -c",
+      "autorandr --change",
    }
 
 if autorun then

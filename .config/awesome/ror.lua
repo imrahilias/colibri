@@ -20,7 +20,7 @@
 -- file name for emacs).
 
 table5={
-  ["a"]={"spotify", "Spotify"},
+  ["x"]={"spotify", "Spotify"},
   --["s"]={"google-chrome-stable", "Google-chrome"},
   --["d"]={"urxvtc -title '  Yazi' -e yazi", "  Yazi", "name"},
   ["s"]={"firefox", "firefox"},

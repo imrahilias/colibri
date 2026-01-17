@@ -110,7 +110,7 @@
     (region ((t (:background "#ADD8E6"))))
     (secondary-selection ((t (:background "#CCCCFF"))))
     (trailing-whitespace ((t (:background "#CCCCFF"))))
-    (isearch-fail ((t (:foreground "#000000"))))
+    ;;(isearch-fail ((t (:foreground "#000000"))))
     :custom
     (which-key-mode t)
     (auto-save-default t)

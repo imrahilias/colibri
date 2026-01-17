@@ -88,8 +88,8 @@ Emacs.font-lock-string-face.attributeForeground: #008080
 Emacs.font-lock-variable-name-face.attributeForeground: #8B008B
 Emacs.isearch.attributeForeground:#FFFFFF
 Emacs.isearch.attributeBackground:#8B008B
-Emacs.isearch-fail.attributeForeground: #FFFFFF
-Emacs.isearch-fail.attributeBackground:  yellow
+Emacs.isearch-fail.attributeForeground: #000000
+Emacs.isearch-fail.attributeBackground: #FFFF00
 Emacs.window-divider.attributeForeground: #FFFFFF
 
 
