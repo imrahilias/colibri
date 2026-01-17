@@ -30,8 +30,17 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100'"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
 
 # has to be called before owncloud.
-export XDG_CONFIG_HOME="/home/m/.config"
+export XDG_CONFIG_DIRS="/etc/xdg/"
 export XDG_CURRENT_DESKTOP="GNOME"
+export XDG_CONFIG_HOME="/home/m/.config"
+export XDG_DESKTOP_DIR="$HOME"
+export XDG_DOCUMENTS_DIR="$HOME/projects"
+export XDG_DOWNLOAD_DIR="$HOME/downloads"
+export XDG_MUSIC_DIR="$HOME"
+export XDG_PICTURES_DIR="$HOME/photos"
+export XDG_PUBLICSHARE_DIR="$HOME"
+export XDG_TEMPLATES_DIR="$HOME"
+export XDG_VIDEOS_DIR="$HOME/movies"
 
 # on arch linux, you should use ~/.xsession instead of ~/.bashrc for
 # the csds to be disabled properly:

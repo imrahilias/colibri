@@ -12,8 +12,8 @@
 ;;(setopt use-package-always-ensure t)
 
 ;; Init straight.el; use-package options that conflict with package.el.
-(setopt straight-use-package-by-default t)
-(setopt package-enable-at-startup nil)
+(setq straight-use-package-by-default t)
+(setq package-enable-at-startup nil)
 (defvar bootstrap-version)
 (let ((bootstrap-file
           (expand-file-name
@@ -283,7 +283,8 @@ each savepoint.")
     (gptel-autocomplete-after-context-lines 10)
     (gptel-autocomplete-temperature 0.1)
     (gptel-autocomplete-use-context t)
-    (gptel-model 'qwen-coder-30b)
+    ;; That changes the model globally, not good.
+    ;;(gptel-model 'qwen-coder-30b)
     :bind
     ("C-c TAB" . gptel-complete)
     ("C-c RET" . gptel-accept-completion)
