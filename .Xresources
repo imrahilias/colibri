@@ -54,8 +54,8 @@ XTerm*metaSendsEscape: true
 XTerm*backarrowKey: false
 XTerm*ttyModes: erase ^?
 XTerm*saveLines: 16384
-XTerm*scrollBar: true
-XTerm*rightScrollBar: true
+!XTerm*scrollBar: true
+!XTerm*rightScrollBar: true
 XTerm*scrollbar.width: 8
 !XTerm*geometry: 80x32
 XTerm*visualbell: false
@@ -70,15 +70,20 @@ XTerm*disallowedWindowOps: 20,21,SetXprop
 
 ! Font size hot key:
 XTerm*translations: #override \n\
-  Alt <Key> minus: smaller-vt-font() \n\
-  Alt <Key> plus: larger-vt-font() \n\
-  Alt <Key> 0: set-vt-font(d)
+    Alt <Key> minus: smaller-vt-font() \n\
+    Alt <Key> plus: larger-vt-font() \n\
+    Alt <Key> 0: set-vt-font(d)
 XTerm*faceName: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true
 XTerm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=true:style=Bold
 
 ! Open a new terminal to search scrollback buffer.
 !XTerm*printerCommand: XTerm -T History -e sh -c 'less -r <&3' 3<&0
 !XTerm*translations: #override Ctrl <Key>slash: print-everything()
+
+! search scrollback buffer, does not work, back to urxvt.
+! XTerm*translations: #override \n\
+!    Meta <KeyPress> /: dabbrev-expand()
+
 
 !                          |
 !  |   |  __|\ \  /\ \   / __|
@@ -89,9 +94,9 @@ XTerm*boldFont: xft:BitstromWera Nerd Font Mono:style=Regular:size=12:antialias=
 ! URxvt (case sensitive?)
 ! https://wiki.archlinux.org/index.php/Rxvt-unicode
 
-URxvt.*termName: rxvt-unicode-256color
+!URxvt.*termName: rxvt-unicode-256color
 URxvt.*loginshell: true
-URxvt.*saveLines: 10000
+URxvt.*saveLines: 100000
 URxvt.*pointerblank: true
 URxvt.*letterSpace: 0
 URxvt.*font: xft:BitstromWera Nerd Font Mono:size=12:antialias=true,\

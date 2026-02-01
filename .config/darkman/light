@@ -155,9 +155,9 @@ URxvt.*.buffered: true
 
 URxvt.*.foreground: #000000
 URxvt.*.background: #FFFFFF
-URxvt.*.cursorColor: #800080
+URxvt.*.cursorColor: #8B008B
 URxvt.*.cursorColor2: #800080
-URxvt.*.pointerColor: #800080
+URxvt.*.pointerColor: #8B008B
 URxvt.*.pointerColor2: #800080
 
 ! URxvt.*.underlineColor:
@@ -165,3 +165,22 @@ URxvt.*.pointerColor2: #800080
 ! URxvt.*.highlightColor:
 ! URxvt.*.highlightTextColor:
 URxvt.*.scrollColor: #A9A9A9
+
+! mine:
+URxvt.*.color0: #000000
+URxvt.*.color1: #800000
+URxvt.*.color2: #008000
+URxvt.*.color3: #DAA520
+URxvt.*.color4: #000080
+URxvt.*.color5: #800080
+URxvt.*.color6: #008080
+URxvt.*.color7: #c0c0c0
+URxvt.*.color8: #808080
+URxvt.*.color9: #8B0000
+URxvt.*.color10:#2E8B57
+URxvt.*.color11:#DAA520
+URxvt.*.color12:#4682B4
+URxvt.*.color13:#8B008B
+URxvt.*.color14:#20B2AA
+URxvt.*.color15:#FFFFFF
+URxvt.*.color16:#FFFFFF

@@ -238,7 +238,7 @@ each savepoint.")
     ;;     (auth-source-pick-first-password
     ;;         :host "OpenWebUI"
     ;;         :user "credential"))
-    (gptel-model 'glm-4.6-355b)
+    (gptel-model 'glm-4.7-355b)
     ;; (gptel-api-key (getenv "OPENWEBUI_API_KEY"))
     ;; (gptel-backend (gptel-make-openai "OpenWebUI"
     ;;                    :host "chat.ai.datalab.tuwien.ac.at"
@@ -260,7 +260,8 @@ each savepoint.")
                        :key 'gptel-api-key
                        ;; :key (lambda () (getenv "AQUEDUCT_API_KEY")) ; asks confirm
                        :stream t
-                       :models '(glm-4.6-355b :description "main, coding; A powerful multimodal model, primarily for coding tasks."
+                       :models '(glm-4.7-355b :description "main, coding; A powerful multimodal model, primarily for coding tasks."
+                                    glm-4.6-355b :description "main, coding; A powerful multimodal model, primarily for coding tasks."
                                     qwen-coder-30b :description "tab, complete; A large language model specializing in code generation and completion."
                                     mistral-small-3.2-24b :description "small; General text, A compact and efficient model for general-purpose text generation."
                                     glm-4.5v-106b :description "vision, ocr; A multimodal model that excels at understanding and describing visual content."
