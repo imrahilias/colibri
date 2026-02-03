@@ -93,6 +93,7 @@ errands
 evolution
 evolution-ews
 evolution-spamassassin
+ex-vi-compat
 exfatprogs
 eyedropper
 fakeroot
@@ -456,7 +457,6 @@ v4l2loopback-dkms
 v4l2loopback-utils
 valuta
 veracrypt
-vi
 video-trimmer
 vlc
 vulkan-radeon

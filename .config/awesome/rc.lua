@@ -714,7 +714,6 @@ awful.rules.rules = {
            "steam",
            "zoom",
            "Zoom",
-           "1Password",
         },
         name = {
            "Zoom Meeting",

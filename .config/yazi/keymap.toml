@@ -204,9 +204,10 @@ keymap = [
 { on = [ "P", "h" ], run = "hardlink", desc = "Hardlink yanked files" },
 { on = [ "P", "l" ], run = "link", desc = "Symlink the absolute path of yanked files" },
 
-#{ on = "q", run = "quit", desc = "Exit the process" },
-#{ on = "q", run = "close", desc = "Close the current tab, or quit if it's last" },
 { on = "q", run  = 'shell "$SHELL" --block --confirm', desc = "Open shell here"},
+#{ on = "q", run = "close", desc = "Close the current tab, or quit if it's last" },
+
+{ on = "Q", run = "quit", desc = "Exit the process" },
 
 { on = [ "s", "a" ], run = [ "sort alphabetical --reverse=no", "linemode none"], desc = "Sort alphabetically" },
 { on = [ "s", "A" ], run = [ "sort alphabetical --reverse", "linemode none"],    desc = "Sort alphabetically (reverse)" },

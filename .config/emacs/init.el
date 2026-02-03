@@ -387,9 +387,11 @@ each savepoint.")
     :mode ("\\.org$" . org-mode)
     :custom
     (org-confirm-babel-evaluate nil)
+    (org-edit-src-content-indentation 0)
     (org-ellipsis " ▼")
     (org-fontify-quote-and-verse-blocks t)
     (org-src-fontify-natively t)
+    (org-src-preserve-indentation t)
     (org-startup-indented t)
     (org-table-header-line-p t)
     :config
