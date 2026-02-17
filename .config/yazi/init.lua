@@ -112,18 +112,23 @@ end, 500, Status.RIGHT)
 
 -- fr customisations like `--preview-window 'right:50%'`, does not work, that
 -- has to be changed in the plugin `main.lua`.
--- require("fr"):setup
--- {
---    fzf = {
---       --"--layout=reverse",
---    },
---    -- rg moved to ~/.config/ripgreprc.
---    -- bat moved to ~/.config/bat/config.
---    -- moved to ~/.config/ripgrep-all
---    -- not sure if `rga_preview` does anything.
---    rga_preview = {
---       "--colors=line:fg:red",
---       "--colors=match:fg:magenta",
---       "--colors=match:style:nobold",
---    },
--- }
+require("fr"):setup
+{
+   -- fzf = {
+   --    "--layout=reverse",
+   -- },
+   -- rg moved to ~/.config/ripgreprc.
+   -- bat moved to ~/.config/bat/config.
+   bat = {
+      "--theme-dark Dracula",
+      "--theme-light GitHub", -- works in terminal but not in yazi
+      "--theme GitHub", -- works in terminal but not in yazi
+   }
+   -- moved to ~/.config/ripgrep-all
+   -- not sure if `rga_preview` does anything.
+   -- rga_preview = {
+   --    "--colors=line:fg:red",
+   --    "--colors=match:fg:magenta",
+   --    "--colors=match:style:nobold",
+   -- },
+}

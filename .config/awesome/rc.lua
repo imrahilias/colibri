@@ -16,6 +16,7 @@ local ror = require("aweror") -- run or raise.
 local machi = require("layout-machi") -- git: weird fancy layout thing.
 local revelation=require("revelation") -- git: mac exposee mode.
 
+
 --
 --   _ \  __|  __| _ \   __|
 --   __/ |    |   (   | |
@@ -212,7 +213,7 @@ globalkeys = gears.table.join(
    awful.key({ modkey, "Shift" }, "g", function () awful.spawn.with_shell("urxvt -e top") end),
    -- awful.key({ modkey }, "x", function () awful.spawn("urxvt -T 'VSConsole' -fa 'xft:DejaVuSansMono' -fs 24 -e 'bash'") end),
    -- awful.key({ modkey, "Shift" }, "x", function () awful.spawn("urxvt -T 'VSConsole' -fa 'xft:DejaVuSansMono' -fs 24 -e 'trainee'") end),
-   awful.key({ modkey }, "p", function () awful.spawn("arandr") end),
+   awful.key({ modkey, "Shift" }, "p", function () awful.spawn("arandr") end),
    awful.key({ modkey, "Shift" }, "p", function () awful.spawn("autorandr --change") end),
 
    -- audio.

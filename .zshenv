@@ -18,7 +18,7 @@ export GOPATH="$HOME/.go"
 # The `gutter` should by default be `bg+` which it might take the default
 # foreground, which is black, and not what i want, so it gets white. Other nice
 # options: "--preview-border=none --layout=reverse"
-export FZF_DEFAULT_OPTS="--style=minimal --no-height --no-info --no-separator --border=none --prompt '▶ ' --marker='█' --pointer='◆' --color=fg:-1,fg+:-1,bg:-1,bg+:-1,preview-bg:-1,hl:cyan,hl+:magenta,info:-1,marker:magenta,prompt:magenta,spinner:#330099,pointer:magenta,header:-1,border:-1,label:-1,query:-1,gutter:white"
+export FZF_DEFAULT_OPTS="--style=minimal --no-height --no-info --no-separator --border=none --prompt '▶ ' --marker='█' --pointer='◆' --color=fg:-1,fg+:-1,bg:-1,bg+:-1,preview-fg:-1,preview-bg:-1,hl:cyan,hl+:magenta,info:-1,marker:magenta,prompt:magenta,spinner:#330099,pointer:magenta,header:-1,border:-1,label:-1,query:-1,gutter:white"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100'"
 
 # Ripgrep will not look in any predetermined directory for a config file
@@ -68,7 +68,7 @@ export XSECURELOCK_SHOW_HOSTNAME=0
 export XSECURELOCK_SHOW_USERNAME=0
 export XSECURELOCK_SHOW_KEYBOARD_LAYOUT=0
 
-# Needed for urxvt on vsc.
+# Needed for URXVTC on vsc4/5, but not on MUSICA, so it moves to `vsc/.bashrc`.
 #export TERM=rxvt-unicode-256color
 
 # If not using the according XDG Desktop Portal, you might have to set the
