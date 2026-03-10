@@ -838,7 +838,7 @@ awful.screen.connect_for_each_screen(
          { -- right widgets.
             layout = wibox.layout.fixed.horizontal,
             -- systray with margin around (left, right, top, bottom).
-            --wibox.layout.margin(wibox.widget.systray(), 4, 4, 4, 4),
+            wibox.layout.margin(wibox.widget.systray(), 4, 4, 4, 4),
             mytextclock,
          },
       }
@@ -940,10 +940,10 @@ autorunners =
       "1password",
 
       -- start some trays.
-      --"pasystray",
-      --"blueman-applet",
-      --"nm-applet",
-      --"cbatticon-r 10 -c 'notify-send Power on 10%'",
+      "pasystray",
+      "blueman-applet",
+      "nm-applet",
+      "cbatticon-r 10 -c 'notify-send Power on 10%'",
 
       -- change to autodetected display config.
       "autorandr --change",
@@ -951,12 +951,12 @@ autorunners =
 
 if autorun then
    -- these just add up.
-   --awful.spawn.with_shell("killall pasystray")
-   --awful.spawn.with_shell("killall cbatticon")
+   awful.spawn.with_shell("killall pasystray")
+   awful.spawn.with_shell("killall cbatticon")
 
    -- these dont switch mode otherwise.
-   --awful.spawn.with_shell("killall blueman-applet")
-   --awful.spawn.with_shell("nm-applet")
+   awful.spawn.with_shell("killall blueman-applet")
+   awful.spawn.with_shell("nm-applet")
 
    -- both *cloud runs on qt, which runs qt6gtk2. so whenever qt or gtk
    -- change, this qt6gtk2 aur pkg needs to be rebuilt (install, no clean

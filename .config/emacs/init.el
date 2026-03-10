@@ -261,7 +261,6 @@ each savepoint.")
                        ;; :key (lambda () (getenv "AQUEDUCT_API_KEY")) ; asks confirm
                        :stream t
                        :models '(glm-4.7-355b :description "main, coding; A powerful multimodal model, primarily for coding tasks."
-                                    glm-4.6-355b :description "main, coding; A powerful multimodal model, primarily for coding tasks."
                                     qwen-coder-30b :description "tab, complete; A large language model specializing in code generation and completion."
                                     mistral-small-3.2-24b :description "small; General text, A compact and efficient model for general-purpose text generation."
                                     glm-4.5v-106b :description "vision, ocr; A multimodal model that excels at understanding and describing visual content."
@@ -269,7 +268,7 @@ each savepoint.")
                                     kokoro :description "speech_en; Text-to-speech English; A text-to-speech model for generating natural-sounding female voices."
                                     piper-thorsten :description "speech_de; Text-to-speech German; A fast, local text-to-speech system using a neural voice."
                                     whisper-large :description "transcription, transcribe; Speech-to-text; A robust model for highly accurate speech recognition and translation."
-                                    flux-schnell :description "image_generation, image_gen; fast, open-source image generation model."
+                                    z-image-turbo :description "image_generation, image_gen; fast, open-source image generation model."
                                     )))
     :bind
     ("M-l" . gptel)
