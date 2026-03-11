@@ -197,7 +197,7 @@ globalkeys = gears.table.join(
    -- icons:   
    awful.key({ modkey, "Control"}, "q", function () awful.spawn("systemctl suspend") end),
    awful.key({ modkey }, "Return", function () awful.spawn(terminal) end),
-   awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('urxvt -e sh -c "TERM=rxvt-unicode ssh loginm"') end),
+   awful.key({ modkey, "Shift"}, "Return", function () awful.spawn('urxvt -e sh -c "ssh login01"') end),
    awful.key({ modkey, "Control" }, "Return", function () awful.spawn('urxvt -e sh -c "TERM=rxvt-unicode ssh l55"') end),
    awful.key({ modkey }, "d", function () awful.spawn.with_shell('urxvt -title "  Yazi" -e zsh -i -c "yazi"', false) end),
    awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell('urxvt -e sudo yazi', false) end),

@@ -25,6 +25,8 @@ application/x-extension-shtml=firefox.desktop
 application/xhtml+xml=firefox.desktop
 application/x-extension-xhtml=firefox.desktop
 application/x-extension-xht=firefox.desktop
+x-scheme-handler/sgnl=signal.desktop
+x-scheme-handler/signalcaptcha=signal.desktop
 
 [Added Associations]
 x-scheme-handler/tg=userapp-Telegram Desktop-3KBSI1.desktop;userapp-Telegram Desktop-T9CLW1.desktop;org.telegram.desktop.desktop;
