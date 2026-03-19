@@ -133,6 +133,7 @@ keymap = [
 { on = "D", run = "remove --permanently", desc = "Permanently delete selected files" },
 
 { on = [ "e", "b" ], run  = '''shell --confirm '/home/m/bin/beautify "$@"''''},
+{ on = [ "e", "c" ], run  = '''shell --confirm 'scp "$@" login01:~''''},
 { on = [ "e", "d" ], run  = '''shell --block --confirm 'diff -u "$@" | diff-so-fancy | less -R''''},
 { on = [ "e", "D" ], run  = "plugin diff", desc = "Diff the selected with the hovered file"},
 { on = [ "e", "f" ], run  = '''shell --confirm 'time gfortran -Og -Wall -fimplicit-none -fcheck=all -fbacktrace "$@"''''},

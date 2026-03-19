@@ -272,22 +272,22 @@ function day() {
     # term colors:
     xrdb ~/.Xresources
     xrdb -merge ~/.config/darkman/light
-    #darkman set light
-    . ~/.local/share/darkman/awesome.sh "light"
-    . ~/.local/share/darkman/desktop-notification.sh "light"
-    . ~/.local/share/darkman/gtk3-theme.sh "light"
-    . ~/.local/share/darkman/qt-theme.sh "light"
+    darkman set light
+    # . ~/.local/share/darkman/awesome.sh "light"
+    # . ~/.local/share/darkman/desktop-notification.sh "light"
+    # . ~/.local/share/darkman/gtk3-theme.sh "light"
+    # . ~/.local/share/darkman/qt-theme.sh "light"
 }
 
 function night() {
     # term colors:
     xrdb ~/.Xresources
     xrdb -merge ~/.config/darkman/dark
-    #darkman set dark
-    . ~/.local/share/darkman/awesome.sh "dark"
-    . ~/.local/share/darkman/desktop-notification.sh "dark"
-    . ~/.local/share/darkman/gtk3-theme.sh "dark"
-    . ~/.local/share/darkman/qt-theme.sh "dark"
+    darkman set dark
+    # . ~/.local/share/darkman/awesome.sh "dark"
+    # . ~/.local/share/darkman/desktop-notification.sh "dark"
+    # . ~/.local/share/darkman/gtk3-theme.sh "dark"
+    # . ~/.local/share/darkman/qt-theme.sh "dark"
 }
 
 #   _|     _|

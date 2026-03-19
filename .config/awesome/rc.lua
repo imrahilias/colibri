@@ -172,6 +172,13 @@ globalkeys = gears.table.join(
          myscreen.mywibox.visible = not myscreen.mywibox.visible
    end),
 
+   -- toggle systray visibility.
+   awful.key({ modkey, "Control" }, "f",
+      function ()
+         myscreen = awful.screen.focused()
+         myscreen.mysystray.visible = not myscreen.mysystray.visible
+   end),
+
    -- run prompt.
    awful.key({ modkey }, "r", function () awful.screen.focused().mypromptbox:run() end),
 
@@ -331,15 +338,14 @@ for i = 1, 14 do
                awful.tag.viewtoggle(tag)
             end
       end),
-      -- move client to tag, w/o follow.
+      -- move client to tag & follow.
       awful.key({ modkey, "Shift" }, keys[i],
          function ()
             if client.focus then
                local tag = client.focus.screen.tags[i]
                if tag then
                   client.focus:move_to_tag(tag)
-                  -- follow to tag.
-                  --tag:view_only()
+                  tag:view_only()
                end
             end
       end),
@@ -417,24 +423,25 @@ local tasklist_buttons = gears.table.join(
             c:raise()
          end
    end),
-   -- middle mouse on tag: move active client there.
-   awful.button({ }, 2,
-      function ()
-         local instance = nil
-         return function ()
-            if instance and instance.wibox.visible then
-               instance:hide()
-               instance = nil
-            else
-               instance = awful.menu.clients({ theme = { width = 250 } })
-            end
-         end
-   end),
+   -- middle mouse on tag: move active client there. Isnt this replaced by the
+   -- above `awful.button({ }, 2, function (t)`?
+   -- awful.button({ }, 2,
+   --    function ()
+   --       local instance = nil
+   --       return function ()
+   --          if instance and instance.wibox.visible then
+   --             instance:hide()
+   --             instance = nil
+   --          else
+   --             instance = awful.menu.clients({ theme = { width = 250 } })
+   --          end
+   --       end
+   -- end),
    -- middle mouse on taskbar: kill client (analogous to revelation).
    awful.button({ }, 2, function (c)
          c:kill()
    end),
-   -- middle mouse on taskbar: unmaximize both this client and the client in
+   -- right mouse on taskbar: unmaximize both this client and the client in
    -- focus already.
    awful.button({ }, 3,
       function(c)
@@ -779,23 +786,20 @@ awful.screen.connect_for_each_screen(
       -- wallpaper.
       set_wallpaper(s)
 
-      -- each screen has its own tag table.
+      -- Each screen has its own tag table.
       awful.tag({ " ", "󰇧 ", "󰛓 ", " ", " ", " ", "⏾", " ", " ","󰼁 ", "󱁇 ", "󱁄 ", "󱁂 ", "󱁆"  }, s, awful.layout.layouts[1])
       -- unicode with bitstream vera: ↯ ♫ ♞ ♟ ♤ ♡ ♢ ♧ ⚛  ✫ ♻ ✇ ∅ ⚡ $ ⛁ ≣ ♬ ⏾ @ ✆♞ ♠ ♥ ♦ ♣
       -- unicode with bitstrom wera nerd fonts:   󰟢  ⚡   󰇧 󰛍         󰭹  󰛓 󰇂 󰽚 󱥐 󰜁 󱥔 󰖟   󰇈 󰛍 󱁇 󱁆 󱁄 󱨎 󱁂 󱁃 󰼂 󰼁  󰦪  󰦨   ♬ 󰝚 󰎌 󰎈 󰽰 󱑽  󰒊  󱅥   
 
-      -- create a promptbox for each screen.
+      -- Create a promptbox for each screen.
       s.mypromptbox = awful.widget.prompt()
 
-      -- create a tasklist widget.
-      --s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.fiter.currenttags, tasklist_buttons)
-
-      -- create a tasklist widget with margins and spacers.
+      -- Create a tasklist widget with margins and spacers.
       s.mytasklist = awful.widget.tasklist {
          screen   = s,
          filter   = awful.widget.tasklist.filter.currenttags,
          buttons  = tasklist_buttons,
-         -- notice that there is *no* wibox.wibox prefix, it is a template,
+         -- Notice that there is *no* wibox.wibox prefix, it is a template,
          -- not a widget instance.
          widget_template = {
             {
@@ -819,26 +823,29 @@ awful.screen.connect_for_each_screen(
          },
       }
 
-      -- create a taglist widget.
+      -- Create a taglist widget.
       s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
 
-      -- create the wibox.
+      -- Create the wibox.
       s.mywibox = awful.wibar({ position = "top", screen = s, height = 30, opacity = 1 })
 
-      -- add widgets to the wibox.
+      -- By defalut mysystray is invisible.
+      s.mysystray = wibox.widget.systray()
+      s.mysystray.visible = false
+
+      -- Add widgets to the wibox.
       s.mywibox:setup {
          layout = wibox.layout.align.horizontal,
-         { -- left widgets.
+         { -- Left widgets.
             layout = wibox.layout.fixed.horizontal,
             -- mylauncher,
             s.mytaglist,
             s.mypromptbox,
          },
          s.mytasklist, -- middle widget.
-         { -- right widgets.
+         { -- Right widgets.
             layout = wibox.layout.fixed.horizontal,
-            -- systray with margin around (left, right, top, bottom).
-            wibox.layout.margin(wibox.widget.systray(), 4, 4, 4, 4),
+            wibox.layout.margin(s.mysystray, 4, 4, 4, 4), -- My systray with margin around (left, right, top, bottom).
             mytextclock,
          },
       }
