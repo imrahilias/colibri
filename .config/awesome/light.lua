@@ -69,7 +69,7 @@ theme.taglist_fg_occupied = theme.fg_normal
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used:
 -- theme.icon_theme = nil
 theme.icon_theme = "/usr/share/icons/HighContrast"
-
+theme.systray_icon_spacing = 5
 theme.notification_icon_size = 70
 
 return theme
