@@ -89,7 +89,7 @@ Emacs.font-lock-variable-name-face.attributeForeground: #8B008B
 Emacs.isearch.attributeForeground: #FFFFFF
 Emacs.isearch.attributeBackground: #8B008B
 Emacs.isearch-fail.attributeForeground: #FFFFFF
-Emacs.isearch-fail.attributeBackground:  yellow
+Emacs.isearch-fail.attributeBackground:  #FFFF00
 Emacs.window-divider.attributeForeground: #444444
 
 !        |
@@ -98,37 +98,37 @@ Emacs.window-divider.attributeForeground: #444444
 !  _/\_\\__|\___|_|   _|  _|  _|
 !
 
-xterm.*.foreground: #FAF0E6
-xterm.*.background: #000000
-xterm.*.transparent: true
-xterm.*.cursorColor: #FF00FF
-xterm.*.cursorColor2: #8B008B
+xterm*foreground: #FAF0E6
+xterm*background: #000000
+xterm*transparent: true
+xterm*cursorColor: #FF00FF
+xterm*cursorColor2: #8B008B
 
-xterm.*.veryBoldColors: 6
-! xterm.*.color0:  rgb:28/2a/2b
-! xterm.*.colorBDMode: true
-! xterm.*.colorBD: Red
-! xterm.*.colorULMode: true
-! xterm.*.colorUL: Cyan
+xterm*veryBoldColors: 6
+! xterm*color0:  rgb:28/2a/2b
+! xterm*colorBDMode: true
+! xterm*colorBD: Red
+! xterm*colorULMode: true
+! xterm*colorUL: Cyan
 
 ! dark mode:
-XTerm.*.color0: #000000
-XTerm.*.color1: #8B0000
-XTerm.*.color2: #2E8B57
-XTerm.*.color3: #DAA520
-XTerm.*.color4: #4682B4
-XTerm.*.color5: #8B008B
-XTerm.*.color6: #20B2AA
-XTerm.*.color7: #FFEBCD
-XTerm.*.color8: #696969
-XTerm.*.color9: #CD5C5C
-XTerm.*.color10: #8FBC8B
-XTerm.*.color11: #8B4000
-XTerm.*.color12: #00BFFF
-XTerm.*.color13: #FF00FF
-XTerm.*.color14: #00CED1
-XTerm.*.color15: #FFF5EE
-XTerm.*.color16: #FFEBCD
+XTerm*color0: #000000
+XTerm*color1: #8B0000
+XTerm*color2: #2E8B57
+XTerm*color3: #DAA520
+XTerm*color4: #4682B4
+XTerm*color5: #8B008B
+XTerm*color6: #20B2AA
+XTerm*color7: #FFEBCD
+XTerm*color8: #696969
+XTerm*color9: #CD5C5C
+XTerm*color10: #8FBC8B
+XTerm*color11: #8B4000
+XTerm*color12: #00BFFF
+XTerm*color13: #FF00FF
+XTerm*color14: #00CED1
+XTerm*color15: #FFF5EE
+XTerm*color16: #FFEBCD
 
 !                          |
 !  |   |  __|\ \  /\ \   / __|
@@ -139,28 +139,46 @@ XTerm.*.color16: #FFEBCD
 ! URxvt (case sensitive?)
 ! ttps://wiki.archlinux.org/index.php/Rxvt-unicode
 
-URxvt.*.scrollColor: #A9A9A9
-
 ! fake transparency; possible clash with darkmman mode switching:
 ! fade the text by the given percentage when focus is lost:
-! URxvt.*.fading: 30
-URxvt.*.transparent: false
+! URxvt*fading: 30
+URxvt*transparent: false
 ! shading; 0 to 99 darkens, 101 to 200 lightens:
-!URxvt.*.shading: 10
+!URxvt*shading: 10
 
 ! real transparency; possible clash with darkmman mode switching:
-! URxvt.*.depth: 32
-! URxvt.*.background: [80]#000000
-! URxvt.*.background: rgba:0000/0000/0000/c900
+! URxvt*depth: 32
+! URxvt*background: [80]#000000
+! URxvt*background: rgba:0000/0000/0000/c900
 
-URxvt.*.foreground: #FAF0E6
-URxvt.*.background: #000000
-URxvt.*.cursorColor: #FF00FF
-URxvt.*.cursorColor2: #FF00FF
-URxvt.*.pointerColor: #FF00FF
-URxvt.*.pointerColor2: #FF00FF
-! URxvt.*.underlineColor:
-! URxvt.*.scrollColor:
-! URxvt.*.troughColor:
-! URxvt.*.highlightColor:
-! URxvt.*.highlightTextColor:
+URxvt*foreground: #FAF0E6
+URxvt*background: #000000
+URxvt*cursorColor: #FF00FF
+URxvt*cursorColor2: #FF00FF
+URxvt*pointerColor: #FF00FF
+URxvt*pointerColor2: #FF00FF
+
+! URxvt*underlineColor:
+! URxvt*troughColor:
+! URxvt*highlightColor:
+! URxvt*highlightTextColor:
+URxvt*scrollColor: #A9A9A9
+
+! light mode:
+URxvt*color0: #000000
+URxvt*color1: #8B0000
+URxvt*color2: #2E8B57
+URxvt*color3: #DAA520
+URxvt*color4: #4682B4
+URxvt*color5: #8B008B
+URxvt*color6: #20B2AA
+URxvt*color7: #FFEBCD
+URxvt*color8: #696969
+URxvt*color9: #CD5C5C
+URxvt*color10: #8FBC8B
+URxvt*color11: #8B4000
+URxvt*color12: #00BFFF
+URxvt*color13: #FF00FF
+URxvt*color14: #00CED1
+URxvt*color15: #FFF5EE
+URxvt*color16: #FFEBCD

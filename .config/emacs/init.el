@@ -110,7 +110,6 @@
     (region ((t (:background "#ADD8E6"))))
     (secondary-selection ((t (:background "#CCCCFF"))))
     (trailing-whitespace ((t (:background "#CCCCFF"))))
-    ;;(isearch-fail ((t (:foreground "#000000"))))
     :custom
     (which-key-mode t)
     (auto-save-default t)
@@ -452,7 +451,16 @@ each savepoint.")
     (org-mode . (lambda () (require 'org-tempo)))
     :bind
     ("M-o" . org-view-mode)
-    (:map org-mode-map ("C-<return>" . nil))
+    ;; These are taken by gptel and multi-cursor.
+    (:map org-mode-map
+        ("C-<return>" . nil)
+        ("C-c l" . nil)
+        ("C-c >" . nil)
+        ("C-c <" . nil)
+        ("C-c =" . nil)
+        ("C-c <mouse-1>" . nil)
+        ("C-c SPC" . nil)
+        )
     )
 
 (use-package org-appear

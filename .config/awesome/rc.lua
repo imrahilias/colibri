@@ -217,6 +217,7 @@ globalkeys = gears.table.join(
    -- awful.key({ modkey, "Shift" }, "x", function () awful.spawn("urxvt -T 'VSConsole' -fa 'xft:DejaVuSansMono' -fs 24 -e 'trainee'") end),
    awful.key({ modkey, "Shift" }, "p", function () awful.spawn("arandr") end),
    awful.key({ modkey, "Shift" }, "p", function () awful.spawn("autorandr --change") end),
+   awful.key({ modkey }, "l", function () naughty.notify{ text = 'HAHA: nice try Mr. Hickel. Get lost 😁'} end),
 
    -- Audio.
    awful.key({ }, "XF86AudioRaiseVolume", function () awful.spawn("amixer set Master 1%+", false) end),
@@ -241,7 +242,7 @@ globalkeys = gears.table.join(
    awful.key({ }, "XF86MonBrightnessUp", function () awful.spawn("sudo light -A 30", false) end),
    awful.key({ }, "XF86Display", function () awful.spawn("xset dpms force off", false) end),
    awful.key({ modkey }, "#86", function () awful.spawn("razercfg -l glowinglogo:off -l scrollwheel:on", false) end),
-   awful.key({ modkey }, "#82", function () awful.spawn("razercfg -l all:off", false) end),  
+   awful.key({ modkey }, "#82", function () awful.spawn("razercfg -l all:off", false) end),
    awful.key({ modkey, "Shift" }, "r", function () awful.spawn("xrandr -o 1", false) end),
    awful.key({ modkey, "Control", "Shift" }, "r", function () awful.spawn("xrandr -o 0", false) end)
 )
@@ -399,40 +400,47 @@ local mytaglist_buttons = gears.table.join(
 
 -- Mouse bindings for clients in tasklist.
 local mytasklist_buttons = gears.table.join(
-   -- Force unmaximize on click in tasklist and make main.
-   awful.button({ }, 1, function (c)
-         client.focus = c
-         c:raise()
-         c.maximized = true
-         c:swap(awful.client.getmaster())
+   --  On tasklist: Force unmaximize on click in tasklist and make main.
+   -- awful.button({ }, 1, function (c)
+   --       client.focus = c
+   --       c:raise()
+   --       --c:swap(awful.client.getmaster()) -- that switches the order, so no double clicking.
+   -- end),
+   --  On tasklist: traditional un/minimise client.
+   awful.button({ }, 1,
+      function (c)
+         if c == client.focus then
+            c.minimized = true
+         else
+            -- without this, the following :isvisible() makes no sense.
+            c.minimized = false
+            if not c:isvisible() and c.first_tag then
+               c.first_tag:view_only()
+            end
+            -- this will also un-minimize the client, if needed.
+            client.focus = c
+            c:raise()
+         end
    end),
-   -- On taskbar: Kill client (analogous to revelation).
+   -- On tasklist: Kill client (analogous to revelation).
    awful.button({ }, 2, function (c)
          c:kill()
    end),
    -- -- On tasklist: Unmaximize both this client and the client in focus
    -- -- already; Uncommented because this is now the default even if you just
    -- -- hover.
-   -- awful.button({ }, 3,
-   --    function(c)
-   --       c.maximized = false
-   --       if client.focus then client.focus.maximized = false end
-   -- end),
+   awful.button({ }, 3,
+      function(c)
+         c.maximized = false
+         if client.focus then client.focus.maximized = false end
+         -- this will also un-minimize the client, if needed.
+         client.focus = c
+         c:raise()
+   end)
    -- -- Switch clients in tasklist confusing when scrolling, can switch with
    -- -- mod+mouse anywhere anyway.
    --awful.button({ }, 4, function () awful.client.focus.byidx(1) end),
    --awful.button({ }, 5, function () awful.client.focus.byidx(-1) end),
-   -- Un/maximise client.
-   awful.button({ }, 8,
-      function (c)
-         c.maximized = false
-         c:raise()
-   end),
-   awful.button({ }, 9,
-      function (c)
-         c.maximized = true
-         c:raise()
-   end)
 )
 
 
@@ -452,10 +460,11 @@ clientbuttons = gears.table.join(
          c:emit_signal("request::activate", "mouse_click", {raise = true})
          awful.mouse.client.resize(c)
    end),
-   awful.button({ modkey }, 4, function (t) awful.tag.viewprev(t.screen) end),
-   awful.button({ modkey }, 5, function (t) awful.tag.viewnext(t.screen) end),
+   -- Switch to the left/right tag.
+   awful.button({ modkey, "Shift"}, 4, function (t) awful.tag.viewprev(t.screen) end),
+   awful.button({ modkey, "Shift"}, 5, function (t) awful.tag.viewnext(t.screen) end),
    -- Drag tag left; Move the current tag to the left in the taglist, and follow.
-   awful.button({ modkey, "Shift" }, 4,
+   awful.button({ modkey, "Control" }, 4,
       function (t)
          if client.focus then
             tag = client.focus.screen.tags[awful.tag.getidx()-1]
@@ -467,7 +476,7 @@ clientbuttons = gears.table.join(
       end
    ),
    -- Drag tag right; Move the current tag to the right in the taglist, and follow.
-   awful.button({ modkey, "Shift" }, 5,
+   awful.button({ modkey, "Control" }, 5,
       function (t)
          if client.focus then
             tag = client.focus.screen.tags[awful.tag.getidx()+1]
@@ -477,7 +486,7 @@ clientbuttons = gears.table.join(
             end
          end
    end),
-   -- -- Un/maximise current client, set master good combination to exit the
+   -- -- Un/maximise current client, set master; Good combination to exit the
    -- -- cyclic max preview loop below with just the raised client.
    awful.button({ modkey }, 8,
       function (c)
@@ -485,27 +494,25 @@ clientbuttons = gears.table.join(
          c:raise()
          c:swap(awful.client.getmaster())
    end),
-   -- awful.button({ modkey }, 9,
-   --    function (c)
-   --       c.maximized = true
-   --       c:raise()
-   -- end),
-      -- Cyclic Max Preview: Unmaximise current client, ycle to previous client on
-   -- current tag and maximize that
-      -- awful.button({ modkey }, 8, function ()
-   --       for _, c in ipairs(client.get()) do c.maximized = false end
-   --       awful.client.focus.byidx(-1)
-   --       if client.focus then
-   --          client.focus.maximized = true
-   --          client.focus:raise()
-   --       end
-   -- end),
-
-   -- Cyclic Max Preview: Unmaximise current client, cycle to next client on
-   -- current tag and maximize that.
-   awful.button({ modkey }, 9, function ()
+   awful.button({ modkey }, 9,
+      function (c)
+         c.maximized = true
+         c:raise()
+         c:swap(awful.client.getmaster())
+   end),
+      -- Cyclic Max Preview: Unmaximise current client, cycle to next/previous
+   -- client on current tag and maximize that
+      awful.button({ modkey }, 4, function ()
          for _, c in ipairs(client.get()) do c.maximized = false end
-         awful.client.focus.byidx(1)
+         awful.client.focus.byidx(-1)
+         if client.focus then
+            client.focus.maximized = true
+            client.focus:raise()
+         end
+   end),
+   awful.button({ modkey }, 5, function ()
+         for _, c in ipairs(client.get()) do c.maximized = false end
+         awful.client.focus.byidx(-1)
          if client.focus then
             client.focus.maximized = true
             client.focus:raise()
@@ -807,23 +814,23 @@ awful.screen.connect_for_each_screen(
             right   = 10,
             widget  = wibox.container.margin,
 
-            -- Signal to maximise client on hover over, unmaximise on leaving on
-            -- each task.
-            create_callback = function(self, c, _, _)
-               self:connect_signal("mouse::enter", function()
-                                      if c.valid then
-                                         c.maximized = true
-                                         client.focus = c
-                                         c:raise()
-                                      end
-               end)
+            -- -- Preview task on hover; Signal to maximise client on hover over,
+            -- -- unmaximise on leaving on each task.
+            -- create_callback = function(self, c, _, _)
+            --    self:connect_signal("mouse::enter", function()
+            --                           if c.valid then
+            --                              c.maximized = true
+            --                              client.focus = c
+            --                              c:raise()
+            --                           end
+            --    end)
 
-               self:connect_signal("mouse::leave", function()
-                                      if c.valid then
-                                         c.maximized = false
-                                      end
-               end)
-            end
+            --    self:connect_signal("mouse::leave", function()
+            --                           if c.valid then
+            --                              c.maximized = false
+            --                           end
+            --    end)
+            -- end
 
          }
       }
@@ -843,7 +850,7 @@ awful.screen.connect_for_each_screen(
       if s.index == 1 then
          s.mysystray = wibox.widget.systray()
       else
-         s.mysystray = wibox.widget.textbox -- A placeholder widget.
+         s.mysystray = wibox.widget.textbox() -- A dummy placeholder widget.
       end
 
       -- By default the tray is invisible. Ensure icons are a consistent size so
@@ -911,11 +918,11 @@ awful.screen.connect_for_each_screen(
 client.connect_signal(
    "manage",
    function (c)
-      -- Set the windows at the slave, i.e. put it at the end of others instead
-      -- of setting it master.
-      if not awesome.startup then
-         awful.client.setslave(c)
-      end
+      -- -- Set the windows at the slave, i.e. put it at the end of others instead
+      -- -- of setting it master.
+      -- if not awesome.startup then
+      --    awful.client.setslave(c)
+      -- end
 
       if awesome.startup and
          not c.size_hints.user_position
@@ -992,14 +999,14 @@ autorunners =
       "xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock",
       "emacs --daemon",
       "systemctl --user start xsettingsd.service",
-      "nextcloud",
+      --"nextcloud",
       "1password",
 
       -- Start some trays.
       "pasystray",
       "blueman-applet",
       "nm-applet",
-      "cbatticon-r 10 -c 'notify-send Power on 10%'",
+      "cbatticon -r 10 -c 'notify-send Power on 10%'",
 
       -- Change to autodetected display config.
       "autorandr --change",
@@ -1017,7 +1024,7 @@ if autorun then
    -- change, this qt6gtk2 aur pkg needs to be rebuilt (install, no clean
    -- build). Nextcloud might not like the gtk2 theme, so needs to
    -- run default.
-   --awful.spawn.with_shell("QT_QPA_PLATFORMTHEME='' QT_STYLE_OVERRIDE='' nextcloud")
+   awful.spawn.with_shell("QT_QPA_PLATFORMTHEME='' QT_STYLE_OVERRIDE='' nextcloud")
 
    for _, app in ipairs(autorunners) do
       awful.spawn.once(app, awful.rules.rules)

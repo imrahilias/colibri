@@ -7,17 +7,231 @@
 
 # vim:fileencoding=utf-8:foldmethod=marker
 
-# The bg is white in day mode, no ideea, so overriding:
+
+# Use term colors or use flavours to set individual colors for light/dark theme.
+# : Flavor {{{
+
+# [flavor]
+dark  = "dark"
+light = "light"
+
+# : }}}
+
+
+# : App {{{
+
+[app]
+overall = {}
+
+# : }}}
+
+
+# : Manager {{{
+
+[mgr]
+cwd = { fg = "cyan" }
+
+# Find
+find_keyword  = { fg = "yellow", bold = true, italic = true, underline = true }
+find_position = { fg = "magenta", bg = "reset", bold = true, italic = true }
+
+# Symlink
+symlink_target = { italic = true }
+
+# Marker
+marker_copied   = { fg = "lightgreen",  bg = "lightgreen" }
+marker_cut      = { fg = "lightred",    bg = "lightred" }
+marker_marked   = { fg = "lightcyan",   bg = "lightcyan" }
+marker_selected = { fg = "lightyellow", bg = "lightyellow" }
+
+# Count
+count_copied   = { fg = "white", bg = "green" }
+count_cut      = { fg = "white", bg = "red" }
+count_selected = { fg = "white", bg = "yellow" }
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "gray" }
+
+# Highlighting
+syntect_theme = ""
+
+# : }}}
+
+
+# : Tabs {{{
+
+[tabs]
+active   = { bg = "blue", bold = true }
+inactive = { fg = "blue", bg = "gray" }
+
+# Separator
+sep_inner = { open = "", close = "" }
+sep_outer = { open = "", close = "" }
+
+# : }}}
+
+
+# : Mode {{{
+
+[mode]
+normal_main = { fg = "white", bg = "blue",  bold = true}
+normal_alt  = { fg = "blue", bg = "gray" }
+
+# Select mode
+select_main = { fg = "white", bg = "red", bold = true }
+select_alt  = { fg = "red", bg = "gray" }
+
+# Unset mode
+unset_main = { fg = "white", bg = "magenta", bold = true }
+unset_alt  = { fg = "magenta", bg = "gray" }
+
+# : }}}
+
+
+# : Indicator of hovered file {{{
+
+[indicator]
+parent  = { reversed = true }
+current = { reversed = true }
+preview = { underline = true }
+padding = { open = "", close = "" }
+
+# : }}}
+
+
+# : Status bar {{{
+
+[status]
+overall   = {}
+sep_left  = { open = "", close = "" }
+sep_right = { open = "", close = "" }
+
+# Permissions
+perm_sep   = { fg = "darkgray" }
+perm_type  = { fg = "green" }
+perm_read  = { fg = "yellow" }
+perm_write = { fg = "red" }
+perm_exec  = { fg = "cyan" }
+
+# Progress
+progress_label  = { bold = true }
+progress_normal = { fg = "blue", bg = "white" }
+progress_error  = { fg = "red", bg = "white" }
+
+# : }}}
+
+
 # : Which {{{
 
 [which]
 cols            = 3
-mask            = { bg = "white" }
+mask            = { bg = "reset" }
 cand            = { fg = "lightcyan" }
 rest            = { fg = "darkgray" }
 desc            = { fg = "lightmagenta" }
 separator       = "  "
 separator_style = { fg = "darkgray" }
+
+# : }}}
+
+
+# : Confirmation {{{
+
+[confirm]
+border     = { fg = "blue" }
+title      = { fg = "blue" }
+body       = {}
+list       = {}
+btn_yes    = { reversed = true }
+btn_no     = {}
+btn_labels = [ "  [Y]es  ", "  (N)o  " ]
+
+# : }}}
+
+
+# : Spotter {{{
+
+[spot]
+border = { fg = "blue" }
+title  = { fg = "blue" }
+
+# Table
+tbl_col  = { fg = "blue" }
+tbl_cell = { fg = "yellow", reversed = true }
+
+# : }}}
+
+
+# : Notification {{{
+
+[notify]
+title_info  = { fg = "green" }
+title_warn  = { fg = "yellow" }
+title_error = { fg = "red" }
+
+# Icons
+icon_info  = ""
+icon_warn  = ""
+icon_error = ""
+
+# : }}}
+
+
+# : Picker {{{
+
+[pick]
+border   = { fg = "blue" }
+active   = { fg = "magenta", bold = true }
+inactive = {}
+
+# : }}}
+
+
+# : Input {{{
+
+[input]
+border   = { fg = "blue" }
+title    = {}
+value    = {}
+selected = { reversed = true }
+
+# : }}}
+
+
+# : Completion {{{
+
+[cmp]
+border   = { fg = "blue" }
+active   = { reversed = true }
+inactive = {}
+
+# Icons
+icon_file    = ""
+icon_folder  = ""
+icon_command = ""
+
+# : }}}
+
+
+# : Task manager {{{
+
+[tasks]
+border  = { fg = "blue" }
+title   = {}
+hovered = { fg = "magenta", bold = true }
+
+# : }}}
+
+
+# : Help menu {{{
+
+[help]
+on      = { fg = "cyan" }
+run     = { fg = "magenta" }
+desc    = {}
+hovered = { reversed = true, bold = true }
+footer  = { fg = "black", bg = "white" }
 
 # : }}}
 
@@ -39,26 +253,28 @@ rules = [
 { url = "*", is = "sticky", fg = "black", bg = "red"},
 
 # tmp files
-{ url = "*~", fg = "darkgrey"},
-{ url = "*~", fg = "darkgrey"},
-{ url = "*#", fg = "darkgrey"},
-{ url = "*.bak", fg = "darkgrey"},
+{ url = "*~", fg = "darkgray"},
+{ url = "*~", fg = "darkgray"},
+{ url = "*#", fg = "darkgray"},
+{ url = "*.bak", fg = "darkgray"},
 
 # mime
 { mime = "image/*", fg = "lightblue" },
 { mime = "{audio}/*", fg = "lightgreen" },
 { mime = "{video}/*", fg = "magenta" },
-{ mime = "application/{,g}zip", fg = "magenta", bold = true },
-{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", fg = "magenta", bold = true },
+{ mime = "application/*{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", fg = "magenta", bold = true },
 { mime = "application/{pdf,doc,rtf,vnd.*,oasis*}", fg = "green" },
-{ mime = "inode/x-empty", fg = "darkgrey" },
+{ mime = "inode/x-empty", fg = "darkgray" },
 #{ mime = "{text/*,*/xml,application/x-ndjson,application/javascript}", fg = "yellow" },
 
-# Dummy files
+# dummy files
 # Whether the file is dummy, which fails to load complete metadata,
 # possibly the filesystem doesn't support it, such as FUSE.
 { url = "*", is = "dummy", bg = "red" },
 { url = "*/", is = "dummy", bg = "red" },
+
+# Virtual file system
+{ mime = "vfs/{absent,stale}", fg = "darkgray" },
 
 # Files Dirs Fallback
 { url = "*", fg = "reset" },
@@ -84,7 +300,7 @@ conds = [
 
 # Fallback
 { if = "dir", text = "󰥧" },
-{ if = "exec", text = "󰐊" },
+#{ if = "exec", text = "󰐊" },
 { if = "!dir", text = "≣" },
 ]
 

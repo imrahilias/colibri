@@ -1,62 +1,62 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:chmod"
-rev = "56971d0"
-hash = "8da0b15a97b5dfd13941d1ecc617ac7c"
+rev = "babfd0f"
+hash = "f0c8c378184d5f8abd1b095a443d336d"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:diff"
-rev = "56971d0"
-hash = "492e4757f332e29f982556bf507e043c"
+rev = "babfd0f"
+hash = "8b1af6b5a69797ee951f2a80ce570818"
 
 [[plugin.deps]]
 use = "ndtoan96/ouch"
-rev = "594b8a2"
-hash = "c9e628fc0312d198db22ae2fa74883b"
+rev = "406ce6c"
+hash = "f5afc904d5106ee368c8aa2ded43bd74"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-enter"
-rev = "56971d0"
-hash = "56fdabc96fc1f4d53c96eb884b02a5be"
+rev = "babfd0f"
+hash = "187cc58ba7ac3befd49c342129e6f1b6"
 
 [[plugin.deps]]
 use = "uhs-robert/sshfs"
-rev = "5edff3b"
-hash = "e92138f6eb884bef96d92b2d114ac927"
+rev = "7ba17a8"
+hash = "f6927372436c780965035310821a40d9"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:mime-ext"
-rev = "56971d0"
-hash = "8feba12bf57a4607cd05992c254713f3"
+rev = "babfd0f"
+hash = "31994c9caec5bdcafd994e9b00c632a4"
 
 [[plugin.deps]]
 use = "Rolv-Apneseth/starship"
-rev = "eca1861"
-hash = "e519d894e94ded741e06aae4d4775981"
+rev = "a837101"
+hash = "635b0feb9215772d22020eb0abf0bb34"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "56971d0"
-hash = "36a484acf6a0a0219c543ccb4cee218f"
+rev = "babfd0f"
+hash = "26db011a778f261d730d4f5f8bf24b3f"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:mount"
-rev = "56971d0"
-hash = "e2d4bfccf31e5ab05f46fee4797c5215"
+rev = "babfd0f"
+hash = "77e20b071404f97c09d3f9afdb9482e0"
 
 [[plugin.deps]]
 use = "AnirudhG07/custom-shell"
-rev = "d50df9b"
-hash = "650ce1c4bf838b6f82b02cdfa9b2a7c"
+rev = "3449686"
+hash = "8009873342496fdb042bba09e239eef3"
+
+[[plugin.deps]]
+use = "Lil-Dank/lazygit"
+rev = "8c4086c"
+hash = "85316b5e9abeae2531d3e5d02a094381"
 
 [[plugin.deps]]
 use = "lpnh/fr"
 rev = "aa88cd4"
 hash = "8b0e87c3176e0d44f79a8656f79f0fa"
-
-[[plugin.deps]]
-use = "Lil-Dank/lazygit"
-rev = "8f37dc5"
-hash = "ee71543790f0ce3951161045a3787abd"
 
 [flavor]
 deps = []
