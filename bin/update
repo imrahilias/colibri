@@ -27,6 +27,7 @@ files+=(
     "/boot/loader/entries/"*".conf"
     "/boot/loader/loader.conf"
     "/etc/X11/xorg.conf.d/70-synaptics.conf"
+    "/etc/X11/xorg.conf.d/70-synaptics.conf"
     "/etc/fstab"
     "/etc/gdm/custom.conf"
     "/etc/lostfiles.conf"
@@ -46,7 +47,13 @@ files+=(
     "/etc/systemd/system/kill-printd.service"
     "/etc/systemd/system/user.slice"
     "/etc/systemd/system/x11-autologin.service"
-    "/etc/X11/xorg.conf.d/70-synaptics.conf"
+    "/usr/share/wayland-sessions/gnome.desktop"
+    "/usr/share/wayland-sessions/hyprland-uwsm.desktop"
+    "/usr/share/wayland-sessions/hyprland.desktop"
+    "/usr/share/wayland-sessions/niri.desktop"
+    "/usr/share/wayland-sessions/qtile-wayland.desktop"
+    "/usr/share/wayland-sessions/somewm.desktop"
+    "/usr/share/wayland-sessions/sway.desktop"
     "/usr/share/xdg-desktop-portal/gnome-portals.conf"
     "/usr/share/xdg-desktop-portal/gtk-portals.conf"
     "/usr/share/xdg-desktop-portal/portals/darkman.portal"
@@ -54,6 +61,7 @@ files+=(
     "/usr/share/xdg-desktop-portal/portals/gnome.portal"
     "/usr/share/xdg-desktop-portal/portals/gtk.portal"
     "/usr/share/xsessions/awesome.desktop"
+    "/usr/share/xsessions/qtile.desktop"
 )
 
 

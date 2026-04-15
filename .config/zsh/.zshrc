@@ -1,7 +1,17 @@
 #!/bin/false
-#blabla
+# About the order of things.
+# /etc/zshenv
+# ${ZDOTDIR:-$HOME}/.zshenv
+# /etc/zprofile                 (login)
+# ${ZDOTDIR:-$HOME}/.zprofile   (login)
+# /etc/zshrc                    (interactive)
+# ${ZDOTDIR:-$HOME}/.zshrc      (interactive)
+# /etc/zlogin                   (login)
+# ${ZDOTDIR:-$HOME}/.zlogin     (login)
+# ${ZDOTDIR:-$HOME}/.zlogout    (login - loaded on logout)
+# /etc/zlogout                  (login - loaded on logout)
 
-# profiling: Add this to the TOP of your .zshrc:
+# Profiling: Add this to the TOP of your .zshrc:
 #zmodload zsh/zprof
 
 #           |
@@ -10,7 +20,7 @@
 # ___|____/_| |_|_|  \___|
 #
 
-# If not running interactively, don't do anything
+# If not running interactively, don't do anything.
 [ -z "$PS1" ] && return
 
 # The PS1 variable may be unset or empty and the shell may still be
@@ -22,21 +32,20 @@ do
     esac
 done
 
-# sourcing "/home/m/.config/lf" stuff appearently raises "insecure
-# directories" for compinit otherwise:
+# Sourcing "/home/m/.config/lf" stuff appearently raises "insecure
+# directories" for compinit otherwise.
 ZSH_DISABLE_COMPFIX="true"
 
-# switch to custom keyboard layout:
+# switch to custom keyboard layout.
 # this could be set in .xinitrc but might not be loaded due to latency!
 # enables multiple layouts, switch via awesome, us(m) is custom (see notes).
 # also just drop the caps lock key, it is a second ctrl now.
-setxkbmap -layout "us(m)" -option ctrl:nocaps
+#setxkbmap -layout "us(m)" -option ctrl:nocaps
+#
 
 if [[ $EUID != 0 ]] ; then
-    path=(~/bin ~/asc/bin $path) # Zsh ties the PATH variable to a path array.
-    source /home/m/asc/bin/aliases
-    source "$HOME/asc/bin/api.conf" # llm chat.ai.tuwien.ac.at api for emacs
-    source "$HOME/.xprofile"
+    path=($HOME/bin $HOME/asc/bin $path) # zsh ties the PATH variable to a path array.
+    source $HOME/asc/bin/aliases
 fi
 
 
@@ -46,10 +55,10 @@ fi
 # \__,_|_|_|\__,_|____/
 #
 
-# enable color support of ls and also add handy aliases.
+# Enable color support of ls and also add handy aliases.
 if [ -x /usr/bin/dircolors ]
 then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
     alias -g ls='ls --color=auto'
     alias -g dir='dir --color=auto'
     alias -g vdir='vdir --color=auto'
@@ -67,7 +76,7 @@ then
     export LESS_TERMCAP_se=$'\e[0m'
 fi
 
-# list aliasas
+# List aliasas.
 alias l='grc ls -1Bhl --color=always --group-directories-first' # one entry/line, ignores backups (~), human readable (kiB, MiB, ...).
 alias ll='grc ls -1ABhl --color=always --group-directories-first' # almost all.
 alias d='dirs -v' # lists zsh directory stack (enter <cd +- tab>, plus & minus (reverse) literally, with completion!
@@ -75,18 +84,18 @@ alias blk='sudo blkid -o list'
 alias hist='fc -El 0 | grep'
 alias lsa='lsarchives '
 
-# mount aliases
+# Mount aliases.
 alias mnta='sudo mount -a; mount' # echo 4 color, semicolon 4 1. command, if ok, than 2. com.
 alias uma='sudo umount -a; mount'
 
-# pacman aliases
+# Pacman aliases.
 alias pi='sudo pacman -S' # install 1 pkg.
 alias pp='sudo pacman -Syyu' # do a full system upgrade.
 alias px='sudo pacman -R' # remove package.
 alias pc='sudo pacman -Scc && sudo pacman-optimize' # remove all cached pkg! and defragment.
 alias reflect='sudo reflector -p https -f 10 -l 10 --sort rate --save /etc/pacman.d/mirrorlist' # save 10 fastest of the 10 recent mirrors using https.
 
-# file aliases
+# File aliases.
 alias df='df -h'
 alias countf='find . -type f | wc -l' # number of all files in dir.
 alias countd='find . -type d | wc -l' # number of all subdirs in dir.
@@ -99,7 +108,7 @@ alias duh="du --apparent-size --exclude './.*' --all --human-readable --max-dept
 # sort all size by filename (no color cause escape sequences mess that up):
 alias duhd="du --apparent-size --all --human-readable --max-depth=1 2>/dev/null | sort -t$'\t' -k2 --dictionary-order"
 
-# launch alias
+# Launch alias.
 #alias evince='dbus-launch evince'
 alias e="emacsclient -ca \'\'" # > service moved to systemd
 alias scan='scanimage --format=tiff --mode=Color' #>http://lists.alioth.debian.org/pipermail/sane-devel/2001-December/001177.html
@@ -107,7 +116,7 @@ alias halt='sudo systemctl poweroff'
 alias sus='sudo systemctl suspend'
 alias hib='sudo systemctl hibernate'
 
-# misc
+# Misc.
 alias jour='journalctl -b | ccze'
 alias s='sudo su -'
 alias x='exit'
@@ -125,7 +134,7 @@ alias dlap='xrandr --output eDP --auto  --output --primary --scale 1 --output Di
 alias dtwo='xrandr --output eDP --off --output DisplayPort-0 --mode 3840x2160 --scale 0.7 --right-of HDMI-A-0'
 alias wh='which '
 alias r='zranger'
-alias scrot='scrot ~/.screens/%H%M%S.png'
+alias scrot='scrot $HOME/.screens/%H%M%S.png'
 alias p='python3 '
 alias v='nvim '
 alias vi='nvim '
@@ -133,7 +142,7 @@ alias vim='nvim '
 alias mnt=' mount | column -t'
 alias down='yt-dlp --downloader aria2c --downloader-args "-c -j 3 -x 3 -s 3 -k 1M" '
 
-# some gnome stuff:
+# Some gnome stuff.
 alias gnome-session='echo "haha nice try:D"'
 alias gnome-settings='LD_PRELOAD="" gnome-control-center' # gtk3-nocsd breaks gnome-control-center and possibly more...
 
@@ -168,7 +177,7 @@ setopt hist_ignore_space # do not remember commands starting with space.
 # $SAVEHIST. So, in your case, I would increase it to HISTSIZE=12000 or greater.
 HISTSIZE=1300000
 SAVEHIST=1000000
-HISTFILE=~/.histfile
+HISTFILE=${ZDOTDIR:-$HOME}/.histfile
 
 #   _|                  |  _)
 #  |   |   | __ \   __| __| |  _ \  __ \   __|
@@ -178,7 +187,6 @@ HISTFILE=~/.histfile
 
 autoload -Uz add-zsh-hook
 
-# term title
 function xterm_title_precmd () {
     print -Pn -- '\e]2;%n@%m %~\a'
     [[ "$TERM" == 'screen'* ]] && print -Pn -- '\e_\005{2}%n\005{-}@\005{5}%m\005{-} \005{+b 4}%~\005{-}\e\\'
@@ -194,7 +202,7 @@ if [[ "$TERM" == (Eterm*|alacritty*|aterm*|foot*|gnome*|konsole*|kterm*|putty*|r
     add-zsh-hook -Uz preexec xterm_title_preexec
 fi
 
-# faster on demand rehash (https://wiki.archlinux.org/title/Zsh):
+# faster on demand rehash (https://wiki.archlinux.org/title/Zsh).
 zshcache_time="$(date +%s%N)"
 rehash_precmd() {
   if [[ -a /var/cache/zsh/pacman ]]; then
@@ -207,7 +215,7 @@ rehash_precmd() {
 }
 add-zsh-hook -Uz precmd rehash_precmd
 
-# highlight help messages:
+# highlight help messages.
 help() {
     "$@" --help 2>&1 | bat --color=always --language=help
 }
@@ -234,14 +242,14 @@ magic-enter() {
 }
 zle -N magic-enter
 
-# run ls after typing cd:
+# run ls after typing cd.
 function chpwd() {
     emulate -L zsh
     grc ls -1Bhl --color=always --group-directories-first .
 }
 
 
-# quick dir change:
+# quick dir change.
 rationalize-dot() {
     if [[ $LBUFFER = *.. ]]
     then
@@ -252,10 +260,10 @@ rationalize-dot() {
 }
 zle -N rationalize-dot
 
-# ueberzug:
-#alias lf="~/.config/lf/lfub"
+# ueberzug.
+#alias lf="$HOME/.config/lf/lfub"
 
-# lf() will fire for 'Ctrl+D':
+# lf() will fire for 'Ctrl+D'.
 #autoload -U lf # embedded in zshrc
 #bindkey -s '^D' "\eq lf\n"
 
@@ -269,25 +277,23 @@ function y() {
 }
 
 function day() {
-    # term colors:
-    xrdb ~/.Xresources
-    xrdb -merge ~/.config/darkman/light
+    xrdb $HOME/.Xresources
+    xrdb -merge $HOME/.config/darkman/light
     darkman set light
-    # . ~/.local/share/darkman/awesome.sh "light"
-    # . ~/.local/share/darkman/desktop-notification.sh "light"
-    # . ~/.local/share/darkman/gtk3-theme.sh "light"
-    # . ~/.local/share/darkman/qt-theme.sh "light"
+    # . $HOME/.local/share/darkman/awesome.sh "light"
+    # . $HOME/.local/share/darkman/desktop-notification.sh "light"
+    # . $HOME/.local/share/darkman/gtk3-theme.sh "light"
+    # . $HOME/.local/share/darkman/qt-theme.sh "light"
 }
 
 function night() {
-    # term colors:
-    xrdb ~/.Xresources
-    xrdb -merge ~/.config/darkman/dark
+    xrdb $HOME/.Xresources
+    xrdb -merge $HOME/.config/darkman/dark
     darkman set dark
-    # . ~/.local/share/darkman/awesome.sh "dark"
-    # . ~/.local/share/darkman/desktop-notification.sh "dark"
-    # . ~/.local/share/darkman/gtk3-theme.sh "dark"
-    # . ~/.local/share/darkman/qt-theme.sh "dark"
+    # . $HOME/.local/share/darkman/awesome.sh "dark"
+    # . $HOME/.local/share/darkman/desktop-notification.sh "dark"
+    # . $HOME/.local/share/darkman/gtk3-theme.sh "dark"
+    # . $HOME/.local/share/darkman/qt-theme.sh "dark"
 }
 
 #   _|     _|
@@ -301,13 +307,14 @@ function night() {
 # recommended that you add it to your $FZF_DEFAULT_OPTS. `--nth` makes
 # fzf slower because it has to tokenize each line.
 
-# Set up fzf key bindings and fuzzy completion
+# Set up fzf key bindings and fuzzy completion.
 source <(fzf --zsh)
 
-# Debug: Enable execution tracing. For more details, refer to 'man zshbuiltins'
+# Debug: Enable execution tracing. For more details, refer to 'man zshbuiltins'.
 #typeset -ft fzf-completion
 
-# Debug: Verbose Execution trace prompt (default: '+%N:%i> '). For more details, refer to 'man zshparam/zshmisc'
+# Debug: Verbose Execution trace prompt (default: '+%N:%i> '). For more details,
+# refer to 'man zshparam/zshmisc'.
 #PS4=$'\n%B%F{0}+ %D{%T:%3.} %2N:%I%f%b '
 
 #       |          _|  _|
@@ -316,20 +323,20 @@ source <(fzf --zsh)
 # ____/\__|\__,_|_|  _|
 #
 
-# dumb lock:
-hasssid=`nmcli d show wlp3s0 | grep "GENERAL.CONNECTION:" | awk '{print $2}'`
-if [[ $hasssid = "internetz" || $hasssid = "tephelon" ]] ; then
-    # turn off powersaver/screensaver/blanking/bell.
-    xset -dpms
-    xset s blank
-    xset s off
-else
-    # start dimmer after 300s and lock after 10 more s.
-    xset +dpms
-    xset s 300 10
-    xset s on
-fi
-xset -b &> /dev/null # turn off bell
+# # Dumb lock.
+# hasssid=`nmcli d show wlp3s0 | grep "GENERAL.CONNECTION:" | awk '{print $2}'`
+# if [[ $hasssid = "internetz" || $hasssid = "tephelon" ]] ; then
+#     # turn off powersaver/screensaver/blanking/bell.
+#     xset -dpms
+#     xset s blank
+#     xset s off
+# else
+#     # start dimmer after 300s and lock after 10 more s.
+#     xset +dpms
+#     xset s 300 10
+#     xset s on
+# fi
+# xset -b &> /dev/null # turn off bell
 
 #        |            _)
 #  __ \  | |   |  _` | | __ \   __|
@@ -337,14 +344,14 @@ xset -b &> /dev/null # turn off bell
 #  .__/ _|\__,_|\__, |_|_|  _|____/
 # _|            |___/
 
-# uncomment only in case cleared cache thows plugin not found errors.
+# Run in case cleared cache thows plugin not found errors.
 antidote_load () {
     source '/usr/share/zsh-antidote/antidote.zsh'
     antidote load
 }
 
 # Set the root name of the plugins files (.txt and .zsh) antidote will use.
-zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
+zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins
 
 # Ensure the .zsh_plugins.txt file exists so you can add plugins.
 [[ -f ${zsh_plugins}.txt ]] || touch ${zsh_plugins}.txt
@@ -366,7 +373,7 @@ ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
-# collides with completion?
+# Collides with completion?
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 # |
@@ -382,7 +389,7 @@ bindkey . rationalize-dot
 bindkey -s '^D' "\eq y\n"
 bindkey -s '^\' "\eq rga-fzf\n"
 
-# always fzf for everything is maybe not what i want.
+# Always fzf for everything is maybe not what i want.
 #bindkey '^I' fzf_completion
 
 # You are using zsh in MULTIBYTE mode to support modern character sets (for
@@ -390,11 +397,11 @@ bindkey -s '^\' "\eq rga-fzf\n"
 # need to revert to single-byte mode with a command such as:
 unsetopt MULTIBYTE
 
-# create a zkbd compatible hash; to add other keys to this hash, see:
-# man 5 terminfo:
+# Create a zkbd compatible hash; to add other keys to this hash, see:
+# man 5 terminfo.
 typeset -g -A key
 
-# find the suffix nuber at https://man.archlinux.org/man/user_caps.5
+# Find the suffix nuber at https://man.archlinux.org/man/user_caps.5
 key[Home]="${terminfo[khome]}"
 key[End]="${terminfo[kend]}"
 key[Insert]="${terminfo[kich1]}"
@@ -412,7 +419,7 @@ key[Control-Right]="${terminfo[kRIT5]}"
 key[Alt-Left]="${terminfo[kLFT3]}"
 key[Alt-Right]="${terminfo[kRIT3]}"
 
-# setup key accordingly:
+# Setup key accordingly:
 [[ -n "${key[Home]}"      ]] && bindkey -- "${key[Home]}"       beginning-of-line
 [[ -n "${key[End]}"       ]] && bindkey -- "${key[End]}"        end-of-line
 [[ -n "${key[Insert]}"    ]] && bindkey -- "${key[Insert]}"     overwrite-mode
@@ -441,10 +448,10 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
     add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
 
-# or run zkbd: `autoload zkbd; zkbd` to find out which key maps to which caracter.
-#source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
+# Or run zkbd: `autoload zkbd; zkbd` to find out which key maps to which caracter.
+#source $HOME/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
 
-# arrow keys & page up/dpwn in history (fzf too):
+# Arrow keys & page up/dpwn in history (fzf too):
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
@@ -461,8 +468,7 @@ zle -N down-line-or-beginning-search
 # 1pasword cli completion depends on compinit:
 #eval "$(op completion zsh)"; compdef _op op
 
-
-zstyle ':completion:*' cache-path ~/.config/shell/zsh_cache
+zstyle ':completion:*' cache-path $HOME/.config/shell/zsh_cache
 zstyle ':completion:*' complete-options true # add dirstack to `cd -` completion
 zstyle ':completion:*' completer _match _expand _complete _correct _approximate
 zstyle ':completion:*' completions 1
@@ -514,7 +520,7 @@ zstyle ':completion::complete:*' gain-privileges 1 # This will let Zsh completio
 # \__|_| |_|\___| \___|_|  _|\__,_|
 #
 
-# Add the following to the end of ~/.zshrc:
+# Add the following to the end of $HOME/.zshrc:
 eval "$(starship init zsh)"
 
 # Add this to the BOTTOM of your .zshrc

@@ -1,3 +1,4 @@
 [User]
-Xsession=awesome
+Session=somewm
+Icon=/home/m/.face
 SystemAccount=true

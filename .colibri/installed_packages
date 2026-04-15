@@ -12,7 +12,6 @@ amd-ucode
 android-tools
 apostrophe
 apptainer
-arandr
 arc-gtk-theme
 aspell
 atool
@@ -20,7 +19,6 @@ audio-sharing
 authenticator
 autoconf
 automake
-autorandr
 awesome
 baobab
 base
@@ -60,6 +58,7 @@ ctpv-git
 cups
 cups-pdf
 curtail
+cvmfs-config-eessi
 cyrus-sasl
 cyrus-sasl-gssapi
 d-spy
@@ -74,6 +73,7 @@ deluge-gtk
 dhcpcd
 dialect
 diff-so-fancy
+digikam
 discord
 docker
 dragon-drop
@@ -173,7 +173,6 @@ gtk4
 gvfs-afc
 gvfs-dnssd
 gvfs-goa
-gvfs-google
 gvfs-gphoto2
 gvfs-mtp
 gvfs-nfs
@@ -191,6 +190,7 @@ hunspell-de
 hunspell-en_gb
 hunspell-en_us
 hwinfo
+hyprland
 identity
 impression
 inetutils
@@ -199,8 +199,10 @@ iotas
 jdk11-openjdk
 junction
 jupyterlab
+kanshi
 keepass
 komikku
+kphotoalbum
 lazygit
 letterpress
 lf-git
@@ -247,6 +249,7 @@ networkmanager-openvpn
 networkmanager-vpnc
 newsflash
 nextcloud-client
+niri
 nnn
 nodejs-material-design-icons
 nsight-systems
@@ -267,12 +270,12 @@ pandoc-crossref
 pandoc-plot
 paper-clip
 papers
-pasystray
 patch
 pavucontrol
 perl-image-exiftool
-picom
 pika-backup
+pipewire-alsa
+pipewire-libcamera
 pkgconf
 playerctl
 polari
@@ -353,6 +356,7 @@ qt6-speech
 qt6-virtualkeyboard
 qt6-webview
 qtforkawesome-qt6
+qtile
 quadrapassel
 radeontool
 radeontop
@@ -364,6 +368,7 @@ reflector
 resources
 resvg
 reveal-md
+rich-cli
 ripdrag-git
 ripgrep
 ripgrep-all
@@ -378,7 +383,6 @@ sassc
 sbctl
 sbsigntools
 screen
-scrot
 seahorse
 seahorse-nautilus
 secrets
@@ -391,7 +395,9 @@ signal-desktop
 simple-scan
 slack-desktop
 snapshot
+sof-firmware
 solanum
+somewm
 spark-bash
 spotify
 sshfs
@@ -405,6 +411,7 @@ step-cli
 stress
 sudo
 sushi
+sway
 swell-foop
 switcheroo
 syncthing
@@ -465,15 +472,19 @@ vulkan-radeon
 w3m
 warp
 waydroid
+waypipe
+wdisplays
 webfont-kit-generator
+wev
 wike
 wireguard-tools
+wireplumber
+wlprop
+wlr-randr
 xautolock
 xbindkeys
-xclip
 xdg-desktop-portal
 xdg-desktop-portal-gtk
-xdotool
 xf86-input-synaptics
 xf86-video-amdgpu
 xf86-video-vesa

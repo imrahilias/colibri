@@ -58,5 +58,20 @@ use = "lpnh/fr"
 rev = "aa88cd4"
 hash = "8b0e87c3176e0d44f79a8656f79f0fa"
 
+[[plugin.deps]]
+use = "AnirudhG07/rich-preview"
+rev = "7d616ad"
+hash = "d64feec9761392cbc250d199ab4b8a3a"
+
+[[plugin.deps]]
+use = "ktunprasert/git-files"
+rev = "529444e"
+hash = "a028c3c06630a33b068f4d5bd714a795"
+
+[[plugin.deps]]
+use = "GianniBYoung/rsync"
+rev = "44f6979"
+hash = "9e85283824277bf66011a3977d266edb"
+
 [flavor]
 deps = []
