@@ -20,10 +20,10 @@ case "$1" in
         ;;
 esac
 
-# this seems to have no effect, actually Adwaita is run.
+# This seems to have no effect, actually Adwaita is run.
 gsettings set org.gnome.desktop.interface color-scheme $scheme
 gsettings set org.gnome.desktop.interface gtk-theme $theme
-gsettings set org.gnome.desktop.interface icon-theme $icon
+#gsettings set org.gnome.desktop.interface icon-theme $icon
 
-# libadwaita not respecting the light/dark choice
+# Since libadwaita does respect the light/dark choice.
 export ADW_DEBUG_COLOR_SCHEME=$scheme

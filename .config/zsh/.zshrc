@@ -276,26 +276,6 @@ function y() {
     rm -f -- "$tmp"
 }
 
-function day() {
-    xrdb $HOME/.Xresources
-    xrdb -merge $HOME/.config/darkman/light
-    darkman set light
-    # . $HOME/.local/share/darkman/awesome.sh "light"
-    # . $HOME/.local/share/darkman/desktop-notification.sh "light"
-    # . $HOME/.local/share/darkman/gtk3-theme.sh "light"
-    # . $HOME/.local/share/darkman/qt-theme.sh "light"
-}
-
-function night() {
-    xrdb $HOME/.Xresources
-    xrdb -merge $HOME/.config/darkman/dark
-    darkman set dark
-    # . $HOME/.local/share/darkman/awesome.sh "dark"
-    # . $HOME/.local/share/darkman/desktop-notification.sh "dark"
-    # . $HOME/.local/share/darkman/gtk3-theme.sh "dark"
-    # . $HOME/.local/share/darkman/qt-theme.sh "dark"
-}
-
 #   _|     _|
 #  | _  / |
 #  __| /  __|

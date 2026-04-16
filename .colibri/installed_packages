@@ -62,7 +62,6 @@ cvmfs-config-eessi
 cyrus-sasl
 cyrus-sasl-gssapi
 d-spy
-darkman
 darktable
 dbus-broker
 dconf-editor
@@ -126,6 +125,7 @@ git-lfs
 glow
 gnome-backgrounds
 gnome-boxes
+gnome-browser-connector
 gnome-builder
 gnome-calculator
 gnome-calendar
@@ -150,6 +150,8 @@ gnome-nibbles
 gnome-podcasts
 gnome-remote-desktop
 gnome-robots
+gnome-shell-extension-pop-shell-git
+gnome-shell-extensions
 gnome-software
 gnome-sound-recorder
 gnome-sudoku

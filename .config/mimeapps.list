@@ -27,6 +27,7 @@ application/x-extension-xhtml=firefox.desktop
 application/x-extension-xht=firefox.desktop
 x-scheme-handler/sgnl=signal.desktop
 x-scheme-handler/signalcaptcha=signal.desktop
+text/plain=emacsclient.desktop
 
 [Added Associations]
 x-scheme-handler/tg=userapp-Telegram Desktop-3KBSI1.desktop;userapp-Telegram Desktop-T9CLW1.desktop;org.telegram.desktop.desktop;
@@ -46,3 +47,4 @@ x-scheme-handler/https=firefox.desktop;org.gnome.Epiphany.desktop;
 text/html=firefox.desktop;org.gnome.Epiphany.desktop;
 application/xhtml+xml=firefox.desktop;org.gnome.Epiphany.desktop;
 x-scheme-handler/chrome=firefox.desktop;
+text/plain=emacsclient.desktop;

@@ -31,11 +31,7 @@ theme.fg_focus      = theme.darkmagenta
 theme.fg_urgent     = theme.magenta
 theme.fg_minimize   = theme.grey
 
--- cool: border doesnt know names, this gives transparent background!
---theme.border_normal = "LightGray"
-
 theme.border_width  = 1
---theme.border_normal = "#444444"
 theme.border_normal = theme.grey
 theme.border_focus  = theme.border_normal
 theme.border_marked = theme.fg_focus
