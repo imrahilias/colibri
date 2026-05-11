@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=somewm
-Comment=AwesomeWM-compatible Wayland compositor
-Exec=somewm-session
-TryExec=somewm
-Type=Application
-DesktopNames=somewm

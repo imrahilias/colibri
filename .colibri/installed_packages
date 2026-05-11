@@ -54,7 +54,6 @@ colordiff
 commit
 cowsay
 cpupower
-ctpv-git
 cups
 cups-pdf
 curtail
@@ -170,7 +169,6 @@ grc
 grilo-plugins
 gtk-engine-murrine
 gtk2fontsel
-gtk3-nocsd-git
 gtk4
 gvfs-afc
 gvfs-dnssd
@@ -213,7 +211,6 @@ lib32-vulkan-radeon
 libcaca
 libreoffice-fresh
 libreoffice-fresh-de
-light
 lightsoff
 linux-firmware
 linux-headers
@@ -369,8 +366,6 @@ razercfg
 reflector
 resources
 resvg
-reveal-md
-rich-cli
 ripdrag-git
 ripgrep
 ripgrep-all
@@ -395,11 +390,9 @@ shotwell
 showtime
 signal-desktop
 simple-scan
-slack-desktop
 snapshot
 sof-firmware
 solanum
-somewm
 spark-bash
 spotify
 sshfs
@@ -483,7 +476,6 @@ wireguard-tools
 wireplumber
 wlprop
 wlr-randr
-xautolock
 xbindkeys
 xdg-desktop-portal
 xdg-desktop-portal-gtk
