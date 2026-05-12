@@ -84,16 +84,10 @@ alias blk='sudo blkid -o list'
 alias hist='fc -El 0 | grep'
 alias lsa='lsarchives '
 
-# Mount aliases.
-alias mnta='sudo mount -a; mount' # echo 4 color, semicolon 4 1. command, if ok, than 2. com.
-alias uma='sudo umount -a; mount'
-
 # Pacman aliases.
 alias pi='sudo pacman -S' # install 1 pkg.
 alias pp='sudo pacman -Syyu' # do a full system upgrade.
 alias px='sudo pacman -R' # remove package.
-alias pc='sudo pacman -Scc && sudo pacman-optimize' # remove all cached pkg! and defragment.
-alias reflect='sudo reflector -p https -f 10 -l 10 --sort rate --save /etc/pacman.d/mirrorlist' # save 10 fastest of the 10 recent mirrors using https.
 
 # File aliases.
 alias df='df -h'
@@ -109,7 +103,6 @@ alias duh="du --apparent-size --exclude './.*' --all --human-readable --max-dept
 alias duhd="du --apparent-size --all --human-readable --max-depth=1 2>/dev/null | sort -t$'\t' -k2 --dictionary-order"
 
 # Launch alias.
-#alias evince='dbus-launch evince'
 alias e="emacsclient -ca \'\'" # > service moved to systemd
 alias scan='scanimage --format=tiff --mode=Color' #>http://lists.alioth.debian.org/pipermail/sane-devel/2001-December/001177.html
 alias halt='sudo systemctl poweroff'
@@ -123,15 +116,7 @@ alias x='exit'
 alias c='clear'
 alias rdark='razercfg -l all:off'
 alias rlight='razercfg -l GlowingLogo:off -l Scrollwheel:on'
-alias rename='perl-rename '
 alias fifi='figlet -w 200 -f "shadow" '
-alias dauto='xrandr --auto --output DisplayPort-0 --scale 1 --output DisplayPort-1 --scale 1 --output HDMI-A-0 --scale 1'
-alias dhome='xrandr --output eDP --off --output HDMI-A-0 --auto --primary --scale 1'
-alias dleft='xrandr --output HDMI-A-0 --auto --primary --scale 1 --output eDP --auto --left-of HDMI-A-0'
-alias dmid='xrandr --output HDMI-A-0 --auto --primary --scale 1 --output eDP --auto --below HDMI-A-0'
-alias dwide='xrandr --output eDP --off --output DisplayPort-0 --auto --scale 0.7 --output DisplayPort-1 --auto --scale 0.7 --output HDMI-A-0 --auto --scale 0.7'
-alias dlap='xrandr --output eDP --auto  --output --primary --scale 1 --output DisplayPort-0 off --output DisplayPort-1 off --output HDMI-A-0 off --output HDMI-A-1 off'
-alias dtwo='xrandr --output eDP --off --output DisplayPort-0 --mode 3840x2160 --scale 0.7 --right-of HDMI-A-0'
 alias wh='which '
 alias r='zranger'
 alias scrot='scrot $HOME/.screens/%H%M%S.png'
@@ -141,10 +126,6 @@ alias vi='nvim '
 alias vim='nvim '
 alias mnt=' mount | column -t'
 alias down='yt-dlp --downloader aria2c --downloader-args "-c -j 3 -x 3 -s 3 -k 1M" '
-
-# Some gnome stuff.
-alias gnome-session='echo "haha nice try:D"'
-alias gnome-settings='LD_PRELOAD="" gnome-control-center' # gtk3-nocsd breaks gnome-control-center and possibly more...
 
 #              |  _)
 #   _ \  __ \  __| |  _ \  __ \   __|
@@ -297,27 +278,6 @@ source <(fzf --zsh)
 # refer to 'man zshparam/zshmisc'.
 #PS4=$'\n%B%F{0}+ %D{%T:%3.} %2N:%I%f%b '
 
-#       |          _|  _|
-#   __| __| |   | |   |
-# \__ \ |   |   | __| __|
-# ____/\__|\__,_|_|  _|
-#
-
-# # Dumb lock.
-# hasssid=`nmcli d show wlp3s0 | grep "GENERAL.CONNECTION:" | awk '{print $2}'`
-# if [[ $hasssid = "internetz" || $hasssid = "tephelon" ]] ; then
-#     # turn off powersaver/screensaver/blanking/bell.
-#     xset -dpms
-#     xset s blank
-#     xset s off
-# else
-#     # start dimmer after 300s and lock after 10 more s.
-#     xset +dpms
-#     xset s 300 10
-#     xset s on
-# fi
-# xset -b &> /dev/null # turn off bell
-
 #        |            _)
 #  __ \  | |   |  _` | | __ \   __|
 #  |   | | |   | (   | | |   |\__ \
@@ -448,7 +408,7 @@ zle -N down-line-or-beginning-search
 # 1pasword cli completion depends on compinit:
 #eval "$(op completion zsh)"; compdef _op op
 
-zstyle ':completion:*' cache-path $HOME/.config/shell/zsh_cache
+zstyle ':completion:*' cache-path $HOME/.config/zsh/zsh_cache
 zstyle ':completion:*' complete-options true # add dirstack to `cd -` completion
 zstyle ':completion:*' completer _match _expand _complete _correct _approximate
 zstyle ':completion:*' completions 1
@@ -500,7 +460,7 @@ zstyle ':completion::complete:*' gain-privileges 1 # This will let Zsh completio
 # \__|_| |_|\___| \___|_|  _|\__,_|
 #
 
-# Add the following to the end of $HOME/.zshrc:
+# Add the following to the end of .zshrc:
 eval "$(starship init zsh)"
 
 # Add this to the BOTTOM of your .zshrc

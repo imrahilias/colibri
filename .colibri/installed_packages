@@ -19,7 +19,6 @@ audio-sharing
 authenticator
 autoconf
 automake
-awesome
 baobab
 base
 base-devel
@@ -190,7 +189,6 @@ hunspell-de
 hunspell-en_gb
 hunspell-en_us
 hwinfo
-hyprland
 identity
 impression
 inetutils
@@ -201,6 +199,7 @@ junction
 jupyterlab
 kanshi
 keepass
+kitty
 komikku
 kphotoalbum
 lazygit
@@ -212,6 +211,7 @@ libcaca
 libreoffice-fresh
 libreoffice-fresh-de
 lightsoff
+linux
 linux-firmware
 linux-headers
 linux-zen
@@ -248,7 +248,6 @@ networkmanager-openvpn
 networkmanager-vpnc
 newsflash
 nextcloud-client
-niri
 nnn
 nodejs-material-design-icons
 nsight-systems
@@ -406,7 +405,6 @@ step-cli
 stress
 sudo
 sushi
-sway
 swell-foop
 switcheroo
 syncthing
@@ -474,7 +472,6 @@ wev
 wike
 wireguard-tools
 wireplumber
-wlprop
 wlr-randr
 xbindkeys
 xdg-desktop-portal

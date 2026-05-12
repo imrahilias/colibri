@@ -80,7 +80,7 @@ pacman -Qm > $loc/installed_packages_manually
 echo "   $(wc -l < $loc/installed_packages_manually) packages manually installed"
 
 echo "$fg_bold[blue]:: $fg_bold[default]Copy zsh history to asc. $reset_color"
-cp --verbose "$HOME/.histfile" "$HOME/asc/archive/.histfile_$date"
+cp --verbose "$HOME/.config/zsh/.histfile" "$HOME/asc/archive/.histfile_$date"
 
 echo "$fg_bold[blue]:: $fg_bold[default]Reset antidote (git clones live in ~/.cache). $reset_color"
 source '/usr/share/zsh-antidote/antidote.zsh' && antidote load
