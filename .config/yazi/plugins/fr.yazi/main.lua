@@ -31,7 +31,7 @@ local fzf_from = function(job_args, opts_tbl, major, minor)
 			grep = "rg --color=always --line-number --smart-case" .. opts_tbl.rg,
 			prev = "--preview='bat --color=always "
 				.. opts_tbl.bat
-				.. " --highlight-line={2} {1}' --preview-window=~3,+{2}+3/2,up,66%",
+				.. " --highlight-line={2} {1}' --preview-window=~3,+{2}+3/2,right,50%",
 			prompt = "--prompt='rg> '",
 			extra = function(cmd_grep)
 				local logic = {
@@ -49,7 +49,7 @@ local fzf_from = function(job_args, opts_tbl, major, minor)
 			grep = "rga --color=always --files-with-matches --smart-case" .. opts_tbl.rga,
 			prev = "--preview='rga --context 5 --no-messages --pretty "
 				.. opts_tbl.rga_preview
-				.. " {q} {}' --preview-window=up,66%",
+				.. " {q} {}' --preview-window=right,50%",
 			prompt = "--prompt='rga> '",
 		},
 	}
@@ -70,7 +70,7 @@ local fzf_from = function(job_args, opts_tbl, major, minor)
 		cmd.prev,
 		cmd.prompt,
 		"--bind='change:reload:sleep 0.1; " .. cmd.grep .. " {q} || true'",
-		"--bind='ctrl-]:change-preview-window(80%|66%)'",
+		"--bind='ctrl-]:change-preview-window(75%|50%)'",
 		"--bind='ctrl-\\:change-preview-window(right|up)'",
 		"--bind='ctrl-r:clear-query+reload:" .. cmd.grep .. " {q} || true'",
 		opts_tbl.fzf,

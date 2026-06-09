@@ -103,7 +103,7 @@
 
 (use-package emacs
     :custom-face
-    ;; those cant be set by .Xresources.
+    ;; those can't be set by .Xresources.
     (fringe ((t (:background "#FFFFFF"))))
     (highlight ((t (:background "#F0F0F0"))))
     (lazy-highlight ((t (:background "#003641"))))
@@ -148,6 +148,11 @@
     (use-short-answers t)
     (vc-make-backup-files t)
     :config
+    (menu-bar-mode 0)
+    (tool-bar-mode 0)
+    (tab-bar-mode 0)
+    (blink-cursor-mode 0)
+    (scroll-bar-mode 0)
     (load-theme 'dichromacy t)
     (put 'downcase-region 'disabled nil)
     (put 'upcase-region 'disabled nil)
@@ -237,7 +242,7 @@ each savepoint.")
     ;;     (auth-source-pick-first-password
     ;;         :host "OpenWebUI"
     ;;         :user "credential"))
-    (gptel-model 'glm-4.7-355b)
+    (gptel-model 'main)
     ;; (gptel-api-key (getenv "OPENWEBUI_API_KEY"))
     ;; (gptel-backend (gptel-make-openai "OpenWebUI"
     ;;                    :host "chat.ai.datalab.tuwien.ac.at"
@@ -259,20 +264,28 @@ each savepoint.")
                        :key 'gptel-api-key
                        ;; :key (lambda () (getenv "AQUEDUCT_API_KEY")) ; asks confirm
                        :stream t
-                       :models '(glm-4.7-355b :description "main, coding; A powerful multimodal model, primarily for coding tasks."
-                                    qwen-coder-30b :description "tab, complete; A large language model specializing in code generation and completion."
-                                    mistral-small-3.2-24b :description "small; General text, A compact and efficient model for general-purpose text generation."
-                                    glm-4.5v-106b :description "vision, ocr; A multimodal model that excels at understanding and describing visual content."
-                                    e5-mistral-7b :description "embedding, embed; A lightweight model designed for creating high-quality text embeddings."
-                                    kokoro :description "speech_en; Text-to-speech English; A text-to-speech model for generating natural-sounding female voices."
-                                    piper-thorsten :description "speech_de; Text-to-speech German; A fast, local text-to-speech system using a neural voice."
-                                    whisper-large :description "transcription, transcribe; Speech-to-text; A robust model for highly accurate speech recognition and translation."
-                                    z-image-turbo :description "image_generation, image_gen; fast, open-source image generation model."
-                                    )))
+                       :models '(main coding tab complete) ; the specific versions change frequently
+                       ;; :models '(glm-4.7-355b :description "main, coding; A powerful multimodal model, primarily for coding tasks."
+                       ;;              qwen-coder-30b :description "tab, complete; A large language model specializing in code generation and completion."
+                       ;;              mistral-small-3.2-24b :description "small; General text, A compact and efficient model for general-purpose text generation."
+                       ;;              glm-4.5v-106b :description "vision, ocr; A multimodal model that excels at understanding and describing visual content."
+                       ;;              e5-mistral-7b :description "embedding, embed; A lightweight model designed for creating high-quality text embeddings."
+                       ;;              kokoro :description "speech_en; Text-to-speech English; A text-to-speech model for generating natural-sounding female voices."
+                       ;;              piper-thorsten :description "speech_de; Text-to-speech German; A fast, local text-to-speech system using a neural voice."
+                       ;;              whisper-large :description "transcription, transcribe; Speech-to-text; A robust model for highly accurate speech recognition and translation."
+                       ;;              z-image-turbo :description "image_generation, image_gen; fast, open-source image generation model."
+                       ;;              )
+                       ))
     :bind
     ("M-l" . gptel)
     ("C-<return>" . gptel-send)
     )
+
+
+
+;;** i need a venn diagram in python, not in if-else ladders, give example
+
+
 
 (use-package gptel-autocomplete
     :after gptel

@@ -44,7 +44,7 @@ ZSH_DISABLE_COMPFIX="true"
 #
 
 if [[ $EUID != 0 ]] ; then
-    path=($HOME/bin $HOME/asc/bin $path) # zsh ties the PATH variable to a path array.
+    path=($HOME/bin $HOME/asc/bin $HOME/.local/bin $path) # zsh ties the PATH variable to a path array.
     source $HOME/asc/bin/aliases
 fi
 
@@ -119,13 +119,13 @@ alias rlight='razercfg -l GlowingLogo:off -l Scrollwheel:on'
 alias fifi='figlet -w 200 -f "shadow" '
 alias wh='which '
 alias r='zranger'
-alias scrot='scrot $HOME/.screens/%H%M%S.png'
 alias p='python3 '
 alias v='nvim '
 alias vi='nvim '
 alias vim='nvim '
 alias mnt=' mount | column -t'
 alias down='yt-dlp --downloader aria2c --downloader-args "-c -j 3 -x 3 -s 3 -k 1M" '
+alias wireguard='sudo systemctl restart wg-quick@tu' # See /etc/wireguard/tu.conf
 
 #              |  _)
 #   _ \  __ \  __| |  _ \  __ \   __|
