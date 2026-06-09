@@ -1,0 +1,29 @@
+# dichromacy.theme for bat
+# Based on the Emacs dichromacy theme by Chong Yidong
+
+# Syntax highlighting definitions
+# Map: Emacs Font Lock faces -> Bat Scopes
+
+# Comments: font-lock-comment-face -> bluegreen (#009e73)
+"comment" = "#009e73"
+
+# Keywords: font-lock-keyword-face -> skyblue (#56b4e9)
+"keyword" = "#56b4e9"
+"keyword.control" = "#56b4e9"
+"keyword.declaration" = "#56b4e9"
+
+# Types and Built-ins: font-lock-type-face & builtin -> blue (#0072b2)
+"type" = "#0072b2"
+"function.builtin" = "#0072b2"
+
+# Functions and Constants: font-lock-function-name-face & constant -> vermilion (#d55e00)
+"function" = "#d55e00"
+"constant" = "#d55e00"
+"constant.numeric" = "#d55e00"
+
+# Strings: font-lock-string-face -> bluegray (#848ea9)
+"string" = "#848ea9"
+
+# Variables: font-lock-variable-name-face -> orange (#e69f00)
+"variable" = "#e69f00"
+"variable.other.member" = "#e69f00"

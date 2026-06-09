@@ -1,0 +1,6 @@
+[General]
+TimeFormat=1
+Volume=1
+
+[MainWindow]
+ToolBarsMovable=Disabled

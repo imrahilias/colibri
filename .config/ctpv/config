@@ -1,0 +1,17 @@
+## Set some options:
+#set forcekitty
+set shell "/usr/bin/zsh"
+
+## Add a new preview:
+preview cow .moo {{
+    cowsay < "$f"
+}}
+
+## remove some previews:
+#remove w3m
+#remove lynx
+#remove elinks
+#remove video
+
+##priority some previews:
+#priority 
