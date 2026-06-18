@@ -39,10 +39,10 @@ edit = [
 { run = "${EDITOR:-vi} %s", block = true },
 ]
 play = [
+{ run = "showtime -- %s", orphan = true },
 { run = "mpv --force-window -- %s", orphan = true },
 { run = "vlc -- %s", orphan = true },
 { run = "mediainfo %s | less -R", block = true },
-{ run = "xdg-open %s" },
 ]
 open = [ { run = "xdg-open %s"  }, ]
 extract = [	{ run = "ya pub extract --list %s" }, ]
@@ -50,12 +50,10 @@ download = [
 	{ run = "ya emit download --open %S" },
 	{ run = "ya emit download %S" },
 ]
-web = [
-{ run = "firefox -- %s1", orphan = true },
-{ run = "lynx -- %s1", block = true },
+python = [
+{ run = "python -- %s1", block = true },
+{ run = "black -- %s1", orphan = true },
 ]
-black = [ { run = "black -- %s1", orphan = true }, ]
-python = [ { run = "python -- %s1", block = true }, ]
 octave = [
 { run = "octave --gui --persist --eval edit %s1", orphan = true },
 { run = "octave --force-gui --persist %s1", orphan = true },
@@ -68,10 +66,14 @@ jupyter = [
 { run = "jupyter-lab %s1", orphan = true },
 { run = "jupyter nbconvert --to markdown %s1", orphan = true },
 ]
-gimp = [ { run = "gimp -- %s1", orphan = true }, ]
 make = [ { run = "make -j 16 -f %s1", block = true }, ]
 nsys = [ { run = "nsys-ui %s1", orphan = true }, ]
-view = [ { run = "feh --auto-zoom --scale-down --start-at %s1", orphan = true }, ]
+#view = [ { run = "feh --auto-zoom --scale-down --start-at %s1", orphan = true }, ]
+image = [
+{ run = "loupe %s1", orphan = true },
+{ run = "gimp -- %s1", orphan = true },
+{ run = "inkscape -- %s1", orphan = true },
+]
 hexyl = [ { run = "hexyl -- %s1 | less -R", block = true }, ]
 exec = [ { run = "%s1", block = true }, ]
 #spotter can do that better, shows the current mime fetcher (ext or file).
@@ -79,30 +81,30 @@ mime = [
 { run = "file -b --mime-type %s1 | less -R", block = true },
 # { run = "xdg-mime query filetype %s1 | less -R', block = true },
 ]
-
+chooser = [ { run = "junction -- %s" }, ]
 
 [open]
 rules = [
 # Dir uses edit because of smart enter
 { url = "*/", use = [ "edit" ] },
-{ mime = "text/*", use = [ "edit" ] },
-{ mime = "image/*", use = [ "view", "gimp" ] },
-{ mime = "{audio,video}/*", use = [ "play" ] },
-{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = "extract" },
-{ mime = "application/{json,ndjson}", use = "edit" },
-{ mime = "*/javascript", use = "edit" },
-{ mime = "inode/empty", use = "edit" },
-{ url = "*.py", use = [ "python", "black" ] },
-{ url = "*.m", use = "octave" },
-{ url = "*.f??", use = "fortran" },
-{ url = "*.gp", use = "gnuplot" },
-{ url = "*.{md,org}", use = "pandoc" },
-{ url = "*.ipynb", use = "jupyter" },
-{ url = "*.nsys-rep", use = "nsys" },
-{ url = "*{m,M}akefile", use = "make" },
-{ mime = "application/pie-executable", use = "hexyl" },
+{ mime = "text/*", use = [ "edit", "chooser" ] },
+{ mime = "image/*", use = [ "image", "chooser" ] },
+{ mime = "{audio,video}/*", use = [ "play", "chooser" ] },
+{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = [ "extract", "chooser" ] },
+{ mime = "application/{json,ndjson}", use = [ "edit", "chooser" ] },
+{ mime = "*/javascript", use = [ "edit", "chooser" ] },
+{ mime = "inode/empty", use = [ "edit", "chooser" ] },
+{ url = "*.py", use = [ "edit", "python" ] },
+{ url = "*.m", use = [ "edit", "octave", "chooser" ] },
+{ url = "*.f??", use = [ "edit", "fortran", "chooser" ] },
+{ url = "*.gp", use = [ "edit", "gnuplot", "chooser" ] },
+{ url = "*.{md,org}", use = [ "edit", "pandoc", "chooser" ] },
+{ url = "*.ipynb", use = [ "edit", "jupyter", "chooser" ] },
+{ url = "*.nsys-rep", use = [ "nsys", "chooser" ] },
+{ url = "*{m,M}akefile", use = [ "edit", "make", "chooser" ] },
+{ mime = "application/pie-executable", use = [ "exec", "hexyl", "chooser" ] },
 { mime = "vfs/{absent,stale}", use = "download" },
-{ url = "*", use = [ "open", "exec", "edit", "mime" ] },
+{ url = "*", use = [ "open", "exec", "edit", "mime", "chooser" ] },
 ]
 
 
@@ -187,7 +189,6 @@ previewers = [
 # PDF
 { mime = "application/pdf", run = "pdf" },
 # Archive
-#{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", run = "archive" },
 { mime = "application/{debian*-package,redhat-package-manager,rpm,android.package-archive}", run = "archive" },
 { url = "*.{AppImage,appimage}", run = "archive" },
 { mime = "application/{*zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*,iso9660-image,java-archive,vnd.rar}", run = "ouch" },

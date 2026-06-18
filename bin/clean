@@ -52,14 +52,6 @@ find / ! \( -path /net -prune \) ! \( -path /proc -prune \) ! \( -path /run -pru
 echo "   $(wc -l < $loc/broken_links) broken symlinks found"
 
 # mirrorlist
-echo "$fg_bold[blue]::$fg_bold[default] Filter Arch mirrors by highest score & latest & fastest... $reset_color"
-# filters are inclusive, i.e. the returned list will only contain mirrors for which all of the given conditions are met.
-reflector --protocol https --threads 16 --score 100 --latest 100 --fastest 100 --sort rate --save /etc/pacman.d/mirrorlist_fastest
-echo "$fg_bold[blue]::$fg_bold[default] Add Arch mirrors of Austria as fallback... $reset_color"
-reflector --protocol https --threads 16 --country Austria --sort rate --save /etc/pacman.d/mirrorlist_austria
-echo "$fg_bold[blue]::$fg_bold[default] Concatenate /etc/pacman.d/mirrorlist... $reset_color"
-cat /etc/pacman.d/mirrorlist_fastest /etc/pacman.d/mirrorlist_austria > /etc/pacman.d/mirrorlist
-rm /etc/pacman.d/mirrorlist_fastest
-rm /etc/pacman.d/mirrorlist_austria
-
+echo "$fg_bold[blue]::$fg_bold[default] Arch mirrors of Austria... $reset_color"
+reflector --protocol https --threads 16 --country Austria --sort rate --save /etc/pacman.d/mirrorlist
 exit 0
