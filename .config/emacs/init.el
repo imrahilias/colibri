@@ -498,6 +498,12 @@ each savepoint.")
     :bind ("M-d" . ranger)
     )
 
+(use-package string-inflection
+  ;:init
+  ;(global-string-inflection-mode)
+  :bind (("C-c c" . string-inflection-all-cycle))
+    )
+
 (use-package treemacs
     :bind ("M-t" . treemacs)
     )

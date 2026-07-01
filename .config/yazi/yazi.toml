@@ -87,13 +87,6 @@ chooser = [ { run = "junction -- %s" }, ]
 rules = [
 # Dir uses edit because of smart enter
 { url = "*/", use = [ "edit" ] },
-{ mime = "text/*", use = [ "edit", "chooser" ] },
-{ mime = "image/*", use = [ "image", "chooser" ] },
-{ mime = "{audio,video}/*", use = [ "play", "chooser" ] },
-{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = [ "extract", "chooser" ] },
-{ mime = "application/{json,ndjson}", use = [ "edit", "chooser" ] },
-{ mime = "*/javascript", use = [ "edit", "chooser" ] },
-{ mime = "inode/empty", use = [ "edit", "chooser" ] },
 { url = "*.py", use = [ "edit", "python" ] },
 { url = "*.m", use = [ "edit", "octave", "chooser" ] },
 { url = "*.f??", use = [ "edit", "fortran", "chooser" ] },
@@ -102,8 +95,15 @@ rules = [
 { url = "*.ipynb", use = [ "edit", "jupyter", "chooser" ] },
 { url = "*.nsys-rep", use = [ "nsys", "chooser" ] },
 { url = "*{m,M}akefile", use = [ "edit", "make", "chooser" ] },
+{ mime = "*/javascript", use = [ "edit", "chooser" ] },
 { mime = "application/pie-executable", use = [ "exec", "hexyl", "chooser" ] },
+{ mime = "application/{json,ndjson}", use = [ "edit", "chooser" ] },
+{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = [ "extract", "chooser" ] },
+{ mime = "image/*", use = [ "image", "chooser" ] },
+{ mime = "inode/empty", use = [ "edit", "chooser" ] },
+{ mime = "text/*", use = [ "edit", "chooser" ] },
 { mime = "vfs/{absent,stale}", use = "download" },
+{ mime = "{audio,video}/*", use = [ "play", "chooser" ] },
 { url = "*", use = [ "open", "exec", "edit", "mime", "chooser" ] },
 ]
 
